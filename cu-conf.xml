@@ -1,9 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><data xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc-reply message-id="urn:uuid:e42bfc39-24ca-488b-a787-8d15999d28c3" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0" set-id="160">
+  <data>
     <ethernet xmlns="http://www.huawei.com/netconf/vrp" format-version="1.0" content-version="1.0">
       <ethernetIfs>
         <ethernetIf>
           <ifName>Ethernet1/0/0</ifName>
-          <ifIndex>7</ifIndex>
+          <ifIndex>5</ifIndex>
           <swapEnable>disable</swapEnable>
           <l2Enable>disable</l2Enable>
           <peEthType>0x8100</peEthType>
@@ -11,7 +13,7 @@
         </ethernetIf>
         <ethernetIf>
           <ifName>Ethernet1/0/1</ifName>
-          <ifIndex>9</ifIndex>
+          <ifIndex>7</ifIndex>
           <swapEnable>disable</swapEnable>
           <l2Enable>disable</l2Enable>
           <peEthType>0x8100</peEthType>
@@ -19,7 +21,7 @@
         </ethernetIf>
         <ethernetIf>
           <ifName>Ethernet1/0/2</ifName>
-          <ifIndex>11</ifIndex>
+          <ifIndex>9</ifIndex>
           <swapEnable>disable</swapEnable>
           <l2Enable>disable</l2Enable>
           <peEthType>0x8100</peEthType>
@@ -27,7 +29,7 @@
         </ethernetIf>
         <ethernetIf>
           <ifName>Ethernet1/0/3</ifName>
-          <ifIndex>13</ifIndex>
+          <ifIndex>11</ifIndex>
           <swapEnable>disable</swapEnable>
           <l2Enable>disable</l2Enable>
           <peEthType>0x8100</peEthType>
@@ -35,7 +37,7 @@
         </ethernetIf>
         <ethernetIf>
           <ifName>Ethernet1/0/4</ifName>
-          <ifIndex>15</ifIndex>
+          <ifIndex>13</ifIndex>
           <swapEnable>disable</swapEnable>
           <l2Enable>disable</l2Enable>
           <peEthType>0x8100</peEthType>
@@ -43,7 +45,7 @@
         </ethernetIf>
         <ethernetIf>
           <ifName>Ethernet1/0/5</ifName>
-          <ifIndex>17</ifIndex>
+          <ifIndex>15</ifIndex>
           <swapEnable>disable</swapEnable>
           <l2Enable>disable</l2Enable>
           <peEthType>0x8100</peEthType>
@@ -51,7 +53,7 @@
         </ethernetIf>
         <ethernetIf>
           <ifName>Ethernet1/0/6</ifName>
-          <ifIndex>19</ifIndex>
+          <ifIndex>17</ifIndex>
           <swapEnable>disable</swapEnable>
           <l2Enable>disable</l2Enable>
           <peEthType>0x8100</peEthType>
@@ -59,7 +61,7 @@
         </ethernetIf>
         <ethernetIf>
           <ifName>Ethernet1/0/7</ifName>
-          <ifIndex>21</ifIndex>
+          <ifIndex>19</ifIndex>
           <swapEnable>disable</swapEnable>
           <l2Enable>disable</l2Enable>
           <peEthType>0x8100</peEthType>
@@ -67,7 +69,7 @@
         </ethernetIf>
         <ethernetIf>
           <ifName>Ethernet1/0/8</ifName>
-          <ifIndex>23</ifIndex>
+          <ifIndex>21</ifIndex>
           <swapEnable>disable</swapEnable>
           <l2Enable>disable</l2Enable>
           <peEthType>0x8100</peEthType>
@@ -75,7 +77,7 @@
         </ethernetIf>
         <ethernetIf>
           <ifName>Ethernet1/0/9</ifName>
-          <ifIndex>25</ifIndex>
+          <ifIndex>23</ifIndex>
           <swapEnable>disable</swapEnable>
           <l2Enable>disable</l2Enable>
           <peEthType>0x8100</peEthType>
@@ -84,7 +86,7 @@
       </ethernetIfs>
       <ethSubIfs>
         <ethSubIf>
-          <ifIndex>8</ifIndex>
+          <ifIndex>6</ifIndex>
           <ifName>Ethernet1/0/0.4094</ifName>
           <flowType>VlanType</flowType>
           <tag>None</tag>
@@ -95,7 +97,7 @@
           <untagDscpValues/>
         </ethSubIf>
         <ethSubIf>
-          <ifIndex>10</ifIndex>
+          <ifIndex>8</ifIndex>
           <ifName>Ethernet1/0/1.4094</ifName>
           <flowType>VlanType</flowType>
           <tag>None</tag>
@@ -106,7 +108,7 @@
           <untagDscpValues/>
         </ethSubIf>
         <ethSubIf>
-          <ifIndex>12</ifIndex>
+          <ifIndex>10</ifIndex>
           <ifName>Ethernet1/0/2.4094</ifName>
           <flowType>VlanType</flowType>
           <tag>None</tag>
@@ -117,7 +119,7 @@
           <untagDscpValues/>
         </ethSubIf>
         <ethSubIf>
-          <ifIndex>14</ifIndex>
+          <ifIndex>12</ifIndex>
           <ifName>Ethernet1/0/3.4094</ifName>
           <flowType>VlanType</flowType>
           <tag>None</tag>
@@ -128,7 +130,7 @@
           <untagDscpValues/>
         </ethSubIf>
         <ethSubIf>
-          <ifIndex>16</ifIndex>
+          <ifIndex>14</ifIndex>
           <ifName>Ethernet1/0/4.4094</ifName>
           <flowType>VlanType</flowType>
           <tag>None</tag>
@@ -139,7 +141,7 @@
           <untagDscpValues/>
         </ethSubIf>
         <ethSubIf>
-          <ifIndex>18</ifIndex>
+          <ifIndex>16</ifIndex>
           <ifName>Ethernet1/0/5.4094</ifName>
           <flowType>VlanType</flowType>
           <tag>None</tag>
@@ -150,7 +152,7 @@
           <untagDscpValues/>
         </ethSubIf>
         <ethSubIf>
-          <ifIndex>20</ifIndex>
+          <ifIndex>18</ifIndex>
           <ifName>Ethernet1/0/6.4094</ifName>
           <flowType>VlanType</flowType>
           <tag>None</tag>
@@ -161,7 +163,7 @@
           <untagDscpValues/>
         </ethSubIf>
         <ethSubIf>
-          <ifIndex>22</ifIndex>
+          <ifIndex>20</ifIndex>
           <ifName>Ethernet1/0/7.4094</ifName>
           <flowType>VlanType</flowType>
           <tag>None</tag>
@@ -172,7 +174,7 @@
           <untagDscpValues/>
         </ethSubIf>
         <ethSubIf>
-          <ifIndex>24</ifIndex>
+          <ifIndex>22</ifIndex>
           <ifName>Ethernet1/0/8.4094</ifName>
           <flowType>VlanType</flowType>
           <tag>None</tag>
@@ -183,7 +185,7 @@
           <untagDscpValues/>
         </ethSubIf>
         <ethSubIf>
-          <ifIndex>26</ifIndex>
+          <ifIndex>24</ifIndex>
           <ifName>Ethernet1/0/9.4094</ifName>
           <flowType>VlanType</flowType>
           <tag>None</tag>
@@ -227,16 +229,16 @@ VRP (R) software, Version 8.180 (NE40E V800R011C00SPC607B607) &#13;
 Copyright (C) 2012-2018 Huawei Technologies Co., Ltd. &#13;
 HUAWEI NE40E &#13;</sysDesc>
         <sysObjectId>1.3.6.1.4.1.2011.2.62.2.3</sysObjectId>
-        <sysGmtTime>1765314892</sysGmtTime>
-        <sysUpTime>1573</sysUpTime>
+        <sysGmtTime>1765325972</sysGmtTime>
+        <sysUpTime>391</sysUpTime>
         <sysService>78</sysService>
         <platformName>VRP</platformName>
         <platformVer>V800R018C10SPC607</platformVer>
         <productName>NE40E</productName>
         <productVer>V800R011C00SPC607</productVer>
         <patchVer/>
-        <esn>391092256369539</esn>
-        <mac>38BA-2E37-3601</mac>
+        <esn>391091361302673</esn>
+        <mac>70FB-5147-378A</mac>
         <lsRole>admin</lsRole>
         <authenFlag>false</authenFlag>
         <characterSet>ISO-8859-1</characterSet>
@@ -721,3 +723,4 @@ HUAWEI NE40E &#13;</sysDesc>
       </sshCPubKeyAlg>
     </sshc>
   </data>
+</rpc-reply>

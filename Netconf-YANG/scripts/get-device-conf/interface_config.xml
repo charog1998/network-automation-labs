@@ -1,0 +1,2453 @@
+<?xml version="1.0" ?>
+<data xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+	
+    
+	<ifm xmlns="http://www.huawei.com/netconf/vrp" format-version="1.0" content-version="1.0">
+		
+      
+		<interfaces>
+			
+        
+			<interface>
+				
+          
+				<ifName>NULL0</ifName>
+				
+          
+				<ifIndex>1</ifIndex>
+				
+          
+				<ifPhyType>NULL</ifPhyType>
+				
+          
+				<ifPosition/>
+				
+          
+				<ifParentIfName/>
+				
+          
+				<ifNumber>0</ifNumber>
+				
+          
+				<ifDescr/>
+				
+          
+				<ifTrunkIfName/>
+				
+          
+				<isL2SwitchPort>false</isL2SwitchPort>
+				
+          
+				<ifAdminStatus>up</ifAdminStatus>
+				
+          
+				<ifLinkProtocol>invalid</ifLinkProtocol>
+				
+          
+				<ifRouterType>Broadcast</ifRouterType>
+				
+          
+				<ifDf>false</ifDf>
+				
+          
+				<ifTrapEnable>true</ifTrapEnable>
+				
+          
+				<ifStatiEnable>true</ifStatiEnable>
+				
+          
+				<ifBandwidth/>
+				
+          
+				<ifMtu>1500</ifMtu>
+				
+          
+				<spreadMtuFlag>false</spreadMtuFlag>
+				
+          
+				<isAvailable>true</isAvailable>
+				
+          
+				<ifMac>0000-0000-0000</ifMac>
+				
+          
+				<vrfName>_public_</vrfName>
+				
+          
+				<ifStatItvl/>
+				
+          
+				<vsName>Admin-VS</vsName>
+				
+          
+				<ifServiceType>None</ifServiceType>
+				
+          
+				<ifEncapType>invalid</ifEncapType>
+				
+          
+				<ifClass>mainInterface</ifClass>
+				
+          
+				<l2SubIfFlag>false</l2SubIfFlag>
+				
+          
+				<statMode>baseInterface</statMode>
+				
+          
+				<protocolUpDelayTime/>
+				
+          
+				<ifCfgMac/>
+				
+          
+				<ifCfgEncapType/>
+				
+          
+				<downDelayTime/>
+				
+          
+				<ifControlFlap>
+					
+            
+					<ifSuppress>2000</ifSuppress>
+					
+            
+					<ifReuse>750</ifReuse>
+					
+            
+					<ifDecayOk>54</ifDecayOk>
+					
+            
+					<ifDecayNg>54</ifDecayNg>
+					
+            
+					<ifCeiling>6000</ifCeiling>
+					
+            
+					<ifCtrlFlapEnbl>false</ifCtrlFlapEnbl>
+					
+          
+				</ifControlFlap>
+				
+          
+				<ifTrapThreshold>
+					
+            
+					<inputRisingRate/>
+					
+            
+					<inputResumeRate/>
+					
+            
+					<outputRisingRate/>
+					
+            
+					<outputResumeRate/>
+					
+          
+				</ifTrapThreshold>
+				
+          
+				<mainIpAddr>
+					
+            
+					<ifIpAddr>0.0.0.0</ifIpAddr>
+					
+            
+					<subnetMask>0.0.0.0</subnetMask>
+					
+            
+					<ipAddrCfgType>Delete</ipAddrCfgType>
+					
+          
+				</mainIpAddr>
+				
+          
+				<ifmAm4>
+					
+            
+					<unNumIfName/>
+					
+            
+					<addrCfgType>config</addrCfgType>
+					
+          
+				</ifmAm4>
+				
+          
+				<ifmAm6>
+					
+            
+					<enableFlag>false</enableFlag>
+					
+            
+					<ifMtu6/>
+					
+            
+					<spreadMtu6Flag>false</spreadMtu6Flag>
+					
+            
+					<autoLinkLocal>false</autoLinkLocal>
+					
+          
+				</ifmAm6>
+				
+          
+				<ipv4Config>
+					
+            
+					<unNumIfName/>
+					
+            
+					<addrCfgType>config</addrCfgType>
+					
+          
+				</ipv4Config>
+				
+          
+				<ipv6Config>
+					
+            
+					<enableFlag>false</enableFlag>
+					
+            
+					<ifMtu6/>
+					
+            
+					<spreadMtu6Flag>false</spreadMtu6Flag>
+					
+            
+					<autoLinkLocal>false</autoLinkLocal>
+					
+          
+				</ipv6Config>
+				
+        
+			</interface>
+			
+        
+			<interface>
+				
+          
+				<ifName>GigabitEthernet0/0/0</ifName>
+				
+          
+				<ifIndex>3</ifIndex>
+				
+          
+				<ifPhyType>MEth</ifPhyType>
+				
+          
+				<ifPosition>0/0/0</ifPosition>
+				
+          
+				<ifParentIfName/>
+				
+          
+				<ifNumber>0/0/0</ifNumber>
+				
+          
+				<ifDescr/>
+				
+          
+				<ifTrunkIfName/>
+				
+          
+				<isL2SwitchPort>false</isL2SwitchPort>
+				
+          
+				<ifAdminStatus>up</ifAdminStatus>
+				
+          
+				<ifLinkProtocol>ethernet</ifLinkProtocol>
+				
+          
+				<ifRouterType>Broadcast</ifRouterType>
+				
+          
+				<ifDf>false</ifDf>
+				
+          
+				<ifTrapEnable>true</ifTrapEnable>
+				
+          
+				<ifStatiEnable>true</ifStatiEnable>
+				
+          
+				<ifBandwidth/>
+				
+          
+				<ifMtu>1500</ifMtu>
+				
+          
+				<spreadMtuFlag>false</spreadMtuFlag>
+				
+          
+				<isAvailable>true</isAvailable>
+				
+          
+				<ifMac>3868-c801-1110</ifMac>
+				
+          
+				<vrfName>_public_</vrfName>
+				
+          
+				<ifStatItvl/>
+				
+          
+				<vsName>Admin-VS</vsName>
+				
+          
+				<ifServiceType>None</ifServiceType>
+				
+          
+				<ifEncapType>invalid</ifEncapType>
+				
+          
+				<ifClass>mainInterface</ifClass>
+				
+          
+				<l2SubIfFlag>false</l2SubIfFlag>
+				
+          
+				<statMode>baseInterface</statMode>
+				
+          
+				<protocolUpDelayTime/>
+				
+          
+				<ifCfgMac/>
+				
+          
+				<ifCfgEncapType/>
+				
+          
+				<downDelayTime/>
+				
+          
+				<ifControlFlap>
+					
+            
+					<ifSuppress>2000</ifSuppress>
+					
+            
+					<ifReuse>750</ifReuse>
+					
+            
+					<ifDecayOk>54</ifDecayOk>
+					
+            
+					<ifDecayNg>54</ifDecayNg>
+					
+            
+					<ifCeiling>6000</ifCeiling>
+					
+            
+					<ifCtrlFlapEnbl>false</ifCtrlFlapEnbl>
+					
+          
+				</ifControlFlap>
+				
+          
+				<ifTrapThreshold>
+					
+            
+					<inputRisingRate/>
+					
+            
+					<inputResumeRate/>
+					
+            
+					<outputRisingRate/>
+					
+            
+					<outputResumeRate/>
+					
+          
+				</ifTrapThreshold>
+				
+          
+				<mainIpAddr>
+					
+            
+					<ifIpAddr>0.0.0.0</ifIpAddr>
+					
+            
+					<subnetMask>0.0.0.0</subnetMask>
+					
+            
+					<ipAddrCfgType>Delete</ipAddrCfgType>
+					
+          
+				</mainIpAddr>
+				
+          
+				<ifmAm4>
+					
+            
+					<unNumIfName/>
+					
+            
+					<addrCfgType>config</addrCfgType>
+					
+          
+				</ifmAm4>
+				
+          
+				<ifmAm6>
+					
+            
+					<enableFlag>false</enableFlag>
+					
+            
+					<ifMtu6/>
+					
+            
+					<spreadMtu6Flag>false</spreadMtu6Flag>
+					
+            
+					<autoLinkLocal>false</autoLinkLocal>
+					
+          
+				</ifmAm6>
+				
+          
+				<ipv4Config>
+					
+            
+					<unNumIfName/>
+					
+            
+					<addrCfgType>config</addrCfgType>
+					
+          
+				</ipv4Config>
+				
+          
+				<ipv6Config>
+					
+            
+					<enableFlag>false</enableFlag>
+					
+            
+					<ifMtu6/>
+					
+            
+					<spreadMtu6Flag>false</spreadMtu6Flag>
+					
+            
+					<autoLinkLocal>false</autoLinkLocal>
+					
+          
+				</ipv6Config>
+				
+        
+			</interface>
+			
+        
+			<interface>
+				
+          
+				<ifName>Ethernet1/0/0</ifName>
+				
+          
+				<ifIndex>5</ifIndex>
+				
+          
+				<ifPhyType>Ethernet</ifPhyType>
+				
+          
+				<ifPosition>1/0/0</ifPosition>
+				
+          
+				<ifParentIfName/>
+				
+          
+				<ifNumber>1/0/0</ifNumber>
+				
+          
+				<ifDescr/>
+				
+          
+				<ifTrunkIfName/>
+				
+          
+				<isL2SwitchPort>false</isL2SwitchPort>
+				
+          
+				<ifAdminStatus>up</ifAdminStatus>
+				
+          
+				<ifLinkProtocol>ethernet</ifLinkProtocol>
+				
+          
+				<ifRouterType>Broadcast</ifRouterType>
+				
+          
+				<ifDf>false</ifDf>
+				
+          
+				<ifTrapEnable>true</ifTrapEnable>
+				
+          
+				<ifStatiEnable>true</ifStatiEnable>
+				
+          
+				<ifBandwidth/>
+				
+          
+				<ifMtu>1500</ifMtu>
+				
+          
+				<spreadMtuFlag>false</spreadMtuFlag>
+				
+          
+				<isAvailable>true</isAvailable>
+				
+          
+				<ifMac>007f-3a08-5e00</ifMac>
+				
+          
+				<vrfName>_public_</vrfName>
+				
+          
+				<ifStatItvl/>
+				
+          
+				<vsName>Admin-VS</vsName>
+				
+          
+				<ifServiceType>None</ifServiceType>
+				
+          
+				<ifEncapType>invalid</ifEncapType>
+				
+          
+				<ifClass>mainInterface</ifClass>
+				
+          
+				<l2SubIfFlag>false</l2SubIfFlag>
+				
+          
+				<statMode>baseInterface</statMode>
+				
+          
+				<protocolUpDelayTime>0</protocolUpDelayTime>
+				
+          
+				<ifCfgMac/>
+				
+          
+				<ifCfgEncapType/>
+				
+          
+				<downDelayTime/>
+				
+          
+				<ifControlFlap>
+					
+            
+					<ifSuppress>2000</ifSuppress>
+					
+            
+					<ifReuse>750</ifReuse>
+					
+            
+					<ifDecayOk>54</ifDecayOk>
+					
+            
+					<ifDecayNg>54</ifDecayNg>
+					
+            
+					<ifCeiling>6000</ifCeiling>
+					
+            
+					<ifCtrlFlapEnbl>false</ifCtrlFlapEnbl>
+					
+          
+				</ifControlFlap>
+				
+          
+				<phyDampIfCfg>
+					
+            
+					<dampIgnoreGlobal>false</dampIgnoreGlobal>
+					
+            
+					<ifDampEnable>false</ifDampEnable>
+					
+            
+					<ifDampTxOff>false</ifDampTxOff>
+					
+            
+					<ifDampLevel>light</ifDampLevel>
+					
+            
+					<ifSuppress/>
+					
+            
+					<ifReuse/>
+					
+            
+					<ifMaxSuppressTime/>
+					
+            
+					<ifHalfLifePeriod/>
+					
+          
+				</phyDampIfCfg>
+				
+          
+				<ifTrapThreshold>
+					
+            
+					<inputRisingRate>100</inputRisingRate>
+					
+            
+					<inputResumeRate>100</inputResumeRate>
+					
+            
+					<outputRisingRate>100</outputRisingRate>
+					
+            
+					<outputResumeRate>100</outputResumeRate>
+					
+          
+				</ifTrapThreshold>
+				
+          
+				<mainIpAddr>
+					
+            
+					<ifIpAddr>192.168.1.111</ifIpAddr>
+					
+            
+					<subnetMask>255.255.255.0</subnetMask>
+					
+            
+					<ipAddrCfgType>Config</ipAddrCfgType>
+					
+          
+				</mainIpAddr>
+				
+          
+				<ifmAm4>
+					
+            
+					<unNumIfName/>
+					
+            
+					<addrCfgType>config</addrCfgType>
+					
+            
+					<am4CfgAddrs>
+						
+              
+						<am4CfgAddr>
+							
+                
+							<ifIpAddr>192.168.1.111</ifIpAddr>
+							
+                
+							<subnetMask>255.255.255.0</subnetMask>
+							
+                
+							<addrType>main</addrType>
+							
+              
+						</am4CfgAddr>
+						
+            
+					</am4CfgAddrs>
+					
+          
+				</ifmAm4>
+				
+          
+				<ifmAm6>
+					
+            
+					<enableFlag>false</enableFlag>
+					
+            
+					<ifMtu6/>
+					
+            
+					<spreadMtu6Flag>false</spreadMtu6Flag>
+					
+            
+					<autoLinkLocal>false</autoLinkLocal>
+					
+          
+				</ifmAm6>
+				
+          
+				<ipv4Config>
+					
+            
+					<unNumIfName/>
+					
+            
+					<addrCfgType>config</addrCfgType>
+					
+            
+					<am4CfgAddrs>
+						
+              
+						<am4CfgAddr>
+							
+                
+							<ifIpAddr>192.168.1.111</ifIpAddr>
+							
+                
+							<subnetMask>255.255.255.0</subnetMask>
+							
+                
+							<addrType>main</addrType>
+							
+              
+						</am4CfgAddr>
+						
+            
+					</am4CfgAddrs>
+					
+          
+				</ipv4Config>
+				
+          
+				<ipv6Config>
+					
+            
+					<enableFlag>false</enableFlag>
+					
+            
+					<ifMtu6/>
+					
+            
+					<spreadMtu6Flag>false</spreadMtu6Flag>
+					
+            
+					<autoLinkLocal>false</autoLinkLocal>
+					
+          
+				</ipv6Config>
+				
+        
+			</interface>
+			
+        
+			<interface>
+				
+          
+				<ifName>Ethernet1/0/0.4094</ifName>
+				
+          
+				<ifIndex>6</ifIndex>
+				
+          
+				<ifPhyType>Ethernet</ifPhyType>
+				
+          
+				<ifPosition/>
+				
+          
+				<ifParentIfName>Ethernet1/0/0</ifParentIfName>
+				
+          
+				<ifNumber>4094</ifNumber>
+				
+          
+				<ifDescr/>
+				
+          
+				<ifTrunkIfName/>
+				
+          
+				<isL2SwitchPort>false</isL2SwitchPort>
+				
+          
+				<ifAdminStatus>up</ifAdminStatus>
+				
+          
+				<ifLinkProtocol>ethernet</ifLinkProtocol>
+				
+          
+				<ifRouterType>Broadcast</ifRouterType>
+				
+          
+				<ifDf>false</ifDf>
+				
+          
+				<ifTrapEnable>true</ifTrapEnable>
+				
+          
+				<ifStatiEnable>false</ifStatiEnable>
+				
+          
+				<ifBandwidth/>
+				
+          
+				<ifMtu>1500</ifMtu>
+				
+          
+				<spreadMtuFlag>false</spreadMtuFlag>
+				
+          
+				<isAvailable>true</isAvailable>
+				
+          
+				<ifMac>007f-3a08-5e00</ifMac>
+				
+          
+				<vrfName>__dcn_vpn__</vrfName>
+				
+          
+				<ifStatItvl/>
+				
+          
+				<vsName>Admin-VS</vsName>
+				
+          
+				<ifServiceType>None</ifServiceType>
+				
+          
+				<ifEncapType>vlanType</ifEncapType>
+				
+          
+				<ifClass>subInterface</ifClass>
+				
+          
+				<l2SubIfFlag>false</l2SubIfFlag>
+				
+          
+				<statMode>baseInterface</statMode>
+				
+          
+				<protocolUpDelayTime>0</protocolUpDelayTime>
+				
+          
+				<ifCfgMac/>
+				
+          
+				<ifCfgEncapType/>
+				
+          
+				<downDelayTime/>
+				
+          
+				<ifControlFlap>
+					
+            
+					<ifSuppress>2000</ifSuppress>
+					
+            
+					<ifReuse>750</ifReuse>
+					
+            
+					<ifDecayOk>54</ifDecayOk>
+					
+            
+					<ifDecayNg>54</ifDecayNg>
+					
+            
+					<ifCeiling>6000</ifCeiling>
+					
+            
+					<ifCtrlFlapEnbl>false</ifCtrlFlapEnbl>
+					
+          
+				</ifControlFlap>
+				
+          
+				<ifTrapThreshold>
+					
+            
+					<inputRisingRate>100</inputRisingRate>
+					
+            
+					<inputResumeRate>100</inputResumeRate>
+					
+            
+					<outputRisingRate>100</outputRisingRate>
+					
+            
+					<outputResumeRate>100</outputResumeRate>
+					
+          
+				</ifTrapThreshold>
+				
+          
+				<mainIpAddr>
+					
+            
+					<ifIpAddr>0.0.0.0</ifIpAddr>
+					
+            
+					<subnetMask>0.0.0.0</subnetMask>
+					
+            
+					<ipAddrCfgType>Delete</ipAddrCfgType>
+					
+          
+				</mainIpAddr>
+				
+          
+				<ifmAm4>
+					
+            
+					<unNumIfName>LoopBack2147483647</unNumIfName>
+					
+            
+					<addrCfgType>unnumbered</addrCfgType>
+					
+            
+					<am4CfgAddrs>
+						
+              
+						<am4CfgAddr>
+							
+                
+							<ifIpAddr>128.186.50.45</ifIpAddr>
+							
+                
+							<subnetMask>255.255.0.0</subnetMask>
+							
+                
+							<addrType>unnumber</addrType>
+							
+              
+						</am4CfgAddr>
+						
+            
+					</am4CfgAddrs>
+					
+          
+				</ifmAm4>
+				
+          
+				<ifmAm6>
+					
+            
+					<enableFlag>false</enableFlag>
+					
+            
+					<ifMtu6/>
+					
+            
+					<spreadMtu6Flag>false</spreadMtu6Flag>
+					
+            
+					<autoLinkLocal>false</autoLinkLocal>
+					
+          
+				</ifmAm6>
+				
+          
+				<ipv4Config>
+					
+            
+					<unNumIfName>LoopBack2147483647</unNumIfName>
+					
+            
+					<addrCfgType>unnumbered</addrCfgType>
+					
+          
+				</ipv4Config>
+				
+          
+				<ipv6Config>
+					
+            
+					<enableFlag>false</enableFlag>
+					
+            
+					<ifMtu6/>
+					
+            
+					<spreadMtu6Flag>false</spreadMtu6Flag>
+					
+            
+					<autoLinkLocal>false</autoLinkLocal>
+					
+          
+				</ipv6Config>
+				
+        
+			</interface>
+			
+        
+			<interface>
+				
+          
+				<ifName>Ethernet1/0/1</ifName>
+				
+          
+				<ifIndex>7</ifIndex>
+				
+          
+				<ifPhyType>Ethernet</ifPhyType>
+				
+          
+				<ifPosition>1/0/1</ifPosition>
+				
+          
+				<ifParentIfName/>
+				
+          
+				<ifNumber>1/0/1</ifNumber>
+				
+          
+				<ifDescr/>
+				
+          
+				<ifTrunkIfName/>
+				
+          
+				<isL2SwitchPort>false</isL2SwitchPort>
+				
+          
+				<ifAdminStatus>up</ifAdminStatus>
+				
+          
+				<ifLinkProtocol>ethernet</ifLinkProtocol>
+				
+          
+				<ifRouterType>Broadcast</ifRouterType>
+				
+          
+				<ifDf>false</ifDf>
+				
+          
+				<ifTrapEnable>true</ifTrapEnable>
+				
+          
+				<ifStatiEnable>true</ifStatiEnable>
+				
+          
+				<ifBandwidth/>
+				
+          
+				<ifMtu>1500</ifMtu>
+				
+          
+				<spreadMtuFlag>false</spreadMtuFlag>
+				
+          
+				<isAvailable>true</isAvailable>
+				
+          
+				<ifMac>007f-3a08-5e01</ifMac>
+				
+          
+				<vrfName>_public_</vrfName>
+				
+          
+				<ifStatItvl/>
+				
+          
+				<vsName>Admin-VS</vsName>
+				
+          
+				<ifServiceType>None</ifServiceType>
+				
+          
+				<ifEncapType>invalid</ifEncapType>
+				
+          
+				<ifClass>mainInterface</ifClass>
+				
+          
+				<l2SubIfFlag>false</l2SubIfFlag>
+				
+          
+				<statMode>baseInterface</statMode>
+				
+          
+				<protocolUpDelayTime>0</protocolUpDelayTime>
+				
+          
+				<ifCfgMac/>
+				
+          
+				<ifCfgEncapType/>
+				
+          
+				<downDelayTime/>
+				
+          
+				<ifControlFlap>
+					
+            
+					<ifSuppress>2000</ifSuppress>
+					
+            
+					<ifReuse>750</ifReuse>
+					
+            
+					<ifDecayOk>54</ifDecayOk>
+					
+            
+					<ifDecayNg>54</ifDecayNg>
+					
+            
+					<ifCeiling>6000</ifCeiling>
+					
+            
+					<ifCtrlFlapEnbl>false</ifCtrlFlapEnbl>
+					
+          
+				</ifControlFlap>
+				
+          
+				<phyDampIfCfg>
+					
+            
+					<dampIgnoreGlobal>false</dampIgnoreGlobal>
+					
+            
+					<ifDampEnable>false</ifDampEnable>
+					
+            
+					<ifDampTxOff>false</ifDampTxOff>
+					
+            
+					<ifDampLevel>light</ifDampLevel>
+					
+            
+					<ifSuppress/>
+					
+            
+					<ifReuse/>
+					
+            
+					<ifMaxSuppressTime/>
+					
+            
+					<ifHalfLifePeriod/>
+					
+          
+				</phyDampIfCfg>
+				
+          
+				<ifTrapThreshold>
+					
+            
+					<inputRisingRate>100</inputRisingRate>
+					
+            
+					<inputResumeRate>100</inputResumeRate>
+					
+            
+					<outputRisingRate>100</outputRisingRate>
+					
+            
+					<outputResumeRate>100</outputResumeRate>
+					
+          
+				</ifTrapThreshold>
+				
+          
+				<mainIpAddr>
+					
+            
+					<ifIpAddr>0.0.0.0</ifIpAddr>
+					
+            
+					<subnetMask>0.0.0.0</subnetMask>
+					
+            
+					<ipAddrCfgType>Delete</ipAddrCfgType>
+					
+          
+				</mainIpAddr>
+				
+          
+				<ifmAm4>
+					
+            
+					<unNumIfName/>
+					
+            
+					<addrCfgType>config</addrCfgType>
+					
+          
+				</ifmAm4>
+				
+          
+				<ifmAm6>
+					
+            
+					<enableFlag>false</enableFlag>
+					
+            
+					<ifMtu6/>
+					
+            
+					<spreadMtu6Flag>false</spreadMtu6Flag>
+					
+            
+					<autoLinkLocal>false</autoLinkLocal>
+					
+          
+				</ifmAm6>
+				
+          
+				<ipv4Config>
+					
+            
+					<unNumIfName/>
+					
+            
+					<addrCfgType>config</addrCfgType>
+					
+          
+				</ipv4Config>
+				
+          
+				<ipv6Config>
+					
+            
+					<enableFlag>false</enableFlag>
+					
+            
+					<ifMtu6/>
+					
+            
+					<spreadMtu6Flag>false</spreadMtu6Flag>
+					
+            
+					<autoLinkLocal>false</autoLinkLocal>
+					
+          
+				</ipv6Config>
+				
+        
+			</interface>
+			
+        
+			<interface>
+				
+          
+				<ifName>Ethernet1/0/1.4094</ifName>
+				
+          
+				<ifIndex>8</ifIndex>
+				
+          
+				<ifPhyType>Ethernet</ifPhyType>
+				
+          
+				<ifPosition/>
+				
+          
+				<ifParentIfName>Ethernet1/0/1</ifParentIfName>
+				
+          
+				<ifNumber>4094</ifNumber>
+				
+          
+				<ifDescr/>
+				
+          
+				<ifTrunkIfName/>
+				
+          
+				<isL2SwitchPort>false</isL2SwitchPort>
+				
+          
+				<ifAdminStatus>up</ifAdminStatus>
+				
+          
+				<ifLinkProtocol>ethernet</ifLinkProtocol>
+				
+          
+				<ifRouterType>Broadcast</ifRouterType>
+				
+          
+				<ifDf>false</ifDf>
+				
+          
+				<ifTrapEnable>true</ifTrapEnable>
+				
+          
+				<ifStatiEnable>false</ifStatiEnable>
+				
+          
+				<ifBandwidth/>
+				
+          
+				<ifMtu>1500</ifMtu>
+				
+          
+				<spreadMtuFlag>false</spreadMtuFlag>
+				
+          
+				<isAvailable>true</isAvailable>
+				
+          
+				<ifMac>007f-3a08-5e01</ifMac>
+				
+          
+				<vrfName>__dcn_vpn__</vrfName>
+				
+          
+				<ifStatItvl/>
+				
+          
+				<vsName>Admin-VS</vsName>
+				
+          
+				<ifServiceType>None</ifServiceType>
+				
+          
+				<ifEncapType>vlanType</ifEncapType>
+				
+          
+				<ifClass>subInterface</ifClass>
+				
+          
+				<l2SubIfFlag>false</l2SubIfFlag>
+				
+          
+				<statMode>baseInterface</statMode>
+				
+          
+				<protocolUpDelayTime>0</protocolUpDelayTime>
+				
+          
+				<ifCfgMac/>
+				
+          
+				<ifCfgEncapType/>
+				
+          
+				<downDelayTime/>
+				
+          
+				<ifControlFlap>
+					
+            
+					<ifSuppress>2000</ifSuppress>
+					
+            
+					<ifReuse>750</ifReuse>
+					
+            
+					<ifDecayOk>54</ifDecayOk>
+					
+            
+					<ifDecayNg>54</ifDecayNg>
+					
+            
+					<ifCeiling>6000</ifCeiling>
+					
+            
+					<ifCtrlFlapEnbl>false</ifCtrlFlapEnbl>
+					
+          
+				</ifControlFlap>
+				
+          
+				<ifTrapThreshold>
+					
+            
+					<inputRisingRate>100</inputRisingRate>
+					
+            
+					<inputResumeRate>100</inputResumeRate>
+					
+            
+					<outputRisingRate>100</outputRisingRate>
+					
+            
+					<outputResumeRate>100</outputResumeRate>
+					
+          
+				</ifTrapThreshold>
+				
+          
+				<mainIpAddr>
+					
+            
+					<ifIpAddr>0.0.0.0</ifIpAddr>
+					
+            
+					<subnetMask>0.0.0.0</subnetMask>
+					
+            
+					<ipAddrCfgType>Delete</ipAddrCfgType>
+					
+          
+				</mainIpAddr>
+				
+          
+				<ifmAm4>
+					
+            
+					<unNumIfName>LoopBack2147483647</unNumIfName>
+					
+            
+					<addrCfgType>unnumbered</addrCfgType>
+					
+            
+					<am4CfgAddrs>
+						
+              
+						<am4CfgAddr>
+							
+                
+							<ifIpAddr>128.186.50.45</ifIpAddr>
+							
+                
+							<subnetMask>255.255.0.0</subnetMask>
+							
+                
+							<addrType>unnumber</addrType>
+							
+              
+						</am4CfgAddr>
+						
+            
+					</am4CfgAddrs>
+					
+          
+				</ifmAm4>
+				
+          
+				<ifmAm6>
+					
+            
+					<enableFlag>false</enableFlag>
+					
+            
+					<ifMtu6/>
+					
+            
+					<spreadMtu6Flag>false</spreadMtu6Flag>
+					
+            
+					<autoLinkLocal>false</autoLinkLocal>
+					
+          
+				</ifmAm6>
+				
+          
+				<ipv4Config>
+					
+            
+					<unNumIfName>LoopBack2147483647</unNumIfName>
+					
+            
+					<addrCfgType>unnumbered</addrCfgType>
+					
+          
+				</ipv4Config>
+				
+          
+				<ipv6Config>
+					
+            
+					<enableFlag>false</enableFlag>
+					
+            
+					<ifMtu6/>
+					
+            
+					<spreadMtu6Flag>false</spreadMtu6Flag>
+					
+            
+					<autoLinkLocal>false</autoLinkLocal>
+					
+          
+				</ipv6Config>
+				
+        
+			</interface>
+			
+        
+			<interface>
+				
+          
+				<ifName>Ethernet1/0/2</ifName>
+				
+          
+				<ifIndex>9</ifIndex>
+				
+          
+				<ifPhyType>Ethernet</ifPhyType>
+				
+          
+				<ifPosition>1/0/2</ifPosition>
+				
+          
+				<ifParentIfName/>
+				
+          
+				<ifNumber>1/0/2</ifNumber>
+				
+          
+				<ifDescr/>
+				
+          
+				<ifTrunkIfName/>
+				
+          
+				<isL2SwitchPort>false</isL2SwitchPort>
+				
+          
+				<ifAdminStatus>up</ifAdminStatus>
+				
+          
+				<ifLinkProtocol>ethernet</ifLinkProtocol>
+				
+          
+				<ifRouterType>Broadcast</ifRouterType>
+				
+          
+				<ifDf>false</ifDf>
+				
+          
+				<ifTrapEnable>true</ifTrapEnable>
+				
+          
+				<ifStatiEnable>true</ifStatiEnable>
+				
+          
+				<ifBandwidth/>
+				
+          
+				<ifMtu>1500</ifMtu>
+				
+          
+				<spreadMtuFlag>false</spreadMtuFlag>
+				
+          
+				<isAvailable>true</isAvailable>
+				
+          
+				<ifMac>007f-3a08-5e02</ifMac>
+				
+          
+				<vrfName>_public_</vrfName>
+				
+          
+				<ifStatItvl/>
+				
+          
+				<vsName>Admin-VS</vsName>
+				
+          
+				<ifServiceType>None</ifServiceType>
+				
+          
+				<ifEncapType>invalid</ifEncapType>
+				
+          
+				<ifClass>mainInterface</ifClass>
+				
+          
+				<l2SubIfFlag>false</l2SubIfFlag>
+				
+          
+				<statMode>baseInterface</statMode>
+				
+          
+				<protocolUpDelayTime>0</protocolUpDelayTime>
+				
+          
+				<ifCfgMac/>
+				
+          
+				<ifCfgEncapType/>
+				
+          
+				<downDelayTime/>
+				
+          
+				<ifControlFlap>
+					
+            
+					<ifSuppress>2000</ifSuppress>
+					
+            
+					<ifReuse>750</ifReuse>
+					
+            
+					<ifDecayOk>54</ifDecayOk>
+					
+            
+					<ifDecayNg>54</ifDecayNg>
+					
+            
+					<ifCeiling>6000</ifCeiling>
+					
+            
+					<ifCtrlFlapEnbl>false</ifCtrlFlapEnbl>
+					
+          
+				</ifControlFlap>
+				
+          
+				<phyDampIfCfg>
+					
+            
+					<dampIgnoreGlobal>false</dampIgnoreGlobal>
+					
+            
+					<ifDampEnable>false</ifDampEnable>
+					
+            
+					<ifDampTxOff>false</ifDampTxOff>
+					
+            
+					<ifDampLevel>light</ifDampLevel>
+					
+            
+					<ifSuppress/>
+					
+            
+					<ifReuse/>
+					
+            
+					<ifMaxSuppressTime/>
+					
+            
+					<ifHalfLifePeriod/>
+					
+          
+				</phyDampIfCfg>
+				
+          
+				<ifTrapThreshold>
+					
+            
+					<inputRisingRate>100</inputRisingRate>
+					
+            
+					<inputResumeRate>100</inputResumeRate>
+					
+            
+					<outputRisingRate>100</outputRisingRate>
+					
+            
+					<outputResumeRate>100</outputResumeRate>
+					
+          
+				</ifTrapThreshold>
+				
+          
+				<mainIpAddr>
+					
+            
+					<ifIpAddr>0.0.0.0</ifIpAddr>
+					
+            
+					<subnetMask>0.0.0.0</subnetMask>
+					
+            
+					<ipAddrCfgType>Delete</ipAddrCfgType>
+					
+          
+				</mainIpAddr>
+				
+          
+				<ifmAm4>
+					
+            
+					<unNumIfName/>
+					
+            
+					<addrCfgType>config</addrCfgType>
+					
+          
+				</ifmAm4>
+				
+          
+				<ifmAm6>
+					
+            
+					<enableFlag>false</enableFlag>
+					
+            
+					<ifMtu6/>
+					
+            
+					<spreadMtu6Flag>false</spreadMtu6Flag>
+					
+            
+					<autoLinkLocal>false</autoLinkLocal>
+					
+          
+				</ifmAm6>
+				
+          
+				<ipv4Config>
+					
+            
+					<unNumIfName/>
+					
+            
+					<addrCfgType>config</addrCfgType>
+					
+          
+				</ipv4Config>
+				
+          
+				<ipv6Config>
+					
+            
+					<enableFlag>false</enableFlag>
+					
+            
+					<ifMtu6/>
+					
+            
+					<spreadMtu6Flag>false</spreadMtu6Flag>
+					
+            
+					<autoLinkLocal>false</autoLinkLocal>
+					
+          
+				</ipv6Config>
+				
+        
+			</interface>
+			
+        
+			<interface>
+				
+          
+				<ifName>Ethernet1/0/2.4094</ifName>
+				
+          
+				<ifIndex>10</ifIndex>
+				
+          
+				<ifPhyType>Ethernet</ifPhyType>
+				
+          
+				<ifPosition/>
+				
+          
+				<ifParentIfName>Ethernet1/0/2</ifParentIfName>
+				
+          
+				<ifNumber>4094</ifNumber>
+				
+          
+				<ifDescr/>
+				
+          
+				<ifTrunkIfName/>
+				
+          
+				<isL2SwitchPort>false</isL2SwitchPort>
+				
+          
+				<ifAdminStatus>up</ifAdminStatus>
+				
+          
+				<ifLinkProtocol>ethernet</ifLinkProtocol>
+				
+          
+				<ifRouterType>Broadcast</ifRouterType>
+				
+          
+				<ifDf>false</ifDf>
+				
+          
+				<ifTrapEnable>true</ifTrapEnable>
+				
+          
+				<ifStatiEnable>false</ifStatiEnable>
+				
+          
+				<ifBandwidth/>
+				
+          
+				<ifMtu>1500</ifMtu>
+				
+          
+				<spreadMtuFlag>false</spreadMtuFlag>
+				
+          
+				<isAvailable>true</isAvailable>
+				
+          
+				<ifMac>007f-3a08-5e02</ifMac>
+				
+          
+				<vrfName>__dcn_vpn__</vrfName>
+				
+          
+				<ifStatItvl/>
+				
+          
+				<vsName>Admin-VS</vsName>
+				
+          
+				<ifServiceType>None</ifServiceType>
+				
+          
+				<ifEncapType>vlanType</ifEncapType>
+				
+          
+				<ifClass>subInterface</ifClass>
+				
+          
+				<l2SubIfFlag>false</l2SubIfFlag>
+				
+          
+				<statMode>baseInterface</statMode>
+				
+          
+				<protocolUpDelayTime>0</protocolUpDelayTime>
+				
+          
+				<ifCfgMac/>
+				
+          
+				<ifCfgEncapType/>
+				
+          
+				<downDelayTime/>
+				
+          
+				<ifControlFlap>
+					
+            
+					<ifSuppress>2000</ifSuppress>
+					
+            
+					<ifReuse>750</ifReuse>
+					
+            
+					<ifDecayOk>54</ifDecayOk>
+					
+            
+					<ifDecayNg>54</ifDecayNg>
+					
+            
+					<ifCeiling>6000</ifCeiling>
+					
+            
+					<ifCtrlFlapEnbl>false</ifCtrlFlapEnbl>
+					
+          
+				</ifControlFlap>
+				
+          
+				<ifTrapThreshold>
+					
+            
+					<inputRisingRate>100</inputRisingRate>
+					
+            
+					<inputResumeRate>100</inputResumeRate>
+					
+            
+					<outputRisingRate>100</outputRisingRate>
+					
+            
+					<outputResumeRate>100</outputResumeRate>
+					
+          
+				</ifTrapThreshold>
+				
+          
+				<mainIpAddr>
+					
+            
+					<ifIpAddr>0.0.0.0</ifIpAddr>
+					
+            
+					<subnetMask>0.0.0.0</subnetMask>
+					
+            
+					<ipAddrCfgType>Delete</ipAddrCfgType>
+					
+          
+				</mainIpAddr>
+				
+          
+				<ifmAm4>
+					
+            
+					<unNumIfName>LoopBack2147483647</unNumIfName>
+					
+            
+					<addrCfgType>unnumbered</addrCfgType>
+					
+            
+					<am4CfgAddrs>
+						
+              
+						<am4CfgAddr>
+							
+                
+							<ifIpAddr>128.186.50.45</ifIpAddr>
+							
+                
+							<subnetMask>255.255.0.0</subnetMask>
+							
+                
+							<addrType>unnumber</addrType>
+							
+              
+						</am4CfgAddr>
+						
+            
+					</am4CfgAddrs>
+					
+          
+				</ifmAm4>
+				
+          
+				<ifmAm6>
+					
+            
+					<enableFlag>false</enableFlag>
+					
+            
+					<ifMtu6/>
+					
+            
+					<spreadMtu6Flag>false</spreadMtu6Flag>
+					
+            
+					<autoLinkLocal>false</autoLinkLocal>
+					
+          
+				</ifmAm6>
+				
+          
+				<ipv4Config>
+					
+            
+					<unNumIfName>LoopBack2147483647</unNumIfName>
+					
+            
+					<addrCfgType>unnumbered</addrCfgType>
+					
+          
+				</ipv4Config>
+				
+          
+				<ipv6Config>
+					
+            
+					<enableFlag>false</enableFlag>
+					
+            
+					<ifMtu6/>
+					
+            
+					<spreadMtu6Flag>false</spreadMtu6Flag>
+					
+            
+					<autoLinkLocal>false</autoLinkLocal>
+					
+          
+				</ipv6Config>
+				
+        
+			</interface>
+			
+        
+			<interface>
+				
+          
+				<ifName>Ethernet1/0/3</ifName>
+				
+          
+				<ifIndex>11</ifIndex>
+				
+          
+				<ifPhyType>Ethernet</ifPhyType>
+				
+          
+				<ifPosition>1/0/3</ifPosition>
+				
+          
+				<ifParentIfName/>
+				
+          
+				<ifNumber>1/0/3</ifNumber>
+				
+          
+				<ifDescr/>
+				
+          
+				<ifTrunkIfName/>
+				
+          
+				<isL2SwitchPort>false</isL2SwitchPort>
+				
+          
+				<ifAdminStatus>up</ifAdminStatus>
+				
+          
+				<ifLinkProtocol>ethernet</ifLinkProtocol>
+				
+          
+				<ifRouterType>Broadcast</ifRouterType>
+				
+          
+				<ifDf>false</ifDf>
+				
+          
+				<ifTrapEnable>true</ifTrapEnable>
+				
+          
+				<ifStatiEnable>true</ifStatiEnable>
+				
+          
+				<ifBandwidth/>
+				
+          
+				<ifMtu>1500</ifMtu>
+				
+          
+				<spreadMtuFlag>false</spreadMtuFlag>
+				
+          
+				<isAvailable>true</isAvailable>
+				
+          
+				<ifMac>007f-3a08-5e03</ifMac>
+				
+          
+				<vrfName>_public_</vrfName>
+				
+          
+				<ifStatItvl/>
+				
+          
+				<vsName>Admin-VS</vsName>
+				
+          
+				<ifServiceType>None</ifServiceType>
+				
+          
+				<ifEncapType>invalid</ifEncapType>
+				
+          
+				<ifClass>mainInterface</ifClass>
+				
+          
+				<l2SubIfFlag>false</l2SubIfFlag>
+				
+          
+				<statMode>baseInterface</statMode>
+				
+          
+				<protocolUpDelayTime>0</protocolUpDelayTime>
+				
+          
+				<ifCfgMac/>
+				
+          
+				<ifCfgEncapType/>
+				
+          
+				<downDelayTime/>
+				
+          
+				<ifControlFlap>
+					
+            
+					<ifSuppress>2000</ifSuppress>
+					
+            
+					<ifReuse>750</ifReuse>
+					
+            
+					<ifDecayOk>54</ifDecayOk>
+					
+            
+					<ifDecayNg>54</ifDecayNg>
+					
+            
+					<ifCeiling>6000</ifCeiling>
+					
+            
+					<ifCtrlFlapEnbl>false</ifCtrlFlapEnbl>
+					
+          
+				</ifControlFlap>
+				
+          
+				<phyDampIfCfg>
+					
+            
+					<dampIgnoreGlobal>false</dampIgnoreGlobal>
+					
+            
+					<ifDampEnable>false</ifDampEnable>
+					
+            
+					<ifDampTxOff>false</ifDampTxOff>
+					
+            
+					<ifDampLevel>light</ifDampLevel>
+					
+            
+					<ifSuppress/>
+					
+            
+					<ifReuse/>
+					
+            
+					<ifMaxSuppressTime/>
+					
+            
+					<ifHalfLifePeriod/>
+					
+          
+				</phyDampIfCfg>
+				
+          
+				<ifTrapThreshold>
+					
+            
+					<inputRisingRate>100</inputRisingRate>
+					
+            
+					<inputResumeRate>100</inputResumeRate>
+					
+            
+					<outputRisingRate>100</outputRisingRate>
+					
+            
+					<outputResumeRate>100</outputResumeRate>
+					
+          
+				</ifTrapThreshold>
+				
+          
+				<mainIpAddr>
+					
+            
+					<ifIpAddr>0.0.0.0</ifIpAddr>
+					
+            
+					<subnetMask>0.0.0.0</subnetMask>
+					
+            
+					<ipAddrCfgType>Delete</ipAddrCfgType>
+					
+          
+				</mainIpAddr>
+				
+          
+				<ifmAm4>
+					
+            
+					<unNumIfName/>
+					
+            
+					<addrCfgType>config</addrCfgType>
+					
+          
+				</ifmAm4>
+				
+          
+				<ifmAm6>
+					
+            
+					<enableFlag>false</enableFlag>
+					
+            
+					<ifMtu6/>
+					
+            
+					<spreadMtu6Flag>false</spreadMtu6Flag>
+					
+            
+					<autoLinkLocal>false</autoLinkLocal>
+					
+          
+				</ifmAm6>
+				
+          
+				<ipv4Config>
+					
+            
+					<unNumIfName/>
+					
+            
+					<addrCfgType>config</addrCfgType>
+					
+          
+				</ipv4Config>
+				
+          
+				<ipv6Config>
+					
+            
+					<enableFlag>false</enableFlag>
+					
+            
+					<ifMtu6/>
+					
+            
+					<spreadMtu6Flag>false</spreadMtu6Flag>
+					
+            
+					<autoLinkLocal>false</autoLinkLocal>
+					
+          
+				</ipv6Config>
+				
+        
+			</interface>
+			
+        
+			<interface>
+				
+          
+				<ifName>Ethernet1/0/3.4094</ifName>
+				
+          
+				<ifIndex>12</ifIndex>
+				
+          
+				<ifPhyType>Ethernet</ifPhyType>
+				
+          
+				<ifPosition/>
+				
+          
+				<ifParentIfName>Ethernet1/0/3</ifParentIfName>
+				
+          
+				<ifNumber>4094</ifNumber>
+				
+          
+				<ifDescr/>
+				
+          
+				<ifTrunkIfName/>
+				
+          
+				<isL2SwitchPort>false</isL2SwitchPort>
+				
+          
+				<ifAdminStatus>up</ifAdminStatus>
+				
+          
+				<ifLinkProtocol>ethernet</ifLinkProtocol>
+				
+          
+				<ifRouterType>Broadcast</ifRouterType>
+				
+          
+				<ifDf>false</ifDf>
+				
+          
+				<ifTrapEnable>true</ifTrapEnable>
+				
+          
+				<ifStatiEnable>false</ifStatiEnable>
+				
+          
+				<ifBandwidth/>
+				
+          
+				<ifMtu>1500</ifMtu>
+				
+          
+				<spreadMtuFlag>false</spreadMtuFlag>
+				
+          
+				<isAvailable>true</isAvailable>
+				
+          
+				<ifMac>007f-3a08-5e03</ifMac>
+				
+          
+				<vrfName>__dcn_vpn__</vrfName>
+				
+          
+				<ifStatItvl/>
+				
+          
+				<vsName>Admin-VS</vsName>
+				
+          
+				<ifServiceType>None</ifServiceType>
+				
+          
+				<ifEncapType>vlanType</ifEncapType>
+				
+          
+				<ifClass>subInterface</ifClass>
+				
+          
+				<l2SubIfFlag>false</l2SubIfFlag>
+				
+          
+				<statMode>baseInterface</statMode>
+				
+          
+				<protocolUpDelayTime>0</protocolUpDelayTime>
+				
+          
+				<ifCfgMac/>
+				
+          
+				<ifCfgEncapType/>
+				
+          
+				<downDelayTime/>
+				
+          
+				<ifControlFlap>
+					
+            
+					<ifSuppress>2000</ifSuppress>
+					
+            
+					<ifReuse>750</ifReuse>
+					
+            
+					<ifDecayOk>54</ifDecayOk>
+					
+            
+					<ifDecayNg>54</ifDecayNg>
+					
+            
+					<ifCeiling>6000</ifCeiling>
+					
+            
+					<ifCtrlFlapEnbl>false</ifCtrlFlapEnbl>
+					
+          
+				</ifControlFlap>
+				
+          
+				<ifTrapThreshold>
+					
+            
+					<inputRisingRate>100</inputRisingRate>
+					
+            
+					<inputResumeRate>100</inputResumeRate>
+					
+            
+					<outputRisingRate>100</outputRisingRate>
+					
+            
+					<outputResumeRate>100</outputResumeRate>
+					
+          
+				</ifTrapThreshold>
+				
+          
+				<mainIpAddr>
+					
+            
+					<ifIpAddr>0.0.0.0</ifIpAddr>
+					
+            
+					<subnetMask>0.0.0.0</subnetMask>
+					
+            
+					<ipAddrCfgType>Delete</ipAddrCfgType>
+					
+          
+				</mainIpAddr>
+				
+          
+				<ifmAm4>
+					
+            
+					<unNumIfName>LoopBack2147483647</unNumIfName>
+					
+            
+					<addrCfgType>unnumbered</addrCfgType>
+					
+            
+					<am4CfgAddrs>
+						
+              
+						<am4CfgAddr>
+							
+                
+							<ifIpAddr>128.186.50.45</ifIpAddr>
+							
+                
+							<subnetMask>255.255.0.0</subnetMask>
+							
+                
+							<addrType>unnumber</addrType>
+							
+              
+						</am4CfgAddr>
+						
+            
+					</am4CfgAddrs>
+					
+          
+				</ifmAm4>
+				
+          
+				<ifmAm6>
+					
+            
+					<enableFlag>false</enableFlag>
+					
+            
+					<ifMtu6/>
+					
+            
+					<spreadMtu6Flag>false</spreadMtu6Flag>
+					
+            
+					<autoLinkLocal>false</autoLinkLocal>
+					
+          
+				</ifmAm6>
+				
+          
+				<ipv4Config>
+					
+            
+					<unNumIfName>LoopBack2147483647</unNumIfName>
+					
+            
+					<addrCfgType>unnumbered</addrCfgType>
+					
+          
+				</ipv4Config>
+				
+          
+				<ipv6Config>
+					
+            
+					<enableFlag>false</enableFlag>
+					
+            
+					<ifMtu6/>
+					
+            
+					<spreadMtu6Flag>false</spreadMtu6Flag>
+					
+            
+					<autoLinkLocal>false</autoLinkLocal>
+					
+            
+				</ipv6Config>
+				
+          
+			</interface>
+			
+        
+		</interfaces>
+		
+    
+	</ifm>
+	
+  
+</data>
