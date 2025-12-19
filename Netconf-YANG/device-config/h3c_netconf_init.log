@@ -1,3 +1,6 @@
+# H3C Netconf YANG 初始化配置脚本
+# 实验平台为HCL 5.10.3
+# 实验设备为MSR36-20，系统版本为H3C Comware Software, Version 7.1.064，Release 0427P22
 system-view
 
 # 创建本地用户
@@ -23,3 +26,6 @@ user-interface vty 0 15
 # 接口配置
 interface GigabitEthernet0/0
  ip address 192.168.56.101 255.255.255.0
+
+# 建立ssh连接时，临时添加rsa算法支持
+# ssh -o HostKeyAlgorithms=+ssh-rsa zzy@192.168.56.101
