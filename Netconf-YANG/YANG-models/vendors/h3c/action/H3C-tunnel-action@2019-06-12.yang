@@ -1,0 +1,159 @@
+module H3C-tunnel-action
+
+{
+
+    namespace "http://www.h3c.com/netconf/action:1.0";
+
+    prefix "tunnel-action";
+
+    import comware-basetype 
+
+    {
+
+         prefix "base";
+
+    }
+
+    organization "H3C Inc.";
+
+    contact "Author";
+
+    description "The module entities for tunnel action.";
+
+    revision 2019-06-12
+
+	{
+
+        description "Initial revision.";
+
+    }
+
+    container TUNNEL
+
+    {
+
+        config false;
+
+        container Detect
+
+        {
+
+            list StartDetect
+
+            {
+
+                key "ID";
+
+                leaf ID
+
+                {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf RetryCount
+
+                {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+        container ClearAllP2MPTables
+
+        {
+
+            leaf Clear
+
+            {
+
+                type string;
+
+                description "Clear all P2MP tables";
+
+            }
+
+        }
+
+        container ClearP2MPTables
+
+        {
+
+            list ClearP2MPTable
+
+            {
+
+                key "ID";
+
+                leaf ID
+
+                {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "ID of the P2MP tunnel";
+
+                }
+
+                leaf DestIPv4Addr
+
+                {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "IPv4 DestAddr";
+
+                }
+
+                leaf DestIPv6Addr
+
+                {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "IPv6 DestAddr";
+
+                }
+
+                leaf TunnelDestIPv4Addr
+
+                {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "IPv4 TunnelDestAddr";
+
+                }
+
+                leaf TunnelDestIPv6Addr
+
+                {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "IPv6 TunnelDestAddr";
+
+                }
+
+                leaf Clear
+
+                {
+
+                    type string;
+
+                    description "Action of clearing the specified tunnel table.";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

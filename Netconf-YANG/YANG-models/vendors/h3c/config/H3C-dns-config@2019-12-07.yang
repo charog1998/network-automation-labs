@@ -1,0 +1,469 @@
+module H3C-dns-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "dns-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for dns config.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container DNS {
+
+        container DNSHost {
+
+            list Host {
+
+                key "VRF HostName Type QueryType";
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VRF;
+
+                    }
+
+                    description "The VRF name.";
+
+                }
+
+                leaf HostName {
+
+                    type base:Basetype_String {
+
+                        length "1..253";
+
+                    }
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf QueryType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf Result {
+
+                    type base:Basetype_String {
+
+                        length "0..45";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DNSServer {
+
+            list Server {
+
+                key "VRF Type AddressType IpAddress IfIndex";
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VRF;
+
+                    }
+
+                    description "The VRF name.";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf AddressType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf IpAddress {
+
+                    type base:Basetype_String {
+
+                        length "0..45";
+
+                    }
+
+                }
+
+                leaf IfIndex {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_NameAndIndexUnion;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DNSDomain {
+
+            list Domain {
+
+                key "VRF Type DomainName";
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VRF;
+
+                    }
+
+                    description "The VRF name.";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        length "0..253";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DNSConfig {
+
+            leaf DNSProxyEnable {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf DNSDSCP {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..63";
+
+                }
+
+            }
+
+            leaf DNSDSCP6 {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..63";
+
+                }
+
+            }
+
+        }
+
+        container DNSIfServer {
+
+            list Server {
+
+                key "IfIndex VRF Type AddressType IpAddress IfIndexOut";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VRF;
+
+                    }
+
+                    description "The VRF name.";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf AddressType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf IpAddress {
+
+                    type base:Basetype_String {
+
+                        length "0..45";
+
+                    }
+
+                }
+
+                leaf IfIndexOut {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_NameAndIndexUnion;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DNSServerGroup {
+
+            list ServerGroup {
+
+                key "GroupID";
+
+                leaf GroupID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..16";
+
+                    }
+
+                }
+
+                leaf VRF {
+
+                    type base:Basetype_VRF;
+
+                    description "The VRF name.";
+
+                }
+
+                leaf GroupName {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DNSGroupServer {
+
+            list GroupServer {
+
+                key "GroupID AddressType IpAddress IfIndex";
+
+                leaf GroupID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..16";
+
+                    }
+
+                }
+
+                leaf AddressType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf IpAddress {
+
+                    type base:Basetype_String {
+
+                        length "0..45";
+
+                    }
+
+                }
+
+                leaf IfIndex {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_NameAndIndexUnion;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DNSDomainRule {
+
+            list DomainRule {
+
+                key "RuleID DomainName";
+
+                leaf RuleID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..16";
+
+                    }
+
+                }
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        length "1..253";
+
+                    }
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf VRF {
+
+                    type base:Basetype_VRF;
+
+                    description "The VRF name.";
+
+                }
+
+                leaf ServerGroupID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..16";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

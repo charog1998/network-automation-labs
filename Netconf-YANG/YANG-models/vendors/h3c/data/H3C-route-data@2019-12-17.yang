@@ -1,0 +1,775 @@
+module H3C-route-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "route-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for route data.";
+
+    revision 2019-12-17 {
+
+        description "Synchronize the modification of the schema file to the YANG file.";
+
+    }
+
+    revision 2016-07-15 {
+
+        description "Initial revision.";
+
+    }
+
+    container Route {
+
+        config false;
+
+        container Ipv4Routes {
+
+            description "IPv4 route table.";
+
+            list RouteEntry {
+
+                description "Row name of Ipv4Routes table.";
+
+                key "VRF Topology Nexthop IfIndex";
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF name, a case-sensitive string of 1 to 31 characters.";
+
+                }
+
+                leaf Topology {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "Topology name, a case-sensitive string of 1 to 31 characters.";
+
+                }
+
+                list Ipv4 {
+
+                    key "Ipv4Address Ipv4PrefixLength";
+
+                    leaf Ipv4Address {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "Destination IPv4 address.";
+
+                    }
+
+                    leaf Ipv4PrefixLength {
+
+                        type base:Basetype_UnsignedChar {
+
+                            range "0..32";
+
+                        }
+
+                        description "Length of the destination IPv4 address prefix.";
+
+                    }
+
+                }
+
+                leaf Nexthop {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Nexthop IPv4 address.";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index.";
+
+                }
+
+                container Protocol {
+
+                    description "Routing protocol.";
+
+                    leaf ProtocolID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..65535";
+
+                        }
+
+                        description "Routing protocol ID.";
+
+                    }
+
+                    leaf SubProtocolID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "Routing sub-protocol ID.";
+
+                    }
+
+                }
+
+                leaf ProcessID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "Process ID.";
+
+                }
+
+                leaf Age {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Route alive time.";
+
+                }
+
+                leaf Preference {
+
+                    type base:Basetype_UnsignedChar {
+
+                        range "0..255";
+
+                    }
+
+                    description "Route preference.";
+
+                }
+
+                leaf Metric {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "Route metric.";
+
+                }
+
+                leaf Tag {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "Tag";
+
+                }
+
+                leaf Neighbor {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Neighbor ipv4 address.";
+
+                }
+
+                container ASNumber {
+
+                    description "Autonomy system.";
+
+                    leaf OriginAS {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967295";
+
+                        }
+
+                        description "Original AS number.";
+
+                    }
+
+                    leaf LastAS {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967295";
+
+                        }
+
+                        description "Last AS number.";
+
+                    }
+
+                }
+
+                container BackupPathAttribute {
+
+                    description "Backup path attribute.";
+
+                    leaf BackupIfIndex {
+
+                        type base:Basetype_NameAndIndexUnion;
+
+                        description "Backup interface index.";
+
+                    }
+
+                    leaf BackupNexthop {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "Backup nexthop IPv4 address.";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Ipv6Routes {
+
+            description "IPv6 route table.";
+
+            list RouteEntry {
+
+                description "Row name of Ipv6Routes table.";
+
+                key "VRF Topology Nexthop IfIndex";
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF name, a case-sensitive string of 1 to 31 characters.";
+
+                }
+
+                leaf Topology {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "Topology name, a case-sensitive string of 1 to 31 characters.";
+
+                }
+
+                list Ipv6Prefix {
+
+                    key "Ipv6Address Ipv6PrefixLength";
+
+                    leaf Ipv6Address {
+
+                        type base:Basetype_Ipv6Address;
+
+                        description "Destination IPv6 address.";
+
+                    }
+
+                    leaf Ipv6PrefixLength {
+
+                        type base:Basetype_UnsignedChar {
+
+                            range "0..128";
+
+                        }
+
+                        description "Length of the destination IPv6 address prefix.";
+
+                    }
+
+                }
+
+                leaf Nexthop {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "Nexthop IPv6 address.";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index.";
+
+                }
+
+                container Protocol {
+
+                    description "Routing protocol.";
+
+                    leaf ProtocolID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..65535";
+
+                        }
+
+                        description "Routing protocol ID.";
+
+                    }
+
+                    leaf SubProtocolID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "Routing sub-protocol ID.";
+
+                    }
+
+                }
+
+                leaf ProcessID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "Process ID.";
+
+                }
+
+                leaf Age {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Route alive time.";
+
+                }
+
+                leaf Metric {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "Route metric.";
+
+                }
+
+                leaf Preference {
+
+                    type base:Basetype_UnsignedChar {
+
+                        range "0..255";
+
+                    }
+
+                    description "Route preference.";
+
+                }
+
+                leaf Tag {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "Tag";
+
+                }
+
+                leaf Neighbor {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "Neighbor ipv6 address.";
+
+                }
+
+                container ASNumber {
+
+                    description "Autonomy system.";
+
+                    leaf OriginAS {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967295";
+
+                        }
+
+                        description "Original AS number.";
+
+                    }
+
+                    leaf LastAS {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967295";
+
+                        }
+
+                        description "Last AS number.";
+
+                    }
+
+                }
+
+                container BackupPathAttribute {
+
+                    description "Backup path attribute.";
+
+                    leaf BackupIfIndex {
+
+                        type base:Basetype_NameAndIndexUnion;
+
+                        description "Backup interface index.";
+
+                    }
+
+                    leaf BackupNexthop {
+
+                        type base:Basetype_Ipv6Address;
+
+                        description "Backup nexthop IPv6 address.";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Ipv4RouteStatistics {
+
+            description "IPv4 route statistic information.";
+
+            list Statistics {
+
+                description "Row name of Ipv4RouteStatistics table.";
+
+                key "VRF Topology ProtocolID";
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF name, a case-sensitive string of 1 to 31 characters.";
+
+                }
+
+                leaf Topology {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "Topology name, a case-sensitive string of 1 to 31 characters.";
+
+                }
+
+                leaf ProtocolID {
+
+                    type base:Basetype_UnsignedChar {
+
+                        range "1..8";
+
+                    }
+
+                    description "Route protocol ID.";
+
+                }
+
+                leaf TotalRoutes {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "Total route number.";
+
+                }
+
+                leaf ActiveRoutes {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "Active route number.";
+
+                }
+
+                leaf AddedRoutes {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "Added routes number.";
+
+                }
+
+                leaf DeletedRoutes {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "Deleted routes number.";
+
+                }
+
+            }
+
+        }
+
+        container Ipv6RouteStatistics {
+
+            description "IPv6 route statistic information.";
+
+            list Statistics {
+
+                description "Row name of Ipv6RouteStatistics table.";
+
+                key "VRF Topology ProtocolID";
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF name, a case-sensitive string of 1 to 31 characters.";
+
+                }
+
+                leaf Topology {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "Topology name, a case-sensitive string of 1 to 31 characters.";
+
+                }
+
+                leaf ProtocolID {
+
+                    type base:Basetype_UnsignedChar {
+
+                        range "1..8";
+
+                    }
+
+                    description "Route protocol ID.";
+
+                }
+
+                leaf TotalRoutes {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "Total route number.";
+
+                }
+
+                leaf ActiveRoutes {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "Active route number.";
+
+                }
+
+                leaf AddedRoutes {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "Added routes number.";
+
+                }
+
+                leaf DeletedRoutes {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "Deleted routes number.";
+
+                }
+
+            }
+
+        }
+
+        container Ipv4BandwidthBasedSharing {
+
+            description "IPv4 bandwidth-based load sharing information.";
+
+            leaf Mode {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..1";
+
+                }
+
+                description "IPv4 bandwidth-based load sharing mode.";
+
+            }
+
+        }
+
+        container Ipv6BandwidthBasedSharing {
+
+            description "IPv6 bandwidth-based load sharing information.";
+
+            leaf Mode {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..1";
+
+                }
+
+                description "IPv6 bandwidth-based load sharing mode.";
+
+            }
+
+        }
+
+    }
+
+}

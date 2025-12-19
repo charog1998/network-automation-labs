@@ -1,0 +1,245 @@
+module H3C-dhcpsp6-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "dhcpsp6-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for dhcpsp6 config.";
+
+    revision 2019-12-17 {
+
+        description "Initial revision.";
+
+    }
+
+    container DHCPSP6 {
+
+        container DHCPSP6BindingDatabase {
+
+            leaf FileName {
+
+                type base:Basetype_String {
+
+                    length "1..255";
+
+                }
+
+            }
+
+            leaf URL {
+
+                type base:Basetype_String {
+
+                    length "1..255";
+
+                }
+
+            }
+
+            leaf Username {
+
+                type base:Basetype_String {
+
+                    length "1..32";
+
+                }
+
+            }
+
+            leaf Password {
+
+                type base:Basetype_String {
+
+                    length "1..32";
+
+                }
+
+            }
+
+            leaf UpdateInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "60..864000";
+
+                }
+
+            }
+
+        }
+
+        container DHCPSP6OptionInterfaceID {
+
+            list InterfaceID {
+
+                key "IfIndex VLANID";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4094";
+
+                    }
+
+                }
+
+                leaf InterfaceID {
+
+                    type base:Basetype_String {
+
+                        length "1..128";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DHCPSP6OptionRemoteID {
+
+            list RemoteID {
+
+                key "IfIndex VLANID";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4094";
+
+                    }
+
+                }
+
+                leaf RemoteID {
+
+                    type base:Basetype_String {
+
+                        length "1..128";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DHCPSP6OptionEnable {
+
+            list OptionEnable {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf InterfaceIDEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf RemoteIDEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container DHCPSP6Interface {
+
+            list Interface {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf LearnMaxNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf RateLimitNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf CheckRequestMessage {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf BindingRecord {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf Trust {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container DHCPSP6Config {
+
+            leaf DHCPSP6Enable {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+    }
+
+}

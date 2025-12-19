@@ -1,0 +1,217 @@
+module H3C-objp-action
+
+{
+
+    namespace "http://www.h3c.com/netconf/action:1.0";
+
+    prefix "objp-action";
+
+    import comware-basetype 
+
+    {
+
+         prefix "base";
+
+    }
+
+    organization "H3C Inc.";
+
+    contact "Author";
+
+    description "The module entities for objp action.";
+
+    revision 2016-01-14
+
+	{
+
+        description "Initial revision.";
+
+    }
+
+    typedef OBJP_ZoneNameString
+
+    {
+
+        type string
+
+        {
+
+		    pattern "^[^?	
+
+]*$";
+
+            length "0..31";
+
+        }
+
+    }
+
+    typedef OBJP_RuleID
+
+    {
+
+        type uint32
+
+        {
+
+            range "min..65535";
+
+        }
+
+    }
+
+    container OBJP
+
+    {
+
+        config false;
+
+        container ClearZoneStatistic
+
+        {
+
+            list Zonepair
+
+            {
+
+                key "SrcZone DestZone";
+
+                leaf SrcZone
+
+                {
+
+                    type OBJP_ZoneNameString;
+
+                }
+
+                leaf DestZone
+
+                {
+
+                    type OBJP_ZoneNameString;
+
+                }
+
+                leaf ClearType
+
+                {
+
+                    type enumeration
+
+                    {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf Clear
+
+                {
+
+                    type empty;
+
+                }
+
+            }
+
+        }
+
+        container ClearAllStatistic
+
+        {
+
+            leaf ClearType
+
+            {
+
+                type enumeration
+
+                {
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+            }
+
+            leaf Clear
+
+            {
+
+                type empty;
+
+            }
+
+        }
+
+        container ClearRuleStatistic
+
+        {
+
+            list Rule
+
+            {
+
+                key "SrcZone DestZone ClearType RuleID";
+
+                leaf SrcZone
+
+                {
+
+                    type OBJP_ZoneNameString;
+
+                }
+
+                leaf DestZone
+
+                {
+
+                    type OBJP_ZoneNameString;
+
+                }
+
+                leaf ClearType
+
+                {
+
+                    type enumeration
+
+                    {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf RuleID
+
+                {
+
+                    type OBJP_RuleID;
+
+                }
+
+                leaf Clear
+
+                {
+
+                    type empty;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,33 @@
+module comware-top-action 
+
+{
+
+        namespace "http://www.h3c.com/netconf/action:1.0";
+
+        prefix action;
+
+        organization "H3C";
+
+        contact "Hangzhou H3C Technologies Co., Ltd.";
+
+        description "DO NOT use \'comware-top-action\' as module name under action, 
+
+                                 only \'top\' element can placed under \'rpc\\action\' element";
+
+        revision 2014-10-12 
+
+        {
+
+                description "Initial revision";
+
+        }
+
+        grouping top-action
+
+        {
+
+                anyxml top;
+
+        }
+
+}

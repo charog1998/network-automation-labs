@@ -1,0 +1,75 @@
+module H3C-sampler-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "sampler-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for sampler config.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container SAMPLER {
+
+        container Sampler {
+
+            list SamplerEntry {
+
+                key "SamplerName";
+
+                leaf SamplerName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf Mode {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..2";
+
+                    }
+
+                }
+
+                leaf PacketInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..max";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

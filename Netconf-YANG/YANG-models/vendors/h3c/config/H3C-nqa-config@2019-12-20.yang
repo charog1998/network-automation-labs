@@ -1,0 +1,2966 @@
+module H3C-nqa-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "nqa-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for nqa config.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container NQA {
+
+        container Templates {
+
+            description "NQA Templates table.
+
+                This table supports creating rows.";
+
+            list Template {
+
+                description "NQA Template row.";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Name .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                        enum 10;
+
+                        enum 11;
+
+                        enum 12;
+
+                        enum 13;
+
+                        enum 14;
+
+                        enum 15;
+
+                        enum 16;
+
+                        enum 17;
+
+                        enum 18;
+
+                        enum 19;
+
+                        enum 20;
+
+                        enum 21;
+
+                        enum 22;
+
+                        enum 23;
+
+                        enum 24;
+
+                        enum 25;
+
+                        enum 26;
+
+                        enum 27;
+
+                        enum 28;
+
+                        enum 29;
+
+                        enum 30;
+
+                    }
+
+                    description "Type. 0:ICMP-echo, 1:UDP-echo, 2:TCP, 3:DLSW, 4:FTP, 5:DHCP, 6:SNMP, 7:DNS, 8:HTTP.
+                               9:UDP-Jitter, 10:Voice, 11:Path-Jitter, 12:TraceRT, 13:ARP, 14:IMAP, 15:POP3
+                               16:Radius, 17:RTSP, 18:SIP, 19:SMTP, 20:SSL, 21:HTTPS, 22:TcpHalfOpen, 23:Throughput
+                               24:Latency, 25:Frame-loss, 26:ICMP-jitter, 27:SNMP-dca, 28:WAP, 29:Y1564, 30:RadiusAccount";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "1..200";
+
+                    }
+
+                    description "Description .String, case-sensitive.Length: 1 to 200 characters.";
+
+                }
+
+                leaf Frequency {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..604800000";
+
+                    }
+
+                    description "Frequency. Unsigned integer.Value range: 0 to 604800000.Default: 5000.";
+
+                }
+
+                leaf ProbeTimeout {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "ProbeTimeout. Unsigned integer Range from 10 to 86400000.for Ftp Range from 10 to 3600000.for others Default: 3000.";
+
+                }
+
+                leaf TTL {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..255";
+
+                    }
+
+                    description "TTL. Unsigned integer.Value range: 1 to 255.Default: 20.";
+
+                }
+
+                leaf ToS {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..255";
+
+                    }
+
+                    description "ToS. Unsigned integer.Value range: 0 to 255.Default: 0.";
+
+                }
+
+                leaf VRF {
+
+                    type base:Basetype_VRF;
+
+                    description "By default, the operation is performed on the public network.";
+
+                }
+
+                leaf URL {
+
+                    type base:Basetype_URLString {
+
+                        pattern "[^?	
+
+][^	
+
+]{0,254}";
+
+                    }
+
+                    description "Name .String,Length: 1 to 255 characters.";
+
+                }
+
+                leaf DstIP {
+
+                    type base:Basetype_IpAddress;
+
+                    description "DstIP String, dotted decimal notation.Or Hexadecimal string, colon-separated.";
+
+                }
+
+                leaf DstPort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "DstPort. Unsigned integer.Value range: 1 to 65535.";
+
+                }
+
+                leaf SrcIP {
+
+                    type base:Basetype_IpAddress;
+
+                    description "SrcIP String, dotted decimal notation.Or Hexadecimal string, colon-separated.";
+
+                }
+
+                leaf SrcPort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "SrcPort. Unsigned integer.Value range: 1 to 65535.";
+
+                }
+
+                leaf NextHop {
+
+                    type base:Basetype_IpAddress;
+
+                    description "NextHop String, dotted decimal notation.Or Hexadecimal string, colon-separated.";
+
+                }
+
+                leaf TriggerPassCount {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..15";
+
+                        }
+
+                    }
+
+                    description "TriggerPassCount. Unsigned integer.Value range: 1 to 15.Default: 3";
+
+                }
+
+                leaf TriggerFailCount {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..15";
+
+                        }
+
+                    }
+
+                    description "TriggerFailCount. Unsigned integer.Value range: 1 to 15.Default: 3";
+
+                }
+
+                leaf TriggerPerProbe {
+
+                    type base:Basetype_Boolean;
+
+                    description "TriggerPerProbe. Boolean. Default: false";
+
+                }
+
+                leaf FrequencyAdjust {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..604800000";
+
+                    }
+
+                    description "FrequencyAdjust. Unsigned integer.Value range: 0 to 604800000.Default: 0.";
+
+                }
+
+            }
+
+        }
+
+        container IcmpEchoTemplates {
+
+            description "NQA IcmpEchoTemplates table.";
+
+            list IcmpEchoTemplate {
+
+                description "NQA IcmpEchoTemplate row.";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Name .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf DataFill {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,200}";
+
+                    }
+
+                    description "Name .String.Length: 1 to 200 characters.";
+
+                }
+
+                leaf DataSize {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "20..65507";
+
+                    }
+
+                    description "DataSize. Unsigned integer.Value range: 20 to 65507.Default: 100";
+
+                }
+
+                leaf SrcIf {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{2,47}";
+
+                    }
+
+                    description "SrcIf .String.Length: 2 to 47 characters.";
+
+                }
+
+                leaf OutIf {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{2,47}";
+
+                    }
+
+                    description "OutIf .String.Length: 2 to 47 characters.";
+
+                }
+
+            }
+
+        }
+
+        container TcpTemplates {
+
+            description "NQA TcpTemplates table.";
+
+            list TcpTemplate {
+
+                description "NQA TcpTemplate row.";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Name .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf DataFill {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,200}";
+
+                    }
+
+                    description "DataFill .String.Length: 1 to 200 characters.";
+
+                }
+
+                container ExpectData {
+
+                    description "ExpectData , including Data, Offset and HexFlag.";
+
+                    leaf Data {
+
+                        type base:Basetype_String {
+
+                            pattern "[^?	
+
+]{1,200}";
+
+                        }
+
+                        description "Data: Name .String.Length: 1 to 200 characters.";
+
+                    }
+
+                    leaf Offset {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1000";
+
+                        }
+
+                        description "Offset Unsigned integer.Value range: 0 to 1000.Default: 0";
+
+                    }
+
+                    leaf StrictFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "Offset Flag.";
+
+                    }
+
+                    leaf HexFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "Specifying the string with hex adecimal.";
+
+                    }
+
+                }
+
+                container ExpectFailedData {
+
+                    description "ExpectFailedData , including Data, Offset and HexFlag.";
+
+                    leaf Data {
+
+                        type base:Basetype_String {
+
+                            pattern "[^?	
+
+]{1,200}";
+
+                        }
+
+                        description "Data: Name .String.Length: 1 to 200 characters.";
+
+                    }
+
+                    leaf Offset {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1000";
+
+                        }
+
+                        description "Offset Unsigned integer.Value range: 0 to 1000.Default: 0";
+
+                    }
+
+                    leaf StrictFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "Offset Flag.";
+
+                    }
+
+                    leaf HexFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "Specifying the string with hex adecimal.";
+
+                    }
+
+                }
+
+                container RequestDataFill {
+
+                    description "RequestDataFill , including Data and HexFlag.";
+
+                    leaf Data {
+
+                        type base:Basetype_String {
+
+                            pattern "[^?	
+
+]{1,200}";
+
+                        }
+
+                        description "Data: Name .String.Length: 1 to 200 characters.";
+
+                    }
+
+                    leaf HexFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "Specifying the string with hex adecimal.";
+
+                    }
+
+                }
+
+                container ReleaseDataFill {
+
+                    description "ReleaseDataFill , including Data and HexFlag.";
+
+                    leaf Data {
+
+                        type base:Basetype_String {
+
+                            pattern "[^?	
+
+]{1,200}";
+
+                        }
+
+                        description "Data: Name .String.Length: 1 to 200 characters.";
+
+                    }
+
+                    leaf HexFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "Specifying the string with hex adecimal.";
+
+                    }
+
+                }
+
+                leaf DisconnectMode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "DisconnectMode. Unsigned integer.Value range:0: RST, 1: FIN";
+
+                }
+
+            }
+
+        }
+
+        container UdpEchoTemplates {
+
+            description "NQA UdpEchoTemplates table.";
+
+            list UdpEchoTemplate {
+
+                description "NQA UdpEchoTemplate row.";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Name .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf DataFill {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,200}";
+
+                    }
+
+                    description "Name .String.Length: 1 to 200 characters.";
+
+                }
+
+                leaf DataSize {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "20..65507";
+
+                    }
+
+                    description "DataSize. Unsigned integer.Value range: 20 to 65507.Default: 100";
+
+                }
+
+                container ExpectData {
+
+                    description "ExpectData, including Data, Offset and HexFlag.";
+
+                    leaf Data {
+
+                        type base:Basetype_String {
+
+                            pattern "[^?	
+
+]{1,200}";
+
+                        }
+
+                        description "Data: Name .String.Length: 1 to 200 characters.";
+
+                    }
+
+                    leaf Offset {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1000";
+
+                        }
+
+                        description "Offset Unsigned integer.Value range: 0 to 1000.Default: 0";
+
+                    }
+
+                    leaf StrictFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "Offset Flag.";
+
+                    }
+
+                    leaf HexFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "Specifying the string with hex adecimal.";
+
+                    }
+
+                }
+
+                container ExpectFailedData {
+
+                    description "ExpectFailedData: including Data, Offset and HexFlag.";
+
+                    leaf Data {
+
+                        type base:Basetype_String {
+
+                            pattern "[^?	
+
+]{1,200}";
+
+                        }
+
+                        description "Data: Name .String.Length: 1 to 200 characters.";
+
+                    }
+
+                    leaf Offset {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1000";
+
+                        }
+
+                        description "Offset Unsigned integer.Value range: 0 to 1000.Default: 0";
+
+                    }
+
+                    leaf StrictFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "Offset Flag.";
+
+                    }
+
+                    leaf HexFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "Specifying the string with hex adecimal.";
+
+                    }
+
+                }
+
+                container RequestDataFill {
+
+                    description "RequestDataFill , including Data, HexFlag and RawFlag";
+
+                    leaf Data {
+
+                        type base:Basetype_String {
+
+                            pattern "[^?	
+
+]{1,200}";
+
+                        }
+
+                        description "Data: Name .String.Length: 1 to 200 characters.";
+
+                    }
+
+                    leaf HexFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "Specifying the string with hex adecimal.";
+
+                    }
+
+                    leaf RawFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "Specifying the string with raw mode.";
+
+                    }
+
+                }
+
+                container ReleaseDataFill {
+
+                    description "ReleaseDataFill , including Data and HexFlag.";
+
+                    leaf Data {
+
+                        type base:Basetype_String {
+
+                            pattern "[^?	
+
+]{1,200}";
+
+                        }
+
+                        description "Data: Name .String.Length: 1 to 200 characters.";
+
+                    }
+
+                    leaf HexFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "Specifying the string with hex adecimal.";
+
+                    }
+
+                }
+
+                leaf PortDetectEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "PortDetectEnable. Boolean. Default: false";
+
+                }
+
+            }
+
+        }
+
+        container FtpTemplates {
+
+            description "NQA FtpTemplates table.";
+
+            list FtpTemplate {
+
+                description "NQA FtpTemplate row.";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Name .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf Operation {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Operation.  Unsigned integer.Value range:1: Get , 2: Put.";
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "UserName .case-insensitive.String,Length: 1 to 32 characters.";
+
+                }
+
+                leaf Password {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Password .case-insensitive.String,Length: 1 to 32 characters.";
+
+                }
+
+                leaf FileName {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?/	
+
+]{1,200}";
+
+                    }
+
+                    description "FileName .case-insensitive.String,Length: 1 to 200 characters.";
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Mode. Enumeration 0: Active , 1: Passitive .Default: 0.";
+
+                }
+
+            }
+
+        }
+
+        container HttpTemplates {
+
+            description "NQA HttpTemplates table.";
+
+            list HttpTemplate {
+
+                description "NQA HttpTemplate row.";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Name .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "UserName .case-insensitive.String,Length: 1 to 32 characters.";
+
+                }
+
+                leaf Password {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Password .case-insensitive.String,Length: 1 to 32 characters.";
+
+                }
+
+                leaf Operation {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Operation. Unsigned integer.Value range:1: Get , 2: Post ,3:Raw .";
+
+                }
+
+                leaf Version {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Version. Unsigned integer.Value range:0: v1.0, 1: v1.1.";
+
+                }
+
+                leaf RawContent {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,1023}";
+
+                    }
+
+                    description "UserName .case-insensitive.String,Length: 1 to 1023 characters.";
+
+                }
+
+                leaf ExpectStatus {
+
+                    type base:Basetype_String {
+
+                        pattern "[0-9][0-9,-]{0,3999}";
+
+                    }
+
+                    description "ExpectStatus Number string., Number range from 0 to 999.Length rang from 1 to 4000";
+
+                }
+
+                container ExpectData {
+
+                    description "ExpectData , including Data and Offset.";
+
+                    leaf Data {
+
+                        type base:Basetype_String {
+
+                            pattern "[^?	
+
+]{1,200}";
+
+                        }
+
+                        description "Data: Name .String.Length: 1 to 200 characters.";
+
+                    }
+
+                    leaf Offset {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1000";
+
+                        }
+
+                        description "Offset Unsigned integer.Value range: 0 to 1000.Default: 0";
+
+                    }
+
+                    leaf StrictFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "Offset Flag.";
+
+                    }
+
+                }
+
+                leaf SslClientPolicy {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,31}";
+
+                    }
+
+                    description "SslClientPolicy .case-insensitive.String,Length: 1 to 31 characters.";
+
+                }
+
+                leaf ProxyUrl {
+
+                    type base:Basetype_URLString {
+
+                        pattern "[^?	
+
+][^	
+
+]{0,254}";
+
+                    }
+
+                    description "Name .String,Length: 1 to 255 characters.";
+
+                }
+
+                leaf ExpectFailedStatus {
+
+                    type base:Basetype_String {
+
+                        pattern "[0-9][0-9,-]{0,3999}";
+
+                    }
+
+                    description "ExpectFailedStatus Number string., Number range from 0 to 999.Length rang from 1 to 4000";
+
+                }
+
+                container ExpectFailedData {
+
+                    description "ExpectFailedData , including Data and Offset.";
+
+                    leaf Data {
+
+                        type base:Basetype_String {
+
+                            pattern "[^?	
+
+]{1,200}";
+
+                        }
+
+                        description "Data: Name .String.Length: 1 to 200 characters.";
+
+                    }
+
+                    leaf Offset {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1000";
+
+                        }
+
+                        description "Offset Unsigned integer.Value range: 0 to 1000.Default: 0";
+
+                    }
+
+                    leaf StrictFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "Offset Flag.";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DnsTemplates {
+
+            description "NQA DnsTemplates table.";
+
+            list DnsTemplate {
+
+                description "NQA DnsTemplate row.";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Name .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf ResolveTarget {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,255}";
+
+                    }
+
+                    description "ResolveTarget .case-insensitive.String,Length: 1 to 255 characters.";
+
+                }
+
+                leaf ResolveType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 28;
+
+                    }
+
+                    description "ResolveType. 1:Type A query, 28:Type AAAA query";
+
+                }
+
+                leaf ExpectIP {
+
+                    type base:Basetype_IpAddress;
+
+                    description "ExpectIP String, dotted decimal notation.Or Hexadecimal string, colon-separated.";
+
+                }
+
+                leaf OutIf {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{2,47}";
+
+                    }
+
+                    description "OutIf .String.Length: 2 to 47 characters.";
+
+                }
+
+            }
+
+        }
+
+        container RadiusTemplates {
+
+            description "NQA RadiusTemplates table.";
+
+            list RadiusTemplate {
+
+                description "NQA RadiusTemplate row.";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Name .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..253";
+
+                    }
+
+                    description "UserName .case-insensitive.String,Length: 1 to 253 characters.";
+
+                }
+
+                leaf Password {
+
+                    type base:Basetype_String {
+
+                        length "1..64";
+
+                    }
+
+                    description "Password .case-insensitive.String,Length: 1 to 64 characters.";
+
+                }
+
+                leaf Key {
+
+                    type base:Basetype_String {
+
+                        length "1..64";
+
+                    }
+
+                    description "Key .case-insensitive.String,Length: 1 to 64 characters.";
+
+                }
+
+            }
+
+        }
+
+        container RtspTemplates {
+
+            description "NQA RtspTemplates table.";
+
+            list RtspTemplate {
+
+                description "NQA RtspTemplate row.";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Name .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf ExpectStatus {
+
+                    type base:Basetype_String {
+
+                        pattern "[0-9][0-9,-]{0,3999}";
+
+                    }
+
+                    description "ExpectStatus Number string., Number range from 0 to 999.Length rang from 1 to 4000";
+
+                }
+
+                leaf RequestMethod {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "RequestMethod. Unsigned integer.Value range: 1.Options method(default), 2.Describe method.";
+
+                }
+
+            }
+
+        }
+
+        container SslTemplates {
+
+            description "NQA SslTemplates table.";
+
+            list SslTemplate {
+
+                description "NQA SslTemplate row.";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Name .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf ClientPolicy {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,31}";
+
+                    }
+
+                    description "ClientPolicy .case-insensitive.String,Length: 1 to 31 characters.";
+
+                }
+
+            }
+
+        }
+
+        container ImapTemplates {
+
+            description "NQA ImapTemplates table.";
+
+            list ImapTemplate {
+
+                description "NQA ImapTemplate row.";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Name .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..40";
+
+                    }
+
+                    description "UserName .case-insensitive.String,Length: 1 to 40 characters.";
+
+                }
+
+                leaf Password {
+
+                    type base:Basetype_String {
+
+                        length "1..40";
+
+                    }
+
+                    description "Password .case-insensitive.String,Length: 1 to 40 characters.";
+
+                }
+
+                leaf Mailbox {
+
+                    type base:Basetype_String {
+
+                        length "1..64";
+
+                    }
+
+                    description "Mailbox .case-insensitive.String,Length: 1 to 64 characters.";
+
+                }
+
+            }
+
+        }
+
+        container Pop3Templates {
+
+            description "NQA Pop3Templates table.";
+
+            list Pop3Template {
+
+                description "NQA Pop3Template row.";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Name .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..40";
+
+                    }
+
+                    description "UserName .case-insensitive.String,Length: 1 to 40 characters.";
+
+                }
+
+                leaf Password {
+
+                    type base:Basetype_String {
+
+                        length "1..40";
+
+                    }
+
+                    description "Password .case-insensitive.String,Length: 1 to 40 characters.";
+
+                }
+
+            }
+
+        }
+
+        container SnmpTemplates {
+
+            description "NQA SnmpTemplates table.";
+
+            list SnmpTemplate {
+
+                description "NQA SnmpTemplate row.";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Name .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf Community {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Community .case-insensitive.String,Length: 1 to 32 characters.";
+
+                }
+
+            }
+
+        }
+
+        container SnmpDcaTemplates {
+
+            description "NQA SnmpDcaTemplates table.";
+
+            list SnmpDcaTemplate {
+
+                description "NQA SnmpDcaTemplate row.";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Name .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf Community {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Community .case-insensitive.String,Length: 1 to 32 characters.";
+
+                }
+
+                leaf Version {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Version. Unsigned integer.Value range:1: SNMPv1, 2: SNMPv2c";
+
+                }
+
+                leaf AgentType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "AgentType. Unsigned integer.AgentType range:0: net-snmp., 1: windows, 2:userdef";
+
+                }
+
+                container CPU {
+
+                    description "CPU , including and Weight.";
+
+                    leaf Threshold {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..100";
+
+                        }
+
+                        description "CpuThreshold, Number range from 0 to 100 defaule 80";
+
+                    }
+
+                    leaf Weight {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..100";
+
+                        }
+
+                        description "CpuWeight, Number range from 0 to 100 defaule 3";
+
+                    }
+
+                }
+
+                container Memory {
+
+                    description "Memory , including Threshold and Weight.";
+
+                    leaf Threshold {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..100";
+
+                        }
+
+                        description "MemThreshold, Number range from 0 to 100 defaule 70";
+
+                    }
+
+                    leaf Weight {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..100";
+
+                        }
+
+                        description "MemWeight, Number range from 0 to 100 defaule 2";
+
+                    }
+
+                }
+
+                container Disk {
+
+                    description "Disk , including Threshold and Weight.";
+
+                    leaf Threshold {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..100";
+
+                        }
+
+                        description "DiskThreshold, Number range from 0 to 100 defaule 90";
+
+                    }
+
+                    leaf Weight {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..100";
+
+                        }
+
+                        description "DiskWeight, Number range from 0 to 100 defaule 4";
+
+                    }
+
+                }
+
+                list OID {
+
+                    description "OID , including OidString Threshold and  Weight.";
+
+                    key "OidString Threshold Weight";
+
+                    leaf OidString {
+
+                        type base:Basetype_String {
+
+                            pattern "[^?	
+
+]{1,255}";
+
+                        }
+
+                        description "Data: Name .String.Length: 1 to 255 characters.";
+
+                    }
+
+                    leaf Threshold {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..100";
+
+                        }
+
+                        description "Threshold of custom oid, Number range from 0 to 100";
+
+                    }
+
+                    leaf Weight {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..100";
+
+                        }
+
+                        description "Weight of custom oid, Number range from 0 to 100";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container WapTemplates {
+
+            description "NQA WapTemplates table.";
+
+            list WapTemplate {
+
+                description "NQA WapTemplate row.";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Name .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                container ExpectData {
+
+                    description "ExpectData , including Data, Offset and HexFlag.";
+
+                    leaf Data {
+
+                        type base:Basetype_String {
+
+                            pattern "[^?	
+
+]{1,200}";
+
+                        }
+
+                        description "Data: Name .String.Length: 1 to 200 characters.";
+
+                    }
+
+                    leaf Offset {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1000";
+
+                        }
+
+                        description "Offset Unsigned integer.Value range: 0 to 1000.Default: 0";
+
+                    }
+
+                    leaf StrictFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "Offset Flag.";
+
+                    }
+
+                    leaf HexFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "Specifying the string with hex adecimal.";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container SipTemplates {
+
+            description "NQA SipTemplates table.";
+
+            list SipTemplate {
+
+                description "NQA SipTemplate row.";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Name .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf ExpectStatus {
+
+                    type base:Basetype_String {
+
+                        pattern "[0-9][0-9,-]{0,3999}";
+
+                    }
+
+                    description "ExpectStatus Number string., Number range from 0 to 999.Length rang from 1 to 4000";
+
+                }
+
+                leaf TransProtocol {
+
+                    type enumeration {
+
+                        enum 6;
+
+                        enum 17;
+
+                    }
+
+                    description "TransProtocol. 6:TCP, 17:UDP";
+
+                }
+
+            }
+
+        }
+
+        container TcpHalfOpenTemplates {
+
+            description "NQA TcpHalfOpenTemplates table.";
+
+            list TcpHalfOpenTemplate {
+
+                description "NQA TcpHalfOpenTemplate row.";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "Name .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf PortDetectEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "PortDetectEnable. Boolean. Default: false";
+
+                }
+
+                leaf OutIf {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{2,47}";
+
+                    }
+
+                    description "OutIf .String.Length: 2 to 47 characters.";
+
+                }
+
+            }
+
+        }
+
+        container Entries {
+
+            description "NQA Entries table.
+
+                This table supports creating rows.";
+
+            list Entry {
+
+                description "NQA Entry row.";
+
+                key "AdminName OperationTag";
+
+                leaf AdminName {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "AdminName .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf OperationTag {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "OperationTag .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                        enum 10;
+
+                        enum 11;
+
+                        enum 12;
+
+                        enum 13;
+
+                        enum 14;
+
+                        enum 15;
+
+                        enum 16;
+
+                        enum 17;
+
+                        enum 18;
+
+                        enum 19;
+
+                        enum 20;
+
+                        enum 21;
+
+                        enum 22;
+
+                        enum 23;
+
+                        enum 24;
+
+                        enum 25;
+
+                        enum 26;
+
+                        enum 27;
+
+                        enum 28;
+
+                        enum 29;
+
+                        enum 30;
+
+                    }
+
+                    description "Type. 0:ICMP-echo, 1:UDP-echo, 2:TCP, 3:DLSW, 4:FTP, 5:DHCP, 6:SNMP, 7:DNS, 8:HTTP.
+                               9:UDP-Jitter, 10:Voice, 11:Path-Jitter, 12:TraceRT, 13:ARP, 14:IMAP, 15:POP3
+                               16:RADIUS, 17:RTSP, 18:SIP, 19:SNTP, 20:SSL, 21:HTTPS, 22:TCPHALFOPEN, 23:ThroughPut
+                               24:Latency, 25:Frame-Loss, 26:ICMP-Jitter, 27:SNMPDCA, 28:WAP, 29:Y1564, 30:RadiusAccount";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "1..200";
+
+                    }
+
+                    description "Description .String, case-sensitive.Length: 1 to 200 characters.";
+
+                }
+
+                leaf DstIP {
+
+                    type base:Basetype_IpAddress;
+
+                    description "DstIP String, dotted decimal notation.Or Hexadecimal string, colon-separated.";
+
+                }
+
+                leaf DstPort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "DstPort. Unsigned integer.Value range: 1 to 65535.";
+
+                }
+
+                leaf HistoryEnable {
+
+                    type base:Basetype_EnableState;
+
+                    description "HistoryEnable. base:EnableState.Value : enable / disable.";
+
+                }
+
+                leaf HistoryHoldTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..1440";
+
+                    }
+
+                    description "HistoryHoldTime. Unsigned integer.Value range: 1 to 1440.Default: 120.";
+
+                }
+
+                leaf HistoryNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..50";
+
+                    }
+
+                    description "HistoryNumber. Unsigned integer.Value range: 0 to 50.Default: 50.";
+
+                }
+
+                leaf Frequency {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..604800000";
+
+                    }
+
+                    description "Frequency. Unsigned integer.Value range: 0 to 604800000.";
+
+                }
+
+                leaf NextHop {
+
+                    type base:Basetype_IpAddress;
+
+                    description "NextHop String, dotted decimal notation.Or Hexadecimal string, colon-separated.";
+
+                }
+
+                leaf ProbeCount {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "ProbeCount. Unsigned integer Range from 1 to 15. default: 1.
+                         for UDP-tracert Range from 1 to 10.for others Default: 3.";
+
+                }
+
+                leaf ProbeTimeout {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "ProbeTimeout. Unsigned integer Range from 10 to 86400000 for Ftp and Http;
+                         Range from 10 to 3600000 for others. Default: 3000.";
+
+                }
+
+                leaf BypassRouteEnable {
+
+                    type base:Basetype_EnableState;
+
+                    description "BypassRouteEnable. base:EnableState.Value : enable / disable.";
+
+                }
+
+                leaf SrcIP {
+
+                    type base:Basetype_IpAddress;
+
+                    description "SrcIP String, dotted decimal notation.Or Hexadecimal string, colon-separated.";
+
+                }
+
+                leaf SrcPort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "SrcPort. Unsigned integer.Value range: 1 to 65535.";
+
+                }
+
+                leaf StatHoldTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..1440";
+
+                    }
+
+                    description "StatHoldTime. Unsigned integer.Value range: 1 to 1440.Default: 120.";
+
+                }
+
+                leaf StatInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..35791394";
+
+                    }
+
+                    description "StatInterval. Unsigned integer.Value range: 1 to 35791394.Default: 60.";
+
+                }
+
+                leaf StatMaxGroup {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..100";
+
+                    }
+
+                    description "StatMaxGroup. Unsigned integer.Value range: 0 to 100.Default: 2.";
+
+                }
+
+                leaf TTL {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..255";
+
+                    }
+
+                    description "TTL. Unsigned integer.Value range: 1 to 255.The default vaule is 30 for UDP-tracert, 20 for others.";
+
+                }
+
+                leaf ToS {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..255";
+
+                    }
+
+                    description "ToS. Unsigned integer.Value range: 0 to 255.Default: 0.";
+
+                }
+
+                leaf VRF {
+
+                    type base:Basetype_VRF;
+
+                    description "By default, the operation is performed on the public network.";
+
+                }
+
+                leaf URL {
+
+                    type base:Basetype_URLString {
+
+                        pattern "[^?	
+
+][^	
+
+]{0,254}";
+
+                    }
+
+                    description "Name .String,Length: 1 to 255 characters.";
+
+                }
+
+            }
+
+        }
+
+        container IcmpEchoEntries {
+
+            description "NQA IcmpEchoEntries table.";
+
+            list IcmpEchoEntry {
+
+                description "NQA IcmpEchoEntry row.";
+
+                key "AdminName OperationTag";
+
+                leaf AdminName {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "AdminName .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf OperationTag {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "OperationTag .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf DataFill {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,200}";
+
+                    }
+
+                    description "Name .String.Length: 1 to 200 characters.";
+
+                }
+
+                leaf DataSize {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "20..65507";
+
+                    }
+
+                    description "DataSize. Unsigned integer.Value range: 20 to 65507.Default: 100";
+
+                }
+
+                leaf SrcIf {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{2,47}";
+
+                    }
+
+                    description "SrcIf .String.Length: 2 to 47 characters.";
+
+                }
+
+                leaf OutIf {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{2,47}";
+
+                    }
+
+                    description "OutIf .String.Length: 2 to 47 characters.";
+
+                }
+
+                leaf RethMemberProbe {
+
+                    type base:Basetype_EnableState;
+
+                    description "RethMemberProbe. base:EnableState.Value : enable / disable.";
+
+                }
+
+            }
+
+        }
+
+        container Schedules {
+
+            description "NQA Schedules table.";
+
+            list Schedule {
+
+                description "NQA Schedule row.";
+
+                key "AdminName OperationTag";
+
+                leaf AdminName {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "AdminName .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf OperationTag {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "OperationTag .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                container StartTime {
+
+                    description "StartTime , including StartNow and Time.";
+
+                    leaf StartNow {
+
+                        type base:Basetype_Boolean;
+
+                        description "StartNow. base:Boolean.";
+
+                    }
+
+                    leaf Time {
+
+                        type base:Basetype_DateTime;
+
+                        description "Time. base:DateTime.";
+
+                    }
+
+                }
+
+                container Lifetime {
+
+                    description "Lifetime, including Forever and Duration.";
+
+                    leaf Forever {
+
+                        type base:Basetype_Boolean;
+
+                        description "Forever. base:Boolean.";
+
+                    }
+
+                    leaf Duration {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..2147483647";
+
+                        }
+
+                        description "Lifetime. Unsigned integer. Value range: 0 to 2147483647.";
+
+                    }
+
+                }
+
+                leaf Recurring {
+
+                    type base:Basetype_EnableState;
+
+                    description "Recurring. base:EnableState: enable / disable, default: disable";
+
+                }
+
+            }
+
+        }
+
+        container ReactionTriggerFailItems {
+
+            description "NQA ReactionTriggerFailItems table.
+
+                This table supports creating rows.";
+
+            list ReactionTriggerFailItem {
+
+                description "NQA ReactionTriggerFailItem row.";
+
+                key "AdminName OperationTag ItemNumber";
+
+                leaf AdminName {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "AdminName .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf OperationTag {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "OperationTag .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf ItemNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..10";
+
+                    }
+
+                    description "ItemNumber. Unsigned integer.Value range: 1 to 10.";
+
+                }
+
+                leaf Occurrences {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..16";
+
+                    }
+
+                    description "Occurrences. Unsigned integer.Value range: 1 to 16.";
+
+                }
+
+            }
+
+        }
+
+        container IcmpJitterEntries {
+
+            description "NQA IcmpJitterEntries table.";
+
+            list IcmpJitterEntry {
+
+                description "NQA IcmpJitterEntry row.";
+
+                key "AdminName OperationTag";
+
+                leaf AdminName {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "AdminName .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf OperationTag {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "OperationTag .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf PktInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "10..60000";
+
+                    }
+
+                    description "PktInterval. Unsigned integer.Value range: 10 to 60000. Default: 20";
+
+                }
+
+                leaf PktNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "10..1000";
+
+                    }
+
+                    description "PktNumber. Unsigned integer. Value range: 10 to 1000. Default: 10";
+
+                }
+
+                leaf PktTimeout {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "10..3600000";
+
+                    }
+
+                    description "PktTimeout .Unsigned integer.Value range: Length: 10 to 3600000. Default: 3000";
+
+                }
+
+            }
+
+        }
+
+        container UdpJitterEntries {
+
+            description "NQA UdpJitterEntries table.";
+
+            list UdpJitterEntry {
+
+                description "NQA UdpJitterEntry row.";
+
+                key "AdminName OperationTag";
+
+                leaf AdminName {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "AdminName .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf OperationTag {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "OperationTag .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf PktInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "10..60000";
+
+                    }
+
+                    description "PktInterval. Unsigned integer.Value range: 10 to 60000. Default: 20";
+
+                }
+
+                leaf PktNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "10..1000";
+
+                    }
+
+                    description "PktNumber. Unsigned integer. Value range: 10 to 1000. Default: 10";
+
+                }
+
+                leaf PktTimeout {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "10..3600000";
+
+                    }
+
+                    description "PktTimeout .Unsigned integer.Value range: Length: 10 to 3600000. Default: 3000";
+
+                }
+
+                leaf DataFill {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,200}";
+
+                    }
+
+                    description "Name. String. Length: 1 to 200 characters.";
+
+                }
+
+                leaf DataSize {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "68..65507";
+
+                    }
+
+                    description "DataSize. Unsigned integer. Value range: 68 to 65507. Default: 100";
+
+                }
+
+                leaf OutIf {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{2,47}";
+
+                    }
+
+                    description "OutIf .String.Length: 2 to 47 characters.";
+
+                }
+
+                leaf HighPerformance {
+
+                    type base:Basetype_Boolean;
+
+                    description "HighPerformance. Boolean. Default: false";
+
+                }
+
+                container MplsSimulation {
+
+                    description "MplsSimulation , including Enable and Exp.";
+
+                    leaf Enable {
+
+                        type base:Basetype_Boolean;
+
+                        description "Enable: Boolean. Default: false.";
+
+                    }
+
+                    leaf Exp {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..7";
+
+                        }
+
+                        description "Exp. Unsigned integer. Value range: 0 to 7. Default: 0";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Reactions {
+
+            description "NQA Reactions table.
+
+                This table supports creating rows.";
+
+            list Reaction {
+
+                description "NQA Reaction row.";
+
+                key "AdminName OperationTag ItemNumber";
+
+                leaf AdminName {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "AdminName .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf OperationTag {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{1,32}";
+
+                    }
+
+                    description "OperationTag .String, case-insensitive.Length: 1 to 32 characters.";
+
+                }
+
+                leaf ItemNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..10";
+
+                    }
+
+                    description "ItemNumber. Unsigned integer.Value range: 1 to 10.";
+
+                }
+
+                leaf CheckedElement {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                        enum 10;
+
+                    }
+
+                    description "Type. 0:invalid, 1:probe-duration, 2:probe-fail, 3:rtt, 4:pkt-loss, 5:jitter-sd, 
+                               6:jitter-ds, 7:icpif, 8:mos, 9:owd-sd, 10:owd-ds";
+
+                }
+
+                container ThresholdType {
+
+                    description "Threshold type, including Type and Occurrences.";
+
+                    leaf Type {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "Type. 1:average, 2:consecutive, 3:accumulate";
+
+                    }
+
+                    leaf Occurrences {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Occurrences. Unsigned integer. Vary by type.";
+
+                    }
+
+                }
+
+                container ThresholdValue {
+
+                    description "Threshold value, including UpperLimit and LowerLimit.";
+
+                    leaf UpperLimit {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "UpperLimit of threshold.";
+
+                    }
+
+                    leaf LowerLimit {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "LowerLimit of threshold.";
+
+                    }
+
+                }
+
+                leaf ActionType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Type. 0:none, 1:trap, 2:trigger";
+
+                }
+
+            }
+
+        }
+
+        container ClientStatus {
+
+            description "NQA client status table";
+
+            leaf Enable {
+
+                type base:Basetype_EnableState;
+
+                description "Enable. 0:BOOL_FALSE, 1:BOOL_TRUE";
+
+            }
+
+        }
+
+    }
+
+}

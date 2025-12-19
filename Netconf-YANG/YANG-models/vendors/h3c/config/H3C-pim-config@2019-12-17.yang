@@ -1,0 +1,121 @@
+module H3C-pim-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "pim-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for pim config.";
+
+    revision 2019-12-17 {
+
+        description "Initial revision.";
+
+    }
+
+    container PIM {
+
+        container Ipv4Instances {
+
+            description "IPv4 PIM VRF information table
+
+                This table supports creating rows.";
+
+            list Instance {
+
+                description "Row name";
+
+                key "VRF";
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VRF;
+
+                    }
+
+                    description "VRF name";
+
+                }
+
+                leaf RegWholeChks {
+
+                    type base:Basetype_Boolean;
+
+                    description "Whether calculate the checksum based on the entire register message";
+
+                }
+
+                leaf SsmPolicy {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2000..2999";
+
+                    }
+
+                    description "ACL number of SSM group range";
+
+                }
+
+            }
+
+        }
+
+        container Ipv4Interfaces {
+
+            description "IPv4 PIM interface information table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "PIM mode, 1 for SM and 2 for DM";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

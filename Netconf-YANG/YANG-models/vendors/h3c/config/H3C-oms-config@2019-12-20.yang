@@ -1,0 +1,1157 @@
+module H3C-oms-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "oms-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for oms config.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container OMS {
+
+        container IPv4Groups {
+
+            description "IPv4 Object group table
+
+                This table supports creating rows.";
+
+            list Group {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "IPv4 object group name";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "0..127";
+
+                    }
+
+                    description "Description of IPv4 object group";
+
+                }
+
+                leaf SecurityZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Security zone referenced by IPv4 object group";
+
+                }
+
+            }
+
+        }
+
+        container IPv4Objs {
+
+            description "IPv4 address table
+
+                This table supports creating rows.";
+
+            list Obj {
+
+                description "Row name";
+
+                key "Group ID";
+
+                leaf Group {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Main IPv4 object group name";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..4294967295";
+
+                    }
+
+                    description "Object ID";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                    }
+
+                    description "Configuration type of IPv4 address";
+
+                }
+
+                leaf SubnetIPv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "SubnetIPv4Address is valid only when the Type is Subnet";
+
+                }
+
+                leaf IPv4Mask {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "IPv4Mask is valid only when the Type is Subnet";
+
+                }
+
+                leaf IPv4WildcardAddress {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "IPv4WildcardAddress is valid only when the Type is Wildcard";
+
+                }
+
+                leaf IPv4WildcardMask {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "IPv4WildcardMask is valid only when the Type is Wildcard";
+
+                }
+
+                leaf StartIPv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "StartIPv4Address is valid only when the Type is Range";
+
+                }
+
+                leaf EndIPv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "EndIPv4Address is valid only when the Type is Range";
+
+                }
+
+                leaf HostIPv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "HostIPv4Address is valid only when the Type is Host Address";
+
+                }
+
+                leaf HostName {
+
+                    type base:Basetype_String {
+
+                        length "0..60";
+
+                    }
+
+                    description "HostName is valid only when the Type is Host Name";
+
+                }
+
+                leaf NestedGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "NestedGroup is valid only when the Type is Nested Group";
+
+                }
+
+                leaf User {
+
+                    type base:Basetype_String {
+
+                        length "0..55";
+
+                    }
+
+                }
+
+                leaf UserDomain {
+
+                    type base:Basetype_String {
+
+                        length "0..255";
+
+                    }
+
+                }
+
+                leaf UserGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..32";
+
+                    }
+
+                }
+
+                leaf UserGroupDomain {
+
+                    type base:Basetype_String {
+
+                        length "0..255";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IPv6Groups {
+
+            description "IPv6 Object group table
+
+                This table supports creating rows.";
+
+            list Group {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "IPv6 object group name";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "0..127";
+
+                    }
+
+                    description "Description of IPv6 object group";
+
+                }
+
+                leaf SecurityZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Security zone referenced by IPv6 object group";
+
+                }
+
+            }
+
+        }
+
+        container IPv6Objs {
+
+            description "IPv6 Address Table
+
+                This table supports creating rows.";
+
+            list Obj {
+
+                key "Group ID";
+
+                leaf Group {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Main object group name";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..4294967295";
+
+                    }
+
+                    description "Object ID";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                    }
+
+                    description "Configuration type of IPv6 address";
+
+                }
+
+                leaf SubnetIPv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "SubnetIPv6Address is valid only when the Type is Subnet";
+
+                }
+
+                leaf IPv6PrefixLen {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..128";
+
+                    }
+
+                    description "IPv6PrefixLen is valid only when the Type is Subnet";
+
+                }
+
+                leaf StartIPv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "StartIPv6Address is valid only when the Type is Range";
+
+                }
+
+                leaf EndIPv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "EndIPv6Address is valid only when the Type is Range";
+
+                }
+
+                leaf HostIPv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "HostIPv6Address is valid only when the Type is Host Address";
+
+                }
+
+                leaf HostName {
+
+                    type base:Basetype_String {
+
+                        length "0..60";
+
+                    }
+
+                    description "HostName is valid only when the Type is Host Name";
+
+                }
+
+                leaf NestedGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "NestedGroup is valid only when the Type is Nested Group";
+
+                }
+
+                leaf User {
+
+                    type base:Basetype_String {
+
+                        length "0..55";
+
+                    }
+
+                }
+
+                leaf UserDomain {
+
+                    type base:Basetype_String {
+
+                        length "0..255";
+
+                    }
+
+                }
+
+                leaf UserGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..32";
+
+                    }
+
+                }
+
+                leaf UserGroupDomain {
+
+                    type base:Basetype_String {
+
+                        length "0..255";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container ServGroups {
+
+            description "Service Object group table
+
+                This table supports creating rows.";
+
+            list Group {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Service object group name";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "0..127";
+
+                    }
+
+                    description "Description of service object group";
+
+                }
+
+            }
+
+        }
+
+        container ServObjs {
+
+            description "Service Table
+
+                This table supports creating rows.";
+
+            list Obj {
+
+                description "Row name";
+
+                key "Group ID";
+
+                leaf Group {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Main object group name";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..4294967295";
+
+                    }
+
+                    description "Object ID";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                    description "Object Type";
+
+                }
+
+                leaf Protocol {
+
+                    type base:Basetype_UnsignedChar;
+
+                    description "Protocol is valid only when the Type is Protocol";
+
+                }
+
+                leaf StartSrcPort {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "StartSrcPort is valid only when the Type is TCP or UDP";
+
+                }
+
+                leaf EndSrcPort {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "EndSrcPort is valid only when the Type is TCP or UDP";
+
+                }
+
+                leaf StartDestPort {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "StartDestPort is valid only when the Type is TCP or UDP";
+
+                }
+
+                leaf EndDestPort {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "EndDestPort is valid only when the Type is TCP or UDP";
+
+                }
+
+                leaf ICMPType {
+
+                    type base:Basetype_UnsignedChar;
+
+                    description "ICMPType is valid only when the Type is ICMP";
+
+                }
+
+                leaf ICMPCode {
+
+                    type base:Basetype_UnsignedChar;
+
+                    description "ICMPCode is valid only when the Type is ICMP";
+
+                }
+
+                leaf NestedGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "NestedGroup is valid only when the Type is Nested Group";
+
+                }
+
+            }
+
+        }
+
+        container UserServObjs {
+
+            description "User Defined Service Table
+
+                This table supports creating rows.";
+
+            list Obj {
+
+                description "Row name";
+
+                key "Group ID";
+
+                leaf Group {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Main object group name";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..4294967295";
+
+                    }
+
+                    description "Object ID";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                    description "Object Type";
+
+                }
+
+                leaf Protocol {
+
+                    type base:Basetype_UnsignedChar;
+
+                    description "Protocol is valid only when the Type is Protocol";
+
+                }
+
+                leaf StartSrcPort {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "StartSrcPort is valid only when the Type is TCP or UDP";
+
+                }
+
+                leaf EndSrcPort {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "EndSrcPort is valid only when the Type is TCP or UDP";
+
+                }
+
+                leaf StartDestPort {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "StartDestPort is valid only when the Type is TCP or UDP";
+
+                }
+
+                leaf EndDestPort {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "EndDestPort is valid only when the Type is TCP or UDP";
+
+                }
+
+                leaf ICMPType {
+
+                    type base:Basetype_UnsignedChar;
+
+                    description "ICMPType is valid only when the Type is ICMP";
+
+                }
+
+                leaf ICMPCode {
+
+                    type base:Basetype_UnsignedChar;
+
+                    description "ICMPCode is valid only when the Type is ICMP";
+
+                }
+
+                leaf NestedGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "NestedGroup is valid only when the Type is Nested Group";
+
+                }
+
+            }
+
+        }
+
+        container PortGroups {
+
+            description "Port Object group table
+
+                This table supports creating rows.";
+
+            list Group {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Port object group name";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "0..127";
+
+                    }
+
+                    description "Description of Port object group";
+
+                }
+
+            }
+
+        }
+
+        container PortObjs {
+
+            description "Port Table
+
+                This table supports creating rows.";
+
+            list Obj {
+
+                description "Row name";
+
+                key "Group ID";
+
+                leaf Group {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Main object group name";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..4294967295";
+
+                    }
+
+                    description "Object ID";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Object Type";
+
+                }
+
+                leaf StartPort {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "StartPort is valid only when the Type is Range";
+
+                }
+
+                leaf EndPort {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "EndPort is valid only when the Type is Range";
+
+                }
+
+                leaf NestedGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "NestedGroup is valid only when the Type is Nested Group";
+
+                }
+
+            }
+
+        }
+
+        container IPv4Exclude {
+
+            description "IPv4 Exclude address table
+
+                This table supports creating rows.";
+
+            list Address {
+
+                description "Row name";
+
+                key "Group ID ExcludeIPv4Address";
+
+                leaf Group {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Main IPv4 object group name";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..4294967295";
+
+                    }
+
+                    description "Object ID";
+
+                }
+
+                leaf ExcludeIPv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "ExcludeIPv4Address";
+
+                }
+
+            }
+
+        }
+
+        container IPv6Exclude {
+
+            description "IPv6 Exclude address table
+
+                This table supports creating rows.";
+
+            list Address {
+
+                description "Row name";
+
+                key "Group ID ExcludeIPv6Address";
+
+                leaf Group {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Main IPv6 object group name";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..4294967295";
+
+                    }
+
+                    description "Object ID";
+
+                }
+
+                leaf ExcludeIPv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "ExcludeIPv6Address";
+
+                }
+
+            }
+
+        }
+
+        container MACGroups {
+
+            description "MAC Object group table
+
+                This table supports creating rows.";
+
+            list Group {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "MAC object group name";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "0..127";
+
+                    }
+
+                    description "Description of MAC object group";
+
+                }
+
+            }
+
+        }
+
+        container MACObjs {
+
+            description "MAC object table
+
+                This table supports creating rows.";
+
+            list Obj {
+
+                description "Row name";
+
+                key "Group ID";
+
+                leaf Group {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Main MAC object group name";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..4294967295";
+
+                    }
+
+                    description "Object ID";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Configuration type of IPv4 address";
+
+                }
+
+                leaf MACAddress {
+
+                    type base:Basetype_MacAddress;
+
+                    description "MAC Address is valid only when the Type is MACAddress";
+
+                }
+
+                leaf NestedGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "NestedGroup is valid only when the Type is Nested Group";
+
+                }
+
+            }
+
+        }
+
+        container DnsAging {
+
+            description "DNS agint time table";
+
+            leaf Enable {
+
+                type base:Basetype_Boolean;
+
+                description "Enable the DNS aging";
+
+            }
+
+            leaf AgingTime {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..70000000";
+
+                }
+
+                description "Aging time: 1~70000000";
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,133 @@
+module H3C-mqc-action
+
+{
+
+    namespace "http://www.h3c.com/netconf/action:1.0";
+
+    prefix "mqc-action";
+
+    import comware-basetype 
+
+    {
+
+         prefix "base";
+
+    }
+
+    organization "H3C Inc.";
+
+    contact "Author";
+
+    description "The module entities for mqc action.";
+
+    revision 2016-01-24
+
+	{
+
+        description "Initial revision.";
+
+    }
+
+    typedef MQC_VLANID
+
+    {
+
+        type uint32
+
+        {
+
+            range "1..4094";
+
+        }
+
+    }
+
+    container MQC
+
+    {
+
+        config false;
+
+        container ClearGlobalStatistic
+
+        {
+
+            list Application
+
+            {
+
+                leaf Direction
+
+                {
+
+                    type enumeration
+
+                    {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf Clear
+
+                {
+
+                    type empty;
+
+                }
+
+            }
+
+        }
+
+        container ClearVlanStatistic
+
+        {
+
+            list Application
+
+            {
+
+                leaf VLANID
+
+                {
+
+                    type MQC_VLANID;
+
+                }
+
+                leaf Direction
+
+                {
+
+                    type enumeration
+
+                    {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf Clear
+
+                {
+
+                    type empty;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

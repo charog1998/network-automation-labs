@@ -1,0 +1,139 @@
+module H3C-cwmp-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "cwmp-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for cwmp data.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container CWMP {
+
+        config false;
+
+        container Configuration {
+
+            description "The global settings for CWMP, table name: Configuration";
+
+            leaf Status {
+
+                type base:Basetype_EnableState;
+
+                description "Status of the CWMP
+
+                      enable.
+
+                      disable(default).";
+
+            }
+
+            container ACS {
+
+                description "ACS Settings";
+
+                leaf URL {
+
+                    type base:Basetype_String {
+
+                        length "8..255";
+
+                    }
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+                leaf Password {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+            }
+
+            container CPE {
+
+                description "CPE Settings";
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+                leaf Password {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+                leaf ConnectInterface {
+
+                    type base:Basetype_InterfaceName;
+
+                }
+
+                leaf InformPeriodicStatus {
+
+                    type base:Basetype_EnableState;
+
+                }
+
+                leaf InformPeriodicInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "10..86400";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

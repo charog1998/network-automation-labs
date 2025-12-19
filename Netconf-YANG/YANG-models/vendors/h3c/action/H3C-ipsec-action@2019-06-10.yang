@@ -1,0 +1,439 @@
+module H3C-ipsec-action {
+
+    namespace "http://www.h3c.com/netconf/action:1.0";
+
+    prefix "ipsec-action";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ipsec action.";
+
+    revision 2019-06-10 {
+
+        description "Initial revision.";
+
+    }
+
+    container IPsec {
+
+        config false;
+
+        container ClearGlobalStats {
+
+            description "Clear IPsec all statistics";
+
+            leaf Clear {
+
+                type string;
+
+                description "Clear IPsec global statistics";
+
+            }
+
+        }
+
+        container ResetAllSA {
+
+            description "Reset all IPsec SA";
+
+            leaf Reset {
+
+                type string;
+
+                description "Reset all IPsec SA";
+
+            }
+
+        }
+
+        container ClearTunnelsStats {
+
+            description "clear IPsec tunnel statistics";
+
+            list Clear {
+
+                description "Row name";
+
+                key "TunnelID";
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Specify Tunnel id";
+
+                }
+
+            }
+
+        }
+
+        container ResetSAPolicies {
+
+            description "Reset IPsec SA by policy";
+
+            list Reset {
+
+                description "Row name";
+
+                key "PolicyName AddrType";
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The policy name, string, length: 1 to 63 characters.";
+
+                }
+
+                leaf AddrType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "IP protocol type
+
+                                                    Enumeration:
+
+                                                    1-Ipv4Address
+
+                                                    2-Ipv6Address";
+
+                }
+
+                leaf SeqNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "The sequence number for the IPsec policy, unsigned integer, value range: 1 to 65535
+
+                                                    If don't specify SeqNum, it will reset all the IPsec SAs belong to the policy group";
+
+                }
+
+            }
+
+        }
+
+        container ResetSARemoteAddrs {
+
+            description "Reset IPsec SA by remote address";
+
+            list Reset {
+
+                description "Row name";
+
+                key "AddrType RemoteAddr";
+
+                leaf AddrType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "IP protocol type
+
+                                                    Enumeration:
+
+                                                    1-Ipv4Address
+
+                                                    2-Ipv6Address";
+
+                }
+
+                leaf RemoteAddr {
+
+                    type base:Basetype_IpAddress;
+
+                    description "Remote IP address, Ipv4 address or Ipv6 address
+
+                                                    The Address value lies on AddressType";
+
+                }
+
+            }
+
+        }
+
+        container ResetSASPIs {
+
+            description "Reset IPsec SA by SPI, remote address and security protocol";
+
+            list Reset {
+
+                description "Row name";
+
+                key "AddrType RemoteAddr SecurityProto SPI";
+
+                leaf AddrType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "IP protocol type
+
+                                                        Enumeration:
+
+                                                        1-Ipv4Address
+
+                                                        2-Ipv6Address";
+
+                }
+
+                leaf RemoteAddr {
+
+                    type base:Basetype_IpAddress;
+
+                    description "Remote IP address, Ipv4 address or Ipv6 address
+
+														The Address value lies on AddressType";
+
+                }
+
+                leaf SecurityProto {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "IPsec Security Protocol
+
+                                                        Enumeration:
+
+                                                        1-AH
+
+                                                        2-ESP";
+
+                }
+
+                leaf SPI {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Security Parameter Index, unsigned integer, value range: 0 to 2^32-1.";
+
+                }
+
+            }
+
+        }
+
+        container SmartVpnMoveLinks {
+
+            list SmartVpnMoveLink {
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+                leaf SrcID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf DestID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+        container SmartVpnActiveLinks {
+
+            list SmartVpnActiveLink {
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+                leaf LinkID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..30";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IPSecDiagnose {
+
+            description "Set IPSecDiagnose Item";
+
+            leaf Type {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                    enum 3;
+
+                }
+
+                description "Encapsulation mode 
+
+                            Enumeration:
+
+                            1-Flow
+
+                            2-Interface
+
+                            3-RemoteIP";
+
+            }
+
+            leaf IfIndex {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf Protocol {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..255";
+
+                }
+
+                description "Protocol Type, Unsigned integer, 
+
+                            value range: 0 to 255,";
+
+            }
+
+            leaf SrcIP {
+
+                type base:Basetype_Ipv4Address;
+
+                description "Source IP address";
+
+            }
+
+            leaf DstIP {
+
+                type base:Basetype_Ipv4Address;
+
+                description "Destination IP address";
+
+            }
+
+            leaf SrcPort {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..65535";
+
+                }
+
+                description "Source Port, Unsigned integer, 
+
+                            value range: 0 to 65535,";
+
+            }
+
+            leaf DstPort {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..65535";
+
+                }
+
+                description "Destination Port, Unsigned integer, 
+
+                            value range: 0 to 65535,";
+
+            }
+
+            leaf Vrf {
+
+                type base:Basetype_String {
+
+                    length "1..31";
+
+                }
+
+                description "IPsec Diagnose Vrf name, string, length: 1 to 31 characters.";
+
+            }
+
+        }
+
+        container StopDiagnose {
+
+            description "Stop IPSec Diagnose";
+
+            leaf Stop {
+
+                type string;
+
+                description "Stop IPSec Diagnose";
+
+            }
+
+        }
+
+    }
+
+}

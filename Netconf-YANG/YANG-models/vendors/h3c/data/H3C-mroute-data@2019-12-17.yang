@@ -1,0 +1,211 @@
+module H3C-mroute-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "mroute-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for mroute data.";
+
+    revision 2019-12-17 {
+
+        description "Initial revision.";
+
+    }
+
+    container Mroute {
+
+        config false;
+
+        container Ipv4Instances {
+
+            description "IPv4 multicast routing VRF information table
+
+                This table supports creating rows.";
+
+            list Instance {
+
+                description "Row name";
+
+                key "VRF";
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VRF;
+
+                    }
+
+                    description "VRF name";
+
+                }
+
+            }
+
+        }
+
+        container Ipv4Mroutes {
+
+            description "IPv4 multicast routing entry table";
+
+            list MrouteEntry {
+
+                description "Row name";
+
+                key "VRF GroupAddr SourceAddr";
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VRF;
+
+                    }
+
+                    description "VRF name";
+
+                }
+
+                leaf GroupAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Group address";
+
+                }
+
+                leaf SourceAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Source address";
+
+                }
+
+                leaf InIfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Incoming-interface index";
+
+                }
+
+                leaf Uptime {
+
+                    type base:Basetype_TimeTicks;
+
+                    description "Uptime in seconds";
+
+                }
+
+                leaf Expires {
+
+                    type base:Basetype_TimeTicks;
+
+                    description "Expire time in seconds";
+
+                }
+
+                leaf OutIfNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of outgoing-interfaces";
+
+                }
+
+            }
+
+        }
+
+        container Ipv4OutIfs {
+
+            description "Outgoing-interface table of IPv4 multicast routing entry";
+
+            list OutIf {
+
+                description "Outgoing-interfaces";
+
+                key "VRF GroupAddr SourceAddr IfIndex";
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VRF;
+
+                    }
+
+                    description "VRF name";
+
+                }
+
+                leaf GroupAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Group address";
+
+                }
+
+                leaf SourceAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Source address";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Outgoing-interface index";
+
+                }
+
+                leaf Uptime {
+
+                    type base:Basetype_TimeTicks;
+
+                    description "Uptime in seconds";
+
+                }
+
+                leaf Expires {
+
+                    type base:Basetype_TimeTicks;
+
+                    description "Expire time in seconds";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

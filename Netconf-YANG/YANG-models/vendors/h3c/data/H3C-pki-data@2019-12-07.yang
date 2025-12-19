@@ -1,0 +1,1727 @@
+module H3C-pki-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "pki-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for pki data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container PKI {
+
+        config false;
+
+        container Domains {
+
+            description "Get information of PKI domain
+
+                This table supports creating rows.";
+
+            list Domain {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "PKI domain name, 1 to 31 characters, case insensitive";
+
+                }
+
+                leaf CAIdentifier {
+
+                    type base:Basetype_Text;
+
+                    description "CA identifier name, 1 to 63 characters, case sensitive";
+
+                }
+
+                leaf Entity {
+
+                    type base:Basetype_String;
+
+                    description "Reference a PKI entity for the PKI domain, 1 to 31 characters, case insensitive";
+
+                }
+
+                leaf CertRequestFrom {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The type of certificate request reception authority
+
+                          Enumeration
+
+                          1-CA
+
+                          2-RA";
+
+                }
+
+                container CertRequestURL {
+
+                    description "The URL of the certificate request reception authority (CA or RA), data structure, members include: URL, VRF";
+
+                    leaf URL {
+
+                        type base:Basetype_URLString;
+
+                        description "The value of URL, 1 to 511 characters, case sensitive";
+
+                    }
+
+                    leaf VRF {
+
+                        type base:Basetype_String;
+
+                        description "The VPN instance which the address is belongs to, 1 to 31 characters, case sensitive";
+
+                    }
+
+                }
+
+                container CertRequestMode {
+
+                    description "The certificate request mode, data structure, members include: Mode, Password";
+
+                    leaf Mode {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The type of Mode
+
+                             Enumeration:
+
+                             1-Auto
+
+                             2-Manual
+
+                             Default value is 2";
+
+                    }
+
+                    leaf RenewBeforeExpire {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The minimum interval in days for certificate renewal request before expiraiton.
+
+                              The column can be valid only when Mode is Auto.";
+
+                    }
+
+                    leaf RenewReusePubKey {
+
+                        type base:Basetype_Boolean;
+
+                        description "Reuse the previous public key, otherwise generate a new public key.
+
+                              Boolean:
+
+                               - true   Enable
+
+                               - false  Disable
+
+                              The column can be valid only when Mode is Auto and RenewBeforeExpire is present.";
+
+                    }
+
+                    leaf RenewAutoAppendCN {
+
+                        type base:Basetype_Boolean;
+
+                        description "Automatically apppend Common Name.
+
+                              Boolean:
+
+                               - true   Enable
+
+                               - false  Disable
+
+                              The column can be valid only when Mode is Auto and RenewBeforeExpire is present.";
+
+                    }
+
+                }
+
+                container RootCertFingerprint {
+
+                    description "The fingerprint for verifying the validity of the CA root certificate, data structure, members include: Type, Value";
+
+                    leaf Type {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The fingerprint type
+
+                             Enumeration:
+
+                             1-MD5
+
+                             2-SHA1";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_String;
+
+                        description "The fingerprint value, type MD5 is 32 hex string length, type SHA1 is 40 hex string length";
+
+                    }
+
+                }
+
+                container LDAPServer {
+
+                    description "An LDAP server for a PKI domain, data structure, members include: Host, PortNumber, VRF";
+
+                    leaf Host {
+
+                        type base:Basetype_String;
+
+                        description "The hostname of the LDAP server, 1 to 255 characters, the string can be IPv4 address, IPv6 address, or domain name, case sensitive";
+
+                    }
+
+                    leaf PortNumber {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The port number of the LDAP server, unsigned integer, default value is 389";
+
+                    }
+
+                    leaf VRF {
+
+                        type base:Basetype_String;
+
+                        description "The VPN instance which the address is belongs to, 1 to 31 characters, case sensitive";
+
+                    }
+
+                }
+
+                container CRLURL {
+
+                    description "The URL of the CRL repository, data structure, members include: URL, VRF";
+
+                    leaf URL {
+
+                        type base:Basetype_String;
+
+                        description "The value of URL,1 to 511 characters, case sensitive, The URL format is ldap://server_location or 
+
+                              http://server_location, Server_location can be an IP address or a domain name";
+
+                    }
+
+                    leaf VRF {
+
+                        type base:Basetype_String;
+
+                        description "The VPN instance which the address is belongs to, 1 to 31 characters, case sensitive";
+
+                    }
+
+                }
+
+                leaf CRLCheck {
+
+                    type base:Basetype_Boolean;
+
+                    description "If check whether the certificate has been revoked by CRL
+
+                          Boolean:
+
+                          true, Enable
+
+                          false, Disable
+
+                          Default value is false";
+
+                }
+
+                container Usage {
+
+                    description "Certificate usage for requesting certificate, members include IKE, SSLServer, SSLClient, can include one or more certificate usage at the same time";
+
+                    leaf IKE {
+
+                        type base:Basetype_Boolean;
+
+                        description "Use certificate as the IKE
+
+                             Boolean:
+
+                             true, Enable
+
+                             false, Disable";
+
+                    }
+
+                    leaf SSLServer {
+
+                        type base:Basetype_Boolean;
+
+                        description "Use certificate as the SSL server certificates
+
+                             Boolean:
+
+                             true, Enable
+
+                             false, Disable";
+
+                    }
+
+                    leaf SSLClient {
+
+                        type base:Basetype_Boolean;
+
+                        description "Use certificate as the SSL client certificates
+
+                             Boolean:
+
+                             true, Enable
+
+                             false, Disable";
+
+                    }
+
+                }
+
+                container CertRequestPoll {
+
+                    description "The polling interval and the maximum number of attempts to query certificate request status, data structure, members include: Count, Interval";
+
+                    leaf Count {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The value of the maximum number, unsigned integer, 1 to 100, default value is 50";
+
+                    }
+
+                    leaf Interval {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The value of the polling interval, unsigned integer 5 to 168, default value is 20";
+
+                    }
+
+                }
+
+                container SourceIP {
+
+                    description "The source IP address for PKI protocol packets, data structure, members include: AddressType, Address, IfIndex";
+
+                    leaf AddressType {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The type of IP Address
+
+                              Enumeration:
+
+                              1-IPv4
+
+                              2-IPv6";
+
+                    }
+
+                    leaf Address {
+
+                        type base:Basetype_IpAddress;
+
+                        description "The value of IP Address, IPv4 or IPv6";
+
+                    }
+
+                    leaf IfIndex {
+
+                        type base:Basetype_NameAndIndexUnion;
+
+                        description "The index of interface, get the primary IP address of the interface, unsigned integer";
+
+                    }
+
+                }
+
+                leaf pkcs7EncryType {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The type of certificate specify an encryption authority 
+
+                          Enumeration
+
+                          1-3des-cbc
+
+                          2-aes-128-cbc
+
+                          5-des-cbc
+
+                          128-sm4-cbc";
+
+                }
+
+                leaf CRLUpdatePeriod {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The value of the CRL update period, unsigned integer, value range is 1 to 720
+
+                          Default value is 0 which means CRL update function is closed
+
+                          The unit is hour";
+
+                }
+
+            }
+
+        }
+
+        container DomainPubkeys {
+
+            description "Get the asymmetric keys of PKI domain
+
+                This table supports creating rows.";
+
+            list Pubkey {
+
+                description "Row name";
+
+                key "Domain Type Purpose";
+
+                leaf Domain {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "PKI domain name, 1 to 31 characters, case insensitive";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "Type of algorithm
+
+						  Enumeration:
+
+                          1-RSA
+
+                          2-DSA
+
+                          3-ECDSA
+
+                          4-SM2";
+
+                }
+
+                leaf Purpose {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Key purpose
+
+						  Enumeration:
+
+						  1-General
+
+						  2-Signature
+
+						  3-Encryption";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[-A-Za-z0-9]{0,}";
+
+                    }
+
+                    description "Key name, 1 to 64 characters";
+
+                }
+
+                leaf Length {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Length of public key, see table PKI/AuthorityAlgs for supported length";
+
+                }
+
+            }
+
+        }
+
+        container Entities {
+
+            description "Get the PKI entities
+
+                This table supports creating rows.";
+
+            list Entity {
+
+                description "Row name";
+
+                key "EntityName";
+
+                leaf EntityName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "PKI entity name, 1 to 31 characters, case insensitive";
+
+                }
+
+                leaf CommonName {
+
+                    type base:Basetype_Text {
+
+                        pattern "[^,]{0,}";
+
+                    }
+
+                    description "The common name, 1 to 63 characters, case sensitive, comma can not be contained";
+
+                }
+
+                leaf Country {
+
+                    type base:Basetype_String;
+
+                    description "The country code, 2 to 2 characters";
+
+                }
+
+                leaf State {
+
+                    type base:Basetype_Text {
+
+                        pattern "[^,]{0,}";
+
+                    }
+
+                    description "The state name, 1 to 63 characters, case sensitive, comma can not be contained";
+
+                }
+
+                leaf Locality {
+
+                    type base:Basetype_Text {
+
+                        pattern "[^,]{0,}";
+
+                    }
+
+                    description "The locality name, 1 to 63 characters, case sensitive, comma can not be contained";
+
+                }
+
+                leaf Organization {
+
+                    type base:Basetype_Text {
+
+                        pattern "[^,]{0,}";
+
+                    }
+
+                    description "The organization name, 1 to 63 characters, case sensitive, comma can not be contained";
+
+                }
+
+                leaf OrganizationUnit {
+
+                    type base:Basetype_Text {
+
+                        pattern "[^,]{0,}";
+
+                    }
+
+                    description "The unit name,  1 to 63 characters, case sensitive, comma can not be contained";
+
+                }
+
+                leaf FQDN {
+
+                    type base:Basetype_String;
+
+                    description "The FQDN name, 1 to 255 characters, case sensitive";
+
+                }
+
+                container IP {
+
+                    description "The IP address, sata structure, members include: Ipv4Address, rcIEfIndex";
+
+                    leaf Ipv4Address {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "Ipv4 address";
+
+                    }
+
+                    leaf IfIndex {
+
+                        type base:Basetype_NameAndIndexUnion;
+
+                        description "The index of interface, unsigned integer";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container CertAccessPolicies {
+
+            description "Get the certificate access control policies
+
+                This table supports creating rows.";
+
+            list Policy {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "The name of certificate access control policy, 1 to 31 characters";
+
+                }
+
+            }
+
+        }
+
+        container CertAccessRules {
+
+            description "Get the rules of the certificate access control policy
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                description "Row name";
+
+                key "Policy RuleID";
+
+                leaf Policy {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "The name of certificate access control policy, 1 to 31 characters, Case insensitive";
+
+                }
+
+                leaf RuleID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..16";
+
+                    }
+
+                    description "Index of the rule in the access control policy, unsigned integer, 1 to 16";
+
+                }
+
+                leaf Action {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "How to operate the certificate that match the rule
+
+						  Enumeration:
+
+						  1-Permit
+
+						  2-Deny";
+
+                }
+
+                leaf AttributeGroup {
+
+                    type base:Basetype_String;
+
+                    description "The name of certificate attribute group, 1 to 31 characters";
+
+                }
+
+            }
+
+        }
+
+        container CertAttributeGroups {
+
+            description "Get the certificate attribute groups
+
+                This table supports creating rows.";
+
+            list Group {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "The name of certificate attribute group, 1 to 31 characters";
+
+                }
+
+            }
+
+        }
+
+        container CertAttributes {
+
+            description "Get the attributes of the certificate attribute group
+
+                This table supports creating rows.";
+
+            list Attribute {
+
+                description "Row name";
+
+                key "Group AttributeID";
+
+                leaf Group {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "The name of certificate attribute group, 1 to 31 characters, case insensitive";
+
+                }
+
+                leaf AttributeID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..16";
+
+                    }
+
+                    description "Unsigned integer, 1 to 16";
+
+                }
+
+                leaf Object {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Enumeration:
+
+						  1-alt-subject-name
+
+						  2-issuer-name
+
+						  3-subject-name";
+
+                }
+
+                leaf Item {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Enumeration:
+
+						  1-DN
+
+						  2-FQDN
+
+						  3-IpAddress";
+
+                }
+
+                leaf Operator {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Enumeration:
+
+						  1-contain
+
+						  2-equal
+
+						  3-not contain
+
+						  4-not equal";
+
+                }
+
+                leaf Value {
+
+                    type base:Basetype_String;
+
+                    description "1 to 255 characters, case insensitive";
+
+                }
+
+            }
+
+        }
+
+        container DomainCACerts {
+
+            description "Get the CA certificates of the PKI domain";
+
+            list Cert {
+
+                description "Row name";
+
+                key "Domain SerialNumber";
+
+                leaf Domain {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "The PKI domain name, 1 to 31 characters, case insensitive";
+
+                }
+
+                leaf SerialNumber {
+
+                    type base:Basetype_String;
+
+                    description "The serial number of the, string";
+
+                }
+
+                leaf Issuer {
+
+                    type base:Basetype_String;
+
+                    description "The issuer name, string";
+
+                }
+
+                leaf Subject {
+
+                    type base:Basetype_String;
+
+                    description "The subject name, string";
+
+                }
+
+                container Validity {
+
+                    description "The validity date of the certificate, data structure, members include: NotBefore, NotAfter";
+
+                    leaf NotBefore {
+
+                        type base:Basetype_DateTime;
+
+                        description "The begin time of the validity";
+
+                    }
+
+                    leaf NotAfter {
+
+                        type base:Basetype_DateTime;
+
+                        description "The end time of the validity";
+
+                    }
+
+                }
+
+                leaf IsLowestCA {
+
+                    type base:Basetype_Boolean;
+
+                    description "If the CA certificate is the lowest in the PKI domain
+
+                          Boolean:
+
+                             true, The CA certificate is lowest
+
+                             false, The CA certificate isn’t lowest";
+
+                }
+
+                leaf DetailInfoText {
+
+                    type base:Basetype_OctectString;
+
+                    description "The text of the ca certificate  or the certificate chain, string";
+
+                }
+
+            }
+
+        }
+
+        container DomainLocalCerts {
+
+            description "Get the local certificates of the PKI domain";
+
+            list Cert {
+
+                description "Row name";
+
+                key "Domain KeyUsage";
+
+                leaf Domain {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "The PKI domain name, 1 to 31 characters, case insensitive";
+
+                }
+
+                leaf KeyUsage {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "The key usage of the certificate
+
+						  Enumeration:
+
+						  1-General
+
+						  2-Signature
+
+						  3-Encryption";
+
+                }
+
+                leaf SerialNumber {
+
+                    type base:Basetype_String;
+
+                    description "The serial number of the ceritificate, string";
+
+                }
+
+                leaf Issuer {
+
+                    type base:Basetype_String;
+
+                    description "The issuer name, string";
+
+                }
+
+                leaf Subject {
+
+                    type base:Basetype_String;
+
+                    description "The Subject name, string";
+
+                }
+
+                container Validity {
+
+                    description "The validity date of the certificate, data structure, members include: NotBefore, NotAfter";
+
+                    leaf NotBefore {
+
+                        type base:Basetype_DateTime;
+
+                        description "The begin time of the validit";
+
+                    }
+
+                    leaf NotAfter {
+
+                        type base:Basetype_DateTime;
+
+                        description "The end time of the validity";
+
+                    }
+
+                }
+
+                leaf DetailInfoText {
+
+                    type base:Basetype_OctectString;
+
+                    description "The text of the local certificate or the certicicate chain, string";
+
+                }
+
+            }
+
+        }
+
+        container StoragePath {
+
+            description "Get the PKI storage path";
+
+            leaf StorageCertPath {
+
+                type base:Basetype_String;
+
+                description "The PKI certificate storage path, string, case sensitive, the path can’t begin with ''/'' or ''../''";
+
+            }
+
+            leaf StorageCRLPath {
+
+                type base:Basetype_String;
+
+                description "The PKI CRL storage path, string, case sensitive, the path can’t begin with ''/'' or ''../''";
+
+            }
+
+        }
+
+        container PKICapabilities {
+
+            description "Get the PKI capabilities";
+
+            list PKICapability {
+
+                description "Row name";
+
+                key "EncAlgID";
+
+                leaf EncAlgID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..max";
+
+                    }
+
+                    description "Identity of encryption algorithm, unsigned integer";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String;
+
+                    description "Name of encryption  algorithm";
+
+                }
+
+            }
+
+        }
+
+        container AuthorityAlgs {
+
+            description "Get the authority algorithm";
+
+            list Alg {
+
+                description "Row name";
+
+                key "AlgID";
+
+                leaf AlgID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..max";
+
+                    }
+
+                    description "Identity of algorithm, unsigned integer";
+
+                }
+
+                leaf AlgName {
+
+                    type base:Basetype_String;
+
+                    description "Name of algorithm, 1 to 255 characters";
+
+                }
+
+                leaf MinLength {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Minimal length of supported algorithm, unsigned integer";
+
+                }
+
+                leaf MaxLength {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Maximal length of supported, unsigned integer";
+
+                }
+
+                leaf DefaultLength {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Default length of supported algorithm, unsigned integer";
+
+                }
+
+            }
+
+        }
+
+        container CertificateRequests {
+
+            description "Get the certificate requests for the domain";
+
+            list Request {
+
+                description "Row name";
+
+                key "Domain";
+
+                leaf Domain {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "The PKI domain name, 1 to 31 characters, case insensitive";
+
+                }
+
+                leaf Password {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "The challenge word which is needed when, 1 to 31 characters, case sensitive";
+
+                }
+
+                leaf Value {
+
+                    type base:Basetype_OctectString;
+
+                    description "The certificate request value";
+
+                }
+
+            }
+
+        }
+
+        container ImportCertStatus {
+
+            description "Get the status when import certificate to a domain";
+
+            list Status {
+
+                description "Row name";
+
+                key "Domain CertificateType FilePath";
+
+                leaf Domain {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "The PKI domain name";
+
+                }
+
+                leaf CertificateType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "The type of certificate Enumeration:
+
+						  1-CA
+
+						  2-Local";
+
+                }
+
+                leaf FilePath {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                    description "The path of the file contain certificate";
+
+                }
+
+                leaf Password {
+
+                    type base:Basetype_String {
+
+                        length "0..1024";
+
+                    }
+
+                    description "String, case sensitive";
+
+                }
+
+                leaf NewPubKeyName {
+
+                    type base:Basetype_String {
+
+                        length "1..64";
+
+                        pattern "[-A-Za-z0-9]{0,}";
+
+                    }
+
+                    description "1 to 64 characters, case insensitive";
+
+                }
+
+                leaf IsNewPubKeyExist {
+
+                    type base:Basetype_Boolean;
+
+                    description "Boolean:
+
+					      true, Yes
+
+					      false, No";
+
+                }
+
+                leaf IsPubKeyConfiged {
+
+                    type base:Basetype_Boolean;
+
+                    description "Boolean:
+
+					      true, Yes
+
+					      false, No";
+
+                }
+
+                leaf IsCorrectFormat {
+
+                    type base:Basetype_Boolean;
+
+                    description "Boolean:
+
+					      true, Yes
+
+					      false, No";
+
+                }
+
+                leaf IsNoCA {
+
+                    type base:Basetype_Boolean;
+
+                    description "Boolean:
+
+					      true, Yes
+
+					      false, No";
+
+                }
+
+                leaf IsKeyPairExist {
+
+                    type base:Basetype_Boolean;
+
+                    description "Boolean:
+
+					      true, Yes
+
+					      false, No";
+
+                }
+
+                leaf IsKeyPairMatched {
+
+                    type base:Basetype_Boolean;
+
+                    description "Boolean:
+
+					      true, Yes
+
+					      false, No";
+
+                }
+
+                leaf CertFingerprint {
+
+                    type base:Basetype_String;
+
+                    description "1 to 127 characters";
+
+                }
+
+                leaf DomainFingerprint {
+
+                    type base:Basetype_String;
+
+                    description "1 to 127 characters";
+
+                }
+
+                leaf IsFingerprintMatched {
+
+                    type base:Basetype_Boolean;
+
+                    description "Boolean:
+
+					      true, Yes
+
+					      false, No";
+
+                }
+
+                leaf NeedReplaceCACert {
+
+                    type base:Basetype_Boolean;
+
+                    description "Boolean:
+
+					      true, Yes
+
+					      false, No";
+
+                }
+
+                leaf NeedReplaceLocalCert {
+
+                    type base:Basetype_Boolean;
+
+                    description "Boolean:
+
+					      true, Yes
+
+					      false, No";
+
+                }
+
+                leaf NeedReplaceKeyPair {
+
+                    type base:Basetype_Boolean;
+
+                    description "Boolean:
+
+					      true, Yes
+
+					      false, No";
+
+                }
+
+                leaf CertVerifyErrStr {
+
+                    type base:Basetype_OctectString;
+
+                    description "1 to 255 characters";
+
+                }
+
+            }
+
+        }
+
+        container CertRequestStatus {
+
+            description "Get the certificate request status";
+
+            list Status {
+
+                description "Row name";
+
+                key "Domain KeyUsage";
+
+                leaf Domain {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "PKI domain name, 1 to 31 characters, case insensitive";
+
+                }
+
+                leaf KeyUsage {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Key usage for requesting certificate
+
+                          Enumeration:
+
+                          1-General
+
+                          2-Encryption
+
+                          3-Signature";
+
+                }
+
+                leaf PollingInterval {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The polling interval, unsigned integer, 5 to 168, in minutes";
+
+                }
+
+                leaf LastPollingTime {
+
+                    type base:Basetype_DateTime;
+
+                    description "The last polling time";
+
+                }
+
+                leaf RemainPollingCount {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Remain polling attempts";
+
+                }
+
+            }
+
+        }
+
+        container DomainPeerCerts {
+
+            description "Get the peer certificates of the PKI domain";
+
+            list Cert {
+
+                description "Row name";
+
+                key "Domain SerialNumber";
+
+                leaf Domain {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "The PKI domain name, 1 to 31 characters, case insensitive";
+
+                }
+
+                leaf SerialNumber {
+
+                    type base:Basetype_String;
+
+                    description "The serial number of the ceritificate, string";
+
+                }
+
+                leaf Issuer {
+
+                    type base:Basetype_String;
+
+                    description "The issuer name, sring";
+
+                }
+
+                leaf Subject {
+
+                    type base:Basetype_String;
+
+                    description "The subject name, sring";
+
+                }
+
+                container Validity {
+
+                    description "The validity date of the certificate, data structure, members include: NotBefore, NotAfter";
+
+                    leaf NotBefore {
+
+                        type base:Basetype_DateTime;
+
+                        description "The begin time of the validity";
+
+                    }
+
+                    leaf NotAfter {
+
+                        type base:Basetype_DateTime;
+
+                        description "The end time of the validity";
+
+                    }
+
+                }
+
+                leaf DetailInfoText {
+
+                    type base:Basetype_OctectString;
+
+                    description "The text of the peer certificate, string";
+
+                }
+
+            }
+
+        }
+
+        container DomainsCRL {
+
+            description "Get the CRL saved at the local for a PKI domain";
+
+            list DomainCRL {
+
+                description "Row name";
+
+                key "Domain";
+
+                leaf Domain {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "The PKI domain name, 1 to 31 characters, case insensitive";
+
+                }
+
+                leaf Issuer {
+
+                    type base:Basetype_String;
+
+                    description "The issuer name";
+
+                }
+
+                leaf LastUpdate {
+
+                    type base:Basetype_DateTime;
+
+                    description "The last update time";
+
+                }
+
+                leaf NextUpdate {
+
+                    type base:Basetype_DateTime;
+
+                    description "The next update time";
+
+                }
+
+            }
+
+        }
+
+        container PKIValidateResults {
+
+            description "Get the validity of certificates";
+
+            list Result {
+
+                description "Row name";
+
+                key "Domain CertType SerialNum";
+
+                leaf Domain {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "The PKI domain name, 1 to 31 characters, case insensitive";
+
+                }
+
+                leaf CertType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Enumeration:
+
+                          1-CA
+
+						  2-Local";
+
+                }
+
+                leaf SerialNum {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                    description "The serial number of the ceritificate, string";
+
+                }
+
+                leaf Issuer {
+
+                    type base:Basetype_String;
+
+                    description "The issuer name, string";
+
+                }
+
+                leaf Subject {
+
+                    type base:Basetype_String;
+
+                    description "The subject name, string";
+
+                }
+
+                leaf ErrCode {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The error code";
+
+                }
+
+                leaf ErrDescription {
+
+                    type base:Basetype_String;
+
+                    description "The error description";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

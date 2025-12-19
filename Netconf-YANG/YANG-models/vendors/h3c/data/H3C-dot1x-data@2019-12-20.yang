@@ -1,0 +1,723 @@
+module H3C-dot1x-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "dot1x-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for dot1x data.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container Dot1X {
+
+        config false;
+
+        container Protocol {
+
+            description "Dot1x protocol related paramenters";
+
+            leaf Enable {
+
+                type base:Basetype_Boolean;
+
+                description "This element controls, on the local system, whether or not Dot1x is enabled.";
+
+            }
+
+            leaf AuthenMethod {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                    enum 3;
+
+                }
+
+                description "The Authentication Method of 802.1x:
+
+                         1--Chap; 2--PAP; 3--EAP;";
+
+            }
+
+            leaf DomainDelimiterAt {
+
+                type base:Basetype_Boolean;
+
+                description "indicate whether there is delimiter @ between username and domain.";
+
+            }
+
+            leaf DomainDelimiterSlash {
+
+                type base:Basetype_Boolean;
+
+                description "indicate whether there is delimiter / between username and domain.";
+
+            }
+
+            leaf DomainDelimiterBackSlash {
+
+                type base:Basetype_Boolean;
+
+                description "indicate whether there is delimiter \ between username and domain.";
+
+            }
+
+            leaf DomainDelimiterDot {
+
+                type base:Basetype_Boolean;
+
+                description "indicate whether there is delimiter . between username and domain.";
+
+            }
+
+            leaf QuietEnable {
+
+                type base:Basetype_Boolean;
+
+                description "whether Dot1X is globally queit.";
+
+            }
+
+            leaf QuietInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "10..120";
+
+                }
+
+                description "Period value of Quiet timer";
+
+            }
+
+            leaf HandshakeInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "5..1024";
+
+                }
+
+                description "Period value of handshake timer";
+
+            }
+
+            leaf ReauthenInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "60..7200";
+
+                }
+
+                description "Period value of re-authentication timer";
+
+            }
+
+            leaf ServerInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "100..300";
+
+                }
+
+                description "Period value of server response timer";
+
+            }
+
+            leaf SupplicantInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..120";
+
+                }
+
+                description "Period value of supplicant response timer(response /ID exclusively)";
+
+            }
+
+            leaf ReqIDInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..120";
+
+                }
+
+                description "Period value of supplicant response/ID timer";
+
+            }
+
+            leaf RequestRetryCount {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..10";
+
+                }
+
+                description "The Max count of retrying to send out dot1X’s packets";
+
+            }
+
+            leaf OnlineUserNum {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Current online-user count";
+
+            }
+
+        }
+
+        container EAD {
+
+            description "Dot1 EAD feature table";
+
+            leaf AssistEnable {
+
+                type base:Basetype_Boolean;
+
+                description "This element indicates whether Ead assistance is enabled.";
+
+            }
+
+            leaf AssistURL {
+
+                type base:Basetype_String {
+
+                    length "1..64";
+
+                }
+
+                description "URL used in Ead assistance feature";
+
+            }
+
+        }
+
+        container EADFreeIPs {
+
+            description "Dot1 EAD assistant free IP table
+
+                This table supports creating rows.";
+
+            list FreeIP {
+
+                key "IPv4Address IPv4Mask";
+
+                leaf IPv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "IP address used in EAD assistance feature";
+
+                }
+
+                leaf IPv4Mask {
+
+                    type base:Basetype_String;
+
+                    description "IP address mask.";
+
+                }
+
+            }
+
+        }
+
+        container Interfaces {
+
+            description "Dot1X interface's information";
+
+            list Interface {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "The index of a Interface";
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Indicate whether Dot1X is enabled on a port.";
+
+                }
+
+                leaf SmartonEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Enable Status of Smarton feature.";
+
+                }
+
+                leaf PortControl {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Portcontrol status of the interface:
+
+                         1--authorized-force; 2--unauthorized-force; 3--auto;";
+
+                }
+
+                leaf PortMethod {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Dot1X Control Method of the interface:
+
+                         1--Portbased; 2--MACbased;";
+
+                }
+
+                leaf PortRole {
+
+                    type enumeration {
+
+                        enum 1;
+
+                    }
+
+                    description "Role of the interface in authentication:
+
+                         1--Authenticator;";
+
+                }
+
+                leaf ReauthenEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Indicate whether re-authentication is enabled on this interface.";
+
+                }
+
+                leaf MulticastTrigger {
+
+                    type base:Basetype_Boolean;
+
+                    description "Indicate whether the status of sending multicast request/ID packets is enabled.";
+
+                }
+
+                leaf UnicastTrigger {
+
+                    type base:Basetype_Boolean;
+
+                    description "Indicate whether the status of sending unicast request/ID packets is enabled.";
+
+                }
+
+                leaf HandshakeEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Indicate whether handshake feature is enabled on this interface.";
+
+                }
+
+                leaf SecHandshakeEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Indicate whether secure handshake feature is enabled on this interface.";
+
+                }
+
+                leaf ReauthUnreachableMode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Status of user online or offline when the AAA server is not available during re-authenticating:
+
+                         0--Offline; 1--Online;";
+
+                }
+
+                leaf MandDomain {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                    description "Mandatory Domain set on this interface";
+
+                }
+
+                leaf MaxUser {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Maximum user count on this interface";
+
+                }
+
+                leaf FailVLAN {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "VLAN for authentication failure users on the interface";
+
+                }
+
+                leaf CriticalVLAN {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "VLAN for server unavailable situation on the interface";
+
+                }
+
+                leaf GuestVLAN {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "VLAN for unauthenticated users on the interface";
+
+                }
+
+                leaf OnlineUserNum {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Online user count of the interface";
+
+                }
+
+                leaf RcvPktNum {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Valid EAPoL packe count received on the interface";
+
+                }
+
+                leaf SndPktNum {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Valid EAPoL packe count received on the interface";
+
+                }
+
+                leaf StartPktNum {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "EAPoL-start  packet count received on the interface";
+
+                }
+
+                leaf LogoffPktNum {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "EAPoL-logoff  packet count received on the interface";
+
+                }
+
+                leaf RespIDPktNum {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "EAPoL-response/ID  packet count received on the interface";
+
+                }
+
+                leaf RespPktNum {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "EAPoL-response(other than response/ID)  packet count received on the interface";
+
+                }
+
+                leaf ReqIDPktNum {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "EAPoL request/ID packet count sent on the interface";
+
+                }
+
+                leaf ReqPktNum {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "EAPoL packet (other than request/ID) count sent on the interface";
+
+                }
+
+                leaf RcvErrorPktNum {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Invalid EAPoL packet count received on the interface";
+
+                }
+
+            }
+
+        }
+
+        container InterfaceUsers {
+
+            description "Dot1X users' information";
+
+            list Interface {
+
+                key "IfIndex UserMAC";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "The index of a Interface";
+
+                }
+
+                leaf UserMAC {
+
+                    type base:Basetype_MacAddress;
+
+                    description "MAC address of User on this interface";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..253";
+
+                    }
+
+                    description "User name  when logs on.";
+
+                }
+
+                leaf Domain {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                    description "User's domain when logs on.";
+
+                }
+
+                leaf Ipv4Addr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "IPv4 address of the user.";
+
+                }
+
+                leaf Ipv6Addr {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "IPv6 address of the user.";
+
+                }
+
+                leaf InitialVLAN {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "VLAN ID used by the user when logs on.";
+
+                }
+
+                leaf AuthzVLAN {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "VLAN ID allocated for authecticated user by the AAA server.";
+
+                }
+
+                leaf AuthzACLGroup {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "ACL group number  allocated for authecticated user by the AAA server.";
+
+                }
+
+                leaf AuthzUserProfile {
+
+                    type base:Basetype_String;
+
+                    description "User Profile name allocated for authecticated user by the AAA server.";
+
+                }
+
+                leaf TermAction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Action attribute assigned by the AAA server when the session timeout timer expires:
+
+                         0--Default; 1--Radius-request;";
+
+                }
+
+                leaf TimeoutPeriod {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Period value of session timeout timer assigned by the server timer.";
+
+                }
+
+                leaf LogonTime {
+
+                    type base:Basetype_String;
+
+                    description "Time from which the user logs on.";
+
+                }
+
+                leaf OnlineDuration {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Online duration of the user.";
+
+                }
+
+            }
+
+        }
+
+        container Smarton {
+
+            description "Dot1 Smarton feature table";
+
+            leaf SwitchID {
+
+                type base:Basetype_String {
+
+                    length "1..30";
+
+                }
+
+                description "Dot1x smarton switch ID.";
+
+            }
+
+            leaf Password {
+
+                type base:Basetype_String {
+
+                    length "1..16";
+
+                }
+
+                description "Dot1x smarton password.";
+
+            }
+
+            leaf RetryCount {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..10";
+
+                }
+
+                description "Maxium attempt count to send out Request packets with smarton notification.";
+
+            }
+
+        }
+
+    }
+
+}

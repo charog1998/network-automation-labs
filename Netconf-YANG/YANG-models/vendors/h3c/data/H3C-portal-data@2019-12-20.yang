@@ -1,0 +1,3371 @@
+module H3C-portal-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "portal-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for portal data.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container Portal {
+
+        config false;
+
+        container PortalServers {
+
+            description "PortalServers table
+
+                This table supports creating rows.";
+
+            list PortalServer {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "portal name";
+
+                }
+
+                container IPAddressInfo {
+
+                    description "IPAddressInfo";
+
+                    leaf IPAddress {
+
+                        type base:Basetype_IpAddress;
+
+                        description "IP/IPv6 Address";
+
+                    }
+
+                    leaf VRF {
+
+                        type base:Basetype_VRF {
+
+                            length "1..31";
+
+                        }
+
+                        description "Specifies VRF instance name";
+
+                    }
+
+                }
+
+                leaf Port {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65534";
+
+                    }
+
+                    description "Port";
+
+                }
+
+                container Detect {
+
+                    description "Servers Detect";
+
+                    leaf TimeOut {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "10..3600";
+
+                        }
+
+                        description "Detection timeout";
+
+                    }
+
+                    leaf Action {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "Action";
+
+                    }
+
+                }
+
+                leaf UserSyncTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "60..18000";
+
+                    }
+
+                    description "User synchronization";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "status";
+
+                }
+
+            }
+
+        }
+
+        container WebServers {
+
+            description "WebServers table
+
+                This table supports creating rows.";
+
+            list WebServer {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "portal name";
+
+                }
+
+                leaf Url {
+
+                    type base:Basetype_URLString {
+
+                        length "1..256";
+
+                    }
+
+                    description "URL address";
+
+                }
+
+                container Detect {
+
+                    description "Servers Detect";
+
+                    leaf Interval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..1200";
+
+                        }
+
+                        description "Interval time";
+
+                    }
+
+                    leaf Retry {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..10";
+
+                        }
+
+                        description "Retry times";
+
+                    }
+
+                    leaf Action {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "action";
+
+                    }
+
+                }
+
+                leaf VRF {
+
+                    type base:Basetype_VRF {
+
+                        length "1..31";
+
+                    }
+
+                    description "Specifies VRF instance name";
+
+                }
+
+                leaf IPv4Status {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "IPV4 Servers status";
+
+                }
+
+                leaf IPv6Status {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "IPV6 Servers status";
+
+                }
+
+                leaf ServerType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                    description "Server Type";
+
+                }
+
+                leaf CaptiveBypass {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 5;
+
+                        enum 6;
+
+                    }
+
+                    description "Captive Bypass";
+
+                }
+
+                container ServerDetect {
+
+                    description "Server Detect Url";
+
+                    leaf DetectUrl {
+
+                        type base:Basetype_URLString {
+
+                            length "1..256";
+
+                        }
+
+                        description "Server detect url";
+
+                    }
+
+                    leaf DetectType {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                        }
+
+                        description "Server detect type";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container UrlParams {
+
+            description "Portal UrlParams table
+
+                This table supports creating rows.";
+
+            list UrlParam {
+
+                description "Row name";
+
+                key "WebServerName ParamName";
+
+                leaf WebServerName {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "portal name";
+
+                }
+
+                leaf ParamName {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "URL address";
+
+                }
+
+                leaf ParamType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "URL address";
+
+                }
+
+                leaf SelfDefValue {
+
+                    type base:Basetype_URLString {
+
+                        length "1..256";
+
+                    }
+
+                    description "URL address";
+
+                }
+
+            }
+
+        }
+
+        container FreeRules {
+
+            description "FreeRules table
+
+                This table supports creating rows.";
+
+            list FreeRule {
+
+                description "Row name";
+
+                key "RuleID";
+
+                leaf RuleID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "RuleID";
+
+                }
+
+                leaf IsAllotID {
+
+                    type base:Basetype_Boolean;
+
+                    description "Allocation RuleID";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "1..255";
+
+                    }
+
+                    description "Description for portal free-rule";
+
+                }
+
+                container Layer3 {
+
+                    description "Layer3";
+
+                    leaf SrcIPAddr {
+
+                        type base:Basetype_IpAddress;
+
+                        description "Ip/Ipv6 Address";
+
+                    }
+
+                    leaf SrcIPAddrLen {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..128";
+
+                        }
+
+                        description "Source IPAddrLen";
+
+                    }
+
+                    leaf SrcProtocolType {
+
+                        type enumeration {
+
+                            enum 6;
+
+                            enum 17;
+
+                        }
+
+                        description "Source ProtocolType";
+
+                    }
+
+                    leaf SrcPortStart {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "Source PortStart";
+
+                    }
+
+                    leaf SrcPortEnd {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "Source PortEnd";
+
+                    }
+
+                    leaf DstIPAddr {
+
+                        type base:Basetype_IpAddress;
+
+                        description "Ip/Ipv6 Address";
+
+                    }
+
+                    leaf DstIPAddrLen {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..128";
+
+                        }
+
+                        description "Destination IPAddrLen";
+
+                    }
+
+                    leaf DstProtocolType {
+
+                        type enumeration {
+
+                            enum 6;
+
+                            enum 17;
+
+                        }
+
+                        description "Destination ProtocolType";
+
+                    }
+
+                    leaf DstPortStart {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "Destination PortStart";
+
+                    }
+
+                    leaf DstPortEnd {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "Destination PortEnd";
+
+                    }
+
+                }
+
+                container Layer2 {
+
+                    description "Layer2";
+
+                    leaf SrcIfIndex {
+
+                        type base:Basetype_NameAndIndexUnion;
+
+                        description "SrcIPType";
+
+                    }
+
+                    leaf SrcVlan {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..4094";
+
+                        }
+
+                        description "SrcVlan";
+
+                    }
+
+                    leaf SrcMacAddr {
+
+                        type base:Basetype_MacAddress;
+
+                        description "SrcMacAddr";
+
+                    }
+
+                }
+
+                leaf ObjGroupName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "ObjGroupName";
+
+                }
+
+                leaf HostName {
+
+                    type base:Basetype_String {
+
+                        length "1..253";
+
+                    }
+
+                    description "Host name";
+
+                }
+
+            }
+
+        }
+
+        container ForbiddenRules {
+
+            description "ForbiddenRules table
+
+                This table supports creating rows.";
+
+            list ForbiddenRule {
+
+                description "Row name";
+
+                key "RuleID";
+
+                leaf RuleID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "RuleID";
+
+                }
+
+                leaf IsAllotID {
+
+                    type base:Basetype_Boolean;
+
+                    description "Allocation RuleID";
+
+                }
+
+                leaf SrcIPAddr {
+
+                    type base:Basetype_IpAddress;
+
+                    description "Ip/Ipv6 Address";
+
+                }
+
+                leaf SrcIPAddrLen {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..128";
+
+                    }
+
+                    description "Source IPAddrLen";
+
+                }
+
+                leaf SrcProtocolType {
+
+                    type enumeration {
+
+                        enum 6;
+
+                        enum 17;
+
+                    }
+
+                    description "Source ProtocolType";
+
+                }
+
+                leaf SrcPortStart {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "Source PortStart";
+
+                }
+
+                leaf SrcPortEnd {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "Source PortEnd";
+
+                }
+
+                leaf DstIPAddr {
+
+                    type base:Basetype_IpAddress;
+
+                    description "Ip/Ipv6 Address";
+
+                }
+
+                leaf DstIPAddrLen {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..128";
+
+                    }
+
+                    description "Destination IPAddrLen";
+
+                }
+
+                leaf DstProtocolType {
+
+                    type enumeration {
+
+                        enum 6;
+
+                        enum 17;
+
+                    }
+
+                    description "Destination ProtocolType";
+
+                }
+
+                leaf DstPortStart {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "Destination PortStart";
+
+                }
+
+                leaf DstPortEnd {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "Destination PortEnd";
+
+                }
+
+                leaf SrcSsidName {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "Source SsidName";
+
+                }
+
+                leaf DstHostName {
+
+                    type base:Basetype_String {
+
+                        length "1..253";
+
+                    }
+
+                    description "Destination HostName";
+
+                }
+
+            }
+
+        }
+
+        container IPv4Interfaces {
+
+            description "IPv4Interfaces table";
+
+            list IPv4Interface {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf OnlineUserNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "ipv4 if OnlineUserNum";
+
+                }
+
+                leaf Method {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "IPv4 method: 0:direct, 1:layer3, 2:redhcp";
+
+                }
+
+                container WebServer {
+
+                    description "IPv4 interface WebServer Info";
+
+                    leaf WebServerName {
+
+                        type base:Basetype_String {
+
+                            length "1..32";
+
+                        }
+
+                        description "IPv4 interface WebServer Name";
+
+                    }
+
+                    leaf EscapeEnable {
+
+                        type base:Basetype_Boolean;
+
+                        description "IPv4 interface WebServer EscapeEnable";
+
+                    }
+
+                }
+
+                leaf Domain {
+
+                    type base:Basetype_OctectString255;
+
+                    description "IPv4 interface auth Domain";
+
+                }
+
+                leaf MaxUser {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "IPv4 interface max-user";
+
+                }
+
+                leaf BasIP {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "IPv4 interface bas-ip";
+
+                }
+
+                leaf EscapeSvrName {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "IPv4 interface EscapeSvrName";
+
+                }
+
+                leaf PreAuthPoolName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "IPv4 interface PreAuthPoolName";
+
+                }
+
+                container UserDetect {
+
+                    description "ipv4 if user Detect";
+
+                    leaf UserDetectType {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 2;
+
+                        }
+
+                        description "ipv4 if UserDetectType";
+
+                    }
+
+                    leaf UserDetectIdleTime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "60..3600";
+
+                        }
+
+                        description "ipv4 if UserDetectIdleTime";
+
+                    }
+
+                    leaf UserDetectInterval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..1200";
+
+                        }
+
+                        description "UserDetectInterval";
+
+                    }
+
+                    leaf UserDetectRetry {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..10";
+
+                        }
+
+                        description "UserDetectRetry";
+
+                    }
+
+                }
+
+                leaf ExtendAuthDomain {
+
+                    type base:Basetype_OctectString255;
+
+                    description "IPv4 interface Extend-auth Domain";
+
+                }
+
+                container TempPass {
+
+                    description "temp-pass";
+
+                    leaf TempPassEnable {
+
+                        type base:Basetype_Boolean;
+
+                        description "temp-pass enable";
+
+                    }
+
+                    leaf TempPassPeriod {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "10..3600";
+
+                        }
+
+                        description "temp-pass period";
+
+                    }
+
+                }
+
+                leaf MacSvrName {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "IPv4 interface MacTrigger Server Name";
+
+                }
+
+            }
+
+        }
+
+        container IPv6Interfaces {
+
+            description "IPv6Interfaces table";
+
+            list IPv6Interface {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf OnlineUserNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "ipv6 if OnlineUserNum";
+
+                }
+
+                leaf Method {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "IPv6 method: 0:direct, 1:layer3, 2:redhcp";
+
+                }
+
+                container WebServer {
+
+                    description "IPv6 interface WebServer Info";
+
+                    leaf WebServerName {
+
+                        type base:Basetype_String {
+
+                            length "1..32";
+
+                        }
+
+                        description "IPv6 interface WebServer Name";
+
+                    }
+
+                    leaf EscapeEnable {
+
+                        type base:Basetype_Boolean;
+
+                        description "IPv6 interface WebServer EscapeEnable";
+
+                    }
+
+                }
+
+                leaf Domain {
+
+                    type base:Basetype_OctectString255;
+
+                    description "IPv6 interface auth Domain";
+
+                }
+
+                leaf MaxUser {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "IPv6 interface max-user";
+
+                }
+
+                leaf BasIP {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "IPv6 interface bas-ip";
+
+                }
+
+                leaf EscapeSvrName {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "IPv6 interface EscapeSvrName";
+
+                }
+
+                leaf PreAuthPoolName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "IPv6 interface PreAuthPoolName";
+
+                }
+
+                container UserDetect {
+
+                    description "ipv6 if user Detect";
+
+                    leaf UserDetectType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 3;
+
+                        }
+
+                        description "ipv6 if UserDetectType";
+
+                    }
+
+                    leaf UserDetectIdleTime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "60..3600";
+
+                        }
+
+                        description "ipv6 if UserDetectIdleTime";
+
+                    }
+
+                    leaf UserDetectInterval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..1200";
+
+                        }
+
+                        description "UserDetectInterval";
+
+                    }
+
+                    leaf UserDetectRetry {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..10";
+
+                        }
+
+                        description "UserDetectRetry";
+
+                    }
+
+                }
+
+                leaf ExtendAuthDomain {
+
+                    type base:Basetype_OctectString255;
+
+                    description "IPv6 interface Extend-auth Domain";
+
+                }
+
+                container TempPass {
+
+                    description "temp-pass";
+
+                    leaf TempPassEnable {
+
+                        type base:Basetype_Boolean;
+
+                        description "temp-pass enable";
+
+                    }
+
+                    leaf TempPassPeriod {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "10..3600";
+
+                        }
+
+                        description "temp-pass period";
+
+                    }
+
+                }
+
+                leaf MacSvrName {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "IPv6 interface MacTrigger Server Name";
+
+                }
+
+            }
+
+        }
+
+        container OnlineUsers {
+
+            description "Portal OnlineUsers table";
+
+            list OnlineUser {
+
+                description "Row name";
+
+                key "IfIndex IPAddress";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "IfIndex";
+
+                }
+
+                leaf IPAddress {
+
+                    type base:Basetype_IpAddress;
+
+                    description "IP address";
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..253";
+
+                    }
+
+                    description "User Name";
+
+                }
+
+                leaf MacAddress {
+
+                    type base:Basetype_MacAddress;
+
+                    description "MAC address";
+
+                }
+
+                leaf VLAN {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "VLANID";
+
+                }
+
+                leaf VRF {
+
+                    type base:Basetype_VRF;
+
+                    description "VRF";
+
+                }
+
+                leaf ServerName {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "ServerName";
+
+                }
+
+                leaf LoginTime {
+
+                    type base:Basetype_DateTime;
+
+                    description "LoginTime";
+
+                }
+
+                leaf OnlineDuration {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "OnlineDuration";
+
+                }
+
+                container FlowStats {
+
+                    description "FlowStats";
+
+                    leaf SendPktNum {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "SendPktNum";
+
+                    }
+
+                    leaf SendByteNum {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "SendByteNum";
+
+                    }
+
+                    leaf RecvPktNum {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "RecvPktNum";
+
+                    }
+
+                    leaf RecvByteNum {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "RecvByteNum";
+
+                    }
+
+                }
+
+                leaf ObjectGroup {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "ObjectGroup";
+
+                }
+
+                leaf InboundFlowRate {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "InboundFlowRate";
+
+                }
+
+                leaf OutboundFlowRate {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "OutboundFlowRate";
+
+                }
+
+                leaf AccessSwitch {
+
+                    type base:Basetype_Boolean;
+
+                    description "AccessSwitch";
+
+                }
+
+                leaf DeviceName {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                    description "DeviceName";
+
+                }
+
+            }
+
+        }
+
+        container LocalWebServers {
+
+            description "LocalWebServers table
+
+                This table supports creating rows.";
+
+            list LocalWebServer {
+
+                description "Row name";
+
+                key "Type";
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "LocalWebServer Type";
+
+                }
+
+                leaf SSLServerPolicy {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "SSLServerPolicy";
+
+                }
+
+                leaf DefLogonPage {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9]|[_]|[.]){0,}";
+
+                        length "1..91";
+
+                    }
+
+                    description "DefLogonPage";
+
+                }
+
+                leaf TCPPort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "TCPPort";
+
+                }
+
+                leaf PasswordModifyEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "PasswordModifyEnable";
+
+                }
+
+            }
+
+        }
+
+        container IPv4ServiceTemplates {
+
+            description "IPv4ServiceTemplates table";
+
+            list IPv4ServiceTemplate {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "ServiceTemplate index";
+
+                }
+
+                leaf Method {
+
+                    type enumeration {
+
+                        enum 0;
+
+                    }
+
+                    description "IPv4 method: 0:direct";
+
+                }
+
+                container WebServer {
+
+                    description "IPv4 ServiceTemplate WebServer Info";
+
+                    leaf WebServerName {
+
+                        type base:Basetype_String {
+
+                            length "1..32";
+
+                        }
+
+                        description "IPv4 ServiceTemplate WebServer Name";
+
+                    }
+
+                    leaf EscapeEnable {
+
+                        type base:Basetype_Boolean;
+
+                        description "IPv4 ServiceTemplate WebServer EscapeEnable";
+
+                    }
+
+                }
+
+                leaf Domain {
+
+                    type base:Basetype_OctectString255;
+
+                    description "IPv4 ServiceTemplate auth Domain";
+
+                }
+
+                leaf MaxUser {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "IPv4 ServiceTemplate max-user";
+
+                }
+
+                leaf BasIP {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "IPv4 ServiceTemplate bas-ip";
+
+                }
+
+                leaf EscapeSvrName {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "IPv4 ServiceTemplate EscapeSvrName";
+
+                }
+
+                leaf PreAuthPoolName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "IPv4 ServiceTemplate PreAuthPoolName";
+
+                }
+
+                container UserDetect {
+
+                    description "ipv4 ServiceTemplate user Detect";
+
+                    leaf UserDetectType {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 2;
+
+                        }
+
+                        description "ipv4 ServiceTemplate UserDetectType";
+
+                    }
+
+                    leaf UserDetectIdleTime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "60..3600";
+
+                        }
+
+                        description "ipv4 ServiceTemplate UserDetectIdleTime";
+
+                    }
+
+                    leaf UserDetectInterval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..1200";
+
+                        }
+
+                        description "UserDetectInterval";
+
+                    }
+
+                    leaf UserDetectRetry {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..10";
+
+                        }
+
+                        description "UserDetectRetry";
+
+                    }
+
+                }
+
+                leaf ExtendAuthDomain {
+
+                    type base:Basetype_OctectString255;
+
+                    description "IPv4 ServiceTemplate Extend-auth Domain";
+
+                }
+
+                container TempPass {
+
+                    description "temp-pass";
+
+                    leaf TempPassEnable {
+
+                        type base:Basetype_Boolean;
+
+                        description "temp-pass enable";
+
+                    }
+
+                    leaf TempPassPeriod {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "10..3600";
+
+                        }
+
+                        description "temp-pass period";
+
+                    }
+
+                }
+
+                leaf MacSvrName {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "IPv4 ServiceTemplate MacTrigger Server Name";
+
+                }
+
+            }
+
+        }
+
+        container IPv6ServiceTemplates {
+
+            description "IPv6ServiceTemplates table";
+
+            list IPv6ServiceTemplate {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "ServiceTemplate index";
+
+                }
+
+                leaf Method {
+
+                    type enumeration {
+
+                        enum 0;
+
+                    }
+
+                    description "IPv6 method: 0:direct";
+
+                }
+
+                container WebServer {
+
+                    description "IPv6 ServiceTemplate WebServer Info";
+
+                    leaf WebServerName {
+
+                        type base:Basetype_String {
+
+                            length "1..32";
+
+                        }
+
+                        description "IPv6 ServiceTemplate WebServer Name";
+
+                    }
+
+                    leaf EscapeEnable {
+
+                        type base:Basetype_Boolean;
+
+                        description "IPv6 ServiceTemplate WebServer EscapeEnable";
+
+                    }
+
+                }
+
+                leaf Domain {
+
+                    type base:Basetype_OctectString255;
+
+                    description "IPv6 ServiceTemplate auth Domain";
+
+                }
+
+                leaf MaxUser {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "IPv6 ServiceTemplate max-user";
+
+                }
+
+                leaf BasIP {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "IPv6 ServiceTemplate bas-ip";
+
+                }
+
+                leaf EscapeSvrName {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "IPv6 ServiceTemplate EscapeSvrName";
+
+                }
+
+                leaf PreAuthPoolName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "IPv6 ServiceTemplate PreAuthPoolName";
+
+                }
+
+                container UserDetect {
+
+                    description "ipv6 ServiceTemplate user Detect";
+
+                    leaf UserDetectType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 3;
+
+                        }
+
+                        description "ipv6 ServiceTemplate UserDetectType";
+
+                    }
+
+                    leaf UserDetectIdleTime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "60..3600";
+
+                        }
+
+                        description "ipv6 ServiceTemplate UserDetectIdleTime";
+
+                    }
+
+                    leaf UserDetectInterval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..1200";
+
+                        }
+
+                        description "UserDetectInterval";
+
+                    }
+
+                    leaf UserDetectRetry {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..10";
+
+                        }
+
+                        description "UserDetectRetry";
+
+                    }
+
+                }
+
+                leaf ExtendAuthDomain {
+
+                    type base:Basetype_OctectString255;
+
+                    description "IPv6 ServiceTemplate Extend-auth Domain";
+
+                }
+
+                container TempPass {
+
+                    description "temp-pass";
+
+                    leaf TempPassEnable {
+
+                        type base:Basetype_Boolean;
+
+                        description "temp-pass enable";
+
+                    }
+
+                    leaf TempPassPeriod {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "10..3600";
+
+                        }
+
+                        description "temp-pass period";
+
+                    }
+
+                }
+
+                leaf MacSvrName {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "IPv6 ServiceTemplate MacTrigger Server Name";
+
+                }
+
+            }
+
+        }
+
+        container SelfDefPages {
+
+            description "SelfDefPages table
+
+                This table supports creating rows.";
+
+            list SelfDefPage {
+
+                description "Row name";
+
+                key "Type ssid DeviceType DeviceName";
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "LocalWebServer Type";
+
+                }
+
+                leaf ssid {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "ssid";
+
+                }
+
+                leaf DeviceType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "DeviceType";
+
+                }
+
+                leaf DeviceName {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                    description "DeviceName";
+
+                }
+
+                leaf LogonPageFile {
+
+                    type base:Basetype_String {
+
+                        length "1..91";
+
+                    }
+
+                    description "LogonPageFile";
+
+                }
+
+            }
+
+        }
+
+        container SelfDefSsidPages {
+
+            description "SelfDefSsidPages table
+
+                This table supports creating rows.";
+
+            list SelfDefSsidPage {
+
+                description "Row name";
+
+                key "Type ssid";
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "LocalWebServer Type";
+
+                }
+
+                leaf ssid {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "ssid";
+
+                }
+
+                leaf LogonPageFile {
+
+                    type base:Basetype_String {
+
+                        length "1..91";
+
+                    }
+
+                    description "LogonPageFile";
+
+                }
+
+            }
+
+        }
+
+        container SelfDefDevNamePages {
+
+            description "SelfDefDevNamePages table
+
+                This table supports creating rows.";
+
+            list SelfDefDevNamePage {
+
+                description "Row name";
+
+                key "Type DeviceName";
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "LocalWebServer Type";
+
+                }
+
+                leaf DeviceName {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                    description "DeviceName";
+
+                }
+
+                leaf LogonPageFile {
+
+                    type base:Basetype_String {
+
+                        length "1..91";
+
+                    }
+
+                    description "LogonPageFile";
+
+                }
+
+            }
+
+        }
+
+        container SelfDefDevTypePages {
+
+            description "SelfDefDevTypePages table
+
+                This table supports creating rows.";
+
+            list SelfDefDevTypePage {
+
+                description "Row name";
+
+                key "Type DeviceType";
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "LocalWebServer Type";
+
+                }
+
+                leaf DeviceType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "DeviceType";
+
+                }
+
+                leaf LogonPageFile {
+
+                    type base:Basetype_String {
+
+                        length "1..91";
+
+                    }
+
+                    description "LogonPageFile";
+
+                }
+
+            }
+
+        }
+
+        container SelfDefSsidDevTypePages {
+
+            description "SelfDefSsidDevTypePages table
+
+                This table supports creating rows.";
+
+            list SelfDefSsidDevTypePage {
+
+                description "Row name";
+
+                key "Type ssid DeviceType";
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "LocalWebServer Type";
+
+                }
+
+                leaf ssid {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "ssid";
+
+                }
+
+                leaf DeviceType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "DeviceType";
+
+                }
+
+                leaf LogonPageFile {
+
+                    type base:Basetype_String {
+
+                        length "1..91";
+
+                    }
+
+                    description "LogonPageFile";
+
+                }
+
+            }
+
+        }
+
+        container SelfDefSsidDevNamePages {
+
+            description "SelfDefSsidDevNamePages table
+
+                This table supports creating rows.";
+
+            list SelfDefSsidDevNamePage {
+
+                description "Row name";
+
+                key "Type ssid DeviceName";
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "LocalWebServer Type";
+
+                }
+
+                leaf ssid {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "ssid";
+
+                }
+
+                leaf DeviceName {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                    description "DeviceName";
+
+                }
+
+                leaf LogonPageFile {
+
+                    type base:Basetype_String {
+
+                        length "1..91";
+
+                    }
+
+                    description "LogonPageFile";
+
+                }
+
+            }
+
+        }
+
+        container SelfDefDevTypeNamePages {
+
+            description "SelfDefDevTypeNamePages table
+
+                This table supports creating rows.";
+
+            list SelfDefDevTypeNamePage {
+
+                description "Row name";
+
+                key "Type DeviceType DeviceName";
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "LocalWebServer Type";
+
+                }
+
+                leaf DeviceType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "DeviceType";
+
+                }
+
+                leaf DeviceName {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                    description "DeviceName";
+
+                }
+
+                leaf LogonPageFile {
+
+                    type base:Basetype_String {
+
+                        length "1..91";
+
+                    }
+
+                    description "LogonPageFile";
+
+                }
+
+            }
+
+        }
+
+        container ExtendAuthServers {
+
+            description "ExtendAuthServers table
+
+                This table supports creating rows.";
+
+            list ExtendAuthServer {
+
+                description "Row name";
+
+                key "Type";
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "ExtendAuthServer Type";
+
+                }
+
+                leaf AuthUrl {
+
+                    type base:Basetype_URLString {
+
+                        length "1..256";
+
+                    }
+
+                    description "ExtendAuthServer URL";
+
+                }
+
+                leaf AppId {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "ExtendAuthServer APPID";
+
+                }
+
+                leaf AppKey {
+
+                    type base:Basetype_String {
+
+                        length "1..64";
+
+                    }
+
+                    description "ExtendAuthServer APPKey";
+
+                }
+
+                leaf RedirectUrl {
+
+                    type base:Basetype_URLString {
+
+                        length "1..256";
+
+                    }
+
+                    description "ExtendAuthServer Redirect URL";
+
+                }
+
+                leaf MailProtocol {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "ExtendAuthServer Mail Protocol";
+
+                }
+
+                container MailDomain {
+
+                    description "Mail domain";
+
+                    leaf-list MailDomainName {
+
+                        type base:Basetype_String {
+
+                            length "1..255";
+
+                        }
+
+                        description "Mail Domain Name";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container HistoryOnlineUserNums {
+
+            description "Portal OnlineUserNums table";
+
+            list HistoryOnlineUserNum {
+
+                description "Row name";
+
+                key "Interval TimeStamp";
+
+                leaf Interval {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Interval";
+
+                }
+
+                leaf TimeStamp {
+
+                    type base:Basetype_DateTime;
+
+                    description "TimeStamp";
+
+                }
+
+                leaf Num {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Num";
+
+                }
+
+            }
+
+        }
+
+        container CurrentOnlineUserNums {
+
+            description "Portal OnlineUserNums table";
+
+            container CurrentOnlineUserNum {
+
+                description "Row name";
+
+                leaf Num {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Num";
+
+                }
+
+            }
+
+        }
+
+        container ObjectGroupStatistics {
+
+            description "Portal UserGroupOnlineUserNums table";
+
+            list ObjectGroup {
+
+                description "Row name";
+
+                key "GroupName";
+
+                leaf GroupName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "GroupName";
+
+                }
+
+                leaf OnlineUserNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "OnlineUserNum";
+
+                }
+
+            }
+
+        }
+
+        container MacTriggerServers {
+
+            description "MacTriggerServers table
+
+                This table supports creating rows.";
+
+            list MacTriggerServer {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "portal name";
+
+                }
+
+                container IPAddressInfo {
+
+                    description "IPAddressInfo";
+
+                    leaf IPAddress {
+
+                        type base:Basetype_IpAddress;
+
+                        description "IPv4 Address";
+
+                    }
+
+                    leaf VRF {
+
+                        type base:Basetype_VRF {
+
+                            length "1..31";
+
+                        }
+
+                        description "Specifies VRF instance name";
+
+                    }
+
+                    leaf Key {
+
+                        type base:Basetype_String {
+
+                            length "1..64";
+
+                        }
+
+                        description "shared key";
+
+                    }
+
+                }
+
+                leaf Threshold {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..10240000";
+
+                    }
+
+                    description "FreeTrafficThreshold";
+
+                }
+
+                leaf NasType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..255";
+
+                    }
+
+                    description "MacTriggerServerNasPortType";
+
+                }
+
+                leaf MacSvrPort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65534";
+
+                    }
+
+                    description "MacBindingServerPort";
+
+                }
+
+                container Detect {
+
+                    description "Mac trigger Servers Detect";
+
+                    leaf MacSvrRetries {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..10";
+
+                        }
+
+                        description "MacTriggerServerRetry Retries";
+
+                    }
+
+                    leaf MacSvrRetryInterval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..60";
+
+                        }
+
+                        description "MacTriggerServerRetry Interval";
+
+                    }
+
+                }
+
+                leaf MacServerType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "MacTriggerSvr Type";
+
+                }
+
+                leaf Version {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..3";
+
+                    }
+
+                    description "Version Number";
+
+                }
+
+                leaf MacSvrAuthTimeOut {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..15";
+
+                    }
+
+                    description "Authentication Timeout";
+
+                }
+
+                leaf AgingTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "60..7200";
+
+                    }
+
+                    description "AgingTime";
+
+                }
+
+                leaf LocalBindingEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "MacTriggerServer Local Binding Enable";
+
+                }
+
+                leaf LocalBindingAgingTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..129600";
+
+                    }
+
+                    description "LocalBindingAgingTime";
+
+                }
+
+                leaf CloudBindingEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "CloudBindingEnable";
+
+                }
+
+            }
+
+        }
+
+        container WebPageInfos {
+
+            description "WebPageInfos table
+
+                This table supports creating rows.";
+
+            list WebPageInfo {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String;
+
+                    description "BackPage Name";
+
+                }
+
+                leaf Title {
+
+                    type base:Basetype_String;
+
+                    description "Title infomation";
+
+                }
+
+                leaf Tip {
+
+                    type base:Basetype_String;
+
+                    description "Tip infomation";
+
+                }
+
+                leaf BackImg {
+
+                    type base:Basetype_String;
+
+                    description "Picture dir";
+
+                }
+
+            }
+
+        }
+
+        container GlobalConf {
+
+            description "GlobalConf table";
+
+            leaf RoamEnable {
+
+                type base:Basetype_Boolean;
+
+                description "RoamEnable";
+
+            }
+
+            leaf NasPortIdFormat {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                    enum 3;
+
+                    enum 4;
+
+                }
+
+                description "NasPortIdFormat";
+
+            }
+
+            leaf VsrpPort {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..65535";
+
+                }
+
+                description "VsrpPort";
+
+            }
+
+            leaf MaxUser {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..4294967295";
+
+                }
+
+                description "MaxUser";
+
+            }
+
+            leaf ClientGatewayIfIndex {
+
+                type base:Basetype_NameAndIndexUnion;
+
+                description "ClientGatewayIfIndex";
+
+            }
+
+            leaf CaptiveOptDelay {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..120";
+
+                }
+
+                description "CaptiveOptDelay";
+
+            }
+
+            leaf DhcpIdleCut {
+
+                type base:Basetype_Boolean;
+
+                description "DhcpIdleCut";
+
+            }
+
+        }
+
+        container RedirectOriginalUrls {
+
+            description "RedirectOriginalUrls table
+
+                This table supports creating rows.";
+
+            list RedirectOriginalUrl {
+
+                description "Row name";
+
+                key "Name OriginalUrl";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "portal webserver name name";
+
+                }
+
+                leaf OriginalUrl {
+
+                    type base:Basetype_URLString {
+
+                        length "1..256";
+
+                    }
+
+                    description "OriginalUrl";
+
+                }
+
+                leaf RedirectUrl {
+
+                    type base:Basetype_URLString {
+
+                        length "1..256";
+
+                    }
+
+                    description "RedirectUrl";
+
+                }
+
+                leaf EncryParam {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "EncryParam";
+
+                }
+
+                leaf Password {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Password";
+
+                }
+
+            }
+
+        }
+
+        container RedirectUserAgents {
+
+            description "RedirectUserAgents table
+
+                This table supports creating rows.";
+
+            list RedirectUserAgent {
+
+                description "Row name";
+
+                key "Name UserAgent";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "portal webserver name";
+
+                }
+
+                leaf UserAgent {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                    description "UserAgent";
+
+                }
+
+                leaf RedirectUrl {
+
+                    type base:Basetype_URLString {
+
+                        length "1..256";
+
+                    }
+
+                    description "RedirectUrl";
+
+                }
+
+            }
+
+        }
+
+        container TempPassOriginalUrls {
+
+            description "TempPassOriginalUrls table
+
+                This table supports creating rows.";
+
+            list TempPassOriginalUrl {
+
+                description "Row name";
+
+                key "Name OriginalUrl";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "portal webserver name";
+
+                }
+
+                leaf OriginalUrl {
+
+                    type base:Basetype_URLString {
+
+                        length "1..256";
+
+                    }
+
+                    description "OriginalUrl";
+
+                }
+
+                leaf RedirectUrl {
+
+                    type base:Basetype_URLString {
+
+                        length "1..256";
+
+                    }
+
+                    description "RedirectUrl";
+
+                }
+
+                leaf IsOriginal {
+
+                    type base:Basetype_Boolean;
+
+                    description "IsOriginal";
+
+                }
+
+            }
+
+        }
+
+        container TempPassUserAgents {
+
+            description "TempPassUserAgents table
+
+                This table supports creating rows.";
+
+            list TempPassUserAgent {
+
+                description "Row name";
+
+                key "Name UserAgent";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "portal webserver name";
+
+                }
+
+                leaf UserAgent {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                    description "UserAgent";
+
+                }
+
+                leaf RedirectUrl {
+
+                    type base:Basetype_URLString {
+
+                        length "1..256";
+
+                    }
+
+                    description "RedirectUrl";
+
+                }
+
+                leaf IsOriginal {
+
+                    type base:Basetype_Boolean;
+
+                    description "IsOriginal";
+
+                }
+
+            }
+
+        }
+
+        container TempPassOriginalUrlUserAgents {
+
+            description "TempPassOriginalUrlUserAgents table
+
+                This table supports creating rows.";
+
+            list TempPassOriginalUrlUserAgent {
+
+                description "Row name";
+
+                key "Name OriginalUrl UserAgent";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "portal webserver name";
+
+                }
+
+                leaf OriginalUrl {
+
+                    type base:Basetype_URLString {
+
+                        length "1..256";
+
+                    }
+
+                    description "Original";
+
+                }
+
+                leaf UserAgent {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                    description "UserAgent";
+
+                }
+
+                leaf RedirectUrl {
+
+                    type base:Basetype_URLString {
+
+                        length "1..256";
+
+                    }
+
+                    description "RedirectUrl";
+
+                }
+
+                leaf IsOriginal {
+
+                    type base:Basetype_Boolean;
+
+                    description "IsOriginal";
+
+                }
+
+            }
+
+        }
+
+        container RoamingCenterCfg {
+
+            description "RoamingCenterCfg table";
+
+            leaf EnableStatus {
+
+                type base:Basetype_Boolean;
+
+                description "EnableStatus";
+
+            }
+
+            leaf IPAddress {
+
+                type base:Basetype_IpAddress;
+
+                description "IPAddress";
+
+            }
+
+            leaf Port {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..65534";
+
+                }
+
+                description "Port";
+
+            }
+
+            leaf ResponseTimeout {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..10";
+
+                }
+
+                description "ResponseTimeout";
+
+            }
+
+            leaf Retry {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..10";
+
+                }
+
+                description "Retry";
+
+            }
+
+            leaf UserTrafficDeny {
+
+                type base:Basetype_Boolean;
+
+                description "UserTrafficDeny";
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,395 @@
+module H3C-pkey-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "pkey-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for pkey data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container PKEY {
+
+        config false;
+
+        container PeerKeys {
+
+            description "Get peer public keys
+
+                This table supports creating rows.";
+
+            list Key {
+
+                description "Row name";
+
+                key "PeerKeyName";
+
+                leaf PeerKeyName {
+
+                    type base:Basetype_String {
+
+                        length "1..64";
+
+                    }
+
+                    description "Name of peer pubilc key,1 to 31 characters";
+
+                }
+
+                leaf AlgID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Unsigned integer, 1 to 2^32-1";
+
+                }
+
+                leaf Length {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Length of asymmetric key, unsigned integer";
+
+                }
+
+                leaf Value {
+
+                    type base:Basetype_OctectString;
+
+                    description "PKCS#1 formatted hex string";
+
+                }
+
+            }
+
+        }
+
+        container DefaultLocalKeys {
+
+            description "Get default local public keys";
+
+            list Key {
+
+                description "Row name";
+
+                key "AlgID Usage";
+
+                leaf AlgID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..max";
+
+                    }
+
+                    description "Unsigned integ, value range: 1 to 2^32-1";
+
+                }
+
+                leaf Usage {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Key Usage
+
+                          Enumeration:
+
+                          1-hostkey
+
+                          2-serverkey";
+
+                }
+
+                leaf Length {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Length of local asymmetric key,unsigned integer";
+
+                }
+
+                leaf CreatedTime {
+
+                    type base:Basetype_DateTime;
+
+                    description "When is the key created";
+
+                }
+
+                leaf Value {
+
+                    type base:Basetype_OctectString;
+
+                    description "PKCS#1 formatted hex string";
+
+                }
+
+            }
+
+        }
+
+        container PKEYCapabilities {
+
+            description "This table contains supported PKEY algorithm information";
+
+            list PKEYCapability {
+
+                description "Row name";
+
+                key "AlgID";
+
+                leaf AlgID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..max";
+
+                    }
+
+                    description "Unsigned integer, 1 to 2^32-1";
+
+                }
+
+                leaf AlgName {
+
+                    type base:Basetype_String;
+
+                    description "Name of algorithm";
+
+                }
+
+                leaf MinLength {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Minimal length of supported algorithm";
+
+                }
+
+                leaf MaxLength {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Maximal length of supported algorithm";
+
+                }
+
+                leaf DefaultLength {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Default length of supported algorithm";
+
+                }
+
+                container ExportFormatIDList {
+
+                    description "Supported export SSH format list, data structure, members include: IDItem";
+
+                    leaf-list IDItem {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Supported export SSH format list";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container LocalKeys {
+
+            description "Get local public keys";
+
+            list Key {
+
+                description "Row name";
+
+                key "AlgID KeyName";
+
+                leaf AlgID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..max";
+
+                    }
+
+                    description "Unsigned integer, 1 to 2^32-1";
+
+                }
+
+                leaf KeyName {
+
+                    type base:Basetype_String {
+
+                        length "1..64";
+
+                        pattern "[-A-Za-z0-9]{0,}";
+
+                    }
+
+                    description "Name of local asymmetric key, 1 to 64 characters";
+
+                }
+
+                leaf Length {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Length of local asymmetric key, unsigned integer";
+
+                }
+
+                leaf CreatedTime {
+
+                    type base:Basetype_DateTime;
+
+                    description "Format: HH: MM: SS YYYY/MM/DDT";
+
+                }
+
+                leaf Value {
+
+                    type base:Basetype_OctectString;
+
+                    description "PKCS#1 formatted hex string";
+
+                }
+
+            }
+
+        }
+
+        container GetSSHPublicKeys {
+
+            description "Export local public key to SSH formatted data";
+
+            list Key {
+
+                description "Row name";
+
+                key "AlgID KeyName FormatID";
+
+                leaf AlgID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..max";
+
+                    }
+
+                    description "Identity of algorithm";
+
+                }
+
+                leaf KeyName {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..64";
+
+                            pattern "[-A-Za-z0-9]{0,}";
+
+                        }
+
+                    }
+
+                    description "Name of local asymmetric key, 0 to 64 characters";
+
+                }
+
+                leaf FormatID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..max";
+
+                    }
+
+                    description "Identity of SSH format";
+
+                }
+
+                leaf Value {
+
+                    type base:Basetype_OctectString;
+
+                    description "Information of SSH format key";
+
+                }
+
+            }
+
+        }
+
+        container SSHFormats {
+
+            description "Supported SSH format";
+
+            list SSHFormat {
+
+                description "Row name";
+
+                key "FormatID";
+
+                leaf FormatID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..max";
+
+                    }
+
+                    description "Identity of SSH format";
+
+                }
+
+                leaf FormatName {
+
+                    type base:Basetype_String;
+
+                    description "Name of supported SSH format";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

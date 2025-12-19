@@ -1,0 +1,1169 @@
+module H3C-syslog-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "syslog-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for syslog data.";
+
+    revision 2019-12-09 {
+
+        description "Synchronize the modification of the schema file to the YANG file.";
+
+    }
+
+    revision 2019-03-15 {
+
+        description "Initial revision.";
+
+    }
+
+    container Syslog {
+
+        config false;
+
+        container Configuration {
+
+            description "This table contains information about syslog (the information center).";
+
+            leaf State {
+
+                type base:Basetype_EnableState;
+
+                description "Status of syslog (the information center):
+
+                    enable
+
+                    disable";
+
+            }
+
+            leaf DuplicateLogSuppression {
+
+                type base:Basetype_EnableState;
+
+                description "Status of the duplicate log suppression feature:
+
+                    enable
+
+                    disable";
+
+            }
+
+            leaf Format {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+                description "Log format
+
+                    0:Non-customized format (default)
+
+                    1:cmcc
+
+                    2:unicom";
+
+            }
+
+            leaf Synchronous {
+
+                type base:Basetype_EnableState;
+
+                description "Status of the synchronous output:
+
+                    enable
+
+                    disable";
+
+            }
+
+            leaf Timestamp {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+                description "Timestamp output format of log information (not include the log host)
+
+                    0:none
+
+                    1:date (default)
+
+                    2:boot";
+
+            }
+
+            leaf LoghostTimestamp {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                    enum 2;
+
+                    enum 3;
+
+                    enum 4;
+
+                    enum 5;
+
+                }
+
+                description "Timestamp output format of log information sent to the log host
+
+                    0:none
+
+                    1:date (default)
+
+                    2:date with milliseconds
+
+                    3:iso
+
+                    4:iso with milliseconds
+
+                    5:no-year-date";
+
+            }
+
+            leaf LoghostSourceInterface {
+
+                type base:Basetype_String {
+
+                    length "2..47";
+
+                }
+
+                description "An interface name, of which primary IP address as the source IP address for the syslog.";
+
+            }
+
+            leaf Encoding {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                }
+
+                description "Character encoding of the log
+
+                    0:GB18030 (default)
+
+                    1:utf-8";
+
+            }
+
+            leaf MinAge {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..8760";
+
+                }
+
+                description "Minimum save time of log information";
+
+            }
+
+        }
+
+        container LogBuffer {
+
+            description "This table contains log buffer information.";
+
+            leaf State {
+
+                type base:Basetype_EnableState;
+
+                description "Status of the log buffer:
+
+                    enable
+
+                    disable";
+
+            }
+
+            leaf BufferSize {
+
+                type base:Basetype_UnsignedShort;
+
+                description "Maximum log buffer size configured by the user. Numerical value must be in range(0..65535).";
+
+            }
+
+            leaf BufferSizeLimit {
+
+                type base:Basetype_UnsignedShort;
+
+                description "Maximum log buffer size supported by the device.Numerical value must be in range(0..65535).";
+
+            }
+
+            leaf LogsCount {
+
+                type base:Basetype_UnsignedShort;
+
+                description "Number of logs stored in the log buffer.Numerical value must be in range(0..65535).";
+
+            }
+
+            leaf DroppedLogsCount {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Number of dropped logs.";
+
+            }
+
+            leaf OverwrittenLogsCount {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Number of overwritten logs";
+
+            }
+
+            container LogsCountPerSeverity {
+
+                leaf Emergency {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "The number of emergency logs stored in the log buffer[0~65535]";
+
+                }
+
+                leaf Alert {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "The number of alert logs stored in the log buffer[0~65535]";
+
+                }
+
+                leaf Critical {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "The number of critical logs stored in the log buffer[0~65535]";
+
+                }
+
+                leaf Error {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "The number of error logs stored in the log buffer[0~65535]";
+
+                }
+
+                leaf Warning {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "The number of warning logs stored in the log buffer[0~65535]";
+
+                }
+
+                leaf Notice {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "The number of notice logs stored in the log buffer[0~65535]";
+
+                }
+
+                leaf Informational {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "The number of informationallogs stored in the log buffer[0~65535]";
+
+                }
+
+                leaf Debug {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "The number of debuglogs stored in the log buffer[0~65535]";
+
+                }
+
+            }
+
+        }
+
+        container Logs {
+
+            description "This table contains information about the logs in the log buffer.";
+
+            list Log {
+
+                description "Row name";
+
+                key "Index";
+
+                leaf Index {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "Serial number of the log as table index.Numerical value must be in range(0..65535).";
+
+                }
+
+                leaf Time {
+
+                    type base:Basetype_DateTime;
+
+                    description "Time when the log was generated.";
+
+                }
+
+                leaf Group {
+
+                    type base:Basetype_String {
+
+                        length "1..8";
+
+                    }
+
+                    description "Module that generated the log.String length constraints must be in range(1..8).";
+
+                }
+
+                leaf Digest {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "Brief description of the log, String length constraints must be in range(1..8).";
+
+                }
+
+                leaf Severity {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..7";
+
+                    }
+
+                    description "Severity level of the log, as follows:
+
+                          0(Emergency); 1(Alert); 2(Critical); 3(Error); 4(Warning); 5(Notification); 6(Informational); 7(Debugging)";
+
+                }
+
+                leaf Content {
+
+                    type base:Basetype_OctectString {
+
+                        length "0..1023";
+
+                    }
+
+                    description "Content of the log. String length constraints must be in range(0..1023).";
+
+                }
+
+            }
+
+        }
+
+        container LogHosts {
+
+            description "This table contains the log host information.
+
+                This table supports creating rows.";
+
+            list Host {
+
+                description "Row name";
+
+                key "Address VRF";
+
+                leaf Address {
+
+                    type base:Basetype_String {
+
+                        length "1..253";
+
+                    }
+
+                    description "Address of the log host";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VRF;
+
+                    }
+
+                    description "VRF instance name as table index. String length constraints must be in range(1..31).";
+
+                }
+
+                leaf Port {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "Port number of the log host. Numerical value must be in range(1..65535)";
+
+                }
+
+                leaf Facility {
+
+                    type enumeration {
+
+                        enum 128;
+
+                        enum 136;
+
+                        enum 144;
+
+                        enum 152;
+
+                        enum 160;
+
+                        enum 168;
+
+                        enum 176;
+
+                        enum 184;
+
+                    }
+
+                    description "Logging facility used by the log host, as follows:
+
+                          128(local0); 136(local1); 144(local2); 152(local3); 160(local4); 168(local5); 176(local6); 184(local7);)";
+
+                }
+
+                leaf FilterName {
+
+                    type base:Basetype_String {
+
+                        length "1..8";
+
+                    }
+
+                    description "FilterName of the log host";
+
+                }
+
+            }
+
+        }
+
+        container OutputRules {
+
+            description "This table contains information about syslog (the information center) output rules.
+
+                This table supports creating rows.";
+
+            list OutputRule {
+
+                description "Row name";
+
+                key "Destination MouduleName";
+
+                leaf Destination {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..5";
+
+                    }
+
+                    description "Specifies syslog output destination.
+
+                          Enumeration:
+
+                          1 Console
+
+                          2 Monitor terminal
+
+                          3 Log host
+
+                          4 Log buffer
+
+                          5 Log file";
+
+                }
+
+                leaf MouduleName {
+
+                    type base:Basetype_String {
+
+                        length "1..8";
+
+                    }
+
+                    description "Specifies a module by its name.String length constrains must be in range(1..8).";
+
+                }
+
+                leaf Rule {
+
+                    type enumeration {
+
+                        enum emergency;
+
+                        enum alert;
+
+                        enum critical;
+
+                        enum error;
+
+                        enum warning;
+
+                        enum notification;
+
+                        enum informational;
+
+                        enum debugging;
+
+                        enum deny;
+
+                    }
+
+                    description "A log output rule specifies the source modules and severity level of logs that can be output to
+
+                          a destination. Logs matching the output rule are output to the destination.
+
+                          Rules as follows:
+
+                          emergency,
+
+                          alert,
+
+                          critical,
+
+                          error,
+
+                          warning,
+
+                          notification,
+
+                          informational,
+
+                          debugging
+
+                          deny";
+
+                }
+
+            }
+
+        }
+
+        container IndependLogInfos {
+
+            description "This table contains information about the independ logs in the log buffer.";
+
+            list IndependLogInfo {
+
+                description "Row name";
+
+                key "ModuleName SubModuleName Index";
+
+                leaf ModuleName {
+
+                    type base:Basetype_String {
+
+                        length "1..8";
+
+                    }
+
+                    description "Specifies a module by its name.String length constrains must be in range(1..8).";
+
+                }
+
+                leaf SubModuleName {
+
+                    type base:Basetype_String {
+
+                        length "1..8";
+
+                    }
+
+                    description "Specifies a sub module by its name.String length constrains must be in range(1..8).";
+
+                }
+
+                leaf Index {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "Serial number of the log as table index.Numerical value must be in range(0..65535).";
+
+                }
+
+                leaf Time {
+
+                    type base:Basetype_DateTime;
+
+                    description "Time when the log was generated.";
+
+                }
+
+                leaf Digest {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "Brief description of the log, String length constraints must be in range(1..32).";
+
+                }
+
+                leaf Severity {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..7";
+
+                    }
+
+                    description "Severity level of the log, as follows:
+
+                          0(Emergency); 1(Alert); 2(Critical); 3(Error); 4(Warning); 5(Notification); 6(Informational); 7(Debugging)";
+
+                }
+
+                leaf Content {
+
+                    type base:Basetype_OctectString {
+
+                        length "0..2047";
+
+                    }
+
+                    description "Content of the log. String length constraints must be in range(0..2047).";
+
+                }
+
+            }
+
+        }
+
+        container IndependLogCfgs {
+
+            description "This table contains information about the independ modules.";
+
+            list IndependLogCfg {
+
+                description "Row name";
+
+                key "ModuleName";
+
+                leaf ModuleName {
+
+                    type base:Basetype_String {
+
+                        length "1..8";
+
+                    }
+
+                    description "Specifies a module by its name.String length constrains must be in range(1..8).";
+
+                }
+
+                leaf BufferSize {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "Specify the maximum number of log entries that can be stored in the log buffer.(0..65535)";
+
+                }
+
+                leaf AlarmThreshold {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..100";
+
+                    }
+
+                    description "Set the alarm threshold of the log file usage.(0..100)";
+
+                }
+
+                leaf MinAge {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..8760";
+
+                    }
+
+                    description "Specify the minimum lifetime for syslogs.(0..8760 in hours)";
+
+                }
+
+                leaf SizeQuota {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..10";
+
+                    }
+
+                    description "Specify the maximum storage space reserved for a log file.(1..10 in MB)";
+
+                }
+
+            }
+
+        }
+
+        container IndependLogCount {
+
+            description "Count logs'number";
+
+            leaf ModuleName {
+
+                type base:Basetype_String {
+
+                    length "1..8";
+
+                }
+
+                mandatory true;
+
+                description "Specifies a module by its name.String length constrains must be in range(1..8).";
+
+            }
+
+            leaf SubModuleName {
+
+                type base:Basetype_String {
+
+                    length "1..8";
+
+                }
+
+                mandatory true;
+
+                description "Specifies a sub module by its name.String length constrains must be in range(1..8).";
+
+            }
+
+            leaf CountFilter {
+
+                type base:Basetype_OctectString {
+
+                    length "0..2047";
+
+                }
+
+                description "Specifies the filter for counting logs.String length constrains must be in range(0..2047).";
+
+            }
+
+            leaf Count {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..65535";
+
+                }
+
+                description "Count of logs.Numerical value must be in range(0..65535).";
+
+            }
+
+        }
+
+        container Logfile {
+
+            description "This table contains information about logfile.";
+
+            leaf State {
+
+                type base:Basetype_EnableState;
+
+                description "Status of the log file:
+
+                    enable(default)
+
+                    disable";
+
+            }
+
+            leaf Directory {
+
+                type base:Basetype_String {
+
+                    length "1..64";
+
+                }
+
+                description "The directory where the log files are stored.";
+
+            }
+
+            leaf Frequency {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..86400";
+
+                }
+
+                description "The interval at which the system saves logs from the log file buffer to the log file.";
+
+            }
+
+            leaf SizeQuota {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..10";
+
+                }
+
+                description "The maximum storage space reserved for a log file.";
+
+            }
+
+            leaf OverwriteProtection {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+                description "Status log file overwrite-protection.
+
+                    0:disable (default)
+
+                    1:enable
+
+                    2:enable with all-port-powerdown";
+
+            }
+
+        }
+
+        container DiagnosticLogfile {
+
+            description "This table contains information about diagnostic logfile.";
+
+            leaf State {
+
+                type base:Basetype_EnableState;
+
+                description "Status of the diagnostic logfile:
+
+                    enable(default)
+
+                    disable";
+
+            }
+
+            leaf Directory {
+
+                type base:Basetype_String {
+
+                    length "1..64";
+
+                }
+
+                description "The directory where the diagnostic logfiles are stored.";
+
+            }
+
+            leaf Frequency {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "10..86400";
+
+                }
+
+                description "The interval at which the system saves logs from the diagnostic logfile buffer to the log file.";
+
+            }
+
+            leaf SizeQuota {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..10";
+
+                }
+
+                description "The maximum storage space reserved for a diagnostic log file.";
+
+            }
+
+        }
+
+        container SecurityLogfile {
+
+            description "This table contains information about security logfile.";
+
+            leaf State {
+
+                type base:Basetype_EnableState;
+
+                description "Status of the diagnostic logfile:
+
+                    enable(default)
+
+                    disable";
+
+            }
+
+            leaf Directory {
+
+                type base:Basetype_String {
+
+                    length "1..64";
+
+                }
+
+                description "The directory where the security log files are stored.";
+
+            }
+
+            leaf Frequency {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "10..86400";
+
+                }
+
+                description "The interval at which the system saves logs from the security log file buffer to the log file.";
+
+            }
+
+            leaf SizeQuota {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..10";
+
+                }
+
+                description "The maximum storage space reserved for a security log file.";
+
+            }
+
+            leaf AlarmThreshold {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..100";
+
+                }
+
+                description "The alarm threshold of the security logfile usage.";
+
+            }
+
+        }
+
+        container TraceLogfile {
+
+            description "This table contains information about trace logfile.";
+
+            leaf SizeQuota {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..10";
+
+                }
+
+                description "The maximum storage space reserved for a trace logfile.";
+
+            }
+
+        }
+
+        container Filters {
+
+            description "This table contains information about syslog filter.";
+
+            list Filter {
+
+                description "Row name";
+
+                key "FilterName";
+
+                leaf FilterName {
+
+                    type base:Basetype_String {
+
+                        length "1..8";
+
+                    }
+
+                    description "Filter name";
+
+                }
+
+                container FilterRules {
+
+                    description "Filter rules.";
+
+                    list FilterRule {
+
+                        description "Filter rule.";
+
+                        key "ModuleName";
+
+                        leaf ModuleName {
+
+                            type base:Basetype_String {
+
+                                length "1..8";
+
+                            }
+
+                            description "Specifies a module by its name.String length constrains must be in range(1..8).";
+
+                        }
+
+                        leaf Rule {
+
+                            type enumeration {
+
+                                enum emergency;
+
+                                enum alert;
+
+                                enum critical;
+
+                                enum error;
+
+                                enum warning;
+
+                                enum notification;
+
+                                enum informational;
+
+                                enum debugging;
+
+                                enum deny;
+
+                            }
+
+                            description "A log filter rule specifies the source modules and severity level of logs that can be output to a destination.
+
+                                      Logs matching the output rule are output to the destination.
+
+                                      Rules as follows:
+
+                                      emergency,
+
+                                      alert,
+
+                                      critical,
+
+                                      error,
+
+                                      warning,
+
+                                      notification,
+
+                                      informational,
+
+                                      debugging
+
+                                      deny";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container RegModule {
+
+            description "This table contains modules registered to syslog.";
+
+            leaf-list ModuleName {
+
+                type base:Basetype_String {
+
+                    length "1..8";
+
+                }
+
+                description "Modules registered to syslog.";
+
+            }
+
+        }
+
+    }
+
+}

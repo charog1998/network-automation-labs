@@ -1,0 +1,329 @@
+module H3C-ppp-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "ppp-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ppp config.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container PPP {
+
+        container PPPIpPool {
+
+            list IpPool {
+
+                key "GroupName PoolName StartIPaddr EndIPaddr";
+
+                leaf GroupName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf PoolName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf StartIPaddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf EndIPaddr {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_Ipv4Address;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container PPPAuth {
+
+            list AuthMode {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                        enum 10;
+
+                        enum 11;
+
+                        enum 12;
+
+                        enum 13;
+
+                        enum 14;
+
+                        enum 15;
+
+                    }
+
+                }
+
+                leaf Callin {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf Domain {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container PPPUserChap {
+
+            list UserChap {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..80";
+
+                    }
+
+                }
+
+                leaf PassWord {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container PPPDNS {
+
+            list IpcpDNS {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf PriAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf SecAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+            }
+
+        }
+
+        container PPPDNSAccept {
+
+            list DNSAdmitAny {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf AdmitAny {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container PPPDNSRequest {
+
+            list DNSRequest {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Request {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container PPPUserPap {
+
+            list UserPap {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..80";
+
+                    }
+
+                }
+
+                leaf PassWord {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container PPPRmtAddr {
+
+            list RmtAddr {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf IPaddress {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf PoolName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

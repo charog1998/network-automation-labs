@@ -1,0 +1,97 @@
+module H3C-nqa-event {
+
+    namespace "http://www.h3c.com/netconf/event:1.0/nqa:1.0";
+
+    prefix "nqa-event";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for nqa event.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    notification ReactionEvent {
+
+        container Reaction {
+
+            leaf AdminName {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_String {
+
+                    pattern "[^?	
+
+]{1,32}";
+
+                }
+
+                }
+
+                description "AdminName .String, case-insensitive.Length: 1 to 32 characters.";
+
+            }
+
+            leaf OperationTag {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_String {
+
+                    pattern "[^?	
+
+]{1,32}";
+
+                }
+
+                }
+
+                description "OperationTag .String, case-insensitive.Length: 1 to 32 characters.";
+
+            }
+
+            leaf ItemNumber {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                    range "1..10";
+
+                }
+
+                }
+
+                description "ItemNumber. Unsigned integer.Value range: 1 to 10.";
+
+            }
+
+        }
+
+    }
+
+}

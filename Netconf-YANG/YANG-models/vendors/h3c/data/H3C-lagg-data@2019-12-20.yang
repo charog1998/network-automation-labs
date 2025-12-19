@@ -1,0 +1,415 @@
+module H3C-lagg-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "lagg-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for lagg data.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container LAGG {
+
+        config false;
+
+        container Base {
+
+            description "LAGG Global configuration information that specifies the set based on system";
+
+            leaf SystemID {
+
+                type base:Basetype_MacAddress;
+
+                description "The Actor's System ID";
+
+            }
+
+            leaf SystemPriority {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..65535";
+
+                }
+
+                description "The priority assigned to the Actor System";
+
+            }
+
+            leaf LoadSharingMode {
+
+                type base:Basetype_UnsignedInteger64;
+
+                description "Global link-aggregation load sharing mode";
+
+            }
+
+            leaf AutoAggregationEnable {
+
+                type base:Basetype_Boolean;
+
+                description "Automatic aggregation";
+
+            }
+
+        }
+
+        container LAGGGroups {
+
+            description "The information of aggregation groups
+
+                This table supports creating rows.";
+
+            list LAGGGroup {
+
+                description "Aggregation group";
+
+                key "GroupId";
+
+                leaf GroupId {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Aggregation group identifier";
+
+                }
+
+                leaf LinkMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Aggregation mode
+
+                          1: Static aggregation
+
+                          2: Dynamic aggregation";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index of aggregation group";
+
+                }
+
+                leaf MemberList {
+
+                    type base:Basetype_PortList;
+
+                    description "All member ports";
+
+                }
+
+                leaf SelectedMemberList {
+
+                    type base:Basetype_PortList;
+
+                    description "All selected member ports";
+
+                }
+
+                leaf LacpEdgeEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Edge aggregate interface function";
+
+                }
+
+                leaf LoadSharingMode {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Link-aggregation load sharing mode";
+
+                }
+
+                leaf PartnerSystemID {
+
+                    type base:Basetype_MacAddress;
+
+                    description "The Partner's System ID";
+
+                }
+
+                leaf PartnerSystemPriority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "The priority assigned to the Partner System";
+
+                }
+
+            }
+
+        }
+
+        container LAGGMembers {
+
+            description "The information of member ports";
+
+            list LAGGMember {
+
+                description "Member port";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index of member port";
+
+                }
+
+                leaf GroupId {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Aggregation group identifier";
+
+                }
+
+                leaf SelectedStatus {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Selected status of a member port
+
+                          1: Selected
+
+                          2: Unselected
+
+                          3: Individual";
+
+                }
+
+                leaf UnSelectedReason {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                        enum 10;
+
+                    }
+
+                    description "Unselected reason of a member port
+
+                          0 : The port is attached to this aggregator.
+
+                              Indicate that selected status of a member port is Selected or Individual.
+
+                          1 : The current number of active ports has reached the upper limit.
+
+                          2 : All aggregation resources are already in-use.
+
+                          3 : The port's configuration is improper for being attached.
+
+                          4 : The port's partner is improper for being attached.
+
+                          5 : The number of current active ports has not reached the lower limit.
+
+                          6 : The port's physical state (down) is improper for being attached.
+
+                          7 : The port is not selected for an aggregator.
+
+                          8 : The port's hardware restriction is improper for being attached.
+
+                          9 : The port's speed is improper for being attached.
+
+                          10: The port's duplex mode is improper for being attached.";
+
+                }
+
+                leaf LacpEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "LACP enable flag of a member port";
+
+                }
+
+                leaf LacpMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "LACP mode of a member port
+
+                          1: Active
+
+                          2: Passive";
+
+                }
+
+                leaf LacpShortPeriodEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "LACP short period function";
+
+                }
+
+                leaf ActorPortPriority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "The priority assigned to this port by the Actor";
+
+                }
+
+                leaf ActorState {
+
+                    type base:Basetype_UnsignedChar;
+
+                    description "The Actor's state variables for the port";
+
+                }
+
+                leaf ActorOperKey {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The operational Key value assigned to the port by the Actor";
+
+                }
+
+                leaf ActorPort {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The port number assigned to the port by the Actor";
+
+                }
+
+                leaf PartnerSystemID {
+
+                    type base:Basetype_MacAddress;
+
+                    description "The Partner's System ID";
+
+                }
+
+                leaf PartnerSystemPriority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "The priority assigned to the Partner System";
+
+                }
+
+                leaf PartnerPortPriority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "The priority assigned to this port by the Partner";
+
+                }
+
+                leaf PartnerState {
+
+                    type base:Basetype_UnsignedChar;
+
+                    description "The Partner's state variables for the port";
+
+                }
+
+                leaf PartnerOperKey {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The operational Key value assigned to the port by the Partner";
+
+                }
+
+                leaf PartnerPort {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The port number assigned to the port by the Partner";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

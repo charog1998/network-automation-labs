@@ -1,0 +1,317 @@
+module H3C-diagnostic-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "diagnostic-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for diagnostic config.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container Diagnostic {
+
+        container CPUAlert {
+
+            description "This table contains setting warnning threshold information about the logical CPUs.";
+
+            list Alert {
+
+                key "Chassis Slot CPUID";
+
+                leaf Chassis {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "Member ID of the member device where the entity resides.";
+
+                }
+
+                leaf Slot {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "Slot number of the device node.";
+
+                }
+
+                leaf CPUID {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "CPU Identification.";
+
+                }
+
+                leaf WarningThreshold {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..100";
+
+                    }
+
+                    description "CPU usage warning threshold(percentage).";
+
+                }
+
+                leaf RecoveryThreshold {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..99";
+
+                    }
+
+                    description "CPU usage recovery threshold(percentage).";
+
+                }
+
+            }
+
+        }
+
+        container MemoryAlert {
+
+            description "This table contains memory information.";
+
+            list Alert {
+
+                key "Chassis Slot CPUID";
+
+                leaf Chassis {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "Member ID of the member device where the entity resides.";
+
+                }
+
+                leaf Slot {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "Slot number of the device node.";
+
+                }
+
+                leaf CPUID {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "CPU Identification.";
+
+                }
+
+                leaf Unit {
+
+                                        type string;
+
+                    description "Unit for memory thresholds";
+
+                }
+
+                leaf MinorThreshold {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The free memory threshold for minor low memory condition.";
+
+                }
+
+                leaf SevereThreshold {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The free memory threshold for severe low memory condition.";
+
+                }
+
+                leaf CriticalThreshold {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The free memory threshold for critical low memory condition..";
+
+                }
+
+                leaf NormalThreshold {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The free memory threshold for normal low memory condition.";
+
+                }
+
+                leaf EarlyWarningThreshold {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The free memory threshold for early-warning low-memory condition.";
+
+                }
+
+                leaf SecureThreshold {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The free memory threshold for normal low memory condition.";
+
+                }
+
+            }
+
+        }
+
+        container CoreAlert {
+
+            description "This table contains setting warnning threshold information about the logical Cores.";
+
+            list Alert {
+
+                key "Chassis Slot CPUID CoreID";
+
+                leaf Chassis {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "Member ID of the member device where the entity resides.";
+
+                }
+
+                leaf Slot {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "Slot number of the device node.";
+
+                }
+
+                leaf CPUID {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "CPU identification.";
+
+                }
+
+                leaf CoreID {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "Core identification.";
+
+                }
+
+                leaf CoreThreshold {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "CPU usage minor threshold(percentage).";
+
+                }
+
+            }
+
+        }
+
+        container Configuration {
+
+            description "Set the global configuration of diag module.";
+
+            leaf MonitorDiskUsageInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "5..1800";
+
+                }
+
+                description "The actual disk monitor interval.";
+
+            }
+
+        }
+
+        container DiskAlert {
+
+            description "This table contains the disk information.";
+
+            list Alert {
+
+                key "Chassis Slot CPUID DiskName";
+
+                leaf Chassis {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "Member ID of the member device where the entity resides.";
+
+                }
+
+                leaf Slot {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "Slot number of the device node.";
+
+                }
+
+                leaf CPUID {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "CPU Identification.";
+
+                }
+
+                leaf DiskName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..64";
+
+                    }
+
+                    description "Disk name.";
+
+                }
+
+                leaf Threshold {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..100";
+
+                    }
+
+                    description "Disk usage threshold (percentage).";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

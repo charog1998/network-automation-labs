@@ -1,0 +1,1483 @@
+module H3C-ikev2-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "ikev2-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ikev2 config.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container IKEv2 {
+
+        container GlobalConf {
+
+            description "IKEv2 global configuration";
+
+            container DPD {
+
+                description "Dead Peer Detection(DPD) parameters, Members include: Mode, Interval, Retry";
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Enumeration
+
+                          1-On-demand
+
+                          2-Periodic";
+
+                }
+
+                leaf Interval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "10..3600";
+
+                    }
+
+                    description "Interval time of triggering DPD";
+
+                }
+
+                leaf Retry {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2..60";
+
+                    }
+
+                    description "The DPD retry interval";
+
+                }
+
+            }
+
+            leaf CookieChallenge {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..65535";
+
+                }
+
+                description "CookieChallenge";
+
+            }
+
+            leaf NatKeepaliveInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "5..3600";
+
+                }
+
+                description "NAT keepalive Interval";
+
+            }
+
+        }
+
+        container Profiles {
+
+            description "IKEv2 profile configuration
+
+                This table supports creating rows.";
+
+            list Profile {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "IKEv2 profile name, 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "Appoint the IKEv2 profile priority, Unsigned integer, Value range: 1 to 65535,The smaller the higher priority";
+
+                }
+
+                leaf LocalAuthMethod {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "Authentication methond, Enumeration:
+
+                           1-Pre-Shared-Key
+
+                           2-RSA-Signature
+
+                           3-DSA-Signature
+
+                           4-ECDSA-Signature";
+
+                }
+
+                container RemoteAuthMethodList {
+
+                    description "Remote identity authentication method";
+
+                    leaf-list RemoteAuthMethodItem {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                        }
+
+                        description "Authentication methond, Enumeration:
+
+                                  1-Pre-Shared-Key
+
+                                  2-RSA-Signature
+
+                                  3-DSA-Signature
+
+                                  4-ECDSA-Signature";
+
+                    }
+
+                }
+
+                container ConfigExchangeList {
+
+                    description "Configuration exchange";
+
+                    leaf-list ConfigExchangeItem {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "Enable configuration exchange
+
+                                  1-request
+
+                                  2-set-accept
+
+                                  3-set-send";
+
+                    }
+
+                }
+
+                leaf Keychain {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Reference an IKEv2 keychain for the IKEv2 profile";
+
+                }
+
+                leaf SADuration {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "120..86400";
+
+                    }
+
+                    description "IKEv2 SA life time, Unsigned integer, Value range: 120 to 86400 in seconds,Default value is 86400.";
+
+                }
+
+                leaf NatKeepaliveInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "5..3600";
+
+                    }
+
+                    description "NAT keepalive interval of IKEv2 profile, Value range: 5 to 3600 in seconds.";
+
+                }
+
+                leaf InsideVRF {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Inside VPN instance of the IKEv2 profile.";
+
+                }
+
+                container DPD {
+
+                    description "Dead Peer Detection(DPD) parameters, Members include: Mode, Interval, Retry";
+
+                    leaf Mode {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The mode of DPD
+
+                                Enumeration:
+
+                                1-On-demand
+
+                                2-Periodic";
+
+                    }
+
+                    leaf Interval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "10..3600";
+
+                        }
+
+                        description "Interval time of triggering DPD, Unsigned integer: Value range: 10 to 3600, in seconds";
+
+                    }
+
+                    leaf Retry {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "2..60";
+
+                        }
+
+                        description "The DPD retry interval, Unsigned integer: Value range: 2 to 60, in seconds. Default value is 5";
+
+                    }
+
+                }
+
+                container MatchVRF {
+
+                    description "VPN instance of IKEv2 profile";
+
+                    leaf MatchVrfType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "VPN instance type
+
+                                Enumeration:
+
+                                1-any
+
+                                2-vrf-name";
+
+                    }
+
+                    leaf VRFName {
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                        description "VPN instance name, 1 to 63 characters Case insensitive";
+
+                    }
+
+                }
+
+                container AAAAuthorization {
+
+                    leaf Domain {
+
+                        type base:Basetype_NameString {
+
+                            length "1..255";
+
+                        }
+
+                    }
+
+                    leaf UserName {
+
+                        type base:Basetype_NameString {
+
+                            length "1..55";
+
+                        }
+
+                    }
+
+                }
+
+                container IdentityLocal {
+
+                    description "Identity information for the IKEv2 profile,Members include:IdentityType,StringValue or IpAddress";
+
+                    leaf IdentityType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                        }
+
+                        description "Enable configuration exchange
+
+                                1-Ipv4Address
+
+                                2-Ipv6Address
+
+                                3-dn
+
+                                4-email
+
+                                5-fqdn
+
+                                6-key-id";
+
+                    }
+
+                    leaf StringValue {
+
+                        type base:Basetype_NameString {
+
+                            length "1..255";
+
+                        }
+
+                        description "Identity Value, String, Length: 1 to 255 characters Case insensitive";
+
+                    }
+
+                    leaf IpAddress {
+
+                        type base:Basetype_IpAddress;
+
+                        description "The value of address, it is whether IPv4 address or IPv6 address lies on the AddressType";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container MatchRemoteIpv4Address {
+
+            description "Match remote identity IPv4 address information
+
+                This table supports creating rows.";
+
+            list RemoteID {
+
+                description "Row name";
+
+                key "Profile Ipv4Address Ipv4Mask";
+
+                leaf Profile {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of IKEv2 profile, String, Length: 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf Ipv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "The value of IPv4 address";
+
+                }
+
+                leaf Ipv4Mask {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "The mask of IPv4 address";
+
+                }
+
+            }
+
+        }
+
+        container MatchRemoteIpv6Address {
+
+            description "Match remote identity IPv6 address information
+
+                This table supports creating rows.";
+
+            list RemoteID {
+
+                description "Row name";
+
+                key "Profile Ipv6Address Ipv6PrefixLength";
+
+                leaf Profile {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of IKEv2 profile, String, Length: 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf Ipv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "The value of IPv6 address";
+
+                }
+
+                leaf Ipv6PrefixLength {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..128";
+
+                    }
+
+                    description "The prefix length of IPv6 address";
+
+                }
+
+            }
+
+        }
+
+        container MatchRemoteIpv4Range {
+
+            description "Match remote identity IPv4 range information
+
+                This table supports creating rows.";
+
+            list RemoteID {
+
+                description "Row name";
+
+                key "Profile BeginIpv4Address EndIpv4Address";
+
+                leaf Profile {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of IKEv2 profile, String, Length: 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf BeginIpv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Start IPv4 Address";
+
+                }
+
+                leaf EndIpv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "End IPv4 Address";
+
+                }
+
+            }
+
+        }
+
+        container MatchRemoteIpv6Range {
+
+            description "Match remote identity IPv6 range information
+
+                This table supports creating rows.";
+
+            list RemoteID {
+
+                description "Row name";
+
+                key "Profile BeginIpv6Address EndIpv6Address";
+
+                leaf Profile {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of IKEv2 profile, String, Length: 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf BeginIpv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "Start IPv6 Address";
+
+                }
+
+                leaf EndIpv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "End IPv6 Address";
+
+                }
+
+            }
+
+        }
+
+        container ProfileMatchRemotePeer {
+
+            description "The rule about how to match remote identity when it's peer
+
+                This table supports creating rows.";
+
+            list MatchRemotePeer {
+
+                description "Row name";
+
+                key "Profile PeerType PeerName";
+
+                leaf Profile {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of IKEv2 profile, String, Length: 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf PeerType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Peer Type, Enumeration:
+
+                          1-fqdn
+
+                          2-email
+
+                          3-key-id";
+
+                }
+
+                leaf PeerName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..255";
+
+                    }
+
+                    description "The peer name, String, Length:1 to 255 charactersCase sensitive.";
+
+                }
+
+            }
+
+        }
+
+        container ProfileMatchLocalIpAddress {
+
+            description "Profile Match Local IPv4 or IPv6 address information
+
+                This table supports creating rows.";
+
+            list MatchLocalIpAddress {
+
+                description "Row name";
+
+                key "Profile IPType Address";
+
+                leaf Profile {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of IKEv2 profile, String, Length: 1 to 63 characters, case insensitive";
+
+                }
+
+                leaf IPType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Enumeration:
+
+                          1—Ipv4Address
+
+                          2—Ipv6Address";
+
+                }
+
+                leaf Address {
+
+                    type base:Basetype_IpAddress;
+
+                    description "The value of address, it is whether IPv4 address or IPv6 address lies on the AddressType";
+
+                }
+
+            }
+
+        }
+
+        container ProfileMatchLocalInterfaces {
+
+            description "Profile Match Local Interface information
+
+                This table supports creating rows.";
+
+            list MatchLocalInterface {
+
+                description "Row name";
+
+                key "Profile IfIndex";
+
+                leaf Profile {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of IKEv2 profile, String, Length: 1 to 63 characters, case insensitive";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "";
+
+                }
+
+            }
+
+        }
+
+        container Policies {
+
+            description "Name of IKEV2 Policies
+
+                This table supports creating rows.";
+
+            list Policy {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of IKEV2 Policy, String, Length: 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "The priority of IKEV2 Policy, Unsigned integer, Value range: 1 to 65535, The more small value the more high priority";
+
+                }
+
+                container ProposalList {
+
+                    description "Reference an IKEV2 proposal for the IKEV2 Policy, Members include: ProposalItem";
+
+                    leaf-list ProposalItem {
+
+                        type base:Basetype_NameString {
+
+                            length "1..63";
+
+                        }
+
+                        description "Name of IKEV2 Proposal, String, Length: 1 to 63 characters Case insensitive";
+
+                    }
+
+                }
+
+                container MatchVRF {
+
+                    description "VPN instance for the IKEv2 policy,Members include: MatchVRFType,VRFName";
+
+                    leaf MatchVRFType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "VPN instance type
+
+                                Enumeration:
+
+                                1-any
+
+                                2-vrf name";
+
+                    }
+
+                    leaf VRFName {
+
+                        type base:Basetype_NameString {
+
+                            length "1..31";
+
+                        }
+
+                        description "VRF name, String, Length: 1 to 31 characters Case insensitive";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container PolicyMatchLocalIpAddress {
+
+            description "Policy Match Local IPv4 or IPv6 address information
+
+                This table supports creating rows.";
+
+            list MatchLocalIpAddress {
+
+                description "Row name";
+
+                key "Policy IPType IpAddress";
+
+                leaf Policy {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of IKEV2 policy, String, Length: 1 to 63 characters, case insensitive";
+
+                }
+
+                leaf IPType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Enumeration:
+
+                          1—Ipv4Address
+
+                          2—Ipv6Address";
+
+                }
+
+                leaf IpAddress {
+
+                    type base:Basetype_IpAddress;
+
+                    description "The value of address, it is whether IPv4 address or IPv6 address lies on the AddressType";
+
+                }
+
+            }
+
+        }
+
+        container PolicyMatchLocalInterfaces {
+
+            description "Policy Match Local Interface information
+
+                This table supports creating rows.";
+
+            list MatchLocalInterface {
+
+                description "Row name";
+
+                key "Policy IfIndex";
+
+                leaf Policy {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of IKEV2 policy, String, Length: 1 to 63 characters, case insensitive";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "";
+
+                }
+
+            }
+
+        }
+
+        container Proposals {
+
+            description "IKEv2 Proposals configuration
+
+                This table supports creating rows.";
+
+            list Proposal {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "IKEv2 Proposal name, 1 to 63 characters Case insensitive";
+
+                }
+
+                container IntegrityList {
+
+                    description "Integrity protection algorithm list";
+
+                    leaf-list IntegrityItem {
+
+                        type enumeration {
+
+                            enum 12;
+
+                            enum 13;
+
+                            enum 14;
+
+                            enum 15;
+
+                            enum 16;
+
+                            enum 17;
+
+                        }
+
+                        description "Integrity protection algorithm, Enumeration:
+
+                                  12-IKEV2_NETCONF_ALG_ID_AES_XCBC_MAC
+
+                                  13-IKEV2_NETCONF_ALG_ID_MD5
+
+                                  14-IKEV2_NETCONF_ALG_ID_SHA1
+
+                                  15-IKEV2_NETCONF_ALG_ID_SHA256
+
+                                  16-IKEV2_NETCONF_ALG_ID_SHA384
+
+                                  17-IKEV2_NETCONF_ALG_ID_SHA512";
+
+                    }
+
+                }
+
+                container EncryptionList {
+
+                    description "Encryption algorithm list";
+
+                    leaf-list EncryptionItem {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 9;
+
+                            enum 10;
+
+                            enum 11;
+
+                        }
+
+                        description "Encryption algorithm, Enumeration:
+
+                                  1-IKEV2_NETCONF_ALG_ID_3DES_CBC
+
+                                  2-IKEV2_NETCONF_ALG_ID_AES_CBC_128
+
+                                  3-IKEV2_NETCONF_ALG_ID_AES_CBC_192
+
+                                  4-IKEV2_NETCONF_ALG_ID_AES_CBC_256
+
+                                  5-IKEV2_NETCONF_ALG_ID_AES_CTR_128
+
+                                  6-IKEV2_NETCONF_ALG_ID_AES_CTR_192
+
+                                  7-IKEV2_NETCONF_ALG_ID_AES_CTR_256
+
+                                  8-IKEV2_NETCONF_ALG_ID_CAMELLIA_CBC_128
+
+                                  9-IKEV2_NETCONF_ALG_ID_CAMELLIA_CBC_192
+
+                                  10-IKEV2_NETCONF_ALG_ID_CAMELLIA_CBC_256
+
+                                  11-IKEV2_NETCONF_ALG_ID_DES_CBC";
+
+                    }
+
+                }
+
+                container DhList {
+
+                    description "DH group list";
+
+                    leaf-list DhItem {
+
+                        type enumeration {
+
+                            enum 18;
+
+                            enum 19;
+
+                            enum 20;
+
+                            enum 21;
+
+                            enum 22;
+
+                            enum 23;
+
+                            enum 24;
+
+                        }
+
+                        description "DH group, Enumeration:
+
+                                  18-IKEV2_NETCONF_ALG_ID_DHGROUP1
+
+                                  19-IKEV2_NETCONF_ALG_ID_DHGROUP2
+
+                                  20-IKEV2_NETCONF_ALG_ID_DHGROUP5
+
+                                  21-IKEV2_NETCONF_ALG_ID_DHGROUP14
+
+                                  22-IKEV2_NETCONF_ALG_ID_DHGROUP19
+
+                                  23-IKEV2_NETCONF_ALG_ID_DHGROUP20
+
+                                  24-IKEV2_NETCONF_ALG_ID_DHGROUP24";
+
+                    }
+
+                }
+
+                container PrfAlgList {
+
+                    description "PRF algorithm list";
+
+                    leaf-list PrfAlgItem {
+
+                        type enumeration {
+
+                            enum 12;
+
+                            enum 13;
+
+                            enum 14;
+
+                            enum 15;
+
+                            enum 16;
+
+                            enum 17;
+
+                        }
+
+                        description "PRF algorithm, Enumeration:
+
+                                  12-IKEV2_NETCONF_ALG_ID_AES_XCBC_MAC
+
+                                  13-IKEV2_NETCONF_ALG_ID_MD5
+
+                                  14-IKEV2_NETCONF_ALG_ID_SHA1
+
+                                  15-IKEV2_NETCONF_ALG_ID_SHA256
+
+                                  16-IKEV2_NETCONF_ALG_ID_SHA384
+
+                                  17-IKEV2_NETCONF_ALG_ID_SHA512";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Keychains {
+
+            description "IKEv2 Keychains configuration
+
+                This table supports creating rows.";
+
+            list Keychain {
+
+                description "Row name";
+
+                key "Name Peer";
+
+                leaf Name {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "IKEv2 Keychain name, 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf Peer {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Peer Name, 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf HostName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..253";
+
+                    }
+
+                    description "HostName, 1 to 253 characters Case insensitive";
+
+                }
+
+                container Identity {
+
+                    description "ID of an IKEv2 peer,  Members include: Type, IPAddress, Value";
+
+                    leaf-list IdentityType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                        }
+
+                        description "IdentityType, Enumeration:
+
+                                  1-Ipv4Address
+
+                                  2-Ipv6Address
+
+                                  3-email
+
+                                  4-fqdn
+
+                                  5-key-id";
+
+                    }
+
+                    leaf-list StringValue {
+
+                        type base:Basetype_OctectString255;
+
+                        description "The value when the identity isn't IP address, String, Length: 0 to 255 charactersCase sensitive";
+
+                    }
+
+                    leaf-list LocalIpAddress {
+
+                        type base:Basetype_IpAddress;
+
+                        description "The value of address when the identity is IP address";
+
+                    }
+
+                }
+
+                container Address {
+
+                    description "Address of an IKEv2 peer,  Members include: AddressType, IPAddress, Ipv4Mask, Ipv6PrefixLength";
+
+                    leaf-list AddressType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "AddressType, Enumeration:
+
+                                  1-Ipv4Address
+
+                                  2-Ipv6Address";
+
+                    }
+
+                    leaf-list IpAddress {
+
+                        type base:Basetype_IpAddress;
+
+                        description "The value of address when the AddressType is IP address";
+
+                    }
+
+                    leaf-list Ipv4Mask {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "The mask of IPv4 address";
+
+                    }
+
+                    leaf-list Ipv6PrefixLength {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..128";
+
+                        }
+
+                        description "The prefix length of IPv6 address, Unsigned integer, Value range: 0 to 128";
+
+                    }
+
+                }
+
+                container PreSharedKeyLocal {
+
+                    description "PreSharedKeyLocal";
+
+                    leaf-list KeyType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The type of pre-shared key, Enumeration:
+
+                                  1-Simple
+
+                                  2-Cipher";
+
+                    }
+
+                    leaf-list Key {
+
+                        type base:Basetype_NameString {
+
+                            length "1..201";
+
+                        }
+
+                        description "According to the type of decision in length.
+
+                                Plaintext key string
+
+                                Length:1 to 128 characters
+
+                                Or
+
+                                Ciphertext key string
+
+                                Length:1 to 201 characters";
+
+                    }
+
+                }
+
+                container PreSharedKeyRemote {
+
+                    description "PreSharedKeyRemote";
+
+                    leaf-list KeyType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The type of pre-shared key, Enumeration:
+
+                                  1-Simple
+
+                                  2-Cipher";
+
+                    }
+
+                    leaf-list Key {
+
+                        type base:Basetype_NameString {
+
+                            length "1..201";
+
+                        }
+
+                        description "According to the type of decision in length.
+
+                                Plaintext key string
+
+                                Length:1 to 128 characters
+
+                                Or
+
+                                Ciphertext key string
+
+                                Length:1 to 201 characters";
+
+                    }
+
+                }
+
+                container PreSharedKeySymmetric {
+
+                    description "PreSharedKeySymmetric";
+
+                    leaf-list KeyType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The type of pre-shared key, Enumeration:
+
+                                  1-Simple
+
+                                  2-Cipher";
+
+                    }
+
+                    leaf-list Key {
+
+                        type base:Basetype_NameString {
+
+                            length "1..201";
+
+                        }
+
+                        description "According to the type of decision in length.
+
+                                Plaintext key string
+
+                                Length:1 to 128 characters
+
+                                Or
+
+                                Ciphertext key string
+
+                                Length:1 to 201 characters";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

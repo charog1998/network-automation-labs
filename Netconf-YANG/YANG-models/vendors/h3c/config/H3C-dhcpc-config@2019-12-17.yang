@@ -1,0 +1,177 @@
+module H3C-dhcpc-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "dhcpc-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for dhcpc config.";
+
+    revision 2019-12-17 {
+
+        description "Initial revision.";
+
+    }
+
+    container DHCPC {
+
+        container DHCPCConfig {
+
+            leaf DadEnable {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf DSCP {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..63";
+
+                }
+
+            }
+
+        }
+
+        container DHCPAlloc {
+
+            list Alloc {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf AllocEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container DHCPClientID {
+
+            list ClientID {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf ASCII {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+                leaf Hex {
+
+                    type base:Basetype_String {
+
+                        length "4..64";
+
+                    }
+
+                }
+
+                leaf ClientIfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+            }
+
+        }
+
+        container BootpAlloc {
+
+            list Alloc {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf AllocEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container DHCPCIfConfig {
+
+            list IfConfigure {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf TrackID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..1024";
+
+                    }
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..255";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

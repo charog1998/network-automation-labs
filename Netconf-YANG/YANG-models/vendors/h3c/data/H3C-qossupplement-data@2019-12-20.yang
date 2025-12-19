@@ -1,0 +1,115 @@
+module H3C-qossupplement-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "qossupplement-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for qossupplement data.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container QoSSupplement {
+
+        config false;
+
+        container InterfaceOverheadCompensation {
+
+            description "This table contains information about compensation for rate limit";
+
+            list CompensationEntry {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_NameAndIndexUnion;
+
+                    }
+
+                    description "Interface name or index";
+
+                }
+
+                leaf Length {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..256";
+
+                    }
+
+                    description "Compensation length";
+
+                }
+
+            }
+
+        }
+
+        container UserProfileOverheadCompensation {
+
+            description "This table contains information about compensation for rate limit";
+
+            list CompensationEntry {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "User profile name";
+
+                }
+
+                leaf Length {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..256";
+
+                    }
+
+                    description "Compensation length";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

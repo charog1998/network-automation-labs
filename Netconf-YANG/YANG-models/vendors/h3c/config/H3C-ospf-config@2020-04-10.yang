@@ -1,0 +1,1477 @@
+module H3C-ospf-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "ospf-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ospf config.";
+
+    revision 2020-04-10 {
+
+        description "Synchronize the modification of the schema file to the YANG file.";
+
+    }
+
+    revision 2020-01-06 {
+
+        description "Initial revision.";
+
+    }
+
+    container OSPF {
+
+        container Interfaces {
+
+            description "OSPF interface information table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                container IfEnable {
+
+                    description "Interface enable";
+
+                    leaf Name {
+
+                        type base:Basetype_UnsignedShort {
+
+                            range "1..max";
+
+                        }
+
+                        description "Instance name";
+
+                    }
+
+                    leaf AreaId {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "Area ID";
+
+                    }
+
+                    leaf ExcludedSubIp {
+
+                        type base:Basetype_Boolean;
+
+                        description "Whether to exclude secondary IP addresses";
+
+                    }
+
+                }
+
+                leaf Cost {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "Interface cost";
+
+                }
+
+                leaf NetworkType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                    description "Interface network type";
+
+                }
+
+                leaf HelloTimer {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Hello interval";
+
+                }
+
+                leaf DeadTimer {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..2147483647";
+
+                    }
+
+                    description "Dead interval";
+
+                }
+
+                leaf DrPriority {
+
+                    type base:Basetype_UnsignedChar;
+
+                    description "Router priority";
+
+                }
+
+                container SimpleAuth {
+
+                    description "Simple authentication";
+
+                    leaf SimplePwdType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "Simple password type";
+
+                    }
+
+                    leaf SimplePwd {
+
+                        type base:Basetype_EncryptString {
+
+                            length "1..41";
+
+                        }
+
+                        description "Simple password";
+
+                    }
+
+                }
+
+                leaf BfdEnable {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Bfd Eanble";
+
+                }
+
+                container PrefixSid {
+
+                    description "Prefix Sid";
+
+                    leaf SidName {
+
+                        type base:Basetype_UnsignedShort {
+
+                            range "1..max";
+
+                        }
+
+                        description "Process id";
+
+                    }
+
+                    leaf SidType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "SID type";
+
+                    }
+
+                    leaf Sid {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1048575";
+
+                        }
+
+                        description "Prefix SID";
+
+                    }
+
+                    leaf ExplicitNull {
+
+                        type base:Basetype_Boolean;
+
+                        description "Whether to enable ExplicitNull";
+
+                    }
+
+                    leaf NFlagClear {
+
+                        type base:Basetype_Boolean;
+
+                        description "Whether to enable NFlagClear";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IfMd5s {
+
+            description "OSPF interface MD5 authentication information table
+
+                This table supports creating rows.";
+
+            list Md5 {
+
+                description "Row name";
+
+                key "IfIndex KeyId";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf KeyId {
+
+                    type base:Basetype_UnsignedChar {
+
+                        range "1..max";
+
+                    }
+
+                    description "Key ID";
+
+                }
+
+                leaf Md5Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "MD5 Type";
+
+                }
+
+                leaf PasswordType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Password type";
+
+                }
+
+                leaf Password {
+
+                    type base:Basetype_EncryptString {
+
+                        length "1..53";
+
+                    }
+
+                    description "Password";
+
+                }
+
+            }
+
+        }
+
+        container Redistributes {
+
+            description "OSPF Redistribute Table
+
+                This table supports creating rows.";
+
+            list Redist {
+
+                description "Row name";
+
+                key "Name TopoId Protocol RedistName";
+
+                leaf Name {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Instance Name";
+
+                }
+
+                leaf TopoId {
+
+                    type union {
+
+                        type uint8;
+
+                        type uint8;
+
+                    }
+
+                    description "TOPO ID";
+
+                }
+
+                leaf Protocol {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                    }
+
+                    description "Protocol Type";
+
+                }
+
+                leaf RedistName {
+
+                    type union {
+
+                        type string;
+
+                        type uint32;
+
+                    }
+
+                    description "Redistribute Instance Name";
+
+                }
+
+                leaf Cost {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..16777214";
+
+                    }
+
+                    description "Redistribute metric";
+
+                }
+
+                leaf RoutePolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Redistribute routing policy name";
+
+                }
+
+                leaf AllowIBGP {
+
+                    type base:Basetype_Boolean;
+
+                    description "allow IBGP";
+
+                }
+
+            }
+
+        }
+
+        container Areas {
+
+            description "OSPF Area Table
+
+                This table supports creating rows.";
+
+            list Area {
+
+                description "Row name";
+
+                key "Name AreaId";
+
+                leaf Name {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Name";
+
+                }
+
+                leaf AreaId {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "AREA ID";
+
+                }
+
+                leaf AreaType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "OSPF Area Type";
+
+                }
+
+            }
+
+        }
+
+        container Instances {
+
+            description "OSPF instance information table
+
+                This table supports creating rows.";
+
+            list Instance {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Instance name";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VRF;
+
+                    }
+
+                    description "Vrfname";
+
+                }
+
+                leaf RouterId {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Router ID";
+
+                }
+
+                container DefaultRouteAdvertise {
+
+                    description "Default route advertisement information";
+
+                    leaf CfgType {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                        }
+
+                        description "Generate a default route into the LSA";
+
+                    }
+
+                    leaf Cost {
+
+                        type union {
+
+                            type string;
+
+                            type uint32;
+
+                        }
+
+                        description "Metric for the default route";
+
+                    }
+
+                    leaf PolicyName {
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                        description "Specifies a routing policy to filter default routes";
+
+                    }
+
+                    leaf Type {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "Specifies a cost type for the Type-5 LSA";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Networks {
+
+            description "OSPF Networks table
+
+                This table supports creating rows.";
+
+            list Network {
+
+                description "Row name";
+
+                key "Name AreaId NetworkAddr";
+
+                leaf Name {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Instance name";
+
+                }
+
+                leaf AreaId {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Area ID";
+
+                }
+
+                leaf NetworkAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Network address";
+
+                }
+
+                leaf WildcardMask {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Wildcard mask";
+
+                }
+
+            }
+
+        }
+
+        container Nssas {
+
+            description "OSPF nssa areas information table";
+
+            list Nssa {
+
+                description "Row name";
+
+                key "Name TopoId AreaId";
+
+                leaf Name {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Name";
+
+                }
+
+                leaf TopoId {
+
+                    type union {
+
+                        type uint8;
+
+                        type uint8;
+
+                    }
+
+                    description "TOPO ID";
+
+                }
+
+                leaf AreaId {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Area ID";
+
+                }
+
+                container DefaultRouteAdvertiseCfg {
+
+                    description "Default route advertisement messages";
+
+                    leaf DefaultRouteAdvertise {
+
+                        type base:Basetype_Boolean;
+
+                        description "Whether to generate a Type-7 default into the NSSA area";
+
+                    }
+
+                    leaf Cost {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "min..16777214";
+
+                        }
+
+                        description "Metric for default route";
+
+                    }
+
+                    leaf NssaOnly {
+
+                        type base:Basetype_Boolean;
+
+                        description "Whether to limit the default route advertisement to NSSA area";
+
+                    }
+
+                    leaf PolicyName {
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                        description "Specifies the routing policy to filter default route";
+
+                    }
+
+                    leaf Type {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "Specifies a cost type for the Type-7 LSA";
+
+                    }
+
+                }
+
+                leaf NoImportRoute {
+
+                    type base:Basetype_Boolean;
+
+                    description "Whether to redistribute routes into the NSSA area";
+
+                }
+
+                leaf NoSummary {
+
+                    type base:Basetype_Boolean;
+
+                    description "Whether to send summary LSA into NSSA area";
+
+                }
+
+                leaf SuppressFa {
+
+                    type base:Basetype_Boolean;
+
+                    description "Whether to suppress the forwarding address in the Type-7 LSAs from being placed in the Type-5 LSAs";
+
+                }
+
+                leaf Translate {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "Whether to translate Type-7 LSA to Type-5 LSA";
+
+                }
+
+                leaf TranslatorStabilityInterval {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "min..900";
+
+                    }
+
+                    description "Specifies the stability interval of the translator";
+
+                }
+
+            }
+
+        }
+
+        container StubRouters {
+
+            description "OSPF StubRouters table
+
+                This table supports creating rows.";
+
+            list StubRouter {
+
+                description "Row name";
+
+                key "Name TopoId";
+
+                leaf Name {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Instance name";
+
+                }
+
+                leaf TopoId {
+
+                    type union {
+
+                        type uint8;
+
+                        type uint8;
+
+                    }
+
+                    description "TOPO ID";
+
+                }
+
+                leaf ExternalLsa {
+
+                    type base:Basetype_Boolean;
+
+                    description "Configures the cost of external LSAs";
+
+                }
+
+                leaf ExtMetric {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..16777215";
+
+                    }
+
+                    description "Cost of the external LSAs";
+
+                }
+
+                leaf IncludeStub {
+
+                    type base:Basetype_Boolean;
+
+                    description "Sets the cost of the stub links";
+
+                }
+
+                container OnStartup {
+
+                    description "Specifies the router as a stub router during reboot";
+
+                    leaf WaitForBgp {
+
+                        type base:Basetype_Boolean;
+
+                        description "Waits for BGP on-startup";
+
+                    }
+
+                    leaf Seconds {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "5..86400";
+
+                        }
+
+                        description "On-startup timeout time";
+
+                    }
+
+                }
+
+                leaf SummaryLsa {
+
+                    type base:Basetype_Boolean;
+
+                    description "Configures the cost of the summary LSAs";
+
+                }
+
+                leaf SumMetric {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..16777215";
+
+                    }
+
+                    description "Cost of the summary LSAs";
+
+                }
+
+            }
+
+        }
+
+        container Preferences {
+
+            description "OSPF Preferences table
+
+                This table supports creating rows.";
+
+            list Preference {
+
+                description "Row name";
+
+                key "Name TopoId Type";
+
+                leaf Name {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Instance name";
+
+                }
+
+                leaf TopoId {
+
+                    type union {
+
+                        type uint8;
+
+                        type uint8;
+
+                    }
+
+                    description "TOPO ID";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Route type";
+
+                }
+
+                leaf Value {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..255";
+
+                    }
+
+                    description "Preference value";
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of the routing policy";
+
+                }
+
+            }
+
+        }
+
+        container AsbrSummarys {
+
+            description "OSPF AsbrSummarys table
+
+                This table supports creating rows.";
+
+            list AsbrSummary {
+
+                description "Row name";
+
+                key "Name TopoId Ipv4Address Ipv4Mask";
+
+                leaf Name {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Instance name";
+
+                }
+
+                leaf TopoId {
+
+                    type union {
+
+                        type uint8;
+
+                        type uint8;
+
+                    }
+
+                    description "TOPO ID";
+
+                }
+
+                leaf Ipv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "IPv4 address";
+
+                }
+
+                leaf Ipv4Mask {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Mask of IP address";
+
+                }
+
+                leaf Cost {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..16777214";
+
+                    }
+
+                    description "Summary route cost";
+
+                }
+
+                leaf NotAdvertise {
+
+                    type base:Basetype_Boolean;
+
+                    description "Does not advertise summary route";
+
+                }
+
+                leaf NssaOnly {
+
+                    type base:Basetype_Boolean;
+
+                    description "Limits summary routes to NSSA areas";
+
+                }
+
+                leaf Tag {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..4294967295";
+
+                    }
+
+                    description "Summary route tag";
+
+                }
+
+            }
+
+        }
+
+        container SegmentRoutings {
+
+            description "OSPF segment routing information table
+
+                This table supports creating rows.";
+
+            list SegmentRouting {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Instance name";
+
+                }
+
+                leaf MplsEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Whether to enable MPLS SR";
+
+                }
+
+                leaf AdjacencyEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Whether to enable adjacency label allocation";
+
+                }
+
+                container SRGB {
+
+                    description "SRGB Range";
+
+                    leaf Lowerbound {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Min value of SRGB";
+
+                    }
+
+                    leaf Upperbound {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Max value of SRGB";
+
+                    }
+
+                }
+
+                leaf SrPreferEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Whether to enable SR label prefer";
+
+                }
+
+                leaf PrefixListName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of the prefix list";
+
+                }
+
+            }
+
+        }
+
+        container DistributeBgplses {
+
+            description "OSPF distribute bgpls table
+
+                This table supports creating rows.";
+
+            list DistributeBgpls {
+
+                description "Row name";
+
+                key "Name TopoId";
+
+                leaf Name {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Instance name";
+
+                }
+
+                leaf TopoId {
+
+                    type union {
+
+                        type uint8;
+
+                        type uint8;
+
+                    }
+
+                    description "TOPO ID";
+
+                }
+
+                leaf InstanceId {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "Instance id";
+
+                }
+
+                leaf StrictLinkCheck {
+
+                    type base:Basetype_Boolean;
+
+                    description "Whether to enable StrictLinkCheck";
+
+                }
+
+            }
+
+        }
+
+        container FilterPolicyExports {
+
+            description "OSPF filter redistributed routes table
+
+                This table supports creating rows.";
+
+            list FilterPolicyExport {
+
+                description "Row name";
+
+                key "Name TopoId ProtocolExport InstanceNameExport";
+
+                leaf Name {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Instance name";
+
+                }
+
+                leaf TopoId {
+
+                    type union {
+
+                        type uint8;
+
+                        type uint8;
+
+                    }
+
+                    description "TOPO ID";
+
+                }
+
+                leaf ProtocolExport {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                    }
+
+                    description "Protocol type";
+
+                }
+
+                leaf InstanceNameExport {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_UnsignedShort {
+
+                            range "1..max";
+
+                        }
+
+                    }
+
+                    description "Instance name";
+
+                }
+
+                leaf AclNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2000..3999";
+
+                    }
+
+                    description "ACL number";
+
+                }
+
+                leaf PrefixListName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of the prefix list";
+
+                }
+
+            }
+
+        }
+
+        container FilterPolicyImports {
+
+            description "OSPF filter incoming routes table
+
+                This table supports creating rows.";
+
+            list FilterPolicyImport {
+
+                description "Row name";
+
+                key "Name TopoId";
+
+                leaf Name {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Instance name";
+
+                }
+
+                leaf TopoId {
+
+                    type union {
+
+                        type uint8;
+
+                        type uint8;
+
+                    }
+
+                    description "TOPO ID";
+
+                }
+
+                leaf AclNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2000..3999";
+
+                    }
+
+                    description "ACL number";
+
+                }
+
+                leaf PrefixListName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of the prefix list";
+
+                }
+
+                leaf Gateway {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of the gateway";
+
+                }
+
+                leaf RoutePolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of the routing policy";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,775 @@
+module H3C-netstream4-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "netstream4-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for netstream4 data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container NETSTREAM4 {
+
+        config false;
+
+        container NS4Enable {
+
+            list InterfaceEnable {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Enable {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container NS4Sampler {
+
+            list InterfaceSampler {
+
+                key "IfIndex Direction";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf SamplerName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container NS4Filter {
+
+            list InterfaceFilter {
+
+                key "IfIndex Direction";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf AclNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2000..3999";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container NS4V9RefreshTime {
+
+            leaf Time {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..3600";
+
+                }
+
+            }
+
+        }
+
+        container NS4V9RefreshPacket {
+
+            leaf Packet {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..600";
+
+                }
+
+            }
+
+        }
+
+        container NS4Aging {
+
+            leaf AgingEnable {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+        container NS4IPSECRawPacket {
+
+            list IPSECRawPacket {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf RawPacketEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container NS4MPLSCollection {
+
+            leaf LabelPosition1 {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                    enum 2;
+
+                    enum 3;
+
+                    enum 4;
+
+                    enum 5;
+
+                    enum 6;
+
+                }
+
+            }
+
+            leaf LabelPosition2 {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                    enum 2;
+
+                    enum 3;
+
+                    enum 4;
+
+                    enum 5;
+
+                    enum 6;
+
+                }
+
+            }
+
+            leaf LabelPosition3 {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                    enum 2;
+
+                    enum 3;
+
+                    enum 4;
+
+                    enum 5;
+
+                    enum 6;
+
+                }
+
+            }
+
+            leaf NoIPFieldsEnable {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+        container NS4ExportInfo {
+
+            list ExportInfo {
+
+                key "ExportType Ipv4Address VrfIndex";
+
+                leaf ExportType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..17";
+
+                    }
+
+                }
+
+                leaf Ipv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf VrfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf UDPPort {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf V5ExportNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf V5UDPDatagramsNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf V5UDPDatagramsFailed {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf V8ExportNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf V8UDPDatagramsNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf V8UDPDatagramsFailed {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf V9ExportNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf V9UDPDatagramsNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf V9UDPDatagramsFailed {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+        container NS4Source {
+
+            leaf IfIndex {
+
+                type base:Basetype_NameAndIndexUnion;
+
+            }
+
+        }
+
+        container NS4ActiveTime {
+
+            leaf ActiveTime {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..max";
+
+                }
+
+            }
+
+        }
+
+        container NS4InActiveTime {
+
+            leaf InActiveTime {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "10..max";
+
+                }
+
+            }
+
+        }
+
+        container NS4Host {
+
+            list Host {
+
+                key "VrfIndex IP";
+
+                leaf VrfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf IP {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf UDPPort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container NS4MaxEntry {
+
+            leaf MaxEntry {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf Action {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+        container NS4Rate {
+
+            leaf Rate {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..1000";
+
+                }
+
+            }
+
+        }
+
+        container NS4Version {
+
+            leaf Version {
+
+                type enumeration {
+
+                    enum 5;
+
+                    enum 9;
+
+                }
+
+            }
+
+            leaf As {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                }
+
+            }
+
+            leaf Nexthop {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+        container NS4CacheInfo {
+
+            list CacheInfo {
+
+                key "LipNode HashIndex Order";
+
+                leaf LipNode {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf HashIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                }
+
+                leaf Order {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf FlowType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                }
+
+                leaf PacketNum {
+
+                    type base:Basetype_Counter64;
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf VxlanID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf SrcAddress {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf SrcPort {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf DstAddress {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf DstPort {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Protocol {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Tos {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf AppID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf MplsTopType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 5;
+
+                        enum 6;
+
+                    }
+
+                }
+
+                leaf MplsTopLabelIP {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf MplsTopLabelMaskLen {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf MplsLable1 {
+
+                    type base:Basetype_String;
+
+                }
+
+                leaf MplsLable2 {
+
+                    type base:Basetype_String;
+
+                }
+
+                leaf MplsLable3 {
+
+                    type base:Basetype_String;
+
+                }
+
+            }
+
+        }
+
+        container NS4Specification {
+
+            leaf MaxEntryAction {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf MaxEntryNum {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf MinEntryNum {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf ActiveMaxTimeOut {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf InActiveMaxTimeOut {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf NoSupportMPLS {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportGlobal {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf NSNoFilter {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf NSSupportMirror {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf NSNoSampler {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf NS4IfSetConfBitMap {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf NSNoAging {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf NsSupportVxlan {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf NsIgnoreDirect {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf NsModeRaw {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+    }
+
+}

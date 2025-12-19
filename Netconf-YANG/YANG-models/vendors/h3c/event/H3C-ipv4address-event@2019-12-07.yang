@@ -1,0 +1,95 @@
+module H3C-ipv4address-event {
+
+    namespace "http://www.h3c.com/netconf/event:1.0/ipv4address:1.0";
+
+    prefix "ipv4address-event";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ipv4address event.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    notification IPv4AddressEvent {
+
+        container IPv4Address {
+
+            leaf Name {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_InterfaceName;
+
+                }
+
+                description "Full name of an interface.";
+
+            }
+
+            leaf AddressOrigin {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..7";
+
+                }
+
+            }
+
+            leaf AddressStatus {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..2";
+
+                }
+
+            }
+
+            leaf AddressEvent {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..3";
+
+                }
+
+            }
+
+            leaf Ipv4Address {
+
+                type base:Basetype_Ipv4Address;
+
+            }
+
+            leaf Ipv4Mask {
+
+                type base:Basetype_Ipv4Address;
+
+            }
+
+        }
+
+    }
+
+}

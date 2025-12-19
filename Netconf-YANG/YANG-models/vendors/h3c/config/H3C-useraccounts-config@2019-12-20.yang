@@ -1,0 +1,1351 @@
+module H3C-useraccounts-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "useraccounts-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for useraccounts config.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container UserAccounts {
+
+        container Management {
+
+            container Accounts {
+
+                list Account {
+
+                    key "Name";
+
+                    leaf Name {
+
+                        type base:Basetype_String {
+
+                            length "1..55";
+
+                        }
+
+                    }
+
+                    leaf Password {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "1..63";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf GroupName {
+
+                        type base:Basetype_String {
+
+                            length "1..32";
+
+                        }
+
+                    }
+
+                    leaf FTP {
+
+                        type base:Basetype_Boolean;
+
+                    }
+
+                    leaf HTTP {
+
+                        type base:Basetype_Boolean;
+
+                    }
+
+                    leaf HTTPS {
+
+                        type base:Basetype_Boolean;
+
+                    }
+
+                    leaf PAD {
+
+                        type base:Basetype_Boolean;
+
+                    }
+
+                    leaf SSH {
+
+                        type base:Basetype_Boolean;
+
+                    }
+
+                    leaf TELNET {
+
+                        type base:Basetype_Boolean;
+
+                    }
+
+                    leaf Terminal {
+
+                        type base:Basetype_Boolean;
+
+                    }
+
+                    leaf AccessLimit {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..1024";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf FTPHomeDir {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "1..255";
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            container UserRoles {
+
+                list UserRole {
+
+                    key "UserName RoleName";
+
+                    leaf UserName {
+
+                        type base:Basetype_String {
+
+                            length "1..55";
+
+                        }
+
+                    }
+
+                    leaf RoleName {
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Network {
+
+            container Accounts {
+
+                list Account {
+
+                    key "Name";
+
+                    leaf Name {
+
+                        type base:Basetype_String {
+
+                            length "1..55";
+
+                        }
+
+                    }
+
+                    leaf Password {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "1..63";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf Description {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "1..127";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf GroupName {
+
+                        type base:Basetype_String {
+
+                            length "1..32";
+
+                        }
+
+                    }
+
+                    leaf ADVPN {
+
+                        type base:Basetype_Boolean;
+
+                    }
+
+                    leaf IKE {
+
+                        type base:Basetype_Boolean;
+
+                    }
+
+                    leaf IPoE {
+
+                        type base:Basetype_Boolean;
+
+                    }
+
+                    leaf LanAccess {
+
+                        type base:Basetype_Boolean;
+
+                    }
+
+                    leaf Portal {
+
+                        type base:Basetype_Boolean;
+
+                    }
+
+                    leaf PPP {
+
+                        type base:Basetype_Boolean;
+
+                    }
+
+                    leaf SSLVPN {
+
+                        type base:Basetype_Boolean;
+
+                    }
+
+                    leaf State {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Boolean;
+
+                        }
+
+                    }
+
+                    leaf AccessLimit {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..1024";
+
+                            }
+
+                        }
+
+                    }
+
+                    container AuthorizationInfo {
+
+                        leaf AclNumber {
+
+                            type union {
+
+                                type base:Basetype_EmptyString;
+
+                                type base:Basetype_UnsignedInteger32 {
+
+                                    range "2000..5999";
+
+                                }
+
+                            }
+
+                        }
+
+                        leaf CallbackNumber {
+
+                            type base:Basetype_String {
+
+                                length "1..64";
+
+                            }
+
+                        }
+
+                        leaf IdleTimeout {
+
+                            type union {
+
+                                type base:Basetype_EmptyString;
+
+                                type base:Basetype_UnsignedInteger32 {
+
+                                    range "1..120";
+
+                                }
+
+                            }
+
+                        }
+
+                        leaf PrimaryDNSServer {
+
+                            type base:Basetype_Ipv4Address;
+
+                        }
+
+                        leaf PrimaryDNSIpv6Server {
+
+                            type base:Basetype_Ipv6Address;
+
+                        }
+
+                        leaf SecondaryDNSServer {
+
+                            type base:Basetype_Ipv4Address;
+
+                        }
+
+                        leaf SecondaryDNSIpv6Server {
+
+                            type base:Basetype_Ipv6Address;
+
+                        }
+
+                        leaf URL {
+
+                            type base:Basetype_URLString {
+
+                                length "1..255";
+
+                            }
+
+                        }
+
+                        leaf UserProfile {
+
+                            type base:Basetype_String {
+
+                                pattern "[a-zA-Z]([a-zA-Z0-9]|_){0,}";
+
+                                length "1..31";
+
+                            }
+
+                        }
+
+                        leaf VLANID {
+
+                            type union {
+
+                                type base:Basetype_EmptyString;
+
+                                type base:Basetype_UnsignedInteger32 {
+
+                                    range "1..4094";
+
+                                }
+
+                            }
+
+                        }
+
+                        leaf VRF {
+
+                            type base:Basetype_String {
+
+                                length "1..31";
+
+                            }
+
+                        }
+
+                        leaf Ipv4Address {
+
+                            type base:Basetype_Ipv4Address;
+
+                        }
+
+                        leaf Ipv6Address {
+
+                            type base:Basetype_Ipv6Address;
+
+                        }
+
+                        leaf IpPool {
+
+                            type base:Basetype_String {
+
+                                length "1..63";
+
+                            }
+
+                        }
+
+                        leaf Ipv6Pool {
+
+                            type base:Basetype_String {
+
+                                length "1..63";
+
+                            }
+
+                        }
+
+                        leaf SSLVPNPolicy {
+
+                            type union {
+
+                                type base:Basetype_EmptyString;
+
+                                type base:Basetype_String {
+
+                                    length "1..31";
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                    container AuthorizationIpv6PrefixInfo {
+
+                        leaf Ipv6Address {
+
+                            type base:Basetype_Ipv6Address;
+
+                        }
+
+                        leaf Ipv6PrefixLength {
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..128";
+
+                            }
+
+                        }
+
+                    }
+
+                    container BindingInfo {
+
+                        leaf CallNumber {
+
+                            type base:Basetype_String {
+
+                                length "1..64";
+
+                            }
+
+                        }
+
+                        leaf Interface {
+
+                            type base:Basetype_InterfaceName;
+
+                        }
+
+                        leaf Ipv4Address {
+
+                            type union {
+
+                                type base:Basetype_EmptyString;
+
+                                type base:Basetype_Ipv4Address;
+
+                            }
+
+                        }
+
+                        leaf MacAddress {
+
+                            type union {
+
+                                type base:Basetype_EmptyString;
+
+                                type base:Basetype_MacAddress;
+
+                            }
+
+                        }
+
+                        leaf VLANID {
+
+                            type union {
+
+                                type base:Basetype_EmptyString;
+
+                                type base:Basetype_UnsignedInteger32 {
+
+                                    range "1..4094";
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf SessTimeout {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..1440";
+
+                            }
+
+                        }
+
+                    }
+
+                    container ValidityDateTime {
+
+                        leaf StartValidityDateTime {
+
+                            type base:Basetype_DateTime;
+
+                        }
+
+                        leaf EndValidityDateTime {
+
+                            type base:Basetype_DateTime;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            container IdentityGroups {
+
+                list IdentityGroup {
+
+                    key "UserName GroupName";
+
+                    leaf UserName {
+
+                        type base:Basetype_String {
+
+                            length "1..55";
+
+                        }
+
+                    }
+
+                    leaf GroupName {
+
+                        type base:Basetype_String {
+
+                            length "1..32";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Guest {
+
+            container Accounts {
+
+                list Account {
+
+                    key "WaitApproval Name";
+
+                    leaf WaitApproval {
+
+                        type base:Basetype_Boolean;
+
+                    }
+
+                    leaf Name {
+
+                        type base:Basetype_String {
+
+                            length "1..55";
+
+                        }
+
+                    }
+
+                    leaf Password {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "1..63";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf GroupName {
+
+                        type base:Basetype_String {
+
+                            length "1..32";
+
+                        }
+
+                    }
+
+                    leaf FullName {
+
+                        type base:Basetype_String {
+
+                            length "1..255";
+
+                        }
+
+                    }
+
+                    leaf Phone {
+
+                        type base:Basetype_String {
+
+                            length "1..32";
+
+                        }
+
+                    }
+
+                    leaf Email {
+
+                        type base:Basetype_String {
+
+                            length "1..255";
+
+                        }
+
+                    }
+
+                    leaf Company {
+
+                        type base:Basetype_String {
+
+                            length "1..255";
+
+                        }
+
+                    }
+
+                    leaf Description {
+
+                        type base:Basetype_String {
+
+                            length "1..255";
+
+                        }
+
+                    }
+
+                    leaf SponsorFullName {
+
+                        type base:Basetype_String {
+
+                            length "1..255";
+
+                        }
+
+                    }
+
+                    leaf SponsorEmail {
+
+                        type base:Basetype_String {
+
+                            length "1..255";
+
+                        }
+
+                    }
+
+                    leaf SponsorDepartment {
+
+                        type base:Basetype_String {
+
+                            length "1..127";
+
+                        }
+
+                    }
+
+                    container ValidityDateTime {
+
+                        leaf StartValidityDateTime {
+
+                            type base:Basetype_DateTime;
+
+                        }
+
+                        leaf EndValidityDateTime {
+
+                            type base:Basetype_DateTime;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container UserGroup {
+
+            container IdentityGroups {
+
+                list IdentityGroup {
+
+                    key "GroupName IdentityGroup";
+
+                    leaf GroupName {
+
+                        type base:Basetype_String {
+
+                            length "1..32";
+
+                        }
+
+                    }
+
+                    leaf IdentityGroup {
+
+                        type base:Basetype_String {
+
+                            length "1..32";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            container IdentityMembers {
+
+                list IdentityMember {
+
+                    key "GroupName UserName";
+
+                    leaf GroupName {
+
+                        type base:Basetype_String {
+
+                            length "1..32";
+
+                        }
+
+                    }
+
+                    leaf UserName {
+
+                        type base:Basetype_String {
+
+                            length "1..55";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container GuestConfigure {
+
+            leaf AutoDelete {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            container EmailFormat {
+
+                leaf GuestSubject {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                }
+
+                leaf GuestBody {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+                leaf GuestManagerSubject {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                }
+
+                leaf GuestManagerBody {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+                leaf GuestSponsorSubject {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                }
+
+                leaf GuestSponsorBody {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+            }
+
+            leaf GuestManagerEmail {
+
+                type base:Basetype_String {
+
+                    length "1..255";
+
+                }
+
+            }
+
+            leaf EmailSender {
+
+                type base:Basetype_String {
+
+                    length "1..255";
+
+                }
+
+            }
+
+            leaf SmtpServer {
+
+                type base:Basetype_String {
+
+                    length "1..255";
+
+                }
+
+            }
+
+            leaf WaitApprovalTime {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..720";
+
+                }
+
+            }
+
+        }
+
+        container UserGroups {
+
+            list Group {
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                }
+
+                container AuthorizationInfo {
+
+                    leaf AclNumber {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "2000..5999";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf CallbackNumber {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "1..64";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf FTPHomeDir {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "1..255";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf IdleTimeout {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..120";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf PrimaryDNSServer {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv4Address;
+
+                        }
+
+                    }
+
+                    leaf PrimaryDNSIpv6Server {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv6Address;
+
+                        }
+
+                    }
+
+                    leaf SecondaryDNSServer {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv4Address;
+
+                        }
+
+                    }
+
+                    leaf SecondaryDNSIpv6Server {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv6Address;
+
+                        }
+
+                    }
+
+                    leaf URL {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "1..255";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf UserProfile {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                pattern "[a-zA-Z]([a-zA-Z0-9]|_){0,}";
+
+                                length "1..31";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf VLANID {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..4094";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf VRF {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "1..31";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf IpPool {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "1..63";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf Ipv6Pool {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "1..63";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf SSLVPNPolicy {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "1..31";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf SessTimeout {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..1440";
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+                container AuthorizationIpv6PrefixInfo {
+
+                    leaf Ipv6Address {
+
+                        type base:Basetype_Ipv6Address;
+
+                    }
+
+                    leaf Ipv6PrefixLength {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..128";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container ChangePasswords {
+
+            list ChangePassword {
+
+                key "UserName";
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..311";
+
+                    }
+
+                }
+
+                leaf Password {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container NetworkMailConfigure {
+
+            container EmailFormat {
+
+                leaf Subject {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                }
+
+                leaf Body {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+            }
+
+            leaf EmailSender {
+
+                type base:Basetype_String {
+
+                    length "1..255";
+
+                }
+
+            }
+
+            leaf SmtpServer {
+
+                type base:Basetype_String {
+
+                    length "1..255";
+
+                }
+
+            }
+
+            container SmtpAuthentication {
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+                leaf Password {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

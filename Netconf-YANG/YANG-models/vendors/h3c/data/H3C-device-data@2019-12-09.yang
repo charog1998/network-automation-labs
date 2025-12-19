@@ -1,0 +1,1935 @@
+module H3C-device-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "device-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for device data.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container Device {
+
+        config false;
+
+        container Transceivers {
+
+            description "光接口功率信息表";
+
+            list Interface {
+
+                description "行的名称";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "接口索引";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_InterfaceName;
+
+                    description "接口名称";
+
+                }
+
+                leaf HardwareType {
+
+                    type base:Basetype_OctectString {
+
+                        length "0..63";
+
+                    }
+
+                    description "硬件类型";
+
+                }
+
+                leaf TransceiverType {
+
+                    type base:Basetype_OctectString {
+
+                        length "0..63";
+
+                    }
+
+                    description "接口类型";
+
+                }
+
+                leaf WaveLength {
+
+                    type base:Basetype_Integer32;
+
+                    description "接口的波长，单位毫微米";
+
+                }
+
+                leaf VendorName {
+
+                    type base:Basetype_OctectString {
+
+                        length "0..63";
+
+                    }
+
+                    description "接口的设备供应商名称";
+
+                }
+
+                leaf SerialNumber {
+
+                    type base:Basetype_OctectString {
+
+                        length "0..63";
+
+                    }
+
+                    description "接口的序列号";
+
+                }
+
+                leaf FiberDiameterType {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "光纤的直径，单位微米";
+
+                }
+
+                leaf TransferDistance {
+
+                    type base:Basetype_Integer32;
+
+                    description "接口可以输出的最远距离，单位米";
+
+                }
+
+                leaf Diagnostic {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "数字诊断监视功能";
+
+                }
+
+                leaf CurRxPower {
+
+                    type base:Basetype_Integer32;
+
+                    description "当前接收光功率";
+
+                }
+
+                leaf MaxRxPower {
+
+                    type base:Basetype_Integer32;
+
+                    description "最大接收光功率";
+
+                }
+
+                leaf MinRxPower {
+
+                    type base:Basetype_Integer32;
+
+                    description "最小接收光功率";
+
+                }
+
+                leaf CurTxPower {
+
+                    type base:Basetype_Integer32;
+
+                    description "当前发送光功率";
+
+                }
+
+                leaf MaxTxPower {
+
+                    type base:Basetype_Integer32;
+
+                    description "最大发送光功率";
+
+                }
+
+                leaf MinTxPower {
+
+                    type base:Basetype_Integer32;
+
+                    description "最小发送光功率";
+
+                }
+
+                leaf Temperature {
+
+                    type base:Basetype_Integer32;
+
+                    description "当前温度，单位摄氏度";
+
+                }
+
+                leaf Voltage {
+
+                    type base:Basetype_Integer32;
+
+                    description "当前电压，单位百分之一V";
+
+                }
+
+                leaf BiasCurrent {
+
+                    type base:Basetype_Integer32;
+
+                    description "当前电流偏移，单位百分之一mA";
+
+                }
+
+            }
+
+        }
+
+        container SummerTime {
+
+            leaf Name {
+
+                type base:Basetype_Text {
+
+                    length "1..32";
+
+                }
+
+                description "夏令时名称(字符串, 长度为[1~32])";
+
+            }
+
+            leaf AddTime {
+
+                type base:Basetype_Time;
+
+                description "偏移时间";
+
+            }
+
+            container DateBased {
+
+                leaf BeginMonth {
+
+                    type base:Basetype_Integer32 {
+
+                        range "1..12";
+
+                    }
+
+                    description "开始的月份";
+
+                }
+
+                leaf BeginDay {
+
+                    type base:Basetype_Integer32 {
+
+                        range "1..31";
+
+                    }
+
+                    description "开始的日期";
+
+                }
+
+                leaf BeginHour {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..23";
+
+                    }
+
+                    description "开始的小时";
+
+                }
+
+                leaf BeginMinute {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..59";
+
+                    }
+
+                    description "开始的分钟";
+
+                }
+
+                leaf BeginSecond {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..59";
+
+                    }
+
+                    description "开始的秒";
+
+                }
+
+                leaf EndMonth {
+
+                    type base:Basetype_Integer32 {
+
+                        range "1..12";
+
+                    }
+
+                    description "结束的月份";
+
+                }
+
+                leaf EndDay {
+
+                    type base:Basetype_Integer32 {
+
+                        range "1..31";
+
+                    }
+
+                    description "结束的日期";
+
+                }
+
+                leaf EndHour {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..23";
+
+                    }
+
+                    description "结束的小时";
+
+                }
+
+                leaf EndMinute {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..59";
+
+                    }
+
+                    description "结束的分钟";
+
+                }
+
+                leaf EndSecond {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..59";
+
+                    }
+
+                    description "结束的秒";
+
+                }
+
+            }
+
+            container WeekBased {
+
+                leaf BeginMonth {
+
+                    type base:Basetype_Integer32 {
+
+                        range "1..12";
+
+                    }
+
+                    description "开始的月份";
+
+                }
+
+                leaf BeginWeek {
+
+                    type base:Basetype_Integer32 {
+
+                        range "1..6";
+
+                    }
+
+                    description "开始的周次";
+
+                }
+
+                leaf BeginWeekDay {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..6";
+
+                    }
+
+                    description "星期几开始";
+
+                }
+
+                leaf BeginHour {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..23";
+
+                    }
+
+                    description "开始的小时";
+
+                }
+
+                leaf BeginMinute {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..59";
+
+                    }
+
+                    description "开始的分钟";
+
+                }
+
+                leaf BeginSecond {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..59";
+
+                    }
+
+                    description "开始的秒";
+
+                }
+
+                leaf EndMonth {
+
+                    type base:Basetype_Integer32 {
+
+                        range "1..12";
+
+                    }
+
+                    description "结束的月份";
+
+                }
+
+                leaf EndWeek {
+
+                    type base:Basetype_Integer32 {
+
+                        range "1..6";
+
+                    }
+
+                    description "结束的周次";
+
+                }
+
+                leaf EndWeekDay {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..6";
+
+                    }
+
+                    description "星期几结束";
+
+                }
+
+                leaf EndHour {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..23";
+
+                    }
+
+                    description "结束的小时";
+
+                }
+
+                leaf EndMinute {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..59";
+
+                    }
+
+                    description "结束的分钟";
+
+                }
+
+                leaf EndSecond {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..59";
+
+                    }
+
+                    description "结束的秒";
+
+                }
+
+            }
+
+        }
+
+        container Base {
+
+            description "设备信息表";
+
+            leaf Uptime {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "设备启动时长(单位:秒)";
+
+            }
+
+            leaf HostName {
+
+                type base:Basetype_Text {
+
+                    length "0..64";
+
+                }
+
+                description "设备系统名称(字符串, 长度为[0~64],头尾不为空白)";
+
+            }
+
+            leaf HostOid {
+
+                type base:Basetype_ObjectIdentifier;
+
+                description "设备的SysObjectID(点分隔的OID字符串)";
+
+            }
+
+            leaf MinChassisNum {
+
+                type base:Basetype_UnsignedShort;
+
+                description "设备的最小框号";
+
+            }
+
+            leaf MaxChassisNum {
+
+                type base:Basetype_UnsignedShort;
+
+                description "设备的最大框号";
+
+            }
+
+            leaf MinSlotNum {
+
+                type base:Basetype_UnsignedShort;
+
+                description "设备的最小板号";
+
+            }
+
+            leaf MaxSlotNum {
+
+                type base:Basetype_UnsignedShort;
+
+                description "设备的最大板号";
+
+            }
+
+            leaf MinCPUIDNum {
+
+                type base:Basetype_UnsignedShort;
+
+                description "设备的最小CPUID号";
+
+            }
+
+            leaf MaxCPUIDNum {
+
+                type base:Basetype_UnsignedShort;
+
+                description "设备的最大CPUID号";
+
+            }
+
+            leaf HostDescription {
+
+                type base:Basetype_OctectString {
+
+                    length "0..255";
+
+                }
+
+                description "设备描述信息(字符串,长度为[0~255])";
+
+            }
+
+            leaf LocalTime {
+
+                type base:Basetype_DateTime {
+
+                    pattern "[0-9]{4}-[0-1][0-9]-[0-3][0-9]T[0-2][0-9]:[0-5][0-9]:[0-5][0-9]";
+
+                }
+
+                description "设备本地时间";
+
+            }
+
+            container TimeZone {
+
+                leaf Zone {
+
+                    type base:Basetype_OctectString {
+
+                        pattern "(Z|[\+\-](2[0-3]|[0-1]?[0-9])(:[0-5]?[0-9]){0,2})";
+
+                    }
+
+                    description "设备时区(字符串, 格式为Z, +HH:MM, -HH:MM)";
+
+                }
+
+                leaf ZoneName {
+
+                    type base:Basetype_String {
+
+                        length "0..32";
+
+                    }
+
+                    description "设备时区名称(字符串, 长度为[0~32])";
+
+                }
+
+            }
+
+            container ClockProtocol {
+
+                description "设备系统的配置方式";
+
+                leaf Protocol {
+
+                    type enumeration {
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                    description "设备系统时间协议";
+
+                }
+
+                leaf MDCID {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "设备时钟的来源MDC编号，以该MDC的时钟信号作为整个设备的基准时钟";
+
+                }
+
+            }
+
+            leaf BridgeMAC {
+
+                type base:Basetype_MacAddress;
+
+                description "Bridge MAC address";
+
+            }
+
+            leaf LocalBridgeMAC {
+
+                type base:Basetype_MacAddress;
+
+                description "Bridge MAC address of local device";
+
+            }
+
+        }
+
+        container CPUs {
+
+            description "Cpu使用率表";
+
+            list CPU {
+
+                description "行的名称";
+
+                key "PhysicalIndex";
+
+                leaf PhysicalIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "实体索引";
+
+                }
+
+                leaf Chassis {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "CPU框号";
+
+                }
+
+                leaf Slot {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "CPU槽号";
+
+                }
+
+                leaf CPUID {
+
+                    type base:Basetype_UnsignedChar {
+
+                        range "0..7";
+
+                    }
+
+                    description "CPU的ID";
+
+                }
+
+                leaf CPUUsage {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..100";
+
+                    }
+
+                    description "实体CPU利用率(0~100)";
+
+                }
+
+            }
+
+        }
+
+        container PhysicalEntities {
+
+            list Entity {
+
+                key "PhysicalIndex";
+
+                leaf PhysicalIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "实体索引";
+
+                }
+
+                leaf Chassis {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "实体所在框号";
+
+                }
+
+                leaf Slot {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "实体所在槽号";
+
+                }
+
+                leaf SubSlot {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "实体所在子槽号";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_OctectString255;
+
+                    description "实体描述信息";
+
+                }
+
+                leaf VendorType {
+
+                    type base:Basetype_ObjectIdentifier;
+
+                    description "实体vendor type";
+
+                }
+
+                leaf ContainedIn {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "实体Contained In位置";
+
+                }
+
+                leaf Class {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "实体类型";
+
+                }
+
+                leaf ParentRelPos {
+
+                    type base:Basetype_Integer32 {
+
+                        range "-1..max";
+
+                    }
+
+                    description "实体父亲关系节点位置 (最小值为-1)-";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_OctectString255;
+
+                    description "实体名称 (0~255个字符)";
+
+                }
+
+                leaf HardwareRev {
+
+                    type base:Basetype_OctectString255;
+
+                    description "实体硬件版本信息(0~255个字符)";
+
+                }
+
+                leaf FirmwareRev {
+
+                    type base:Basetype_OctectString255;
+
+                    description "实体固件版本信息(0~255个字符)";
+
+                }
+
+                leaf SoftwareRev {
+
+                    type base:Basetype_OctectString255;
+
+                    description "实体软件版本信息(0~255个字符)";
+
+                }
+
+                leaf SerialNumber {
+
+                    type base:Basetype_OctectString {
+
+                        length "0..32";
+
+                    }
+
+                    description "实体序列号信息(0~32个字符)";
+
+                }
+
+                leaf MfgName {
+
+                    type base:Basetype_OctectString {
+
+                        length "0..32";
+
+                    }
+
+                    description "实体制造商信息(0~32个字符)";
+
+                }
+
+                leaf Model {
+
+                    type base:Basetype_OctectString255;
+
+                    description "实体型号信息(0~255个字符)";
+
+                }
+
+                leaf Alias {
+
+                    type base:Basetype_OctectString {
+
+                        length "0..32";
+
+                    }
+
+                    description "实体别名(0~32个字符)";
+
+                }
+
+                leaf AssetID {
+
+                    type base:Basetype_OctectString {
+
+                        length "0..32";
+
+                    }
+
+                    description "实体资产ID(0~32个字符)";
+
+                }
+
+                leaf FRU {
+
+                    type base:Basetype_Boolean;
+
+                    description "实体是否支持field replace";
+
+                }
+
+                leaf MfgDate {
+
+                    type base:Basetype_DateTime;
+
+                    description "实体制造日期";
+
+                }
+
+                leaf Uris {
+
+                    type base:Basetype_OctectString {
+
+                        length "0..32";
+
+                    }
+
+                    description "实体CLEI序列号(0~32个字符)";
+
+                }
+
+            }
+
+        }
+
+        container ExtPhysicalEntities {
+
+            list Entity {
+
+                key "PhysicalIndex";
+
+                leaf PhysicalIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "实体索引";
+
+                }
+
+                leaf AdminState {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "实体管理状态, 取值为如下枚举: 1( 不支持); 2(被禁用); 3(被关闭); 4(未被禁用)";
+
+                }
+
+                leaf OperState {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "实体操作状态, 取值为如下枚举: 1( 不支持); 2(不可操作); 3(可操作); 4(处于危险状态, 不可操作)";
+
+                }
+
+                leaf StandbyState {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "实体备份状态, 取值为如下枚举: 1( 不支持); 2(热备份状态); 3(冷备份状态); 4(正常服务状态)";
+
+                }
+
+                leaf AlarmLight {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "实体告警灯状态";
+
+                }
+
+                leaf CpuUsage {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..100";
+
+                    }
+
+                    description "实体CPU利用率(0~100)";
+
+                }
+
+                leaf CpuUsageThreshold {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..100";
+
+                    }
+
+                    description "实体CPU利用率门限(0~100)";
+
+                }
+
+                leaf MemUsage {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..100";
+
+                    }
+
+                    description "实体内存利用率(0~100)";
+
+                }
+
+                leaf MemUsageThreshold {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..100";
+
+                    }
+
+                    description "实体内存利用率门限(0~100)";
+
+                }
+
+                leaf MemSize {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "实体内存大小";
+
+                }
+
+                leaf Uptime {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "实体启动的时长(秒)";
+
+                }
+
+                leaf Temperature {
+
+                    type base:Basetype_Integer32;
+
+                    description "实体温度(可为负值)";
+
+                }
+
+                leaf TemperatureThreshold {
+
+                    type base:Basetype_Integer32;
+
+                    description "实体普通高温门限(可为负值)";
+
+                }
+
+                leaf Voltage {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "实体电压";
+
+                }
+
+                leaf VoltageLowThreshold {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "实体低电压门限";
+
+                }
+
+                leaf VoltageHighThreshold {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "实体高电压门限";
+
+                }
+
+                leaf TemperatureCriticalThreshold {
+
+                    type base:Basetype_Integer32;
+
+                    description "实体严重高温门限(可为负值)";
+
+                }
+
+                leaf MAC {
+
+                    type base:Basetype_MacAddress;
+
+                    description "实体MAC地址";
+
+                }
+
+                leaf ErrorStatus {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..max";
+
+                    }
+
+                    description "实体错误状态(大于等于1的整数)";
+
+                }
+
+                leaf CpuMaxUsage {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..100";
+
+                    }
+
+                    description "实体CPU最大利用率(0~100)";
+
+                }
+
+                leaf TemperatureLowThreshold {
+
+                    type base:Basetype_Integer32;
+
+                    description "实体低温门限(可为负值)";
+
+                }
+
+                leaf TemperatureShutdownThreshold {
+
+                    type base:Basetype_Integer32;
+
+                    description "实体关闭级别高温门限(可为负值)";
+
+                }
+
+                leaf PhyMemSize {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "实体物理内存大小";
+
+                }
+
+                leaf CpuFrequency {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "实体CPU频率";
+
+                }
+
+                leaf FristUsedDate {
+
+                    type base:Basetype_DateTime;
+
+                    description "实体第一次启用日期";
+
+                }
+
+                leaf CpuAvgUsage {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..100";
+
+                    }
+
+                    description "实体CPU平均利用率(0~100)";
+
+                }
+
+                leaf MemAvgUsage {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..100";
+
+                    }
+
+                    description "实体内存平均利用率(0~100)";
+
+                }
+
+                leaf MemType {
+
+                    type base:Basetype_OctectString {
+
+                        length "0..32";
+
+                    }
+
+                    description "实体内存类型(0~32个字符)";
+
+                }
+
+            }
+
+        }
+
+        container PEXCapabilities {
+
+            list PEX {
+
+                key "Model";
+
+                leaf Model {
+
+                    type base:Basetype_OctectString {
+
+                        length "0..63";
+
+                    }
+
+                    description "PEX设备型号";
+
+                }
+
+            }
+
+        }
+
+        container BladeCapabilities {
+
+            list Blade {
+
+                key "Model";
+
+                leaf Model {
+
+                    type base:Basetype_OctectString {
+
+                        length "0..63";
+
+                    }
+
+                    description "Blade设备型号";
+
+                }
+
+            }
+
+        }
+
+        container Boards {
+
+            description "设备板信息";
+
+            list Board {
+
+                description "行的名称";
+
+                list DeviceNode {
+
+                    key "Chassis Slot CPUID";
+
+                    leaf Chassis {
+
+                        type base:Basetype_UnsignedShort;
+
+                        description "框号(非堆叠设备固定为1)";
+
+                    }
+
+                    leaf Slot {
+
+                        type base:Basetype_UnsignedShort;
+
+                        description "板号";
+
+                    }
+
+                    leaf CPUID {
+
+                        type base:Basetype_UnsignedShort;
+
+                        description "设备节点所在的CPU编号";
+
+                    }
+
+                }
+
+                leaf PhysicalIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "实体索引";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "管理状态, 枚举取值如下, Absent(1), Normal(2), Fault(3)";
+
+                }
+
+                leaf Role {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "运行身份, 枚举取值如下, Unknown(1), ActiveMain(2), StandbyMain(3), IO(4)";
+
+                }
+
+            }
+
+        }
+
+        container Blades {
+
+            description "blade板信息";
+
+            list Blade {
+
+                description "行的名称";
+
+                list DeviceNode {
+
+                    key "Chassis Slot CPUID";
+
+                    leaf Chassis {
+
+                        type base:Basetype_UnsignedShort;
+
+                        description "框号(非堆叠设备固定为1)";
+
+                    }
+
+                    leaf Slot {
+
+                        type base:Basetype_UnsignedShort;
+
+                        description "板号";
+
+                    }
+
+                    leaf CPUID {
+
+                        type base:Basetype_UnsignedShort;
+
+                        description "设备节点所在的CPU编号";
+
+                    }
+
+                }
+
+                leaf Model {
+
+                    type base:Basetype_Text {
+
+                        length "1..63";
+
+                    }
+
+                    description "Blade设备型号,即能力集";
+
+                }
+
+            }
+
+        }
+
+        container PEXes {
+
+            description "PEX设备信息";
+
+            list PEX {
+
+                description "行的名称";
+
+                list DeviceNode {
+
+                    key "Chassis Slot CPUID";
+
+                    leaf Chassis {
+
+                        type base:Basetype_UnsignedShort;
+
+                        description "框号(非堆叠设备固定为1)";
+
+                    }
+
+                    leaf Slot {
+
+                        type base:Basetype_UnsignedShort;
+
+                        description "板号";
+
+                    }
+
+                    leaf CPUID {
+
+                        type base:Basetype_UnsignedShort;
+
+                        description "设备节点所在的CPU编号";
+
+                    }
+
+                }
+
+                leaf Model {
+
+                    type base:Basetype_Text {
+
+                        length "1..63";
+
+                    }
+
+                    description "Blade设备型号,即能力集";
+
+                }
+
+            }
+
+        }
+
+        container MDCs {
+
+            description "虚拟化信息表";
+
+            leaf MDCType {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..2";
+
+                }
+
+                description "MDC的类型";
+
+            }
+
+            leaf MDCID {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "MDC的编号";
+
+            }
+
+        }
+
+        container FailoverGroupCapabilities {
+
+            description "备份组能力表";
+
+            leaf FailoverGroupSupport {
+
+                type base:Basetype_Boolean;
+
+                description "是否支持备份组";
+
+            }
+
+        }
+
+        container FailoverGroups {
+
+            description "备份组配置表
+
+                This table supports creating rows.";
+
+            list FailoverGroup {
+
+                description "备份组行名";
+
+                key "ID";
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..31";
+
+                    }
+
+                    description "备份组ID";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "备份组名字，1~63位，索引列";
+
+                }
+
+                container PrimaryNode {
+
+                    description "备份组主节点";
+
+                    leaf Chassis {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "框号";
+
+                    }
+
+                    leaf Slot {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "槽位号";
+
+                    }
+
+                    leaf CPUID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "CPU号";
+
+                    }
+
+                }
+
+                container SecondaryNode {
+
+                    description "备份组备节点";
+
+                    leaf Chassis {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "框号";
+
+                    }
+
+                    leaf Slot {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "槽位号";
+
+                    }
+
+                    leaf CPUID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "CPU号";
+
+                    }
+
+                }
+
+                leaf State {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "备份组状态，取值为如下枚举(1:Initial, 2:Normal, 3:Fault, 4:Inpreempt)";
+
+                }
+
+            }
+
+        }
+
+        container Subcards {
+
+            description "This table contains the subcard information.";
+
+            list Subcard {
+
+                key "Chassis Slot CPUID SubSlot";
+
+                leaf Chassis {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "Identification of the member where the entity resides.";
+
+                }
+
+                leaf Slot {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "Slot identification of the entity.";
+
+                }
+
+                leaf CPUID {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "CPU identification as table index";
+
+                }
+
+                leaf SubSlot {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "Subslot number of the entity.";
+
+                }
+
+                leaf PhysicalIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Entity index as table index.";
+
+                }
+
+                leaf Status {
+
+                    type base:Basetype_OctectString;
+
+                }
+
+            }
+
+        }
+
+        container TemperatureSensors {
+
+            list Sensor {
+
+                key "Chassis Slot CPUID SensorType SensorIndex";
+
+                leaf Chassis {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "ID of the member device where the entity resides.";
+
+                }
+
+                leaf Slot {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Slot number of the device node.";
+
+                }
+
+                leaf CPUID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "CPU ID";
+
+                }
+
+                leaf SensorType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..2";
+
+                    }
+
+                    description "Sensor type";
+
+                }
+
+                leaf SensorIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "Sensor ID";
+
+                }
+
+                leaf SensorStatus {
+
+                    type base:Basetype_OctectString;
+
+                    description "SensorStatus";
+
+                }
+
+                leaf CurrentTemperature {
+
+                    type base:Basetype_Integer32;
+
+                    description "CurrentTemperature";
+
+                }
+
+                leaf LowerLimit {
+
+                    type base:Basetype_Integer32;
+
+                    description "Low-temperature threshold";
+
+                }
+
+                leaf WarningLimit {
+
+                    type base:Basetype_Integer32;
+
+                    description "High-temperature warning";
+
+                }
+
+                leaf AlarmLimit {
+
+                    type base:Basetype_Integer32;
+
+                    description "High-temperature alarming threshold";
+
+                }
+
+                leaf ShutdownLimit {
+
+                    type base:Basetype_Integer32;
+
+                    description "ShutdownLimit";
+
+                }
+
+            }
+
+        }
+
+        container SystemStableStatus {
+
+            description "get system stable status table";
+
+            leaf SystemStatus {
+
+                type base:Basetype_String;
+
+                description "The system is stable or not.";
+
+            }
+
+            leaf Redundancy {
+
+                type base:Basetype_String;
+
+                description "The backup device status.";
+
+            }
+
+        }
+
+        container BoardStableStatus {
+
+            description "get board stable status table";
+
+            list StableState {
+
+                description "device node status";
+
+                key "Chassis Slot CPU";
+
+                leaf Chassis {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "chassis ID";
+
+                }
+
+                leaf Slot {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "slot ID";
+
+                }
+
+                leaf CPU {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "CPU ID";
+
+                }
+
+                leaf Role {
+
+                    type base:Basetype_OctectString255;
+
+                    description "role";
+
+                }
+
+                leaf Status {
+
+                    type base:Basetype_OctectString255;
+
+                    description "state";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

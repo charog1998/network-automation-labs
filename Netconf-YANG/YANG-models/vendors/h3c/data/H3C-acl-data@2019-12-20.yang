@@ -1,0 +1,5403 @@
+module H3C-acl-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "acl-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for acl data.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container ACL {
+
+        config false;
+
+        container Base {
+
+            description "ACL base information table";
+
+            leaf ProcessingStatus {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+                description "Processing status. 1: Processing, 2: Idle";
+
+            }
+
+        }
+
+        container Capability {
+
+            description "ACL capability table.";
+
+            container UserAclL2 {
+
+                description "Capability parameters of Layer 2 frame rule.";
+
+                leaf L2MaxOffset {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..254";
+
+                    }
+
+                    description "Maximum offset from the beginning of Layer 2 frame.";
+
+                }
+
+                leaf L2MaxLen {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..254";
+
+                    }
+
+                    description "Maximum length of the matching pattern of Layer 2 frame.";
+
+                }
+
+            }
+
+            container UserAclL4 {
+
+                description "Capability parameters of Layer 4 frame rule.";
+
+                leaf L4MaxOffset {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..254";
+
+                    }
+
+                    description "Maximum offset from the beginning of Layer 4 frame.";
+
+                }
+
+                leaf L4MaxLen {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..254";
+
+                    }
+
+                    description "Maximum length of the matching pattern of Layer 4 frame.";
+
+                }
+
+            }
+
+            container UserAclIPv4 {
+
+                description "Capability parameters of IPv4 packet rule.";
+
+                leaf IPv4MaxOffset {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..254";
+
+                    }
+
+                    description "Maximum offset from the beginning of IPv4 packet.";
+
+                }
+
+                leaf IPv4MaxLen {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..254";
+
+                    }
+
+                    description "Maximum length of the matching pattern of IPv4 packet.";
+
+                }
+
+            }
+
+            container UserAclIPv6 {
+
+                description "Capability parameters of IPv6 packet rule.";
+
+                leaf IPv6MaxOffset {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..254";
+
+                    }
+
+                    description "Maximum offset from the beginning of IPv6 packet.";
+
+                }
+
+                leaf IPv6MaxLen {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..254";
+
+                    }
+
+                    description "Maximum length of the matching pattern of IPv6 packet.";
+
+                }
+
+            }
+
+            leaf AclMaxRuleNumPerGroup {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Maximum ACL rules number per group.";
+
+            }
+
+        }
+
+        container PfilterCapability {
+
+            description "Pfilter capability table.";
+
+            leaf ApplyType {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Capability parameters of apply type";
+
+            }
+
+            leaf ApplyDirection {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Capability parameters of apply direction.";
+
+            }
+
+            leaf CountControl {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Capability parameters of count control.";
+
+            }
+
+        }
+
+        container Groups {
+
+            description "ACL groups table.
+
+                This table supports creating rows.";
+
+            list Group {
+
+                description "ACL group row.";
+
+                key "GroupType GroupID";
+
+                leaf GroupType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "Group type. 1: IPv4, 2: IPv6, 3: MAC, 4: User-defined.";
+
+                }
+
+                leaf GroupID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2000..5999";
+
+                    }
+
+                    description "Group ID. IPv4: 2000~5999, IPv6: 2000~3999.";
+
+                }
+
+                leaf MatchOrder {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Match order. 1: config, 2: auto. Default: config.";
+
+                }
+
+                leaf Step {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..20";
+
+                    }
+
+                    description "Step length, range from 1 to 20. Default: 5.";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[a-zA-Z][^?	
+
+]{0,62}";
+
+                    }
+
+                    description "Name of the ACL group, a case-insensitive string of 1 to 63 characters.";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "1..127";
+
+                    }
+
+                    description "Description of the ACL group, a string of 1 to 127 characters.";
+
+                }
+
+                leaf RuleNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "The rules number of the ACL group. Range from 0 to 65535.";
+
+                }
+
+            }
+
+        }
+
+        container NamedGroups {
+
+            description "ACL named groups table.
+
+                This table supports creating rows.";
+
+            list Group {
+
+                description "ACL group row.";
+
+                key "GroupType GroupCategory GroupIndex";
+
+                leaf GroupType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "Group type. 1: IPv4, 2: IPv6, 3: MAC, 4: User-defined.";
+
+                }
+
+                leaf GroupCategory {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Group type. 0: invalid, 1: basic, 2: advanced.";
+
+                }
+
+                leaf GroupIndex {
+
+                    type base:Basetype_String {
+
+                        pattern "([2345][0-9]{3})|([a-zA-Z][^?	
+
+]{0,62})";
+
+                    }
+
+                    description "Acl Group Name of Index.If it's Index, range from 2000 to 5999.";
+
+                }
+
+                leaf MatchOrder {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Match order. 1: config, 2: auto. Default: config.";
+
+                }
+
+                leaf Step {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..20";
+
+                    }
+
+                    description "Step length, range from 1 to 20. Default: 5.";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "1..127";
+
+                    }
+
+                    description "Description of the ACL group, a string of 1 to 127 characters.";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[a-zA-Z][^?	
+
+]{0,62}";
+
+                    }
+
+                    description "Name of the ACL group, a case-insensitive string of 1 to 63 characters.";
+
+                }
+
+                leaf RuleNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "The rules number of the ACL group. Range from 0 to 65535.";
+
+                }
+
+                leaf GroupNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of  object groups.";
+
+                }
+
+            }
+
+        }
+
+        container IPv4BasicRules {
+
+            description "Table of IPv4 basic ACL rules.
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                key "GroupID RuleID";
+
+                leaf GroupID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2000..2999";
+
+                    }
+
+                    description "Group ID. Range from 2000 to 2999.";
+
+                }
+
+                leaf RuleID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "Rule ID. Range from 0 to 65534.";
+
+                }
+
+                leaf Action {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Action type. 1: deny, 2: permit.";
+
+                }
+
+                leaf SrcAny {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching any IP address.";
+
+                }
+
+                container SrcIPv4 {
+
+                    description "Source IP, including SrcIPv4Addr and SrcIPv4Wildcard.";
+
+                    leaf SrcIPv4Addr {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv4Address;
+
+                        }
+
+                        description "Source IP address.";
+
+                    }
+
+                    leaf SrcIPv4Wildcard {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv4Address;
+
+                        }
+
+                        description "Source IP wildcard.";
+
+                    }
+
+                }
+
+                leaf SrcObjectGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source object group name";
+
+                }
+
+                leaf Fragment {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching fragmented packet.
+
+                          0: the rule applies to all fragments and non-fragments,
+
+                          1: the rule applies to only non-first fragments.";
+
+                }
+
+                leaf TimeRange {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{0,31}";
+
+                    }
+
+                    description "Specifies a time range for the rule, a case-insensitive string of 1 to 32 characters.";
+
+                }
+
+                leaf VRF {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Applies the rule to packets in a VRF instance.";
+
+                }
+
+                leaf Counting {
+
+                    type base:Basetype_Boolean;
+
+                    description "Counts times the ACL rule has been matched.";
+
+                }
+
+                leaf Logging {
+
+                    type base:Basetype_Boolean;
+
+                    description "Logs matching packets.";
+
+                }
+
+                leaf Comment {
+
+                    type base:Basetype_Text {
+
+                        length "1..127";
+
+                    }
+
+                    description "Rule comment, a case-sensitive string of 1 to 127 characters.";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Rule status. 1: active, 2: inactive.";
+
+                }
+
+                leaf Count {
+
+                    type base:Basetype_Counter64;
+
+                    description "The number of times the ACL rule has been matched.";
+
+                }
+
+                leaf MatchIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "The matching index of rules when match-order of group is auto.";
+
+                }
+
+            }
+
+        }
+
+        container IPv4NamedBasicRules {
+
+            description "Table of named IPv4 basic ACL rules.
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                key "GroupIndex RuleID";
+
+                leaf GroupIndex {
+
+                    type base:Basetype_String {
+
+                        pattern "(2[0-9]{3})|([a-zA-Z][^?	
+
+]{0,62})";
+
+                    }
+
+                    description "Acl Group Name of Index.If it's Index, range from 2000 to 2999.";
+
+                }
+
+                leaf RuleID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "Rule ID. Range from 0 to 65534.";
+
+                }
+
+                leaf Action {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Action type. 1: deny, 2: permit.";
+
+                }
+
+                leaf SrcAny {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching any IP address.";
+
+                }
+
+                container SrcIPv4 {
+
+                    description "Source IP, including SrcIPv4Addr and SrcIPv4Wildcard.";
+
+                    leaf SrcIPv4Addr {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv4Address;
+
+                        }
+
+                        description "Source IP address.";
+
+                    }
+
+                    leaf SrcIPv4Wildcard {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv4Address;
+
+                        }
+
+                        description "Source IP wildcard.";
+
+                    }
+
+                }
+
+                leaf SrcObjectGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source object group name";
+
+                }
+
+                leaf Fragment {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching fragmented packet.
+
+                          0: the rule applies to all fragments and non-fragments,
+
+                          1: the rule applies to only non-first fragments.";
+
+                }
+
+                leaf TimeRange {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{0,31}";
+
+                    }
+
+                    description "Specifies a time range for the rule, a case-insensitive string of 1 to 32 characters.";
+
+                }
+
+                leaf VRF {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Applies the rule to packets in a VRF instance.";
+
+                }
+
+                leaf Counting {
+
+                    type base:Basetype_Boolean;
+
+                    description "Counts times the ACL rule has been matched.";
+
+                }
+
+                leaf Logging {
+
+                    type base:Basetype_Boolean;
+
+                    description "Logs matching packets.";
+
+                }
+
+                leaf Comment {
+
+                    type base:Basetype_Text {
+
+                        length "1..127";
+
+                    }
+
+                    description "Rule comment, a case-sensitive string of 1 to 127 characters.";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Rule status. 1: active, 2: inactive.";
+
+                }
+
+                leaf Count {
+
+                    type base:Basetype_Counter64;
+
+                    description "The number of times the ACL rule has been matched.";
+
+                }
+
+                leaf MatchIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "The matching index of rules when match-order of group is auto.";
+
+                }
+
+                leaf RuleNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of rules.";
+
+                }
+
+            }
+
+        }
+
+        container IPv6BasicRules {
+
+            description "Table of IPv6 basic ACL rules.
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                key "GroupID RuleID";
+
+                leaf GroupID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2000..2999";
+
+                    }
+
+                    description "Group ID. Range from 2000 to 2999.";
+
+                }
+
+                leaf RuleID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "Rule ID. Range from 0 to 65534.";
+
+                }
+
+                leaf Action {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Action type. 1: deny, 2: permit.";
+
+                }
+
+                leaf SrcAny {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching any source IPv6 address.";
+
+                }
+
+                container SrcIPv6 {
+
+                    description "Source IPv6, including SrcIPv6Address and SrcIPv6Prefix.";
+
+                    leaf SrcIPv6Addr {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv6Address;
+
+                        }
+
+                        description "Source IPv6 address.";
+
+                    }
+
+                    leaf SrcIPv6Prefix {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..128";
+
+                            }
+
+                        }
+
+                        description "Prefix length of source IPv6 address.";
+
+                    }
+
+                }
+
+                leaf SrcObjectGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source object group name";
+
+                }
+
+                leaf RoutingTypeAny {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching any routing header type.";
+
+                }
+
+                leaf RoutingTypeValue {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..255";
+
+                    }
+
+                    description "The value of routing header type.";
+
+                }
+
+                leaf Fragment {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching fragmented packet.
+
+                          0: the rule applies to all fragments and non-fragments,
+
+                          1: the rule applies to only non-first fragments.";
+
+                }
+
+                leaf TimeRange {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{0,31}";
+
+                    }
+
+                    description "Specifies a time range for the rule, a case-insensitive string of 1 to 32 characters.";
+
+                }
+
+                leaf VRF {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Applies the rule to packets in a VRF instance.";
+
+                }
+
+                leaf Counting {
+
+                    type base:Basetype_Boolean;
+
+                    description "Counts times the ACL rule has been matched.";
+
+                }
+
+                leaf Logging {
+
+                    type base:Basetype_Boolean;
+
+                    description "Logs matching packets.";
+
+                }
+
+                leaf Comment {
+
+                    type base:Basetype_Text {
+
+                        length "1..127";
+
+                    }
+
+                    description "Rule comment, a case-sensitive string of 1 to 127 characters.";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Rule status. 1: active, 2: inactive.";
+
+                }
+
+                leaf Count {
+
+                    type base:Basetype_Counter64;
+
+                    description "The number of times the ACL rule has been matched.";
+
+                }
+
+                leaf MatchIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "The matching index of rules when match-order of group is auto.";
+
+                }
+
+            }
+
+        }
+
+        container IPv6NamedBasicRules {
+
+            description "Table of named IPv6 basic ACL rules.
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                key "GroupIndex RuleID";
+
+                leaf GroupIndex {
+
+                    type base:Basetype_String {
+
+                        pattern "(2[0-9]{3})|([a-zA-Z][^?	
+
+]{0,62})";
+
+                    }
+
+                    description "Acl Group Name of Index.If it's Index, range from 2000 to 2999.";
+
+                }
+
+                leaf RuleID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "Rule ID. Range from 0 to 65534.";
+
+                }
+
+                leaf Action {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Action type. 1: deny, 2: permit.";
+
+                }
+
+                leaf SrcAny {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching any source IPv6 address.";
+
+                }
+
+                container SrcIPv6 {
+
+                    description "Source IPv6, including SrcIPv6Address and SrcIPv6Prefix.";
+
+                    leaf SrcIPv6Addr {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv6Address;
+
+                        }
+
+                        description "Source IPv6 address.";
+
+                    }
+
+                    leaf SrcIPv6Prefix {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..128";
+
+                            }
+
+                        }
+
+                        description "Prefix length of source IPv6 address.";
+
+                    }
+
+                }
+
+                leaf SrcObjectGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source object group name";
+
+                }
+
+                leaf RoutingTypeAny {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching any routing header type.";
+
+                }
+
+                leaf RoutingTypeValue {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..255";
+
+                    }
+
+                    description "The value of routing header type.";
+
+                }
+
+                leaf Fragment {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching fragmented packet.
+
+                          0: the rule applies to all fragments and non-fragments,
+
+                          1: the rule applies to only non-first fragments.";
+
+                }
+
+                leaf TimeRange {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{0,31}";
+
+                    }
+
+                    description "Specifies a time range for the rule, a case-insensitive string of 1 to 32 characters.";
+
+                }
+
+                leaf VRF {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Applies the rule to packets in a VRF instance.";
+
+                }
+
+                leaf Counting {
+
+                    type base:Basetype_Boolean;
+
+                    description "Counts times the ACL rule has been matched.";
+
+                }
+
+                leaf Logging {
+
+                    type base:Basetype_Boolean;
+
+                    description "Logs matching packets.";
+
+                }
+
+                leaf Comment {
+
+                    type base:Basetype_Text {
+
+                        length "1..127";
+
+                    }
+
+                    description "Rule comment, a case-sensitive string of 1 to 127 characters.";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Rule status. 1: active, 2: inactive.";
+
+                }
+
+                leaf Count {
+
+                    type base:Basetype_Counter64;
+
+                    description "The number of times the ACL rule has been matched.";
+
+                }
+
+                leaf MatchIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "The matching index of rules when match-order of group is auto.";
+
+                }
+
+                leaf RuleNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of rules.";
+
+                }
+
+            }
+
+        }
+
+        container IPv4AdvanceRules {
+
+            description "Table of IPv4 advance ACL rules.
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                key "GroupID RuleID";
+
+                leaf GroupID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "3000..3999";
+
+                    }
+
+                    description "Group ID. Range from 3000 to 3999.";
+
+                }
+
+                leaf RuleID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "Rule ID. Range from 0 to 65534.";
+
+                }
+
+                leaf Action {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Action type. 1: deny, 2: permit.";
+
+                }
+
+                leaf ProtocolType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..256";
+
+                    }
+
+                    description "Protocol type of packets, 256 indicates IP family.";
+
+                }
+
+                leaf SrcAny {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching any source IPv4 address.";
+
+                }
+
+                container SrcIPv4 {
+
+                    leaf SrcIPv4Addr {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv4Address;
+
+                        }
+
+                        description "Source IPv4 address.";
+
+                    }
+
+                    leaf SrcIPv4Wildcard {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv4Address;
+
+                        }
+
+                        description "Source IPv4 address wildcard.";
+
+                    }
+
+                }
+
+                leaf DstAny {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching any destination IPv4 address.";
+
+                }
+
+                leaf SrcObjectGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source object group name";
+
+                }
+
+                container DstIPv4 {
+
+                    leaf DstIPv4Addr {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv4Address;
+
+                        }
+
+                        description "Destination IPv4 address.";
+
+                    }
+
+                    leaf DstIPv4Wildcard {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv4Address;
+
+                        }
+
+                        description "Destination IPv4 address wildcard.";
+
+                    }
+
+                }
+
+                leaf DstObjectGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination object group name";
+
+                }
+
+                leaf DSCP {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..63";
+
+                    }
+
+                    description "The value of DSCP of IP packet.";
+
+                }
+
+                container DSCPRange {
+
+                    leaf StartDSCP {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..63";
+
+                        }
+
+                        description "The value of the start DSCP of IP packet.";
+
+                    }
+
+                    leaf EndDSCP {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..63";
+
+                        }
+
+                        description "The value of the end DSCP of IP packet.";
+
+                    }
+
+                }
+
+                leaf Precedence {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..7";
+
+                    }
+
+                    description "The value of IP packet's precedence.";
+
+                }
+
+                leaf TOS {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..15";
+
+                    }
+
+                    description "The value of IP packet's TOS.";
+
+                }
+
+                container SrcPort {
+
+                    description "Source port, including SrcPortOp, SrcPortValue1 and SrcPortValue2.";
+
+                    leaf SrcPortOp {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                        }
+
+                        description "Source port operator. 1: lt, 2: eq, 3: gt, 4: neq, 5: range.";
+
+                    }
+
+                    leaf SrcPortValue1 {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "The value of first source port.";
+
+                    }
+
+                    leaf SrcPortValue2 {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65536";
+
+                        }
+
+                        description "The value of second source port; 65536 is invalid value.";
+
+                    }
+
+                }
+
+                container DstPort {
+
+                    description "Destination port, including DstPortOp, DstPortValue1 and DstPortValue2.";
+
+                    leaf DstPortOp {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                        }
+
+                        description "Destination port operator. 1: lt, 2: eq, 3: gt, 4: neq, 5: range.";
+
+                    }
+
+                    leaf DstPortValue1 {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "The value of first destination port.";
+
+                    }
+
+                    leaf DstPortValue2 {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65536";
+
+                        }
+
+                        description "The value of second destination port; 65536 is invalid value.";
+
+                    }
+
+                }
+
+                container TcpFlag {
+
+                    leaf ACK {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP ACK flag.";
+
+                    }
+
+                    leaf FIN {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP FIN flag.";
+
+                    }
+
+                    leaf PSH {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP PSH flag.";
+
+                    }
+
+                    leaf RST {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP RST flag.";
+
+                    }
+
+                    leaf SYN {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP SYN flag.";
+
+                    }
+
+                    leaf URG {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP URG flag.";
+
+                    }
+
+                }
+
+                leaf Established {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flags that indicating the established status of a TCP connection.";
+
+                }
+
+                container ICMP {
+
+                    leaf ICMPType {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..255";
+
+                        }
+
+                        description "The ICMP message type.";
+
+                    }
+
+                    leaf ICMPCode {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..256";
+
+                        }
+
+                        description "The ICMP message code. 256 is invalid value.";
+
+                    }
+
+                }
+
+                leaf Fragment {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching fragmented packet.
+
+                          0: the rule applies to all fragments and non-fragments,
+
+                          1: the rule applies to only non-first fragments.";
+
+                }
+
+                leaf TimeRange {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{0,31}";
+
+                    }
+
+                    description "Specifies a time range for the rule, a case-insensitive string of 1 to 32 characters.";
+
+                }
+
+                leaf VRF {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Applies the rule to packets in a VRF instance.";
+
+                }
+
+                leaf Counting {
+
+                    type base:Basetype_Boolean;
+
+                    description "Counts times the ACL rule has been matched.";
+
+                }
+
+                leaf Logging {
+
+                    type base:Basetype_Boolean;
+
+                    description "Logs matching packets.";
+
+                }
+
+                leaf Comment {
+
+                    type base:Basetype_Text {
+
+                        length "1..127";
+
+                    }
+
+                    description "Rule comment, a case-sensitive string of 1 to 127 characters.";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Rule status. 1: active, 2: inactive.";
+
+                }
+
+                leaf Count {
+
+                    type base:Basetype_Counter64;
+
+                    description "The number of times the ACL rule has been matched.";
+
+                }
+
+                leaf MatchIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "The matching index of rules when match-order of group is auto.";
+
+                }
+
+            }
+
+        }
+
+        container IPv4NamedAdvanceRules {
+
+            description "Table of named IPv4 advance ACL rules.
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                key "GroupIndex RuleID";
+
+                leaf GroupIndex {
+
+                    type base:Basetype_String {
+
+                        pattern "(3[0-9]{3})|([a-zA-Z][^?	
+
+]{0,62})";
+
+                    }
+
+                    description "Acl Group Name of Index.If it's Index, range from 3000 to 3999.";
+
+                }
+
+                leaf RuleID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "Rule ID. Range from 0 to 65534.";
+
+                }
+
+                leaf Action {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Action type. 1: deny, 2: permit.";
+
+                }
+
+                leaf ProtocolType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..256";
+
+                    }
+
+                    description "Protocol type of packets, 256 indicates IP family.";
+
+                }
+
+                leaf SrcAny {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching any source IPv4 address.";
+
+                }
+
+                container SrcIPv4 {
+
+                    leaf SrcIPv4Addr {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv4Address;
+
+                        }
+
+                        description "Source IPv4 address.";
+
+                    }
+
+                    leaf SrcIPv4Wildcard {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv4Address;
+
+                        }
+
+                        description "Source IPv4 address wildcard.";
+
+                    }
+
+                }
+
+                leaf SrcObjectGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source object group name";
+
+                }
+
+                leaf DstAny {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching any destination IPv4 address.";
+
+                }
+
+                container DstIPv4 {
+
+                    leaf DstIPv4Addr {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv4Address;
+
+                        }
+
+                        description "Destination IPv4 address.";
+
+                    }
+
+                    leaf DstIPv4Wildcard {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv4Address;
+
+                        }
+
+                        description "Destination IPv4 address wildcard.";
+
+                    }
+
+                }
+
+                leaf DstObjectGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination object group name";
+
+                }
+
+                leaf DSCP {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..63";
+
+                    }
+
+                    description "The value of DSCP of IP packet.";
+
+                }
+
+                container DSCPRange {
+
+                    leaf StartDSCP {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..63";
+
+                        }
+
+                        description "The value of the start DSCP of IP packet.";
+
+                    }
+
+                    leaf EndDSCP {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..63";
+
+                        }
+
+                        description "The value of the end DSCP of IP packet.";
+
+                    }
+
+                }
+
+                leaf Precedence {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..7";
+
+                    }
+
+                    description "The value of IP packet's precedence.";
+
+                }
+
+                leaf TOS {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..15";
+
+                    }
+
+                    description "The value of IP packet's TOS.";
+
+                }
+
+                container SrcPort {
+
+                    description "Source port, including SrcPortOp, SrcPortValue1 and SrcPortValue2.";
+
+                    leaf SrcPortOp {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                        }
+
+                        description "Source port operator. 1: lt, 2: eq, 3: gt, 4: neq, 5: range.";
+
+                    }
+
+                    leaf SrcPortValue1 {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "The value of first source port.";
+
+                    }
+
+                    leaf SrcPortValue2 {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65536";
+
+                        }
+
+                        description "The value of second source port; 65536 is invalid value.";
+
+                    }
+
+                }
+
+                container DstPort {
+
+                    description "Destination port, including DstPortOp, DstPortValue1 and DstPortValue2.";
+
+                    leaf DstPortOp {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                        }
+
+                        description "Destination port operator. 1: lt, 2: eq, 3: gt, 4: neq, 5: range.";
+
+                    }
+
+                    leaf DstPortValue1 {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "The value of first destination port.";
+
+                    }
+
+                    leaf DstPortValue2 {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65536";
+
+                        }
+
+                        description "The value of second destination port; 65536 is invalid value.";
+
+                    }
+
+                }
+
+                container TcpFlag {
+
+                    leaf ACK {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP ACK flag.";
+
+                    }
+
+                    leaf FIN {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP FIN flag.";
+
+                    }
+
+                    leaf PSH {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP PSH flag.";
+
+                    }
+
+                    leaf RST {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP RST flag.";
+
+                    }
+
+                    leaf SYN {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP SYN flag.";
+
+                    }
+
+                    leaf URG {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP URG flag.";
+
+                    }
+
+                }
+
+                leaf Established {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flags that indicating the established status of a TCP connection.";
+
+                }
+
+                container ICMP {
+
+                    leaf ICMPType {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..255";
+
+                        }
+
+                        description "The ICMP message type.";
+
+                    }
+
+                    leaf ICMPCode {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..256";
+
+                        }
+
+                        description "The ICMP message code. 256 is invalid value.";
+
+                    }
+
+                }
+
+                leaf Fragment {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching fragmented packet.
+
+                          0: the rule applies to all fragments and non-fragments,
+
+                          1: the rule applies to only non-first fragments.";
+
+                }
+
+                leaf TimeRange {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{0,31}";
+
+                    }
+
+                    description "Specifies a time range for the rule, a case-insensitive string of 1 to 32 characters.";
+
+                }
+
+                leaf VRF {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Applies the rule to packets in a VRF instance.";
+
+                }
+
+                leaf Counting {
+
+                    type base:Basetype_Boolean;
+
+                    description "Counts times the ACL rule has been matched.";
+
+                }
+
+                leaf Logging {
+
+                    type base:Basetype_Boolean;
+
+                    description "Logs matching packets.";
+
+                }
+
+                leaf Comment {
+
+                    type base:Basetype_Text {
+
+                        length "1..127";
+
+                    }
+
+                    description "Rule comment, a case-sensitive string of 1 to 127 characters.";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Rule status. 1: active, 2: inactive.";
+
+                }
+
+                leaf Count {
+
+                    type base:Basetype_Counter64;
+
+                    description "The number of times the ACL rule has been matched.";
+
+                }
+
+                leaf MatchIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "The matching index of rules when match-order of group is auto.";
+
+                }
+
+                leaf RuleNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of rules.";
+
+                }
+
+            }
+
+        }
+
+        container IPv6AdvanceRules {
+
+            description "Table of IPv6 advance ACL rules.
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                key "GroupID RuleID";
+
+                leaf GroupID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "3000..3999";
+
+                    }
+
+                    description "Group ID. Range from 3000 to 3999.";
+
+                }
+
+                leaf RuleID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "Rule ID. Range from 0 to 65534.";
+
+                }
+
+                leaf Action {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Action type. 1: deny, 2: permit.";
+
+                }
+
+                leaf ProtocolType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..256";
+
+                    }
+
+                    description "Protocol type of packets, 256 indicates IP family.";
+
+                }
+
+                leaf SrcAny {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching any source IPv6 address.";
+
+                }
+
+                container SrcIPv6 {
+
+                    description "Source IPv6.";
+
+                    leaf SrcIPv6Addr {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv6Address;
+
+                        }
+
+                        description "Source IPv6 address.";
+
+                    }
+
+                    leaf SrcIPv6Prefix {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..128";
+
+                            }
+
+                        }
+
+                        description "Prefix length of source IPv6 address.";
+
+                    }
+
+                }
+
+                leaf SrcObjectGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source object group name";
+
+                }
+
+                leaf DstAny {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching any destination IPv6 address.";
+
+                }
+
+                container DstIPv6 {
+
+                    description "Destination IPv6.";
+
+                    leaf DstIPv6Addr {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv6Address;
+
+                        }
+
+                        description "Destination IPv6 address.";
+
+                    }
+
+                    leaf DstIPv6Prefix {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..128";
+
+                            }
+
+                        }
+
+                        description "Prefix length of destination IPv6 address.";
+
+                    }
+
+                }
+
+                leaf DstObjectGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination object group name";
+
+                }
+
+                leaf DSCP {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..63";
+
+                    }
+
+                    description "The value of DSCP of IPv6 packet.";
+
+                }
+
+                leaf FlowLabel {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..1048575";
+
+                    }
+
+                    description "The value of flow label of IPv6 packet header.";
+
+                }
+
+                leaf RoutingTypeAny {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching any routing header type.";
+
+                }
+
+                leaf RoutingTypeValue {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..255";
+
+                    }
+
+                    description "The value of routing header type.";
+
+                }
+
+                container SrcPort {
+
+                    leaf SrcPortOp {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                        }
+
+                        description "Source port operator. 1: lt, 2: eq, 3: gt, 4: neq, 5: range.";
+
+                    }
+
+                    leaf SrcPortValue1 {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "The value of first source port.";
+
+                    }
+
+                    leaf SrcPortValue2 {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65536";
+
+                        }
+
+                        description "The value of second source port; 65536 is invalid value.";
+
+                    }
+
+                }
+
+                container DstPort {
+
+                    leaf DstPortOp {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                        }
+
+                        description "Destination port operator. 1: lt, 2: eq, 3: gt, 4: neq, 5: range.";
+
+                    }
+
+                    leaf DstPortValue1 {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "The value of first destination port.";
+
+                    }
+
+                    leaf DstPortValue2 {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65536";
+
+                        }
+
+                        description "The value of second destination port; 65536 is invalid value.";
+
+                    }
+
+                }
+
+                container TcpFlag {
+
+                    leaf ACK {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP ACK flag.";
+
+                    }
+
+                    leaf FIN {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP FIN flag.";
+
+                    }
+
+                    leaf PSH {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP PSH flag.";
+
+                    }
+
+                    leaf RST {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP RST flag.";
+
+                    }
+
+                    leaf SYN {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP SYN flag.";
+
+                    }
+
+                    leaf URG {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP URG flag.";
+
+                    }
+
+                }
+
+                leaf Established {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flags that indicating the established status of a TCP connection.";
+
+                }
+
+                container ICMP6 {
+
+                    leaf ICMP6Type {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..255";
+
+                        }
+
+                        description "The ICMPv6 message type.";
+
+                    }
+
+                    leaf ICMP6Code {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..256";
+
+                        }
+
+                        description "The ICMPv6 message code. 256 is invalid value.";
+
+                    }
+
+                }
+
+                leaf Fragment {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching fragmented packet.
+
+                          0: the rule applies to all fragments and non-fragments,
+
+                          1: the rule applies to only non-first fragments.";
+
+                }
+
+                leaf HopTypeAny {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching any hop type.";
+
+                }
+
+                leaf HopTypeValue {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..255";
+
+                    }
+
+                    description "The value of hop type which is in the range of 0 to 255.";
+
+                }
+
+                leaf TimeRange {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{0,31}";
+
+                    }
+
+                    description "Specifies a time range for the rule, a case-insensitive string of 1 to 32 characters.";
+
+                }
+
+                leaf VRF {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Applies the rule to packets in a VRF instance.";
+
+                }
+
+                leaf Counting {
+
+                    type base:Basetype_Boolean;
+
+                    description "Counts times the ACL rule has been matched.";
+
+                }
+
+                leaf Logging {
+
+                    type base:Basetype_Boolean;
+
+                    description "Logs matching packets.";
+
+                }
+
+                leaf Comment {
+
+                    type base:Basetype_Text {
+
+                        length "1..127";
+
+                    }
+
+                    description "Rule comment, a case-sensitive string of 1 to 127 characters.";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Rule status. 1: active, 2: inactive.";
+
+                }
+
+                leaf Count {
+
+                    type base:Basetype_Counter64;
+
+                    description "The number of times the ACL rule has been matched.";
+
+                }
+
+                leaf MatchIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "The matching index of rules when match-order of group is auto.";
+
+                }
+
+            }
+
+        }
+
+        container IPv6NamedAdvanceRules {
+
+            description "Table of named IPv6 advance ACL rules.
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                key "GroupIndex RuleID";
+
+                leaf GroupIndex {
+
+                    type base:Basetype_String {
+
+                        pattern "(3[0-9]{3})|([a-zA-Z][^?	
+
+]{0,62})";
+
+                    }
+
+                    description "Acl Group Name of Index.If it's Index, range from 3000 to 3999.";
+
+                }
+
+                leaf RuleID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "Rule ID. Range from 0 to 65534.";
+
+                }
+
+                leaf Action {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Action type. 1: deny, 2: permit.";
+
+                }
+
+                leaf ProtocolType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..256";
+
+                    }
+
+                    description "Protocol type of packets, 256 indicates IP family.";
+
+                }
+
+                leaf SrcAny {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching any source IPv6 address.";
+
+                }
+
+                container SrcIPv6 {
+
+                    description "Source IPv6.";
+
+                    leaf SrcIPv6Addr {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv6Address;
+
+                        }
+
+                        description "Source IPv6 address.";
+
+                    }
+
+                    leaf SrcIPv6Prefix {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..128";
+
+                            }
+
+                        }
+
+                        description "Prefix length of source IPv6 address.";
+
+                    }
+
+                }
+
+                leaf SrcObjectGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source object group name";
+
+                }
+
+                leaf DstAny {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching any destination IPv6 address.";
+
+                }
+
+                container DstIPv6 {
+
+                    description "Destination IPv6.";
+
+                    leaf DstIPv6Addr {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv6Address;
+
+                        }
+
+                        description "Destination IPv6 address.";
+
+                    }
+
+                    leaf DstIPv6Prefix {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..128";
+
+                            }
+
+                        }
+
+                        description "Prefix length of destination IPv6 address.";
+
+                    }
+
+                }
+
+                leaf DstObjectGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination object group name";
+
+                }
+
+                leaf DSCP {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..63";
+
+                    }
+
+                    description "The value of DSCP of IPv6 packet.";
+
+                }
+
+                leaf FlowLabel {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..1048575";
+
+                    }
+
+                    description "The value of flow label of IPv6 packet header.";
+
+                }
+
+                leaf RoutingTypeAny {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching any routing header type.";
+
+                }
+
+                leaf RoutingTypeValue {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..255";
+
+                    }
+
+                    description "The value of routing header type.";
+
+                }
+
+                container SrcPort {
+
+                    leaf SrcPortOp {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                        }
+
+                        description "Source port operator. 1: lt, 2: eq, 3: gt, 4: neq, 5: range.";
+
+                    }
+
+                    leaf SrcPortValue1 {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "The value of first source port.";
+
+                    }
+
+                    leaf SrcPortValue2 {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65536";
+
+                        }
+
+                        description "The value of second source port; 65536 is invalid value.";
+
+                    }
+
+                }
+
+                container DstPort {
+
+                    leaf DstPortOp {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                        }
+
+                        description "Destination port operator. 1: lt, 2: eq, 3: gt, 4: neq, 5: range.";
+
+                    }
+
+                    leaf DstPortValue1 {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "The value of first destination port.";
+
+                    }
+
+                    leaf DstPortValue2 {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65536";
+
+                        }
+
+                        description "The value of second destination port; 65536 is invalid value.";
+
+                    }
+
+                }
+
+                container TcpFlag {
+
+                    leaf ACK {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP ACK flag.";
+
+                    }
+
+                    leaf FIN {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP FIN flag.";
+
+                    }
+
+                    leaf PSH {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP PSH flag.";
+
+                    }
+
+                    leaf RST {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP RST flag.";
+
+                    }
+
+                    leaf SYN {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP SYN flag.";
+
+                    }
+
+                    leaf URG {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "TCP URG flag.";
+
+                    }
+
+                }
+
+                leaf Established {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flags that indicating the established status of a TCP connection.";
+
+                }
+
+                container ICMP6 {
+
+                    leaf ICMP6Type {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..255";
+
+                        }
+
+                        description "The ICMPv6 message type.";
+
+                    }
+
+                    leaf ICMP6Code {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..256";
+
+                        }
+
+                        description "The ICMPv6 message code. 256 is invalid value.";
+
+                    }
+
+                }
+
+                leaf Fragment {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching fragmented packet.
+
+                          0: the rule applies to all fragments and non-fragments,
+
+                          1: the rule applies to only non-first fragments.";
+
+                }
+
+                leaf HopTypeAny {
+
+                    type base:Basetype_Boolean;
+
+                    description "The flag of matching any hop type.";
+
+                }
+
+                leaf HopTypeValue {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..255";
+
+                    }
+
+                    description "The value of hop type which is in the range of 0 to 255.";
+
+                }
+
+                leaf TimeRange {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{0,31}";
+
+                    }
+
+                    description "Specifies a time range for the rule, a case-insensitive string of 1 to 32 characters.";
+
+                }
+
+                leaf VRF {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Applies the rule to packets in a VRF instance.";
+
+                }
+
+                leaf Counting {
+
+                    type base:Basetype_Boolean;
+
+                    description "Counts times the ACL rule has been matched.";
+
+                }
+
+                leaf Logging {
+
+                    type base:Basetype_Boolean;
+
+                    description "Logs matching packets.";
+
+                }
+
+                leaf Comment {
+
+                    type base:Basetype_Text {
+
+                        length "1..127";
+
+                    }
+
+                    description "Rule comment, a case-sensitive string of 1 to 127 characters.";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Rule status. 1: active, 2: inactive.";
+
+                }
+
+                leaf Count {
+
+                    type base:Basetype_Counter64;
+
+                    description "The number of times the ACL rule has been matched.";
+
+                }
+
+                leaf MatchIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "The matching index of rules when match-order of group is auto.";
+
+                }
+
+                leaf RuleNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of rules.";
+
+                }
+
+            }
+
+        }
+
+        container MACRules {
+
+            description "Table of MAC ACL rules.
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                key "GroupID RuleID";
+
+                leaf GroupID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "4000..4999";
+
+                    }
+
+                    description "Group ID. Range from 4000 to 4999.";
+
+                }
+
+                leaf RuleID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "Rule ID. Range from 0 to 65534.";
+
+                }
+
+                leaf Action {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Action type. 1: deny, 2: permit.";
+
+                }
+
+                container SrcMACAddr {
+
+                    leaf SrcMACAddress {
+
+                        type base:Basetype_MacAddress;
+
+                    }
+
+                    leaf SrcMACMask {
+
+                        type base:Basetype_MacAddress;
+
+                    }
+
+                }
+
+                container DstMACAddr {
+
+                    leaf DstMACAddress {
+
+                        type base:Basetype_MacAddress;
+
+                    }
+
+                    leaf DstMACMask {
+
+                        type base:Basetype_MacAddress;
+
+                    }
+
+                }
+
+                leaf COS {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..7";
+
+                    }
+
+                    description "802.1p priority.";
+
+                }
+
+                container Protocol {
+
+                    description "Protocol in the Ethernet frame header.";
+
+                    leaf ProtocolType {
+
+                        type base:Basetype_String {
+
+                            pattern "[a-fA-F0-9]{1,4}";
+
+                        }
+
+                        description "The type of protocol in the Ethernet frame header.";
+
+                    }
+
+                    leaf ProtocolTypeMask {
+
+                        type base:Basetype_String {
+
+                            pattern "[a-fA-F0-9]{1,4}";
+
+                        }
+
+                        description "The mask of protocol in the Ethernet frame header.";
+
+                    }
+
+                }
+
+                container LSAP {
+
+                    leaf LSAPType {
+
+                        type base:Basetype_String {
+
+                            pattern "[a-fA-F0-9]{1,4}";
+
+                        }
+
+                        description "The type of LSAP";
+
+                    }
+
+                    leaf LSAPTypeMask {
+
+                        type base:Basetype_String {
+
+                            pattern "[a-fA-F0-9]{1,4}";
+
+                        }
+
+                        description "The mask of LSAP.";
+
+                    }
+
+                }
+
+                leaf TimeRange {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{0,31}";
+
+                    }
+
+                    description "Specifies a time range for the rule, a case-insensitive string of 1 to 32 characters.";
+
+                }
+
+                leaf Counting {
+
+                    type base:Basetype_Boolean;
+
+                    description "Counts times the ACL rule has been matched.";
+
+                }
+
+                leaf Comment {
+
+                    type base:Basetype_Text {
+
+                        length "1..127";
+
+                    }
+
+                    description "Rule comment, a case-sensitive string of 1 to 127 characters.";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Rule status. 1: active, 2: inactive.";
+
+                }
+
+                leaf Count {
+
+                    type base:Basetype_Counter64;
+
+                    description "The number of times the ACL rule has been matched.";
+
+                }
+
+                leaf MatchIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "The matching index of rules when match-order of group is auto.";
+
+                }
+
+            }
+
+        }
+
+        container MACNamedRules {
+
+            description "Table of named MAC ACL rules.
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                key "GroupIndex RuleID";
+
+                leaf GroupIndex {
+
+                    type base:Basetype_String {
+
+                        pattern "(4[0-9]{3})|([a-zA-Z][^?	
+
+]{0,62})";
+
+                    }
+
+                    description "Acl Group Name of Index.If it's Index, range from 4000 to 4999.";
+
+                }
+
+                leaf RuleID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "Rule ID. Range from 0 to 65534.";
+
+                }
+
+                leaf Action {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Action type. 1: deny, 2: permit.";
+
+                }
+
+                container SrcMACAddr {
+
+                    leaf SrcMACAddress {
+
+                        type base:Basetype_MacAddress;
+
+                    }
+
+                    leaf SrcMACMask {
+
+                        type base:Basetype_MacAddress;
+
+                    }
+
+                }
+
+                container DstMACAddr {
+
+                    leaf DstMACAddress {
+
+                        type base:Basetype_MacAddress;
+
+                    }
+
+                    leaf DstMACMask {
+
+                        type base:Basetype_MacAddress;
+
+                    }
+
+                }
+
+                leaf COS {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..7";
+
+                    }
+
+                    description "802.1p priority.";
+
+                }
+
+                container Protocol {
+
+                    description "Protocol in the Ethernet frame header.";
+
+                    leaf ProtocolType {
+
+                        type base:Basetype_String {
+
+                            pattern "[a-fA-F0-9]{1,4}";
+
+                        }
+
+                        description "The type of protocol in the Ethernet frame header.";
+
+                    }
+
+                    leaf ProtocolTypeMask {
+
+                        type base:Basetype_String {
+
+                            pattern "[a-fA-F0-9]{1,4}";
+
+                        }
+
+                        description "The mask of protocol in the Ethernet frame header.";
+
+                    }
+
+                }
+
+                container LSAP {
+
+                    leaf LSAPType {
+
+                        type base:Basetype_String {
+
+                            pattern "[a-fA-F0-9]{1,4}";
+
+                        }
+
+                        description "The type of LSAP";
+
+                    }
+
+                    leaf LSAPTypeMask {
+
+                        type base:Basetype_String {
+
+                            pattern "[a-fA-F0-9]{1,4}";
+
+                        }
+
+                        description "The mask of LSAP.";
+
+                    }
+
+                }
+
+                leaf TimeRange {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{0,31}";
+
+                    }
+
+                    description "Specifies a time range for the rule, a case-insensitive string of 1 to 32 characters.";
+
+                }
+
+                leaf Counting {
+
+                    type base:Basetype_Boolean;
+
+                    description "Counts times the ACL rule has been matched.";
+
+                }
+
+                leaf Comment {
+
+                    type base:Basetype_Text {
+
+                        length "1..127";
+
+                    }
+
+                    description "Rule comment, a case-sensitive string of 1 to 127 characters.";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Rule status. 1: active, 2: inactive.";
+
+                }
+
+                leaf Count {
+
+                    type base:Basetype_Counter64;
+
+                    description "The number of times the ACL rule has been matched.";
+
+                }
+
+                leaf MatchIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "The matching index of rules when match-order of group is auto.";
+
+                }
+
+                leaf RuleNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of rules.";
+
+                }
+
+            }
+
+        }
+
+        container UserRules {
+
+            description "Table of the user ACL rules.
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                key "GroupID RuleID";
+
+                leaf GroupID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "5000..5999";
+
+                    }
+
+                    description "Group ID. Range from 5000 to 5999.";
+
+                }
+
+                leaf RuleID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "Rule ID. Range from 0 to 65534.";
+
+                }
+
+                leaf Action {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Action type. 1: deny, 2: permit.";
+
+                }
+
+                container L2Rule {
+
+                    description "Specifies that the offset is relative to the beginning of the Layer 2 frame header.";
+
+                    leaf L2RuleString {
+
+                        type base:Basetype_String {
+
+                            pattern "([a-fA-F0-9]{2}){1,127}";
+
+                        }
+
+                        description "Defines a match pattern in hexadecimal format. Its length must be a multiple of two.
+
+                                Range from 2 to 254.";
+
+                    }
+
+                    leaf L2RuleMask {
+
+                        type base:Basetype_String {
+
+                            pattern "([a-fA-F0-9]{2}){1,127}";
+
+                        }
+
+                        description "Defines a match pattern mask in hexadecimal format.
+
+                                Its length must be the same as that of the match pattern. Range from 2 to 254.";
+
+                    }
+
+                    leaf L2Offset {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..254";
+
+                        }
+
+                        description "Specifies an offset in bytes after which the match operation begins.";
+
+                    }
+
+                }
+
+                container IPv4Rule {
+
+                    description "Specifies that the offset is relative to the beginning of the IPv4 header.";
+
+                    leaf IPv4RuleString {
+
+                        type base:Basetype_String {
+
+                            pattern "([a-fA-F0-9]{2}){1,127}";
+
+                        }
+
+                        description "Defines a match pattern in hexadecimal format. Its length must be a multiple of two.
+
+                                Range from 2 to 254.";
+
+                    }
+
+                    leaf IPv4RuleMask {
+
+                        type base:Basetype_String {
+
+                            pattern "([a-fA-F0-9]{2}){1,127}";
+
+                        }
+
+                        description "Defines a match pattern mask in hexadecimal format.
+
+                                Its length must be the same as that of the match pattern. Range from 2 to 254.";
+
+                    }
+
+                    leaf IPv4Offset {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..254";
+
+                        }
+
+                        description "Specifies an offset in bytes after which the match operation begins.";
+
+                    }
+
+                }
+
+                container IPv6Rule {
+
+                    description "Specifies that the offset is relative to the beginning of the IPv6 header.";
+
+                    leaf IPv6RuleString {
+
+                        type base:Basetype_String {
+
+                            pattern "([a-fA-F0-9]{2}){1,127}";
+
+                        }
+
+                        description "Defines a match pattern in hexadecimal format. Its length must be a multiple of two.
+
+                                Range from 2 to 254.";
+
+                    }
+
+                    leaf IPv6RuleMask {
+
+                        type base:Basetype_String {
+
+                            pattern "([a-fA-F0-9]{2}){1,127}";
+
+                        }
+
+                        description "Defines a match pattern mask in hexadecimal format.
+
+                                Its length must be the same as that of the match pattern. Range from 2 to 254.";
+
+                    }
+
+                    leaf IPv6Offset {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..254";
+
+                        }
+
+                        description "Specifies an offset in bytes after which the match operation begins.";
+
+                    }
+
+                }
+
+                container L4Rule {
+
+                    description "Specifies that the offset is relative to the beginning of the Layer 4 header.";
+
+                    leaf L4RuleString {
+
+                        type base:Basetype_String {
+
+                            pattern "([a-fA-F0-9]{2}){1,127}";
+
+                        }
+
+                        description "Defines a match pattern in hexadecimal format. Its length must be a multiple of two.
+
+                                Range from 2 to 254.";
+
+                    }
+
+                    leaf L4RuleMask {
+
+                        type base:Basetype_String {
+
+                            pattern "([a-fA-F0-9]{2}){1,127}";
+
+                        }
+
+                        description "Defines a match pattern mask in hexadecimal format.
+
+                                Its length must be the same as that of the match pattern. Range from 2 to 254.";
+
+                    }
+
+                    leaf L4Offset {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..254";
+
+                        }
+
+                        description "Specifies an offset in bytes after which the match operation begins.";
+
+                    }
+
+                }
+
+                leaf TimeRange {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{0,31}";
+
+                    }
+
+                    description "Specifies a time range for the rule, a case-insensitive string of 1 to 32 characters.";
+
+                }
+
+                leaf Counting {
+
+                    type base:Basetype_Boolean;
+
+                    description "Counts the number of times the ACL rule has been matched.";
+
+                }
+
+                leaf Comment {
+
+                    type base:Basetype_Text {
+
+                        length "1..127";
+
+                    }
+
+                    description "Rule comment, a case-sensitive string of 1 to 127 characters.";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Rule status. 1: active, 2: inactive.";
+
+                }
+
+                leaf Count {
+
+                    type base:Basetype_Counter64;
+
+                    description "The number of times the ACL rule has been matched.";
+
+                }
+
+            }
+
+        }
+
+        container UserNamedRules {
+
+            description "Table of the named user ACL rules.
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                key "GroupIndex RuleID";
+
+                leaf GroupIndex {
+
+                    type base:Basetype_String {
+
+                        pattern "(5[0-9]{3})|([a-zA-Z][^?	
+
+]{0,62})";
+
+                    }
+
+                    description "Acl Group Name of Index.If it's Index, range from 5000 to 5999.";
+
+                }
+
+                leaf RuleID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "Rule ID. Range from 0 to 65534.";
+
+                }
+
+                leaf Action {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Action type. 1: deny, 2: permit.";
+
+                }
+
+                container L2Rule {
+
+                    description "Specifies that the offset is relative to the beginning of the Layer 2 frame header.";
+
+                    leaf L2RuleString {
+
+                        type base:Basetype_String {
+
+                            pattern "([a-fA-F0-9]{2}){1,127}";
+
+                        }
+
+                        description "Defines a match pattern in hexadecimal format. Its length must be a multiple of two.
+
+                                Range from 2 to 254.";
+
+                    }
+
+                    leaf L2RuleMask {
+
+                        type base:Basetype_String {
+
+                            pattern "([a-fA-F0-9]{2}){1,127}";
+
+                        }
+
+                        description "Defines a match pattern mask in hexadecimal format.
+
+                                Its length must be the same as that of the match pattern. Range from 2 to 254.";
+
+                    }
+
+                    leaf L2Offset {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..254";
+
+                        }
+
+                        description "Specifies an offset in bytes after which the match operation begins.";
+
+                    }
+
+                }
+
+                container IPv4Rule {
+
+                    description "Specifies that the offset is relative to the beginning of the IPv4 header.";
+
+                    leaf IPv4RuleString {
+
+                        type base:Basetype_String {
+
+                            pattern "([a-fA-F0-9]{2}){1,127}";
+
+                        }
+
+                        description "Defines a match pattern in hexadecimal format. Its length must be a multiple of two.
+
+                                Range from 2 to 254.";
+
+                    }
+
+                    leaf IPv4RuleMask {
+
+                        type base:Basetype_String {
+
+                            pattern "([a-fA-F0-9]{2}){1,127}";
+
+                        }
+
+                        description "Defines a match pattern mask in hexadecimal format.
+
+                                Its length must be the same as that of the match pattern. Range from 2 to 254.";
+
+                    }
+
+                    leaf IPv4Offset {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..254";
+
+                        }
+
+                        description "Specifies an offset in bytes after which the match operation begins.";
+
+                    }
+
+                }
+
+                container IPv6Rule {
+
+                    description "Specifies that the offset is relative to the beginning of the IPv6 header.";
+
+                    leaf IPv6RuleString {
+
+                        type base:Basetype_String {
+
+                            pattern "([a-fA-F0-9]{2}){1,127}";
+
+                        }
+
+                        description "Defines a match pattern in hexadecimal format. Its length must be a multiple of two.
+
+                                Range from 2 to 254.";
+
+                    }
+
+                    leaf IPv6RuleMask {
+
+                        type base:Basetype_String {
+
+                            pattern "([a-fA-F0-9]{2}){1,127}";
+
+                        }
+
+                        description "Defines a match pattern mask in hexadecimal format.
+
+                                Its length must be the same as that of the match pattern. Range from 2 to 254.";
+
+                    }
+
+                    leaf IPv6Offset {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..254";
+
+                        }
+
+                        description "Specifies an offset in bytes after which the match operation begins.";
+
+                    }
+
+                }
+
+                container L4Rule {
+
+                    description "Specifies that the offset is relative to the beginning of the Layer 4 header.";
+
+                    leaf L4RuleString {
+
+                        type base:Basetype_String {
+
+                            pattern "([a-fA-F0-9]{2}){1,127}";
+
+                        }
+
+                        description "Defines a match pattern in hexadecimal format. Its length must be a multiple of two.
+
+                                Range from 2 to 254.";
+
+                    }
+
+                    leaf L4RuleMask {
+
+                        type base:Basetype_String {
+
+                            pattern "([a-fA-F0-9]{2}){1,127}";
+
+                        }
+
+                        description "Defines a match pattern mask in hexadecimal format.
+
+                                Its length must be the same as that of the match pattern. Range from 2 to 254.";
+
+                    }
+
+                    leaf L4Offset {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..254";
+
+                        }
+
+                        description "Specifies an offset in bytes after which the match operation begins.";
+
+                    }
+
+                }
+
+                leaf TimeRange {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{0,31}";
+
+                    }
+
+                    description "Specifies a time range for the rule, a case-insensitive string of 1 to 32 characters.";
+
+                }
+
+                leaf Counting {
+
+                    type base:Basetype_Boolean;
+
+                    description "Counts the number of times the ACL rule has been matched.";
+
+                }
+
+                leaf Comment {
+
+                    type base:Basetype_Text {
+
+                        length "1..127";
+
+                    }
+
+                    description "Rule comment, a case-sensitive string of 1 to 127 characters.";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Rule status. 1: active, 2: inactive.";
+
+                }
+
+                leaf Count {
+
+                    type base:Basetype_Counter64;
+
+                    description "The number of times the ACL rule has been matched.";
+
+                }
+
+            }
+
+        }
+
+        container Intervals {
+
+            description "ACL intervals table.
+
+                This table supports creating rows.";
+
+            list Interval {
+
+                description "ACL interval row.";
+
+                key "IntervalType";
+
+                leaf IntervalType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Interval Type. 1: logs, 2: trap.";
+
+                }
+
+                leaf IntervalValue {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "5..1440";
+
+                    }
+
+                    description "The value of Interval.";
+
+                }
+
+            }
+
+        }
+
+        container PfilterDefAction {
+
+            description "Pfilter base information table";
+
+            leaf DefaultAction {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+                description "Default Action.1:Permit,2:Deny.";
+
+            }
+
+        }
+
+        container PfilterApply {
+
+            description "Pfilter apply table
+
+                This table supports creating rows.";
+
+            list Pfilter {
+
+                description "Pfilter apply row";
+
+                key "AppObjType AppObjIndex AppDirection AppAclType AppAclGroup";
+
+                leaf AppObjType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Object type. 1: interface, 2: vlan,3: global.";
+
+                }
+
+                leaf AppObjIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Object Index.";
+
+                }
+
+                leaf AppDirection {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Apply Direction.1:inbound，2:outbound.";
+
+                }
+
+                leaf AppAclType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                    description "ACL Group type. 1: IPv4, 2: IPv6, 3:MAC, 4:User-defined, 5: default.";
+
+                }
+
+                leaf AppAclGroup {
+
+                    type base:Basetype_String {
+
+                        pattern "(0)|([2345][0-9]{3})|([a-zA-Z][^?	
+
+]{0,62})";
+
+                    }
+
+                    description "Acl Group Name of Index.If it's index, range from 2000 to 5999, Default: 0.";
+
+                }
+
+                leaf HardCount {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Hardware count flag.1:true,2:false.Default:false";
+
+                }
+
+                leaf AppSequence {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "The configure sequence of packet filter application.";
+
+                }
+
+            }
+
+        }
+
+        container PfilterGroupRunInfo {
+
+            description "Pfilter Group RunInfo table";
+
+            list GroupRunInfo {
+
+                description "Pfilter group row";
+
+                key "AppObjType AppObjIndex AppDirection AppAclType AppAclGroup";
+
+                leaf AppObjType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Object type. 1: interface, 2: vlan,3: global.";
+
+                }
+
+                leaf AppObjIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Object Index.";
+
+                }
+
+                leaf AppDirection {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Apply Direction.1:inbound，2:outbound.";
+
+                }
+
+                leaf AppAclType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                    description "ACL Group type. 1: IPv4, 2: IPv6, 3:MAC, 4:user, 5:Default.";
+
+                }
+
+                leaf AppAclGroup {
+
+                    type base:Basetype_String {
+
+                        pattern "([123])|([2345][0-9]{3})|([a-zA-Z][^?	
+
+]{0,62})";
+
+                    }
+
+                    description "Acl Group Name or Index. If it's index, range from 2000 to 5999, Default 1: MAC, 2: IPv4, 3: IPv6.";
+
+                }
+
+                leaf AclGroupStatus {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "The status of ACL group applied.1:success,2:failed,3:partialSuccess";
+
+                }
+
+                leaf AclGroupCountStatus {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "The status of enabling hardware count. 1:success, 2:failed, 3:partialSuccess";
+
+                }
+
+                leaf AclGroupPermitPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "The number of packets permitted.";
+
+                }
+
+                leaf AclGroupPermitBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "The number of bytes permitted.";
+
+                }
+
+                leaf AclGroupDenyPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "The number of packets denied.";
+
+                }
+
+                leaf AclGroupDenyBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "The number of bytes denied.";
+
+                }
+
+            }
+
+        }
+
+        container PfilterRuleRunInfo {
+
+            description "Pfilter Rule RunInfo table";
+
+            list RuleRunInfo {
+
+                description "Pfilter rule row";
+
+                key "AppObjType AppObjIndex AppDirection AppAclType AppAclGroup AppAclRuleIndex";
+
+                leaf AppObjType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Object type. 1: interface, 2: vlan,3: global.";
+
+                }
+
+                leaf AppObjIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Object Index.";
+
+                }
+
+                leaf AppDirection {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Apply Direction.1:inbound，2:outbound.";
+
+                }
+
+                leaf AppAclType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "ACL Group type. 1: IPv4, 2: IPv6, 3:MAC, 4:user.";
+
+                }
+
+                leaf AppAclGroup {
+
+                    type base:Basetype_String {
+
+                        pattern "([2345][0-9]{3})|([a-zA-Z][^?	
+
+]{0,62})";
+
+                    }
+
+                    description "Acl Group Name of Index. If it's index, range from 2000 to 5999";
+
+                }
+
+                leaf AppAclRuleIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "Rule index.range from 0 to 65534.";
+
+                }
+
+                leaf AclRuleStatus {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "The status of rule application.1:success,2:failed,3:partialSuccess";
+
+                }
+
+                leaf AclRuleCountStatus {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "The status of enabling rule's hardware count.1:success,2:failed,3:partialSuccess";
+
+                }
+
+                leaf AclRuleMatchPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "The number of packets matched";
+
+                }
+
+                leaf AclRuleMatchBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "The number of bytes matched";
+
+                }
+
+            }
+
+        }
+
+        container PfilterStatisticSum {
+
+            description "Pfilter sum table";
+
+            list StatisticSum {
+
+                description "Pfilter sum row";
+
+                key "Direction AclType AclGroup AclRuleIndex";
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Apply Direction.1:inbound，2:outbound.";
+
+                }
+
+                leaf AclType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "ACL Group type. 1: IPv4, 2: IPv6, 3:MAC, 4:user.";
+
+                }
+
+                leaf AclGroup {
+
+                    type base:Basetype_String {
+
+                        pattern "([2345][0-9]{3})|([a-zA-Z][^?	
+
+]{0,62})";
+
+                    }
+
+                    description "Acl Group Name or Index. If it's index, range from 2000 to 5999";
+
+                }
+
+                leaf AclRuleIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "Rule index.range from 0 to 65534.";
+
+                }
+
+                leaf MatchPackets {
+
+                    type base:Basetype_Counter64;
+
+                    description "The sum number of packets matched the ACL rule";
+
+                }
+
+                leaf MatchBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "The sum number of bytes matched the ACL rule.";
+
+                }
+
+            }
+
+        }
+
+        container ZonePairPfilter {
+
+            description "Packet-filter policy table
+
+                This table supports creating rows.";
+
+            list Pfilter {
+
+                description "Row name";
+
+                key "SrcZone DestZone AclType AclGroup";
+
+                leaf SrcZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source zone name";
+
+                }
+
+                leaf DestZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination zone name";
+
+                }
+
+                leaf AclType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Acl version type";
+
+                }
+
+                leaf AclGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..61";
+
+                    }
+
+                    description "Acl group name or number";
+
+                }
+
+                leaf AppSequence {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "App sequence";
+
+                }
+
+            }
+
+        }
+
+        container ZonePairPfilterRules {
+
+            description "Packet-filter policy rule table";
+
+            list Rule {
+
+                description "Row name";
+
+                key "SrcZone DestZone AclType AclGroup AclRuleID";
+
+                leaf SrcZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source zone name";
+
+                }
+
+                leaf DestZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination zone name";
+
+                }
+
+                leaf AclType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Acl version type";
+
+                }
+
+                leaf AclGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..61";
+
+                    }
+
+                    description "Acl group name or number";
+
+                }
+
+                leaf AclRuleID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65534";
+
+                    }
+
+                    description "Acl rule id";
+
+                }
+
+                leaf RuleMatchPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "Count of matched packets";
+
+                }
+
+                leaf RuleMatchBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "Count of matched bytes";
+
+                }
+
+            }
+
+        }
+
+        container UserProfilePfilter {
+
+            description "Packet-filter policy table
+
+                This table supports creating rows.";
+
+            list Apply {
+
+                description "Row name";
+
+                key "Name Direction";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source zone name";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Destination zone name";
+
+                }
+
+                leaf AclType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Acl version type";
+
+                }
+
+                leaf AclGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..63";
+
+                    }
+
+                    description "Acl name or number";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

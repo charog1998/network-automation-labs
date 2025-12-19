@@ -1,0 +1,581 @@
+module H3C-rbac-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "rbac-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for rbac data.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container RBAC {
+
+        config false;
+
+        container Policies {
+
+            config false;
+
+            description "RBAC接口策略子模块";
+
+            container InterfacePolicies {
+
+                description "表名称
+
+                    This table supports creating rows.";
+
+                list Policy {
+
+                    description "行名称";
+
+                    key "RoleName";
+
+                    leaf RoleName {
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                        description "角色名称";
+
+                    }
+
+                    leaf InterfaceListPermitted {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                pattern "(([a-zA-Z][-a-zA-Z0-9]{1,18}[a-zA-Z]|((E1|T1|E3|T3) ))(([1-9][0-9]{0,2}|[0-9])/)?(([1-9][0-9]{0,2}|[0-9])/)?(([1-9][0-9]{0,2}|[0-9])/)?([1-9][0-9]{0,4}|[0-9])(:([1-9][0-9]{0,3}|[0-9]))?(\.([1-9][0-9]{0,3}|[0-9]))?(,| to )*)*";
+
+                                length "1..32767";
+
+                            }
+
+                        }
+
+                        description "允许操作的接口列表";
+
+                    }
+
+                }
+
+            }
+
+            container VRFPolicies {
+
+                description "RBAC VRF策略表
+
+                    This table supports creating rows.";
+
+                list Policy {
+
+                    description "行名称";
+
+                    key "RoleName VRFPermitted";
+
+                    leaf RoleName {
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                        description "角色名称";
+
+                    }
+
+                    leaf VRFPermitted {
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                        description "允许操作的VRF实例名称";
+
+                    }
+
+                }
+
+            }
+
+            container SecZonePolicies {
+
+                description "RBAC 安全域策略表
+
+                    This table supports creating rows.";
+
+                list Policy {
+
+                    description "行名称";
+
+                    key "RoleName SecZonePermitted";
+
+                    leaf RoleName {
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                        description "角色名称";
+
+                    }
+
+                    leaf SecZonePermitted {
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                        description "允许操作的安全域实例名称";
+
+                    }
+
+                }
+
+            }
+
+            container VLANPolicies {
+
+                description "RBAC VLAN策略表
+
+                    This table supports creating rows.";
+
+                list Policy {
+
+                    description "行名称";
+
+                    key "RoleName";
+
+                    leaf RoleName {
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                        description "角色名称";
+
+                    }
+
+                    leaf VLANListPermitted {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_VlanRange;
+
+                        }
+
+                        description "允许操作的VLAN列表";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Roles {
+
+            description "RBAC Roles
+
+                This table supports creating rows.";
+
+            list Role {
+
+                description "行名称";
+
+                key "RoleName";
+
+                leaf RoleName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "角色名称";
+
+                }
+
+                leaf Description {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..128";
+
+                        }
+
+                    }
+
+                    description "角色描述";
+
+                }
+
+                leaf PermitAllInterface {
+
+                    type base:Basetype_Boolean;
+
+                    description "是否允许访问所有接口
+
+                          true：是
+
+                          false：否";
+
+                }
+
+                leaf PermitAllVLAN {
+
+                    type base:Basetype_Boolean;
+
+                    description "是否允许访问所有VLAN
+
+                          true：是
+
+                          false：否";
+
+                }
+
+                leaf PermitAllVRF {
+
+                    type base:Basetype_Boolean;
+
+                    description "是否允许访问所有VRF
+
+                          true：是
+
+                          false：否";
+
+                }
+
+                leaf PermitAllSecZone {
+
+                    type base:Basetype_Boolean;
+
+                    description "是否允许访问所有安全域
+
+                          true：是
+
+                          false：否";
+
+                }
+
+                leaf IsPreDefined {
+
+                    type base:Basetype_Boolean;
+
+                    description "是否是预定义角色
+
+                          true：是
+
+                          false：否";
+
+                }
+
+                leaf CanAddRules {
+
+                    type base:Basetype_Boolean;
+
+                    description "是否允许添加规则
+
+                          true：是
+
+                          false：否";
+
+                }
+
+            }
+
+        }
+
+        container Rules {
+
+            description "RBAC Rules
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                description "行名称";
+
+                key "RoleName RuleIndex IsPreDefined";
+
+                leaf RoleName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "角色名称";
+
+                }
+
+                leaf RuleIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..256";
+
+                    }
+
+                    description "RBAC 规则索引";
+
+                }
+
+                leaf IsPreDefined {
+
+                    type base:Basetype_Boolean;
+
+                    description "是否是系统预定义规则
+
+                          true：是
+
+                          false：否";
+
+                }
+
+                leaf Action {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..1";
+
+                    }
+
+                    description "枚举值 ,0:permit,1:deny";
+
+                }
+
+                leaf ReadOperation {
+
+                    type base:Basetype_Boolean;
+
+                    description "是否是读操作
+
+                          true：是
+
+                          false：否";
+
+                }
+
+                leaf WriteOperation {
+
+                    type base:Basetype_Boolean;
+
+                    description "是否是写操作
+
+                          true：是
+
+                          false：否";
+
+                }
+
+                leaf ExecOperation {
+
+                    type base:Basetype_Boolean;
+
+                    description "是否是执行操作
+
+                          true：是
+
+                          false：否";
+
+                }
+
+                leaf EntityType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..5";
+
+                    }
+
+                    description "实体类型";
+
+                }
+
+                leaf Entity {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..255";
+
+                        }
+
+                    }
+
+                    description "实体";
+
+                }
+
+            }
+
+        }
+
+        container FeatureGroups {
+
+            description "RBAC特性组信息表
+
+                This table supports creating rows.";
+
+            list FeatureGroup {
+
+                description "行名称";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "特性组名称";
+
+                }
+
+                leaf IsPreDefined {
+
+                    type base:Basetype_Boolean;
+
+                    description "是否是系统预定义特性组
+
+                          true：是
+
+                          false：否";
+
+                }
+
+            }
+
+        }
+
+        container Features {
+
+            description "RBAC特性信息表";
+
+            list Feature {
+
+                description "行名称";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..15";
+
+                    }
+
+                    description "特性名称";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "特性描述信息";
+
+                }
+
+            }
+
+        }
+
+        container FeaturesInGroup {
+
+            description "RBAC特性组特性信息表
+
+                This table supports creating rows.";
+
+            list Feature {
+
+                description "行名称";
+
+                key "GroupName FeatureName";
+
+                leaf GroupName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "特性组名称";
+
+                }
+
+                leaf FeatureName {
+
+                    type base:Basetype_String {
+
+                        length "1..15";
+
+                    }
+
+                    description "特性名称";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

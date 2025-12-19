@@ -1,0 +1,151 @@
+module H3C-ipv4address-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "ipv4address-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ipv4address data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container IPV4ADDRESS {
+
+        config false;
+
+        container Ipv4Addresses {
+
+            list Ipv4Address {
+
+                key "IfIndex Ipv4Address";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Ipv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf Ipv4Mask {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf AddressOrigin {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..7";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Ipv4AddressSpecification {
+
+            leaf SupportDHCP {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+        container IPv4AddressPPPNegotiate {
+
+            list AddressPPPNegotiate {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf ConfigOption {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container IPv4AddressCellular {
+
+            list AddressCellular {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf ConfigOption {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container IPv4AddressUnnumbered {
+
+            list AddressUnnumbered {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf UnnumberedIfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

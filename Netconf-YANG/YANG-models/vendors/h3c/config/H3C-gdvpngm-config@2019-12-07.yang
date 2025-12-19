@@ -1,0 +1,463 @@
+module H3C-gdvpngm-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "gdvpngm-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for gdvpngm config.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container GDVPNGM {
+
+        container GdoiIPv4Policies {
+
+            description "GDOI IPv4 policies of GM group
+
+                This table supports creating rows.";
+
+            list Policy {
+
+                description "Row name";
+
+                key "PolicyName SeqNum";
+
+                leaf PolicyName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name for the IPsec policy, 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf SeqNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "Sequence number for the IPsec policy entry";
+
+                }
+
+                leaf GroupName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name for the GDOI GM group, 1 to 63 characters Case insensitive";
+
+                }
+
+                container ACL {
+
+                    leaf Name {
+
+                        type base:Basetype_ACLName;
+
+                        description "Name for the IPsec policy, 1 to 63 characters Case insensitive";
+
+                    }
+
+                    leaf Number {
+
+                        type base:Basetype_Integer32 {
+
+                            range "3000..3999";
+
+                        }
+
+                        description "ACL number";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container GdoiIPv6Policies {
+
+            description "GDOI IPv6 policies of GM group
+
+                This table supports creating rows.";
+
+            list Policy {
+
+                description "Row name";
+
+                key "PolicyName SeqNum";
+
+                leaf PolicyName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name for the IPsec policy, 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf SeqNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "Sequence number for the IPsec policy entry";
+
+                }
+
+                leaf GroupName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name for the GDOI GM group, 1 to 63 characters Case insensitive";
+
+                }
+
+                container ACL {
+
+                    leaf Name {
+
+                        type base:Basetype_ACLName;
+
+                        description "Name for the IPsec policy, 1 to 63 characters Case insensitive";
+
+                    }
+
+                    leaf Number {
+
+                        type base:Basetype_Integer32 {
+
+                            range "3000..3999";
+
+                        }
+
+                        description "ACL number";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container GdoiGmGroups {
+
+            description "GM group informations
+
+                This table supports creating rows.";
+
+            list GdoiGmGroup {
+
+                description "Row name";
+
+                key "GroupName";
+
+                leaf GroupName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name for the GDOI GM group, 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf IPVersion {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "GM group IP version, Enumeration:
+
+                            1 - IPv4
+
+                            2 - IPv6";
+
+                }
+
+                container Identity {
+
+                    description "ID for a GDOI GM group";
+
+                    leaf Type {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "Identity type, Enumeration:
+
+                                  0-invalid
+
+                                  1-Number Type
+
+                                  2-Address Type";
+
+                    }
+
+                    leaf Number {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..2147483647";
+
+                        }
+
+                        description "A number to identify the GDOI GM group";
+
+                    }
+
+                    leaf Address {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "The value of address when the Type is address";
+
+                    }
+
+                }
+
+                leaf RegistrationInterface {
+
+                    type base:Basetype_NameString {
+
+                        length "1..47";
+
+                    }
+
+                    description "Registration interface name for a group member, String, Case insensitive";
+
+                }
+
+                container Encryption {
+
+                    description "KEK encryption algorithms";
+
+                    leaf ThreeDesCbc {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "The 3DES-CBC encryption algorithm";
+
+                    }
+
+                    leaf AesCbc128 {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "The AES-CBC-128 encryption algorithm";
+
+                    }
+
+                    leaf AesCbc192 {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "The AES-CBC-192 encryption algorithm";
+
+                    }
+
+                    leaf AesCbc256 {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "The AES-CBC-256 encryption algorithm";
+
+                    }
+
+                    leaf DesCbc {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                        description "The DEC-CBC encryption algorithm";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container GdoiGmGroupServers {
+
+            description "This table displays key servers (KS) of GM group.
+
+                This table supports creating rows.";
+
+            list Server {
+
+                description "Row name";
+
+                key "GroupName Host Vrf";
+
+                leaf GroupName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Group Name, 1 to 63 characters";
+
+                }
+
+                leaf Host {
+
+                    type base:Basetype_NameString {
+
+                        length "1..253";
+
+                    }
+
+                    description "Key server IP address or hostname,IPv4: String, dotted decimal notation.IPv6: Hexadecimal string, colon-separated.Hostname: String, 1 to 253 characters, case-sensitive.";
+
+                }
+
+                leaf Vrf {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_NameString {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF instance name,String, case-sensitive.Length: 0 to 31 characters.The default is empty.";
+
+                }
+
+            }
+
+        }
+
+        container GdoiGmGroupTransformSets {
+
+            description "This table displays transform sets of GM group
+
+                This table supports creating rows.";
+
+            list TransformSet {
+
+                description "Row name";
+
+                key "GroupName";
+
+                leaf GroupName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name for the GDOI GM group, Length: 1 to 63 characters Case insensitive";
+
+                }
+
+                container TransformSetList {
+
+                    description "The list of transformsets, Members include: TransformSetName";
+
+                    leaf-list TransformSetName {
+
+                        type base:Basetype_NameString {
+
+                            length "1..63";
+
+                        }
+
+                        description "IPsec transform set name, Length: 1 to 63 characters Case insensitive";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

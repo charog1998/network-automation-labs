@@ -1,0 +1,2099 @@
+module H3C-bgp-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "bgp-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for bgp config.";
+
+    revision 2020-04-10 {
+
+        description "Synchronize the modification of the schema file to the YANG file.";
+
+    }
+
+    revision 2020-01-06 {
+
+        description "Initial revision.";
+
+    }
+
+    container BGP {
+
+        container Instances {
+
+            description "BGP instance configuration
+
+                This table supports creating rows.";
+
+            list Instance {
+
+                description "BGP instance table";
+
+                key "Name";
+
+                leaf Name {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "Process name (string, 0-31 characters)";
+
+                }
+
+                leaf ASNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "AS number";
+
+                }
+
+                leaf NSR {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "NSR status
+
+                          0-Disabled
+
+                          1-Enabled";
+
+                }
+
+                leaf SendDelayTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..3600";
+
+                    }
+
+                    description "The time to wait for sending update.";
+
+                }
+
+                leaf SendDelayPrefix {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The send delay prefix list name.";
+
+                }
+
+                leaf BestRouteAsPathNeglectAllInstance {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "BestRouteAsPathNeglectAll status
+
+                          0-Disabled
+
+                          1-Enabled";
+
+                }
+
+                leaf BestRouteCompareMEDAllInstance {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "BestRouteCompareMEDAll status
+
+                          0-Disabled
+
+                          1-Enabled";
+
+                }
+
+                leaf BestRouteConfederationMEDAllInstance {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "BestRouteConfederationMEDAll status
+
+                          0-Disabled
+
+                          1-Enabled";
+
+                }
+
+                leaf BestRouteIgpMetricIgnoreAllInstance {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "BestRouteIgpMetricIgnoreAll status
+
+                          0-Disabled
+
+                          1-Enabled";
+
+                }
+
+                leaf BestRouteRouterIdIgnoreAllInstance {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "BestRouteRouterIdIgnoreAll status
+
+                          0-Disabled
+
+                          1-Enabled";
+
+                }
+
+            }
+
+        }
+
+        container VRFs {
+
+            description "BGP VRF configuration
+
+                This table supports creating rows.";
+
+            list VRF {
+
+                description "BGP VRF table";
+
+                key "Name VRF";
+
+                leaf Name {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "Process name (string, 0-31 characters)";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF name (string, 0-31 characters)";
+
+                }
+
+                leaf RouterId {
+
+                    type base:Basetype_String {
+
+                        length "1..16";
+
+                    }
+
+                    description "BGP Router ID, in IP address notation.";
+
+                }
+
+                container Timer {
+
+                    description "BGP neighbor timers.";
+
+                    leaf KeepAlive {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..21845";
+
+                        }
+
+                        description "BGP neighbor Keepalive timer.";
+
+                    }
+
+                    leaf HoldTime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "BGP neighbor HoldTime timer, at least three times the keepalive time.";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container CfgSessionGroups {
+
+            description "BGP session group information
+
+                This table supports creating rows.";
+
+            list CfgSessionGroup {
+
+                description "BGP session group table";
+
+                key "Name VRF GroupName";
+
+                leaf Name {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "Process name (string, 0-31 characters)";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF name (string, 0-31 characters)";
+
+                }
+
+                leaf GroupName {
+
+                    type base:Basetype_String {
+
+                        length "1..47";
+
+                    }
+
+                    description "Group name (string, 1-47 characters)";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "BGP session group type
+
+                          0:IBGP session group
+
+                          1:EBGP session group";
+
+                }
+
+                leaf ASNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "AS number";
+
+                }
+
+                leaf ConnectInterface {
+
+                    type base:Basetype_String {
+
+                        length "1..47";
+
+                    }
+
+                    description "Source interface (string, 1-47 characters)";
+
+                }
+
+                leaf UpdateInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..600";
+
+                    }
+
+                    description "Interval for sending updates for the same route.";
+
+                }
+
+                leaf PasswordType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Password type.
+
+                            1:Cipher.
+
+                            2:Plain.";
+
+                }
+
+                leaf Password {
+
+                    type base:Basetype_String {
+
+                        length "1..137";
+
+                    }
+
+                    description "Password (string, 1-137 characters)";
+
+                }
+
+                leaf BfdType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "The type of enable bfd
+
+                          0: default type (the actual bfd type (single-hop or multi-hop)depends on different situation)
+
+                          1: single-hop
+
+                          2: multi-hop";
+
+                }
+
+                container Timer {
+
+                    description "BGP neighbor timers.";
+
+                    leaf KeepAlive {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..21845";
+
+                        }
+
+                        description "BGP neighbor KeepAlive timers.";
+
+                    }
+
+                    leaf HoldTime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "BGP neighbor HoldTime timers,at least three times the keepalive time.";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container CfgSessions {
+
+            description "BGP session information
+
+                This table supports creating rows.";
+
+            list CfgSession {
+
+                description "BGP session information table";
+
+                key "Name VRF SessAF IpAddress Mask";
+
+                leaf Name {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "Process name (string, 0-31 characters)";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF name (string, 0-31 characters)";
+
+                }
+
+                leaf SessAF {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Address family
+
+                          1: IPV4
+
+                          2: IPV6";
+
+                }
+
+                leaf IpAddress {
+
+                    type base:Basetype_String {
+
+                        length "0..46";
+
+                    }
+
+                    description "Session address (string, 0-46 characters)";
+
+                }
+
+                leaf Mask {
+
+                    type union {
+
+                        type uint32;
+
+                        type uint32;
+
+                    }
+
+                    description "Mask or prefix length: 0-128, or 255 (for non-dynamic peers).";
+
+                }
+
+                leaf ASNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "AS number";
+
+                }
+
+                leaf GroupName {
+
+                    type base:Basetype_String {
+
+                        length "1..47";
+
+                    }
+
+                    description "Group name (string, 1-47 characters)";
+
+                }
+
+                leaf ConnectInterface {
+
+                    type base:Basetype_String {
+
+                        length "1..47";
+
+                    }
+
+                    description "Source interface (string, 1-47 characters)";
+
+                }
+
+                leaf UpdateInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..600";
+
+                    }
+
+                    description "Interval for sending updates for the same route.";
+
+                }
+
+                leaf PasswordType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Password type.
+
+                            1:Cipher.
+
+                            2:Plain.";
+
+                }
+
+                leaf Password {
+
+                    type base:Basetype_String {
+
+                        length "1..137";
+
+                    }
+
+                    description "Password (string, 1-137 characters)";
+
+                }
+
+                leaf BfdType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "The type of enable bfd
+
+                          0: default type (the actual bfd type (single-hop or multi-hop)depends on different situation)
+
+                          1: single-hop
+
+                          2: multi-hop";
+
+                }
+
+                leaf EbgpMaxHop {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..255";
+
+                    }
+
+                    description "Ebgp Multihop.";
+
+                }
+
+                container Timer {
+
+                    description "BGP neighbor timers.";
+
+                    leaf KeepAlive {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..21845";
+
+                        }
+
+                        description "BGP neighbor KeepAlive timers.";
+
+                    }
+
+                    leaf HoldTime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "BGP neighbor HoldTime timers,at least three times the keepalive time.";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Familys {
+
+            description "Address family information
+
+                This table supports creating rows.";
+
+            list Family {
+
+                description "Address family information table";
+
+                key "Name VRF Type";
+
+                leaf Name {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "Process name (string, 0-31 characters)";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF name (string, 0-31 characters)";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                    }
+
+                    description "Address family
+
+                        1—IPv4 Unicast
+
+                        2—IPv4 Multicast
+
+                        3—MDT
+
+                        4—VPNv4
+
+                        5—IPv6 Unicast
+
+                        6—IPv6 Multicast
+
+                        7—VPNv6
+
+                        8—L2VPN
+
+                        9—L2VPN EVPN";
+
+                }
+
+                container Preference {
+
+                    description "BGP route preference.";
+
+                    leaf Ebgp {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..255";
+
+                        }
+
+                        description "Preference for EBGP routes (routes learned from EBGP peers), default=255.";
+
+                    }
+
+                    leaf Ibgp {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..255";
+
+                        }
+
+                        description "Preference for IBGP routes (routes learned from IBGP peers), default=255.";
+
+                    }
+
+                    leaf Local {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..255";
+
+                        }
+
+                        description "Preference for local BGP routes, default=130.";
+
+                    }
+
+                }
+
+                container Balance {
+
+                    description "Number of BGP ECMP routes.";
+
+                    leaf MaxBalance {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..255";
+
+                        }
+
+                        description "Maximum number of BGP ECMP routes (varies by device model).";
+
+                    }
+
+                }
+
+                leaf PolicyVpnTarget {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Policy vpn-target
+
+                        0-Disabled
+
+                        1-Enabled";
+
+                }
+
+                leaf ReflectBtwClients {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Reflect between-clients
+
+                        0-Disabled
+
+                        1-Enabled";
+
+                }
+
+                leaf ReflectorClusterID {
+
+                    type base:Basetype_String {
+
+                        length "0..46";
+
+                    }
+
+                    description "Reflector cluster-id, must be an INT32 or IPv4 address.";
+
+                }
+
+                leaf RrFilter {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..199";
+
+                    }
+
+                    description "Rr-filter";
+
+                }
+
+                leaf DefaultRtImport {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "default-route imported
+
+                        0-Disabled
+
+                        1-Enabled";
+
+                }
+
+                leaf BalanceAsPathRelax {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Relax AS-PATH check when it implements load balancing.
+
+                        0-Disabled
+
+                        1-Enabled";
+
+                }
+
+                leaf DefaultMedValue {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "Configure default MED value.";
+
+                }
+
+            }
+
+        }
+
+        container Networks {
+
+            description "BGP network information
+
+                This table supports creating rows.";
+
+            list Network {
+
+                description "BGP network information table";
+
+                key "Name VRF Family IpAddress Mask";
+
+                leaf Name {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "Process name (string, 0-31 characters)";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF name (string, 0-31 characters)";
+
+                }
+
+                leaf Family {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 5;
+
+                        enum 6;
+
+                    }
+
+                    description "Address family
+
+                        1—IPv4 Unicast
+
+                        2—IPv4 Multicast
+
+                        5—IPv6 Unicast
+
+                        6—IPv6 Multicast";
+
+                }
+
+                leaf IpAddress {
+
+                    type base:Basetype_IpAddress;
+
+                    description "Network route address (IPv4 or IPv6)";
+
+                }
+
+                leaf Mask {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..128";
+
+                    }
+
+                    description "Network route mask (IPv4 mask length 0-32, IPv6 prefix length 0-128).";
+
+                }
+
+                leaf RoutePolicy {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Route policy name (string, 1-63 characters).";
+
+                }
+
+            }
+
+        }
+
+        container Aggregates {
+
+            description "BGP summary route information
+
+                This table supports creating rows.";
+
+            list Aggregate {
+
+                description "BGP summary route table";
+
+                key "Name VRF Family IpAddress Mask";
+
+                leaf Name {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "Process name (string, 0-31 characters)";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF name (string, 0-31 characters)";
+
+                }
+
+                leaf Family {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 5;
+
+                        enum 6;
+
+                    }
+
+                    description "Address family
+
+                        1—IPv4 Unicast
+
+                        2—IPv4 Multicast
+
+                        5—IPv6 Unicast
+
+                        6—IPv6 Multicast";
+
+                }
+
+                leaf IpAddress {
+
+                    type base:Basetype_IpAddress;
+
+                    description "Summary route address (IPv4 or IPv6)";
+
+                }
+
+                leaf Mask {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..128";
+
+                    }
+
+                    description "Summary route mask or prefix (IPv4 mask length 0-32, IPv6 prefix length 0-128).";
+
+                }
+
+                leaf DetailSuppressed {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "DetailSuppressed status
+
+                          0: disabled
+
+                          1: enabled";
+
+                }
+
+            }
+
+        }
+
+        container NeighborGroups {
+
+            description "Neighbor group information
+
+                This table supports creating rows.";
+
+            list NeighborGroup {
+
+                description "Neighbor group information table";
+
+                key "Name VRF Family GroupName";
+
+                leaf Name {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "Process name (string, 0-31 characters)";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF name (string, 0-31 characters)";
+
+                }
+
+                leaf Family {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                    }
+
+                    description "Address family
+
+                        1—IPv4 Unicast
+
+                        2—IPv4 Multicast
+
+                        3—MDT
+
+                        4—VPNv4
+
+                        5—IPv6 Unicast
+
+                        6—IPv6 Multicast
+
+                        7—VPNv6
+
+                        8—L2VPN
+
+                        9-L2VPN EVPN";
+
+                }
+
+                leaf GroupName {
+
+                    type base:Basetype_String {
+
+                        length "1..47";
+
+                    }
+
+                    description "Group name (string, 1-47 characters)";
+
+                }
+
+                leaf RtPolicyImport {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Inbound routing policy (string, 1-63 characters).";
+
+                }
+
+                leaf RtPolicyExport {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Outbound routing policy (string, 1-63 characters).";
+
+                }
+
+                leaf AllowAsLoop {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..10";
+
+                    }
+
+                    description "Number of times the local AS number can appear in AS_PATH attribute of the received routes.";
+
+                }
+
+                leaf ReflectClient {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Reflect client.
+
+                            0-Disabled
+
+                            1-Enabled";
+
+                }
+
+                leaf NexthopInvariable {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Nexthop invariable.
+
+                        0-Disabled
+
+                        1-Enabled";
+
+                }
+
+                leaf NexthopLocal {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "NexthopLocal.
+
+                        0-Disabled
+
+                        1-Enabled";
+
+                }
+
+                leaf RouterMacLocal {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "RouterMacLocal.
+
+                        0-Disabled
+
+                        1-Enabled";
+
+                }
+
+                leaf AdvertiseCommunity {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Advertise Community.
+
+                        0-Disabled
+
+                        1-Enabled";
+
+                }
+
+            }
+
+        }
+
+        container Neighbors {
+
+            description "Neighbor information
+
+                This table supports creating rows.";
+
+            list Neighbor {
+
+                description "Neighbor information table";
+
+                key "Name VRF Family SessAF IpAddress Mask";
+
+                leaf Name {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "Process name (string, 0-31 characters)";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF name (string, 0-31 characters)";
+
+                }
+
+                leaf Family {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                    }
+
+                    description "Address family
+
+                        1—IPv4 Unicast
+
+                        2—IPv4 Multicast
+
+                        3—MDT
+
+                        4—VPNv4
+
+                        5—IPv6 Unicast
+
+                        6—IPv6 Multicast
+
+                        7—VPNv6
+
+                        8—L2VPN
+
+                        9-L2VPN EVPN";
+
+                }
+
+                leaf SessAF {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Address family
+
+                        1: IPV4
+
+                        2: IPV6";
+
+                }
+
+                leaf IpAddress {
+
+                    type base:Basetype_String {
+
+                        length "0..46";
+
+                    }
+
+                    description "Session address (string, 0-46 characters)";
+
+                }
+
+                leaf Mask {
+
+                    type union {
+
+                        type uint32;
+
+                        type uint32;
+
+                    }
+
+                    description "Mask or prefix length: 0-128, or 255 (for non-dynamic peers).";
+
+                }
+
+                leaf RtPolicyImport {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Inbound routing policy (string, 1-63 characters).";
+
+                }
+
+                leaf RtPolicyExport {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Outbound routing policy (string, 1-63 characters).";
+
+                }
+
+                leaf AllowAsLoop {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..10";
+
+                    }
+
+                    description "Number of times the local AS number can appear in AS_PATH attribute of the received routes.";
+
+                }
+
+                leaf ReflectClient {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Reflect client.
+
+                        0-Disabled
+
+                        1-Enabled";
+
+                }
+
+                leaf NexthopInvariable {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Nexthop invariable.
+
+                        0-Disabled
+
+                        1-Enabled";
+
+                }
+
+                leaf NexthopLocal {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "NexthopLocal.
+
+                        0-Disabled
+
+                        1-Enabled";
+
+                }
+
+                leaf RouterMacLocal {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "RouterMacLocal.
+
+                        0-Disabled
+
+                        1-Enabled";
+
+                }
+
+                leaf AdvertiseCommunity {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Advertise Community.
+
+                        0-Disabled
+
+                        1-Enabled";
+
+                }
+
+            }
+
+        }
+
+        container Redistributes {
+
+            description "Redistribute route information
+
+                This table supports creating rows.";
+
+            list Redist {
+
+                description "Redistribute route information table";
+
+                key "Name VRF Family Protocol RedistName";
+
+                leaf Name {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "Process name (string, 0-31 characters)";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF name (string, 0-31 characters)";
+
+                }
+
+                leaf Family {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 5;
+
+                        enum 6;
+
+                    }
+
+                    description "Address family
+
+                        1—IPv4 Unicast
+
+                        2—IPv4 Multicast
+
+                        5—IPv6 Unicast
+
+                        6—IPv6 Multicast";
+
+                }
+
+                leaf Protocol {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 8;
+
+                    }
+
+                    description "Protocol
+
+                        1—Direct.
+
+                        2—Static.
+
+                        3—RIP
+
+                        4—OSPF
+
+                        5—ISIS
+
+                        6—EIGRP
+
+                        8—Guard";
+
+                }
+
+                leaf RedistName {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "Protocol name. When the protocol is Direct or Static, the protocol name must be null. When the protocol is RIP, ISIS, or OSPF, the protocol name must be all-processes or an integer in the range of 1 to 65535.";
+
+                }
+
+                leaf AllowDirect {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "AllowDirect.
+
+                        0-Disabled
+
+                        1-Enabled";
+
+                }
+
+                leaf Med {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "The MED value of Redistributed routes.";
+
+                }
+
+                leaf RoutePolicy {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "RoutePolicy name(string, 1-63 characters).";
+
+                }
+
+            }
+
+        }
+
+        container RedistributesAppend {
+
+            description "Redistribute route information
+
+                This table supports creating rows.";
+
+            list Redist {
+
+                description "Redistribute route information table";
+
+                key "Name VRF Family Protocol RedistName";
+
+                leaf Name {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "Process name (string, 0-31 characters)";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF name (string, 0-31 characters)";
+
+                }
+
+                leaf Family {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 5;
+
+                        enum 6;
+
+                    }
+
+                    description "Address family
+
+                        1—IPv4 Unicast
+
+                        2—IPv4 Multicast
+
+                        5—IPv6 Unicast
+
+                        6—IPv6 Multicast";
+
+                }
+
+                leaf Protocol {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 8;
+
+                    }
+
+                    description "Protocol
+
+                        1—Direct.
+
+                        2—Static.
+
+                        3—RIP
+
+                        4—OSPF
+
+                        5—ISIS
+
+                        6—EIGRP     
+
+                        8—Guard";
+
+                }
+
+                leaf RedistName {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "Protocol name. When the protocol is Direct or Static, the protocol name must be null. When the protocol is RIP, ISIS, or OSPF, the protocol name must be all-processes or an integer in the range of 1 to 65535.";
+
+                }
+
+                leaf AllowDirect {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "AllowDirect.
+
+                        0-Disabled
+
+                        1-Enabled";
+
+                }
+
+                leaf Med {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "The MED value of Redistributed routes.";
+
+                }
+
+                leaf RoutePolicy {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "RoutePolicy name(string, 1-63 characters).";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

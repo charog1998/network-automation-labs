@@ -1,0 +1,321 @@
+module H3C-cellular-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "cellular-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for cellular data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container Cellular {
+
+        config false;
+
+        container CellularMode {
+
+            list Mode {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf ModeType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                        enum 10;
+
+                        enum 11;
+
+                    }
+
+                }
+
+                leaf ModeSupport {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+        container CellularVerificationDis {
+
+            list VerificationDis {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf UimStatus {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf RemainNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+        container CellularApnProfile {
+
+            list ApnProfile {
+
+                key "ProfileName";
+
+                leaf ProfileName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf ProfileType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf Apn {
+
+                    type base:Basetype_String {
+
+                        length "1..100";
+
+                    }
+
+                }
+
+                leaf AuthType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..80";
+
+                    }
+
+                }
+
+                leaf PassWord {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container CellularApplyProfile {
+
+            list ApplyProfile {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf MainProfile {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf BackupProfile {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container CellularProfile {
+
+            list Profile {
+
+                key "IfIndex ProfileNum";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf ProfileNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..255";
+
+                    }
+
+                }
+
+                leaf ProfileType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf Apn {
+
+                    type base:Basetype_String {
+
+                        length "1..100";
+
+                    }
+
+                }
+
+                leaf AuthType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                }
+
+                leaf PassWord {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

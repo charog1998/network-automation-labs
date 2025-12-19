@@ -1,0 +1,249 @@
+module H3C-device-event {
+
+    namespace "http://www.h3c.com/netconf/event:1.0/device:1.0";
+
+    prefix "device-event";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for device event.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    notification BoardEvent {
+
+        container Board {
+
+            leaf Chassis {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "Member ID of the member device where the entity resides.";
+
+            }
+
+            leaf Slot {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "Slot number of the device node.";
+
+            }
+
+            leaf CPUID {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "CPU Identification.";
+
+            }
+
+        }
+
+    }
+
+    notification SubcardEvent {
+
+        container Subcard {
+
+            leaf Chassis {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "Member ID of the member device where the entity resides.";
+
+            }
+
+            leaf Slot {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "Slot number of the device node.";
+
+            }
+
+            leaf CPUID {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "CPU Identification.";
+
+            }
+
+            leaf SubSlot {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "SubSlot Identification.";
+
+            }
+
+        }
+
+    }
+
+    notification TemperatureEvent {
+
+        container Temperature {
+
+            leaf Chassis {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "Member ID of the member device where the entity resides.";
+
+            }
+
+            leaf Slot {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "Slot number of the device node.";
+
+            }
+
+            leaf CPUID {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "CPU Identification.";
+
+            }
+
+        }
+
+    }
+
+    notification SystemStableStatusEvent {
+
+    }
+
+    notification BoardStableStatusEvent {
+
+        container BoardStableStatus {
+
+            leaf Chassis {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "Member ID of the member device where the entity resides.";
+
+            }
+
+            leaf Slot {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "Slot number of the device node.";
+
+            }
+
+            leaf CPUID {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "CPU Identification.";
+
+            }
+
+        }
+
+    }
+
+}

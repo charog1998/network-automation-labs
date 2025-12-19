@@ -1,0 +1,121 @@
+module H3C-webcache-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "webcache-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for webcache config.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container WebCache {
+
+        container Configurations {
+
+            description "configuration of WebCache
+
+                This table supports creating rows.";
+
+            list Configuration {
+
+                key "Chassis Slot";
+
+                leaf Chassis {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                }
+
+                leaf Slot {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                }
+
+                leaf PortNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                }
+
+                leaf HttpsPortNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                }
+
+                leaf DataType {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-z0-9 ]){1,127}";
+
+                    }
+
+                }
+
+                leaf FileDir {
+
+                    type base:Basetype_String {
+
+                        pattern "^.{1,255}";
+
+                    }
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf HttpsEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

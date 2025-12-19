@@ -1,0 +1,155 @@
+module H3C-nvgre-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "nvgre-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for nvgre config.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container NVGRE {
+
+        container NVGREs {
+
+            description "NVGRE configurations table
+
+                This table supports creating rows.";
+
+            list Nvgre {
+
+                description "Row name of NVGREs table.";
+
+                key "NvgreID";
+
+                leaf NvgreID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "4096..16777214";
+
+                    }
+
+                    description "Index, NVGRE ID, value range: 4096-16777214";
+
+                }
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "VSI name";
+
+                }
+
+            }
+
+        }
+
+        container Tunnels {
+
+            description "Information about Tunnels associated with NVGREs.
+
+                This table supports creating rows.";
+
+            list Tunnel {
+
+                description "Row name of Tunnels table.";
+
+                key "NvgreID TunnelID";
+
+                leaf NvgreID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "4096..16777214";
+
+                    }
+
+                    description "Index, NVGRE ID.";
+
+                }
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Index, Tunnel ID.";
+
+                }
+
+            }
+
+        }
+
+        container RmtMACs {
+
+            description "Information about Remote MAC addresses of each NVGRE.
+
+                This table supports creating rows.";
+
+            list MAC {
+
+                description "Row name of RmtMACs table.";
+
+                key "VsiName MacAddr";
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Index, VSI name";
+
+                }
+
+                leaf MacAddr {
+
+                    type base:Basetype_MacAddress;
+
+                    description "Index, Remote MAC address";
+
+                }
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Tunnel ID, represents the out interface of this MAC address";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

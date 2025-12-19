@@ -1,0 +1,863 @@
+module H3C-arp-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "arp-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for arp data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container ARP {
+
+        config false;
+
+        container ArpTable {
+
+            list ArpEntry {
+
+                key "IfIndex Ipv4Address";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Ipv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf MacAddress {
+
+                    type base:Basetype_MacAddress;
+
+                }
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                }
+
+                leaf PortIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf VrfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf ArpType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container ArpConfig {
+
+            list Config {
+
+                key "VrfIndex Ipv4Address";
+
+                leaf VrfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Ipv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf MacAddress {
+
+                    type base:Basetype_MacAddress;
+
+                }
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                }
+
+                leaf PortIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf ArpType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container ArpGratuitous {
+
+            leaf LearnEnable {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SendEnable {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+        container ArpLearnLimit {
+
+            list LearnLimit {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf LearnMaxNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+        container ArpGratuitousInterval {
+
+            list GratuitousInterval {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Interval {
+
+                    type union {
+
+                        type uint32;
+
+                        type uint32;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container ArpProxy {
+
+            list Proxy {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf ProxyEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf LocalProxyEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf LocalStartIpv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf LocalEndIpv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+            }
+
+        }
+
+        container ArpSnooping {
+
+            list Snooping {
+
+                key "VLANID";
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                }
+
+                leaf SnoopingEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container ArpAttackProtect {
+
+            leaf ResolvingRouteEnable {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SourceSuppressionEnable {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SourceSuppressionLimitNum {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "2..1024";
+
+                }
+
+            }
+
+            leaf SourceMACDetectType {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+            }
+
+            leaf SourceMACAgeTime {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "60..6000";
+
+                }
+
+            }
+
+            leaf SourceMACThresholdValue {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf ValidCheckEnable {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf ActiveACKType {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+            }
+
+            leaf DetectionValidateSrcMAC {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf DetectionValidateDstMAC {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf DetectionValidateIP {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+        container ArpRateLimit {
+
+            list RateLimit {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf RateLimitEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf RateLimitNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+        container ArpRateLimitLog {
+
+            leaf LogEnable {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf LogInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..86400";
+
+                }
+
+            }
+
+        }
+
+        container ArpSourceMACExclude {
+
+            list SourceMACExclude {
+
+                key "MacAddress";
+
+                leaf MacAddress {
+
+                    type base:Basetype_MacAddress;
+
+                }
+
+            }
+
+        }
+
+        container ArpSourceMACAttackEntry {
+
+            list Entry {
+
+                key "VLANID MacAddress";
+
+                list DeviceNode {
+
+                    key "Chassis Slot CPUID";
+
+                    leaf Chassis {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                    }
+
+                    leaf Slot {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                    }
+
+                    leaf CPUID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..7";
+
+                        }
+
+                    }
+
+                }
+
+                leaf VLANID {
+
+                    type union {
+
+                        type uint32;
+
+                        type uint32;
+
+                    }
+
+                }
+
+                leaf MacAddress {
+
+                    type base:Basetype_MacAddress;
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf AgeTime {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+        container ArpAuthorized {
+
+            list Authorized {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container ArpDetection {
+
+            list Detect {
+
+                key "VLANID";
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                }
+
+                leaf DetectionEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf RestrictedForwardingEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container ArpDetectionTrust {
+
+            list Interface {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf TrustEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container ArpFilterSource {
+
+            list FilterSource {
+
+                key "IfIndex Ipv4Address";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Ipv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+            }
+
+        }
+
+        container ArpFilterBinding {
+
+            list FilterBinding {
+
+                key "IfIndex Ipv4Address";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Ipv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf MacAddress {
+
+                    type base:Basetype_MacAddress;
+
+                }
+
+            }
+
+        }
+
+        container ArpInterface {
+
+            list Interface {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf ModeUNI {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container ArpSpecification {
+
+            leaf SupportMultiport {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf RateLimitDefault {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf RateLimitLowerLimit {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf RateLimitUpperLimit {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf SMACDefaultThreshold {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf SMACMinThreshold {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf SMACMaxThreshold {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf SupportDetection {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportFilter {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportSnooping {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf IntervalDefault {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "200..200000";
+
+                }
+
+            }
+
+            leaf LearnMaxNumLimit {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf LearnMaxNumDefault {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf SupportModeUNI {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+        container ArpSnoopingEntry {
+
+            list SnoopingEntry {
+
+                key "IfIndex Ipv4Address";
+
+                list DeviceNode {
+
+                    key "Chassis Slot CPUID";
+
+                    leaf Chassis {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                    }
+
+                    leaf Slot {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                    }
+
+                    leaf CPUID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..7";
+
+                        }
+
+                    }
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Ipv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                }
+
+                leaf MacAddress {
+
+                    type base:Basetype_MacAddress;
+
+                }
+
+                leaf Status {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf AgeTime {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

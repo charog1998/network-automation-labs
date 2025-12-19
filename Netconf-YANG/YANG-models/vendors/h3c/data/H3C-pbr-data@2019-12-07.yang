@@ -1,0 +1,819 @@
+module H3C-pbr-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "pbr-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for pbr data.";
+
+    revision 2019-12-07 {
+
+        description "Synchronize the modification of the schema file to the YANG file.";
+
+    }
+
+    revision 2017-06-05 {
+
+        description "Initial revision.";
+
+    }
+
+    container PBR {
+
+        config false;
+
+        container PBRPolicyNode {
+
+            list PolicyNode {
+
+                key "AddressType PolicyName NodeID";
+
+                leaf AddressType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                }
+
+                leaf NodeID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf ACLNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2000..3999";
+
+                    }
+
+                }
+
+                leaf ACLName {
+
+                    type base:Basetype_String {
+
+                        pattern "[a-zA-Z][^?	
+
+]{0,62}";
+
+                    }
+
+                }
+
+                leaf MatchPacketLenMin {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                }
+
+                leaf MatchPacketLenMax {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                }
+
+                leaf ApplyPrecedence {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                    }
+
+                }
+
+                leaf ApplyIPDF {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf ApplyRemarkVPN {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf ApplyContinue {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf ApplyLoadShareNexthop {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf ApplyLoadShareDefNexthop {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf ApplyLoadShareInterface {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf ApplyLoadShareDefInterface {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container PBRIfPolicy {
+
+            list IfPolicy {
+
+                key "AddressType IfIndex";
+
+                leaf AddressType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container PBRApplyNexthop {
+
+            list ApplyNexthop {
+
+                key "AddressType PolicyName NodeID Mode VrfIndex IpAddress";
+
+                leaf AddressType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                }
+
+                leaf NodeID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf VrfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf IpAddress {
+
+                    type base:Basetype_IpAddress;
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf TrackID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..1024";
+
+                    }
+
+                }
+
+                leaf NexthopDirect {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container PBRApplyOutInterface {
+
+            list ApplyOutInterface {
+
+                key "AddressType PolicyName NodeID Mode IfIndex";
+
+                leaf AddressType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                }
+
+                leaf NodeID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf TrackID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..1024";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container PBRApplyAccessVPN {
+
+            list ApplyAccessVPN {
+
+                key "AddressType PolicyName NodeID VrfIndex";
+
+                leaf AddressType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                }
+
+                leaf NodeID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                }
+
+                leaf VrfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+        container PBRLocalPolicy {
+
+            leaf Ipv4PolicyName {
+
+                type base:Basetype_String {
+
+                    length "1..19";
+
+                }
+
+            }
+
+            leaf Ipv6PolicyName {
+
+                type base:Basetype_String {
+
+                    length "1..19";
+
+                }
+
+            }
+
+        }
+
+        container PBRSpecification {
+
+            leaf SupportInboundVPNIpv4 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportOnlyNull0Ipv4 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportIPDFIpv4 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportPacketLenIpv4 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportPrecedenceIpv4 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportContinueIpv4 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportNextHopIpv4 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportDefNextHopIpv4 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportInterfaceIpv4 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportDefInterfaceIpv4 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportAccessVPNIpv4 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportInboundVPNIpv6 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportOnlyNull0Ipv6 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportPacketLenIpv6 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportPrecedenceIpv6 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportContinueIpv6 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportNextHopIpv6 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportDefNextHopIpv6 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportInterfaceIpv6 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportDefInterfaceIpv6 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportAccessVPNIpv6 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf MaxNodeIDIpv4 {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..65535";
+
+                }
+
+            }
+
+            leaf MaxNodeIDIpv6 {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..65535";
+
+                }
+
+            }
+
+            leaf MaxNextHopIpv4 {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf MaxInterfaceIpv4 {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf MaxAccessVPNIpv4 {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf MaxNextHopIpv6 {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf MaxInterfaceIpv6 {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf MaxAccessVPNIpv6 {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf SupportAppGroupIpv4 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportObjectGroupIpv4 {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf MaxAppGroupIpv4 {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf MaxObjectGroupIpv4 {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+        }
+
+        container PBRApplicationGroup {
+
+            list ApplicationGroup {
+
+                key "AddressType PolicyName NodeID AppGroupName";
+
+                leaf AddressType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                }
+
+                leaf NodeID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                }
+
+                leaf AppGroupName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+        container PBRObjectGroup {
+
+            list ObjectGroup {
+
+                key "AddressType PolicyName NodeID ObjectGroupName";
+
+                leaf AddressType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                }
+
+                leaf NodeID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                }
+
+                leaf ObjectGroupName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

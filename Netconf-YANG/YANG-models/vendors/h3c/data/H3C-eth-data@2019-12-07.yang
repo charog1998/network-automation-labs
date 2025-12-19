@@ -1,0 +1,269 @@
+module H3C-eth-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "eth-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for eth data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container ETH {
+
+        config false;
+
+        container SubInterfaces {
+
+            description "Table of SubInterface vlan termination config";
+
+            list SubInterface {
+
+                description "Row name of table subinterface";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    mandatory true;
+
+                    description "Subinterface index";
+
+                }
+
+                leaf EncapType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                    }
+
+                    description "Ethernet encapsulation types
+
+                          ETH_ENCAP_NONE = 0
+
+                          ETH_ENCAP_UNIQUE_DOT1Q = 1
+
+                          ETH_ENCAP_AMBIGUOUS_DOT1Q = 2
+
+                          ETH_ENCAP_UNIQUE_QINQ = 3
+
+                          ETH_ENCAP_AMBIGUOUS_QINQ = 4
+
+                          ETH_ENCAP_UNTAGGED = 5
+
+                          ETH_ENCAP_DEFAULT = 6";
+
+                }
+
+                leaf VlanID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "Most outter vlan tag for unambiguous vlan termination";
+
+                }
+
+                leaf FirstVlanList {
+
+                    type base:Basetype_VlanRange;
+
+                    description "Most outter vlan tag list for ambiguous vlan termination";
+
+                }
+
+                leaf EncapFlag {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                        }
+
+                    }
+
+                    description "Vlan termination match types
+
+                          ETH_ENCAP_FLAG_STRICT = 0
+
+                          ETH_ENCAP_FLAG_LOOSE  = 1";
+
+                }
+
+            }
+
+        }
+
+        container ETHSpecification {
+
+            leaf SupportDot1q {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportQinq {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportUntagged {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportDefault {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportLoose {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+        container VlanQinQTermination {
+
+            description "Table of SubInterface vlan termination config";
+
+            list QinqTermination {
+
+                description "Row name of table QinqTermination";
+
+                key "IfIndex VlanID";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    mandatory true;
+
+                    description "QinqTermination index";
+
+                }
+
+                leaf VlanID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "layer 1 vlan tag for Qinq vlan termination";
+
+                }
+
+                leaf SecondVlan {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VlanRange;
+
+                    }
+
+                    description "layer 2 vlan tag list for QinQ vlan termination";
+
+                }
+
+                leaf QinqAny {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type enumeration {
+
+                            enum 1;
+
+                        }
+
+                    }
+
+                    description "layer 2 vlan tag list for QinQ vlan termination  (ANY)";
+
+                }
+
+                leaf EncapFlag {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                        }
+
+                    }
+
+                    description "Vlan termination match types
+
+                          ETH_ENCAP_FLAG_STRICT = 0
+
+                          ETH_ENCAP_FLAG_LOOSE  = 1";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

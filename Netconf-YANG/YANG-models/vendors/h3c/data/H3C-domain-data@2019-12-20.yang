@@ -1,0 +1,479 @@
+module H3C-domain-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "domain-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for domain data.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container Domain {
+
+        config false;
+
+        container GlobalConfig {
+
+            leaf DefaultDomain {
+
+                type base:Basetype_String {
+
+                    length "1..255";
+
+                }
+
+            }
+
+            leaf IfUnknownDomain {
+
+                type base:Basetype_String {
+
+                    length "1..255";
+
+                }
+
+            }
+
+        }
+
+        container SessionLimit {
+
+            leaf Ftp {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..64";
+
+                }
+
+            }
+
+            leaf Telnet {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..32";
+
+                }
+
+            }
+
+            leaf Http {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..64";
+
+                }
+
+            }
+
+            leaf Ssh {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..32";
+
+                }
+
+            }
+
+            leaf Https {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..64";
+
+                }
+
+            }
+
+        }
+
+        container Domains {
+
+            list Domain {
+
+                key "DomainName";
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+                leaf SessTimeIncldeIdle {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf State {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf ServiceType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..2";
+
+                    }
+
+                }
+
+                container AuthorAttrs {
+
+                    leaf IdleTime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..600";
+
+                        }
+
+                    }
+
+                    leaf IdleFlow {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..10240000";
+
+                        }
+
+                    }
+
+                    leaf ProfileName {
+
+                        type base:Basetype_String {
+
+                            pattern "[a-zA-Z]([a-zA-Z0-9]|_){0,}";
+
+                            length "1..31";
+
+                        }
+
+                    }
+
+                    leaf IpPoolName {
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                    }
+
+                    leaf Ipv6PoolName {
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                    }
+
+                    leaf Ipv6Address {
+
+                        type base:Basetype_Ipv6Address;
+
+                    }
+
+                    leaf Ipv6PrefixLength {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..128";
+
+                        }
+
+                    }
+
+                    leaf PrimDnsIpaddr {
+
+                        type base:Basetype_Ipv4Address;
+
+                    }
+
+                    leaf PrimDnsIpv6addr {
+
+                        type base:Basetype_Ipv6Address;
+
+                    }
+
+                    leaf SecDnsIpaddr {
+
+                        type base:Basetype_Ipv4Address;
+
+                    }
+
+                    leaf SecDnsIpv6addr {
+
+                        type base:Basetype_Ipv6Address;
+
+                    }
+
+                    leaf PortalUrl {
+
+                        type base:Basetype_URLString {
+
+                            length "1..255";
+
+                        }
+
+                    }
+
+                    leaf VRF {
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                    }
+
+                    leaf IgmpMaxAccessNum {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..64";
+
+                        }
+
+                    }
+
+                    leaf MldMaxAccessNum {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..64";
+
+                        }
+
+                    }
+
+                    leaf SessTimeOut {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..max";
+
+                        }
+
+                    }
+
+                    leaf UserGroupName {
+
+                        type base:Basetype_String {
+
+                            length "1..32";
+
+                        }
+
+                    }
+
+                }
+
+                leaf AcctStartFailAction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Schemes {
+
+            list Scheme {
+
+                key "DomainName AaaType AccessType";
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+                leaf AaaType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                }
+
+                leaf AccessType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..10";
+
+                    }
+
+                }
+
+                leaf SchemeList {
+
+                    type base:Basetype_String {
+
+                        pattern "((((1(-2)?)|(2(-1)?)|3)(-4)?(-5)?)|(4(((-1)?(-2)?)|((-2)?(-1)?)|((-3)?))(-5)?)|5)";
+
+                        length "1..9";
+
+                    }
+
+                }
+
+                leaf SchemeNameList {
+
+                    type base:Basetype_String {
+
+                        length "3..68";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container BroadcastSchemes {
+
+            list BroadcastScheme {
+
+                key "DomainName AccessType SchemeName";
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+                leaf AccessType {
+
+                    type enumeration {
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 6;
+
+                        enum 8;
+
+                    }
+
+                }
+
+                leaf SchemeName {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Specification {
+
+            container SessionLimitSpecification {
+
+                leaf Ftp {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf Telnet {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf Http {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+            container SchemesSpecification {
+
+                leaf None {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

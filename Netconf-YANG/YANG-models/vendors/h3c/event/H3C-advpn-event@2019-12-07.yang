@@ -1,0 +1,63 @@
+module H3C-advpn-event {
+
+    namespace "http://www.h3c.com/netconf/event:1.0/advpn:1.0";
+
+    prefix "advpn-event";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for advpn event.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    notification SessionDeletedEvent {
+
+        container Tunnel {
+
+            leaf TunnelID {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "The ADVPN Tunnel ID";
+
+            }
+
+        }
+
+    }
+
+    notification SessionStateChangedEvent {
+
+        container Tunnel {
+
+            leaf TunnelID {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "The ADVPN Tunnel ID";
+
+            }
+
+        }
+
+    }
+
+}

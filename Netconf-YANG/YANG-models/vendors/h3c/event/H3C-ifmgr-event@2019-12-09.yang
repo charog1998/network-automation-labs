@@ -1,0 +1,97 @@
+module H3C-ifmgr-event {
+
+    namespace "http://www.h3c.com/netconf/event:1.0/ifmgr:1.0";
+
+    prefix "ifmgr-event";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ifmgr event.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    notification InterfaceEvent {
+
+        container Interface {
+
+            leaf Name {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_InterfaceName;
+
+                }
+
+                description "Full name of an interface.";
+
+            }
+
+        }
+
+    }
+
+    notification InterfaceBandWidthEvent {
+
+        container InterfaceBandWidth {
+
+            leaf Name {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_InterfaceName;
+
+                }
+
+                description "Full name of an interface.";
+
+            }
+
+        }
+
+    }
+
+    notification InterfaceSpeedEvent {
+
+        container InterfaceSpeed {
+
+            leaf Name {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_InterfaceName;
+
+                }
+
+                description "Full name of an interface.";
+
+            }
+
+        }
+
+    }
+
+}

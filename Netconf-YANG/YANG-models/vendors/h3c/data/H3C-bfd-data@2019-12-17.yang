@@ -1,0 +1,1315 @@
+module H3C-bfd-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "bfd-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for bfd data.";
+
+    revision 2019-12-17 {
+
+        description "Initial revision.";
+
+    }
+
+    container BFD {
+
+        config false;
+
+        container Base {
+
+            description "BFD Base Table";
+
+            leaf MultihopMinTransmitInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..4294967295";
+
+                }
+
+                description "MultiHop min-transmit-interval";
+
+            }
+
+            leaf MultihopMinReceiveInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..4294967295";
+
+                }
+
+                description "MultiHop min-receive-interval";
+
+            }
+
+            leaf MultihopDetectMultiplier {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..4294967295";
+
+                }
+
+                description "MultiHop detect-multiplier";
+
+            }
+
+            leaf EchoSourceIp {
+
+                type base:Basetype_Ipv4Address;
+
+                description "The source IP address of the BFD echo packets";
+
+            }
+
+            leaf EchoSourceIpv6 {
+
+                type base:Basetype_Ipv6Address;
+
+                description "The source IPv6 address of the BFD echo packets";
+
+            }
+
+            container MultihopAuthentication {
+
+                description "MultihopAuthentication";
+
+                leaf AuthType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                    }
+
+                    description "AuthType
+
+                        1: simple.
+
+                        2: md5.
+
+                        3: m-md5.
+
+                        4: sha1.
+
+                        5: m-sha1.                        
+
+                        6: hmac-md5.
+
+                        7: hmac-m-md5.
+
+                        8: hmac-sha1.
+
+                        9: hmac-m-sha1.";
+
+                }
+
+                leaf KeyID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..255";
+
+                    }
+
+                    description "KeyID";
+
+                }
+
+                leaf KeyType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "KeyType
+
+                        1: cipher.
+
+                        2: plain.";
+
+                }
+
+                leaf Key {
+
+                    type base:Basetype_String {
+
+                        length "1..53";
+
+                    }
+
+                    description "Key";
+
+                }
+
+            }
+
+            leaf IpRouterAlert {
+
+                type base:Basetype_Boolean;
+
+                description "IpRouterAlert";
+
+            }
+
+            leaf InitMode {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                }
+
+                description "InitMode:
+
+                  0.active mode.
+
+                  1.passive mode.";
+
+            }
+
+        }
+
+        container Interfaces {
+
+            description "BFD Interfaces configuration";
+
+            list Interface {
+
+                description "BFD Interfaces table";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf MinTransmitInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "min-transmit-interval";
+
+                }
+
+                leaf MinReceiveInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "min-receive-interval";
+
+                }
+
+                leaf DetectMultiplier {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "detect-multiplier";
+
+                }
+
+                leaf MinEchoReceiveInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "min-echo-receive-interval";
+
+                }
+
+                container Authentication {
+
+                    description "Authentication";
+
+                    leaf AuthType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 9;
+
+                        }
+
+                        description "AuthType
+
+                                1: simple.
+
+                                2: md5.
+
+                                3: m-md5.
+
+                                4: sha1.
+
+                                5: m-sha1.
+
+                                6: hmac-md5.
+
+                                7: hmac-m-md5.
+
+                                8: hmac-sha1.
+
+                                9: hmac-m-sha1.";
+
+                    }
+
+                    leaf KeyID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..255";
+
+                        }
+
+                        description "KeyID";
+
+                    }
+
+                    leaf KeyType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "KeyType
+
+                                1: cipher.
+
+                                2: plain.";
+
+                    }
+
+                    leaf Key {
+
+                        type base:Basetype_String {
+
+                            length "1..53";
+
+                        }
+
+                        description "Key";
+
+                    }
+
+                }
+
+                leaf Demand {
+
+                    type base:Basetype_Boolean;
+
+                    description "Demand";
+
+                }
+
+                leaf Echo {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Echo
+
+                          0.disable
+
+                          1.receive
+
+                          2.send
+
+                          3.enable";
+
+                }
+
+            }
+
+        }
+
+        container Templates {
+
+            description "BFD template configuration
+
+                This table supports creating rows.";
+
+            list Template {
+
+                description "BFD Templates table";
+
+                key "TemplateName";
+
+                leaf TemplateName {
+
+                    type base:Basetype_String {
+
+                        pattern "([^\s?]+[\s]*[^?]*[^\s?]+|[^\s?]*)";
+
+                        length "0..63";
+
+                    }
+
+                    description "Name of the BFD template";
+
+                }
+
+                leaf MinTransmitInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "min-transmit-interval";
+
+                }
+
+                leaf MinReceiveInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "min-receive-interval";
+
+                }
+
+                leaf DetectMultiplier {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "detect-multiplier";
+
+                }
+
+                leaf MinEchoReceiveInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "min-echo-receive-interval";
+
+                }
+
+                container Authentication {
+
+                    description "Authentication";
+
+                    leaf AuthType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 9;
+
+                        }
+
+                        description "AuthType
+
+                                1: simple.
+
+                                2: md5.
+
+                                3: m-md5.
+
+                                4: sha1.
+
+                                5: m-sha1.
+
+                                6: hmac-md5.
+
+                                7: hmac-m-md5.
+
+                                8: hmac-sha1.
+
+                                9: hmac-m-sha1.";
+
+                    }
+
+                    leaf KeyID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..255";
+
+                        }
+
+                        description "KeyID";
+
+                    }
+
+                    leaf KeyType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "KeyType
+
+                                1: cipher.
+
+                                2: plain.";
+
+                    }
+
+                    leaf Key {
+
+                        type base:Basetype_String {
+
+                            length "1..53";
+
+                        }
+
+                        description "Key";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Sessions {
+
+            description "BFD Sessions configuration";
+
+            list Session {
+
+                description "BFD Sessions table";
+
+                key "LocalDiscr";
+
+                leaf LocalDiscr {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "The local discriminator for this BFD session";
+
+                }
+
+                leaf RemoteDiscr {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "The discriminator received from the corresponding remote system";
+
+                }
+
+                leaf SourceAddr {
+
+                    type base:Basetype_IpAddress;
+
+                    description "Source IP address of the session";
+
+                }
+
+                leaf DestAddr {
+
+                    type base:Basetype_IpAddress;
+
+                    description "Destination IP address of the session";
+
+                }
+
+                leaf DestinationPort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "Destination UDP Port";
+
+                }
+
+                leaf SessionState {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "SessionState
+
+                          0.admindown.
+
+                          1.down.
+
+                          2.init.
+
+                          3.up.";
+
+                }
+
+                leaf Interface {
+
+                    type base:Basetype_String {
+
+                        length "1..47";
+
+                    }
+
+                    description "Interface name";
+
+                }
+
+                leaf ProtocolType {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Protocol type";
+
+                }
+
+                leaf SessionType {
+
+                    type base:Basetype_String {
+
+                        length "1..15";
+
+                    }
+
+                    description "Session type";
+
+                }
+
+                leaf DetectMult {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "Detection time multiplier";
+
+                }
+
+                leaf DesiredMinTxInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "The minimum interval that the local system would like to use when transmitting BFD Control packets";
+
+                }
+
+                leaf RequiredMinRxInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "The minimum interval between received BFD Control packets that this system is capable of supporting";
+
+                }
+
+                leaf RemoteMinTxInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "The minimum interval that the remote system would like to use when transmitting BFD Control packets";
+
+                }
+
+                leaf RemoteMinRxInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "The minimum interval between received BFD Control packets that the remote system is capable of supporting";
+
+                }
+
+                leaf NegotiatedTxInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "Negotiated transmit interval";
+
+                }
+
+                leaf NegotiatedRxInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "Negotiated receive interval";
+
+                }
+
+                leaf DetectionTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "Detection Time";
+
+                }
+
+                leaf RxCount {
+
+                    type base:Basetype_Counter64;
+
+                    description "Count of received packets in this session";
+
+                }
+
+                leaf TxCount {
+
+                    type base:Basetype_Counter64;
+
+                    description "Count of sent packets in this session";
+
+                }
+
+                leaf MinEchoRxInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "The minimum interval between received BFD Echo packets that this system is capable of supporting";
+
+                }
+
+                leaf EchoDetectionTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "Echo detection time";
+
+                }
+
+                leaf ActEchoRxInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "Actual Echo receive interval";
+
+                }
+
+                leaf EchoRxCount {
+
+                    type base:Basetype_Counter64;
+
+                    description "Count of received echo packets in this session";
+
+                }
+
+                leaf EchoTxCount {
+
+                    type base:Basetype_Counter64;
+
+                    description "Count of sent echo packets in this session";
+
+                }
+
+                leaf ConnectionType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "ConnectionType
+
+                          0. direct.
+
+                          1. indirect.";
+
+                }
+
+                leaf UpDuration {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "Timer period for which the session has been up";
+
+                }
+
+                leaf HoldTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "Length of time before session detection timer expires";
+
+                }
+
+                leaf AuthMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                    }
+
+                    description "AuthMode
+
+                          1: simple.
+
+                          2: md5.
+
+                          3: m-md5.
+
+                          4: sha1.
+
+                          5: m-sha1.
+
+                          6: hmac-md5.
+
+                          7: hmac-m-md5.
+
+                          8: hmac-sha1.
+
+                          9: hmac-m-sha1.";
+
+                }
+
+                leaf DetectionMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "DetectionMode
+
+                          1: Async with echo.
+
+                          2: Async without echo.
+
+                          3: Demand with echo.
+
+                          4: Demand without echo.";
+
+                }
+
+                leaf Version {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Version
+
+                          0: version 0.
+
+                          1: version 1.";
+
+                }
+
+                leaf DiagInfo {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..31";
+
+                    }
+
+                    description "Diagnostic information about the sesion";
+
+                }
+
+                leaf DemandMode {
+
+                    type base:Basetype_Boolean;
+
+                    description "If demand mode is enabled for this system";
+
+                }
+
+                leaf RemoteDemandMode {
+
+                    type base:Basetype_Boolean;
+
+                    description "If demand mode is enabled for remote system";
+
+                }
+
+            }
+
+        }
+
+        container StaticSessions {
+
+            description "BFD static sesion configuration";
+
+            list StaticSession {
+
+                description "BFD StaticSessions table";
+
+                key "SessionName";
+
+                leaf SessionName {
+
+                    type base:Basetype_String {
+
+                        pattern "([^\s?]+[\s]*[^?]*[^\s?]+|[^\s?]*)";
+
+                        length "0..64";
+
+                    }
+
+                    description "Name of a BFD session";
+
+                }
+
+                leaf IfName {
+
+                    type base:Basetype_String {
+
+                        pattern "([^\s?]+[\s]*[^?]*[^\s?]+|[^\s?]*)";
+
+                        length "2..47";
+
+                    }
+
+                    description "Name of the outbound interfce of a BFD session";
+
+                }
+
+                leaf VrfName {
+
+                    type base:Basetype_String {
+
+                        pattern "([^\s?]+[\s]*[^?]*[^\s?]+|[^\s?]*)";
+
+                        length "0..31";
+
+                    }
+
+                    description "Name of the VPN to which a BFD session belongs";
+
+                }
+
+                leaf AddrType {
+
+                    type base:Basetype_String;
+
+                    description "The type of address for a BFD session";
+
+                }
+
+                leaf SrcAddr {
+
+                    type base:Basetype_IpAddress;
+
+                    description "Source IP address of a BFD session";
+
+                }
+
+                leaf PeerAddr {
+
+                    type base:Basetype_IpAddress;
+
+                    description "Peer IP address of a BFD session";
+
+                }
+
+                leaf DestAddr {
+
+                    type base:Basetype_IpAddress;
+
+                    description "The address of the destination";
+
+                }
+
+                leaf LocalDiscriminator {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..32768";
+
+                    }
+
+                    description "Local discriminator of a BFD session";
+
+                }
+
+                leaf RemoteDiscriminator {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "Remote discriminator of a BFD session";
+
+                }
+
+                leaf Auto {
+
+                    type base:Basetype_Boolean;
+
+                    description "Specified discriminator automatically";
+
+                }
+
+                leaf OneArmEcho {
+
+                    type base:Basetype_Boolean;
+
+                    description "OneArmEcho";
+
+                }
+
+                leaf EchoSrcAddr {
+
+                    type base:Basetype_IpAddress;
+
+                    description "Specified source IP address for BFD echo packet";
+
+                }
+
+                leaf MinTransmitInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "min-transmit-interval";
+
+                }
+
+                leaf MinReceiveInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "min-receive-interval";
+
+                }
+
+                leaf DetectMultiplier {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "detect-multiplier";
+
+                }
+
+                leaf MinEchoReceiveInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "min-echo-receive-interval";
+
+                }
+
+                container Authentication {
+
+                    description "Authentication";
+
+                    leaf AuthType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 9;
+
+                        }
+
+                        description "AuthType
+
+                                1: simple.
+
+                                2: md5.
+
+                                3: m-md5.
+
+                                4: sha1.
+
+                                5: m-sha1.
+
+                                6: hmac-md5.
+
+                                7: hmac-m-md5.
+
+                                8: hmac-sha1.
+
+                                9: hmac-m-sha1.";
+
+                    }
+
+                    leaf KeyID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..255";
+
+                        }
+
+                        description "KeyID";
+
+                    }
+
+                    leaf KeyType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "KeyType
+
+                                1: cipher.
+
+                                2: plain.";
+
+                    }
+
+                    leaf Key {
+
+                        type base:Basetype_String {
+
+                            length "1..53";
+
+                        }
+
+                        description "Key";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,357 @@
+module H3C-ntp-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "ntp-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ntp data.";
+
+    revision 2019-12-17 {
+
+        description "Initial revision.";
+
+    }
+
+    container NTP {
+
+        config false;
+
+        container Clients {
+
+            description "Table of NTP Client
+
+                This table supports creating rows.";
+
+            list Client {
+
+                description "Row Name";
+
+                key "Service VRF AddressType IpAddress HostMode";
+
+                leaf Service {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "NTP or SNTP";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF instance name";
+
+                }
+
+                leaf AddressType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..2";
+
+                    }
+
+                    description "Type of address";
+
+                }
+
+                leaf IpAddress {
+
+                    type base:Basetype_String {
+
+                        length "0..253";
+
+                    }
+
+                    description "Ipv4/Ipv6 address";
+
+                }
+
+                leaf HostMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 3;
+
+                    }
+
+                    description "Mode of client";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Index of source interface";
+
+                }
+
+                leaf KeyID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..max";
+
+                    }
+
+                    description "Authentication keyid";
+
+                }
+
+                leaf Version {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4";
+
+                    }
+
+                    description "NTP version";
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_Boolean;
+
+                    description "Priority";
+
+                }
+
+            }
+
+        }
+
+        container AuthenticationKey {
+
+            description "Table of NTP Authentication Key
+
+                This table supports creating rows.";
+
+            list Authentication {
+
+                description "Row Name";
+
+                key "Service KeyID";
+
+                leaf Service {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "NTP or SNTP";
+
+                }
+
+                leaf KeyID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..max";
+
+                    }
+
+                    description "Authentication KeyID";
+
+                }
+
+                leaf AuthKey {
+
+                    type base:Basetype_String {
+
+                        length "0..32";
+
+                    }
+
+                    description "Authentication Key";
+
+                }
+
+                leaf AclNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2000..2999";
+
+                    }
+
+                    description "ACL Number";
+
+                }
+
+                leaf IPv6AclNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2000..2999";
+
+                    }
+
+                    description "IPv6 ACL Number";
+
+                }
+
+                leaf Reliable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Reliable";
+
+                }
+
+            }
+
+        }
+
+        container Service {
+
+            description "Table of NTP Service";
+
+            leaf NTPEnable {
+
+                type base:Basetype_Boolean;
+
+                description "NTPEnable";
+
+            }
+
+            leaf SNTPEnable {
+
+                type base:Basetype_Boolean;
+
+                description "SNTPEnable";
+
+            }
+
+            leaf NTPAuthEnable {
+
+                type base:Basetype_Boolean;
+
+                description "NTPAuthEnable";
+
+            }
+
+            leaf SNTPAuthEnable {
+
+                type base:Basetype_Boolean;
+
+                description "SNTPAuthEnable";
+
+            }
+
+            leaf NTPSource {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Index of NTP source interface";
+
+            }
+
+        }
+
+        container RefClocks {
+
+            description "Table of NTP refclock
+
+                This table supports creating rows.";
+
+            list RefClock {
+
+                description "Row Name";
+
+                key "RefID";
+
+                leaf RefID {
+
+                    type base:Basetype_String {
+
+                        length "0..15";
+
+                    }
+
+                    description "Reference Clock ID";
+
+                }
+
+                leaf Stratum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..15";
+
+                    }
+
+                    description "NTP stratum";
+
+                }
+
+            }
+
+        }
+
+        container Status {
+
+            description "Table of NTP Status";
+
+            leaf NTPSynchronized {
+
+                type base:Basetype_Boolean;
+
+                description "NTP Synchronized";
+
+            }
+
+            leaf SNTPSynchronized {
+
+                type base:Basetype_Boolean;
+
+                description "SNTP Synchronized";
+
+            }
+
+        }
+
+    }
+
+}

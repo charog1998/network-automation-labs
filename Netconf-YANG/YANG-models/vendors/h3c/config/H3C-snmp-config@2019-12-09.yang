@@ -1,0 +1,1159 @@
+module H3C-snmp-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "snmp-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for snmp config.";
+
+    revision 2019-12-09 {
+
+        description "Synchronize the modification of the schema file to the YANG file.";
+
+    }
+
+    revision 2019-03-15 {
+
+        description "Initial revision.";
+
+    }
+
+    container SNMP {
+
+        container System {
+
+            description "This table contains SNMP system information.";
+
+            leaf AgentStatus {
+
+                type base:Basetype_EnableState;
+
+                description "SNMP status as follows: enable, disable.";
+
+            }
+
+            container Version {
+
+                description "SNMP version information.";
+
+                leaf V1 {
+
+                    type base:Basetype_EnableState;
+
+                    description "SNMP V1 status as follows: enable, disable.";
+
+                }
+
+                leaf V2C {
+
+                    type base:Basetype_EnableState;
+
+                    description "SNMP V2C status as follows: enable, disable.";
+
+                }
+
+                leaf V3 {
+
+                    type base:Basetype_EnableState;
+
+                    description "SNMP V3 status as follows: enable, disable.";
+
+                }
+
+            }
+
+            leaf Location {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_Text {
+
+                        length "0..255";
+
+                    }
+
+                }
+
+                description "SNMP physical location information. String length constraints must be in range(0..255).";
+
+            }
+
+            leaf Contact {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_Text {
+
+                        length "0..255";
+
+                    }
+
+                }
+
+                description "SNMP contact information. String length constraints must be in range(0..255).";
+
+            }
+
+        }
+
+        container Agent {
+
+            description "Agent information";
+
+            leaf LocalEngineId {
+
+                                type string;
+
+                description "Local engine ID of agent";
+
+            }
+
+            leaf AgentUdpPort {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..65535";
+
+                }
+
+                description "UDP port for receiving SNMP packets";
+
+            }
+
+            leaf PacketMaxSize {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "484..17940";
+
+                }
+
+                description "Maximum size of packets that the agent can receive or send Unit:byte";
+
+            }
+
+            leaf GetLog {
+
+                type base:Basetype_Boolean;
+
+                description "Logging status of get";
+
+            }
+
+            leaf SetLog {
+
+                type base:Basetype_Boolean;
+
+                description "Logging status of set";
+
+            }
+
+            leaf NotificationLog {
+
+                type base:Basetype_Boolean;
+
+                description "Logging status of notification";
+
+            }
+
+        }
+
+        container Notification {
+
+            description "notification information";
+
+            leaf ColdStart {
+
+                type base:Basetype_Boolean;
+
+                description "Status of SNMP coldStart notification";
+
+            }
+
+            leaf WarmStart {
+
+                type base:Basetype_Boolean;
+
+                description "Status of SNMP warmStart notification";
+
+            }
+
+            leaf AuthenticationFailure {
+
+                type base:Basetype_Boolean;
+
+                description "Status of SNMP authenticationFailure notification";
+
+            }
+
+            leaf QueueSize {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..1000";
+
+                }
+
+                description "Notification queue size";
+
+            }
+
+            leaf QueueLifeTime {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..2592000";
+
+                }
+
+                description "Lifetime of notifications in the SNMP notification queue.Unit:second";
+
+            }
+
+            leaf TrapSource {
+
+                type base:Basetype_String {
+
+                    length "2..47";
+
+                }
+
+                description "An interface name,of which primary IP address as the source IP address for the traps";
+
+            }
+
+            leaf InformSource {
+
+                type base:Basetype_String {
+
+                    length "2..47";
+
+                }
+
+                description "An interface name,of which primary IP address as the source IP address for the informs";
+
+            }
+
+        }
+
+        container Communities {
+
+            description "This table contains SNMP community information.
+
+                This table supports creating rows.";
+
+            list Community {
+
+                description "row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                        pattern "[!->@-~]([!->@-~]{0,1}||[ !->@-~]*[!->@-~])";
+
+                    }
+
+                    description "Community name. String length constraints must be in range(1..32).";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Community type as follows:
+
+                          0 read-only
+
+                          1 read-write";
+
+                }
+
+                leaf MIBView {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "MIB-VIEW";
+
+                }
+
+                leaf Role {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Role Name";
+
+                }
+
+                container IPv4BasicACL {
+
+                    leaf Number {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "2000..2999";
+
+                        }
+
+                        description "IPv4 Basic ACL value";
+
+                    }
+
+                }
+
+                container IPv4AdvancedACL {
+
+                    leaf Number {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "3000..3999";
+
+                        }
+
+                        description "IPv4 Advanced ACL value";
+
+                    }
+
+                }
+
+                container IPv6BasicACL {
+
+                    leaf Number {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "2000..2999";
+
+                        }
+
+                        description "IPv6 Basic ACL value";
+
+                    }
+
+                }
+
+                container IPv6AdvancedACL {
+
+                    leaf Number {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "3000..3999";
+
+                        }
+
+                        description "IPv6 Advanced ACL value";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Contexts {
+
+            list Context {
+
+                description "row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                        pattern "[!->@-~]([!->@-~]{0,1}||[ !->@-~]*[!->@-~])";
+
+                    }
+
+                    description "context name(string，length:1-32)";
+
+                }
+
+            }
+
+        }
+
+        container CommunityMappings {
+
+            list Mapping {
+
+                description "row name";
+
+                key "Community";
+
+                leaf Community {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                        pattern "[!->@-~]([!->@-~]{0,1}||[ !->@-~]*[!->@-~])";
+
+                    }
+
+                }
+
+                leaf Context {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                        pattern "[!->@-~]([!->@-~]{0,1}||[ !->@-~]*[!->@-~])";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container MIBViews {
+
+            description "MIBViews table
+
+                This table supports creating rows.";
+
+            list View {
+
+                description "rowname";
+
+                key "Name SubTree";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                        pattern "[!->@-~]([!->@-~]{0,1}||[ !->@-~]*[!->@-~])";
+
+                    }
+
+                    description "The name of view.";
+
+                }
+
+                leaf SubTree {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                    description "The name of subtree.";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "The type of subtree.
+
+                          1 Included
+
+                          2 Excluded";
+
+                }
+
+                leaf Mask {
+
+                                        type string;
+
+                    description "The mask of subtree.";
+
+                }
+
+            }
+
+        }
+
+        container Groups {
+
+            description "SNMP group information
+
+                This table supports creating rows.";
+
+            list Group {
+
+                description "Rowname";
+
+                key "Name SecurityMode SecurityLevel";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                        pattern "[!->@-~]([!->@-~]{0,1}||[ !->@-~]*[!->@-~])";
+
+                    }
+
+                    description "Group name.";
+
+                }
+
+                leaf SecurityMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "The security model by this group is provided.";
+
+                }
+
+                leaf SecurityLevel {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Security Level.";
+
+                }
+
+                leaf ReadView {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "MIB view for read-only access.";
+
+                }
+
+                leaf WriteView {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "MIB view for  read and write  access.";
+
+                }
+
+                leaf NotifyView {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "MIB view for  notify access.";
+
+                }
+
+                container IPv4BasicACL {
+
+                    leaf Number {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "2000..2999";
+
+                        }
+
+                        description "IPv4 Basic ACL value";
+
+                    }
+
+                }
+
+                container IPv4AdvancedACL {
+
+                    leaf Number {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "3000..3999";
+
+                        }
+
+                        description "IPv4 Advanced ACL value";
+
+                    }
+
+                }
+
+                container IPv6BasicACL {
+
+                    leaf Number {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "2000..2999";
+
+                        }
+
+                        description "IPv6 Basic ACL value";
+
+                    }
+
+                }
+
+                container IPv6AdvancedACL {
+
+                    leaf Number {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "3000..3999";
+
+                        }
+
+                        description "IPv6 Advanced ACL value";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Users {
+
+            description "SNMP UsmUsers infomations
+
+                This table supports creating rows.";
+
+            list User {
+
+                description "Rowname";
+
+                key "SecurityMode Name EngineId Address VRF";
+
+                leaf SecurityMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "SecurityMode";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                        pattern "[!->@-~]([!->@-~]{0,1}||[ !->@-~]*[!->@-~])";
+
+                    }
+
+                    description "UsmUser Name";
+
+                }
+
+                leaf EngineId {
+
+                                        type string;
+
+                    description "The EngineId";
+
+                }
+
+                leaf Address {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_IpAddress;
+
+                    }
+
+                    description "Address of the remote manage.
+
+                          IPv4 example: 1.1.1.1
+
+                          IPv6 example: 1:2:3:4:5:6:7:8
+
+                          HostName example: www. example.com";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                    }
+
+                    description "VRF instance name.";
+
+                }
+
+                container GroupControl {
+
+                    leaf Group {
+
+                        type base:Basetype_String {
+
+                            length "1..32";
+
+                        }
+
+                        description "UsmUser's Group Name";
+
+                    }
+
+                    leaf Role {
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                        description "UsmUser's Role Name";
+
+                    }
+
+                }
+
+                container SecurityParam {
+
+                    leaf AuthProtocol {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "Authentication algorithm.
+
+                                1 MD5
+
+                                2 SHA";
+
+                    }
+
+                    leaf AuthKey {
+
+                        type base:Basetype_String {
+
+                            length "1..64";
+
+                        }
+
+                        description "Authentication key.Plaintext key string.
+
+                                Must be specified with ‘AuthProtocol’.";
+
+                    }
+
+                    leaf PrivProtocol {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "Encryption algorithm for privacy.
+
+                                1 DES
+
+                                2 AES
+
+                                3 3DES";
+
+                    }
+
+                    leaf PrivKey {
+
+                        type base:Basetype_String {
+
+                            length "1..64";
+
+                        }
+
+                        description "Privacy key.Plaintext key string.
+
+                                Must be specified with PrivProtocol.";
+
+                    }
+
+                }
+
+                container IPv4BasicACL {
+
+                    leaf Number {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "2000..2999";
+
+                        }
+
+                        description "IPv4 Basic ACL value";
+
+                    }
+
+                }
+
+                container IPv4AdvancedACL {
+
+                    leaf Number {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "3000..3999";
+
+                        }
+
+                        description "IPv4 Advanced ACL value";
+
+                    }
+
+                }
+
+                container IPv6BasicACL {
+
+                    leaf Number {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "2000..2999";
+
+                        }
+
+                        description "IPv6 Basic ACL value";
+
+                    }
+
+                }
+
+                container IPv6AdvancedACL {
+
+                    leaf Number {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "3000..3999";
+
+                        }
+
+                        description "IPv6 Advanced ACL value";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container RemoteManages {
+
+            list Manage {
+
+                description "rowname";
+
+                key "Address VRF";
+
+                leaf Address {
+
+                    type base:Basetype_IpAddress;
+
+                    description "Address of the remote manage";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF instance name.";
+
+                }
+
+                leaf EngineId {
+
+                                        type string;
+
+                    description "SNMP engine ID of the remote manage.";
+
+                }
+
+            }
+
+        }
+
+        container TargetHosts {
+
+            description "SNMPTargethostInfo
+
+                This table supports creating rows.";
+
+            list UdpHost {
+
+                description "rowname";
+
+                key "TargetType SecurityName Address VRF";
+
+                leaf TargetType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "1";
+
+                }
+
+                leaf SecurityName {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                        pattern "[!->@-~]([!->@-~]{0,1}||[ !->@-~]*[!->@-~])";
+
+                    }
+
+                    description "2";
+
+                }
+
+                leaf Address {
+
+                    type base:Basetype_String {
+
+                        length "1..253";
+
+                    }
+
+                    description "3";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "4";
+
+                }
+
+                leaf SecurityMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "5";
+
+                }
+
+                leaf SecurityLevel {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "6";
+
+                }
+
+                leaf Port {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "7";
+
+                }
+
+                leaf AddressType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "8";
+
+                }
+
+            }
+
+        }
+
+        container TrapConfigs {
+
+            description "snmp trap switch
+
+                This table supports creating rows.";
+
+            list TrapConfig {
+
+                description "Row name";
+
+                key "FeatureName";
+
+                leaf FeatureName {
+
+                    type base:Basetype_String;
+
+                    description "Feature name";
+
+                }
+
+                leaf TrapSwitch {
+
+                    type base:Basetype_EnableState;
+
+                    description "enable
+
+                          disable";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

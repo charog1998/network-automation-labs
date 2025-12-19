@@ -1,0 +1,67 @@
+module H3C-modem-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "modem-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for modem data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container MODEM {
+
+        config false;
+
+        container ModemEnable {
+
+            list Enable {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf CallType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

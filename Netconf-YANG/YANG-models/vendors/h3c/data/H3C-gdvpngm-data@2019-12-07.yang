@@ -1,0 +1,1293 @@
+module H3C-gdvpngm-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "gdvpngm-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for gdvpngm data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container GDVPNGM {
+
+        config false;
+
+        container GdoiIPv4Policies {
+
+            description "GDOI IPv4 policies of GM group
+
+                This table supports creating rows.";
+
+            list Policy {
+
+                description "Row name";
+
+                key "PolicyName SeqNum";
+
+                leaf PolicyName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name for the IPsec policy, 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf SeqNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "Sequence number for the IPsec policy entry";
+
+                }
+
+                leaf GroupName {
+
+                    type base:Basetype_NameString;
+
+                    description "Name for the GDOI GM group, 1 to 63 characters Case insensitive";
+
+                }
+
+                container ACL {
+
+                    leaf Name {
+
+                        type base:Basetype_ACLName;
+
+                        description "Name for the IPsec policy, 1 to 63 characters Case insensitive";
+
+                    }
+
+                    leaf Number {
+
+                        type base:Basetype_Integer32;
+
+                        description "ACL number";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container GdoiIPv6Policies {
+
+            description "GDOI IPv6 policies of GM group
+
+                This table supports creating rows.";
+
+            list Policy {
+
+                description "Row name";
+
+                key "PolicyName SeqNum";
+
+                leaf PolicyName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name for the IPsec policy, 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf SeqNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "Sequence number for the IPsec policy entry";
+
+                }
+
+                leaf GroupName {
+
+                    type base:Basetype_NameString;
+
+                    description "Name for the GDOI GM group, 1 to 63 characters Case insensitive";
+
+                }
+
+                container ACL {
+
+                    leaf Name {
+
+                        type base:Basetype_ACLName;
+
+                        description "Name for the IPsec policy, 1 to 63 characters Case insensitive";
+
+                    }
+
+                    leaf Number {
+
+                        type base:Basetype_Integer32;
+
+                        description "ACL number";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container GdoiGmTeks {
+
+            description "This table displays TEK information of a group member";
+
+            list TEK {
+
+                description "Row name";
+
+                key "GroupName SPI";
+
+                leaf GroupName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name for the GDOI GM group, String, Length: 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf SPI {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "256..4294967295";
+
+                    }
+
+                    description "SPI of the IPsec SA, Unsigned integer, Value range: 256 to 4294967295";
+
+                }
+
+                container Transform {
+
+                    description "Transform encryption and authentication algorithm, Members include: EncryptAlg, AuthAlg";
+
+                    leaf EncryptAlg {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Encryption algorithm
+
+                                Enumeration:
+
+                                0—NULL
+
+                                1—3DES-CBC
+
+                                2—AES-CBC-128
+
+                                3—AES-CBC-192
+
+                                4—AES-CBC-256
+
+                                5—DES-CBC
+
+                                6—Unknown";
+
+                    }
+
+                    leaf AuthAlg {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Authentication algorithm
+
+                                Enumeration:
+
+                                0—NULL
+
+                                1—MD5
+
+                                2—SHA1
+
+                                3—Unknown";
+
+                    }
+
+                }
+
+                leaf RemainLifetime {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "IPsec SA remaining lifetime in seconds, Unsigned integer, in seconds";
+
+                }
+
+            }
+
+        }
+
+        container GdoiGmGroups {
+
+            description "GM group informations
+
+                This table supports creating rows.";
+
+            list GdoiGmGroup {
+
+                description "Row name";
+
+                key "GroupName";
+
+                leaf GroupName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name for the GDOI GM group, 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf IPVersion {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "GM group IP version, Enumeration:
+
+                            1 - IPv4
+
+                            2 - IPv6";
+
+                }
+
+                container Identity {
+
+                    description "ID for a GDOI GM group";
+
+                    leaf Type {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Identity type, Enumeration:
+
+                                  0-invalid
+
+                                  1-Number Type
+
+                                  2-Address Type";
+
+                    }
+
+                    leaf Number {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "A number to identify the GDOI GM group";
+
+                    }
+
+                    leaf Address {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "The value of address when the Type is address";
+
+                    }
+
+                }
+
+                leaf RegistrationInterface {
+
+                    type base:Basetype_NameString;
+
+                    description "Registration interface name for a group member, String, Case insensitive";
+
+                }
+
+                container Encryption {
+
+                    description "KEK encryption algorithms";
+
+                    leaf ThreeDesCbc {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The 3DES-CBC encryption algorithm";
+
+                    }
+
+                    leaf AesCbc128 {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The AES-CBC-128 encryption algorithm";
+
+                    }
+
+                    leaf AesCbc192 {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The AES-CBC-192 encryption algorithm";
+
+                    }
+
+                    leaf AesCbc256 {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The AES-CBC-256 encryption algorithm";
+
+                    }
+
+                    leaf DesCbc {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The DEC-CBC encryption algorithm";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container GdoiGmDownloadIPv4AclRules {
+
+            description "IPv4 ACL information that the GM downloaded from the KS
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                description "Row name";
+
+                key "GroupName ID";
+
+                leaf GroupName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name for the GDOI GM group, 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The ID of a Rule";
+
+                }
+
+                leaf KeyServer {
+
+                    type base:Basetype_IpAddress;
+
+                    description "IPv4 address or IPv6 address lies on the AddressType";
+
+                }
+
+                leaf Action {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The Rule Action";
+
+                }
+
+                leaf Protocol {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "IP protocol number";
+
+                }
+
+                container Source {
+
+                    description "The source ACL packets";
+
+                    leaf SrcAddr {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "The source address of packets";
+
+                    }
+
+                    leaf SrcWildLen {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The source address wild length";
+
+                    }
+
+                    leaf SrcPort {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The source port of packets";
+
+                    }
+
+                }
+
+                container Destination {
+
+                    description "The source ACL packets";
+
+                    leaf DesAddr {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "The destination address of packets";
+
+                    }
+
+                    leaf DesWildLen {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The destination address wild length";
+
+                    }
+
+                    leaf DesPort {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The destination port of packets";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container GdoiGmGroupServers {
+
+            description "This table displays key servers (KS) of GM group.
+
+                This table supports creating rows.";
+
+            list Server {
+
+                description "Row name";
+
+                key "GroupName Host Vrf";
+
+                leaf GroupName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Group Name, 1 to 63 characters";
+
+                }
+
+                leaf Host {
+
+                    type base:Basetype_NameString;
+
+                    description "Key server IP address or hostname,IPv4: String, dotted decimal notation.IPv6: Hexadecimal string, colon-separated.Hostname: String, 1 to 253 characters, case-sensitive.";
+
+                }
+
+                leaf Vrf {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_NameString;
+
+                    }
+
+                    description "VRF instance name,String, case-sensitive.Length: 0 to 31 characters.The default is empty.";
+
+                }
+
+            }
+
+        }
+
+        container GdoiGmDownloadIPv6AclRules {
+
+            description "IPv6 ACL information that the GM downloaded from the KS
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                description "Row name";
+
+                key "GroupName ID";
+
+                leaf GroupName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name for the GDOI GM group, 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The ID of a Rule";
+
+                }
+
+                leaf KeyServer {
+
+                    type base:Basetype_IpAddress;
+
+                    description "IPv6 address or IPv6 address lies on the AddressType";
+
+                }
+
+                leaf Action {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The Rule Action";
+
+                }
+
+                leaf Protocol {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "IP protocol number";
+
+                }
+
+                container Source {
+
+                    description "The source ACL packets";
+
+                    leaf SrcAddr {
+
+                        type base:Basetype_Ipv6Address;
+
+                        description "The source address of packets";
+
+                    }
+
+                    leaf SrcWildLen {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The source address wild length";
+
+                    }
+
+                    leaf SrcPort {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The source port of packets";
+
+                    }
+
+                }
+
+                container Destination {
+
+                    description "The source ACL packets";
+
+                    leaf DesAddr {
+
+                        type base:Basetype_Ipv6Address;
+
+                        description "The destination address of packets";
+
+                    }
+
+                    leaf DesWildLen {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The destination address wild length";
+
+                    }
+
+                    leaf DesPort {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The destination port of packets";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container GdoiGmGroupTransformSets {
+
+            description "This table displays transform sets of GM group
+
+                This table supports creating rows.";
+
+            list TransformSet {
+
+                description "Row name";
+
+                key "GroupName";
+
+                leaf GroupName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name for the GDOI GM group, Length: 1 to 63 characters Case insensitive";
+
+                }
+
+                container TransformSetList {
+
+                    description "The list of transformsets, Members include: TransformSetName";
+
+                    leaf-list TransformSetName {
+
+                        type base:Basetype_NameString;
+
+                        description "IPsec transform set name, Length: 1 to 63 characters Case insensitive";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container GdoiGmLocalIPv4AclRules {
+
+            description "ACL information locally configured on the GM
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                description "Row name";
+
+                key "GroupName ID";
+
+                leaf GroupName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name for the GDOI GM group, 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..max";
+
+                    }
+
+                    description "The ID of a Rule";
+
+                }
+
+                container ACL {
+
+                    description "ACL Information";
+
+                    leaf ACLName {
+
+                        type base:Basetype_NameString;
+
+                        description "ACL Name, Case insensitive, when it is not empty the ACL Number makes no sense";
+
+                    }
+
+                    leaf ACLNumber {
+
+                        type base:Basetype_Integer32;
+
+                        description "ACL Number, when ACLName is not empty the ACLNumber makes no sense";
+
+                    }
+
+                    leaf ACLRuleID {
+
+                        type base:Basetype_Integer32;
+
+                        description "ACL Rule ID";
+
+                    }
+
+                    leaf ACLMode {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Protection modes, Enumeration:
+
+                                  1—per-rule(default)
+
+                                  2—per-host
+
+                                  3—aggregation";
+
+                    }
+
+                    leaf Action {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The Rule Action";
+
+                    }
+
+                    leaf Protocol {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "IP protocol number";
+
+                    }
+
+                    leaf SrcAddr {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "The source address of packets";
+
+                    }
+
+                    leaf SrcWildLen {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The source address wild length";
+
+                    }
+
+                    leaf SrcPort {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The source port of packets";
+
+                    }
+
+                    leaf DesAddr {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "The destination address of packets";
+
+                    }
+
+                    leaf DesWildLen {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The destination address wild length";
+
+                    }
+
+                    leaf DesPort {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The destination port of packets";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container GdoiGroupMembers {
+
+            description "This table displays GDOI group members";
+
+            list GroupMember {
+
+                description "Row name";
+
+                key "GroupName";
+
+                leaf GroupName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "GDOI GM group name, 1 to 63 characters";
+
+                }
+
+                leaf IPAddress {
+
+                    type base:Basetype_IpAddress;
+
+                    description "IP address of the GM";
+
+                }
+
+                leaf VRFName {
+
+                    type base:Basetype_NameString;
+
+                    description "Name of the VRF to which the GM belongs";
+
+                }
+
+                leaf RegStatus {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The registration status";
+
+                }
+
+                leaf RegServer {
+
+                    type base:Basetype_NameString;
+
+                    description "IP address or host name of the KS with which the GM registers";
+
+                }
+
+                leaf ReRegTime {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Period of time after which the GM re-registers with a KS";
+
+                }
+
+                leaf SucceedRegs {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of successful registrations";
+
+                }
+
+                leaf AttemptedRegs {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of registration attempts";
+
+                }
+
+                leaf LastRekeyFrom {
+
+                    type base:Basetype_NameString;
+
+                    description "KS from which the GM receives the last rekey message";
+
+                }
+
+                leaf LastRekeySeqNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Sequence number of the last received rekey message";
+
+                }
+
+                leaf MulticastRekeysReceived {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of multicast rekeys received";
+
+                }
+
+                leaf UnicastRekeysReceived {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of unicast rekeys received";
+
+                }
+
+                leaf RekeyAcKSent {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of rekey ACK messages sent";
+
+                }
+
+                leaf AllowableRekeyCipher {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Rekey encryption algorithms that the GM allows";
+
+                }
+
+                leaf AllowableRekeyHash {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Rekey hash algorithms that the GM allows";
+
+                }
+
+                container AllowableTransforms {
+
+                    leaf-list AllowableTransform {
+
+                        type base:Basetype_NameString;
+
+                    }
+
+                }
+
+                container RekeyCumulative {
+
+                    description "Rekey statistics";
+
+                    leaf TotalReceived {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Total number of rekeys that the GM has received";
+
+                    }
+
+                    leaf AfterLatestReg {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Number of rekeys that the GM has received after the last successful registration";
+
+                    }
+
+                    leaf LastRekeyReceivedFor {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Period of time for which the key has existed after the last rekey operation";
+
+                    }
+
+                    leaf TotalRekeyAckSent {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Number of rekey ACK messages sent";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container GdoiGmLocalIPv6AclRules {
+
+            description "ACL information locally configured on the GM
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                description "Row name";
+
+                key "GroupName ID";
+
+                leaf GroupName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name for the GDOI GM group, 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..max";
+
+                    }
+
+                    description "The ID of a Rule";
+
+                }
+
+                container ACL {
+
+                    description "ACL Information";
+
+                    leaf ACLName {
+
+                        type base:Basetype_NameString;
+
+                        description "ACL Name, Case insensitive, when it is not empty the ACL Number makes no sense";
+
+                    }
+
+                    leaf ACLNumber {
+
+                        type base:Basetype_Integer32;
+
+                        description "ACL Number, when ACLName is not empty the ACLNumber makes no sense";
+
+                    }
+
+                    leaf ACLRuleID {
+
+                        type base:Basetype_Integer32;
+
+                        description "ACL Rule ID";
+
+                    }
+
+                    leaf ACLMode {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Protection modes, Enumeration:
+
+                                  1—per-rule(default)
+
+                                  2—per-host
+
+                                  3—aggregation";
+
+                    }
+
+                    leaf Action {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The Rule Action";
+
+                    }
+
+                    leaf Protocol {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "IP protocol number";
+
+                    }
+
+                    leaf SrcAddr {
+
+                        type base:Basetype_Ipv6Address;
+
+                        description "The source address of packets";
+
+                    }
+
+                    leaf SrcWildLen {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The source address wild length";
+
+                    }
+
+                    leaf SrcPort {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The source port of packets";
+
+                    }
+
+                    leaf DesAddr {
+
+                        type base:Basetype_Ipv6Address;
+
+                        description "The destination address of packets";
+
+                    }
+
+                    leaf DesWildLen {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The destination address wild length";
+
+                    }
+
+                    leaf DesPort {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The destination port of packets";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container GdoiKeks {
+
+            description "This table displays KEK information";
+
+            list KEK {
+
+                description "Row name";
+
+                key "GroupName";
+
+                leaf GroupName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "GDOI GM group name, 1 to 63 characters";
+
+                }
+
+                leaf RekeyTransportType {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Transport type of rekey messages";
+
+                }
+
+                leaf RemainingKeyLifetime {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "KEK lifetime in seconds";
+
+                }
+
+                leaf EncryptionAlgorithm {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "KEK encryption algorithm";
+
+                }
+
+                leaf KeySize {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "KEK key length";
+
+                }
+
+                leaf SignatureAlg {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "KEK signature algorithm";
+
+                }
+
+                leaf SignatureHashAlg {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "KEK signature hash algorithm";
+
+                }
+
+                leaf SignatureKeyLength {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "KEK signature key length in bits";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

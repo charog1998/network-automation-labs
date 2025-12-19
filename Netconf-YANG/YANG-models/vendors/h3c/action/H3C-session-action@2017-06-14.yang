@@ -1,0 +1,963 @@
+module H3C-session-action
+
+{
+
+    namespace "http://www.h3c.com/netconf/action:1.0";
+
+    prefix "session-action";
+
+    import comware-basetype 
+
+    {
+
+         prefix "base";
+
+    }
+
+    organization "H3C Inc.";
+
+    contact "Author";
+
+    description "The module entities for session action.";
+
+    revision 2017-06-14
+
+	{
+
+        description "Initial revision.";
+
+    }
+
+    container Session
+
+    {
+
+        config false;
+
+		container ConnectionLimit
+
+        {
+
+            config false;
+
+            container GlobalStatistics
+
+            {
+
+                list GlobalStatistic
+
+                {
+
+                    key "Chassis Slot CPUID";
+
+                    leaf Chassis
+
+                    {
+
+                        type base:Basetype_UnsignedInteger32
+
+                        {
+
+                            range "0..65534";
+
+                        }
+
+                    }
+
+                    leaf Slot
+
+                    {
+
+                        type base:Basetype_UnsignedInteger32
+
+                        {
+
+                            range "0..65534";
+
+                        }
+
+                    }
+
+                    leaf CPUID
+
+                    {
+
+                        type base:Basetype_UnsignedInteger32
+
+                        {
+
+                            range "0..7";
+
+                        }
+
+                    }
+
+                    leaf Ipv4DroppedPackets
+
+                    {
+
+                        type base:Basetype_Counter64;
+
+                    }
+
+                    leaf Ipv6DroppedPackets
+
+                    {
+
+                        type base:Basetype_Counter64;
+
+                    }
+
+                }
+
+            }
+
+			container ClearAllGlobalStatistics
+
+			{
+
+				leaf Clear
+
+                {
+
+                    type empty;
+
+                }
+
+			}
+
+            container InterfaceStatistics
+
+            {
+
+                list InterfaceStatistic
+
+                {
+
+                    key "IfIndex Chassis Slot CPUID";
+
+                    leaf IfIndex
+
+                    {
+
+                        type base:Basetype_NameAndIndexUnion;
+
+                    }
+
+                    leaf Chassis
+
+                    {
+
+                        type base:Basetype_UnsignedInteger32
+
+                        {
+
+                            range "0..65534";
+
+                        }
+
+                    }
+
+                    leaf Slot
+
+                    {
+
+                        type base:Basetype_UnsignedInteger32
+
+                        {
+
+                            range "0..65534";
+
+                        }
+
+                    }
+
+                    leaf CPUID
+
+                    {
+
+                        type base:Basetype_UnsignedInteger32
+
+                        {
+
+                            range "0..7";
+
+                        }
+
+                    }
+
+                    leaf Ipv4DroppedPackets
+
+                    {
+
+                        type base:Basetype_Counter64;
+
+                    }
+
+                    leaf Ipv6DroppedPackets
+
+                    {
+
+                        type base:Basetype_Counter64;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+		container ClearAllInterfaceStatistics
+
+        {   
+
+		    list InterfaceStatistic
+
+			{
+
+				key "IfIndex";
+
+				leaf IfIndex
+
+				{
+
+					type base:Basetype_NameAndIndexUnion;
+
+				}
+
+				leaf Clear
+
+                {
+
+                    type empty;
+
+                }
+
+			}
+
+	    }
+
+        container SessionStatistics
+
+        {
+
+            list SessionStatistic
+
+            {
+
+                key "Chassis Slot CPUID";
+
+                leaf Chassis
+
+                {
+
+                    type base:Basetype_UnsignedInteger32
+
+                    {
+
+                        range "0..65534";
+
+                    }
+
+                }
+
+                leaf Slot
+
+                {
+
+                    type base:Basetype_UnsignedInteger32
+
+                    {
+
+                        range "0..65534";
+
+                    }
+
+                }
+
+                leaf CPUID
+
+                {
+
+                    type base:Basetype_UnsignedInteger32
+
+                    {
+
+                        range "0..7";
+
+                    }
+
+                }
+
+                leaf Clear
+
+                {
+
+                    type empty;
+
+                }
+
+            }
+
+        }
+
+        container ClearAllSessionStatistics
+
+        {
+
+            leaf Clear
+
+            {
+
+                type empty;
+
+            }
+
+        }
+
+        container Bills
+
+        {
+
+            list Bill
+
+            {
+
+                container IPv4Addr
+
+                {
+
+                    leaf SrcAddr
+
+                    {
+
+                        type base:Basetype_Ipv4Address;
+
+                    }
+
+                }
+
+                container IPv6Addr
+
+                {
+
+                    leaf SrcAddr
+
+                    {
+
+                        type base:Basetype_Ipv6Address;
+
+                    }
+
+                }
+
+                leaf Flag
+
+                {
+
+                    type boolean;
+
+                }
+
+            }
+
+        }
+
+        container ClearIpv4Sessions
+
+        {
+
+            list Session
+
+            {
+
+                key "Chassis Slot CPUID";
+
+                leaf Chassis
+
+                {
+
+                    type base:Basetype_UnsignedInteger32
+
+                    {
+
+                        range "0..65534";
+
+                    }
+
+                }
+
+                leaf Slot
+
+                {
+
+                    type base:Basetype_UnsignedInteger32
+
+                    {
+
+                        range "0..65534";
+
+                    }
+
+                }
+
+                leaf CPUID
+
+                {
+
+                    type base:Basetype_UnsignedInteger32
+
+                    {
+
+                        range "0..7";
+
+                    }
+
+                }
+
+                leaf Type
+
+                {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf InitVRF
+
+                {
+
+                    type base:Basetype_VRF
+
+                    {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf InitSourceIp
+
+                {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf InitSourcePort
+
+                {
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                leaf InitDestinationIp
+
+                {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf InitDestinationPort
+
+                {
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                leaf InitDSLiteTunnelPeer
+
+                {
+
+                    type base:Basetype_String
+
+                    {
+
+                        length "1..46";
+
+                    }
+
+                }
+
+                leaf InitProtocol
+
+                {
+
+                    type base:Basetype_String
+
+                    {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf InitEnProtocol
+
+                {
+
+                    type base:Basetype_UnsignedChar
+
+                    {
+
+                        range "0..8";
+
+                    }
+
+                }
+
+                leaf Clear
+
+                {
+
+                    type empty;
+
+                }
+
+                leaf StopTime
+
+                {
+
+                    type base:Basetype_UnsignedInteger32
+
+                    {
+
+                        range "5..1000000";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container ClearIpv6Sessions
+
+        {
+
+            list Session
+
+            {
+
+                key "Chassis Slot CPUID";
+
+                leaf Chassis
+
+                {
+
+                    type base:Basetype_UnsignedInteger32
+
+                    {
+
+                        range "0..65534";
+
+                    }
+
+                }
+
+                leaf Slot
+
+                {
+
+                    type base:Basetype_UnsignedInteger32
+
+                    {
+
+                        range "0..65534";
+
+                    }
+
+                }
+
+                leaf CPUID
+
+                {
+
+                    type base:Basetype_UnsignedInteger32
+
+                    {
+
+                        range "0..7";
+
+                    }
+
+                }
+
+                leaf Type
+
+                {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf InitVRF
+
+                {
+
+                    type base:Basetype_VRF
+
+                    {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf InitSourceIp
+
+                {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf InitSourcePort
+
+                {
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                leaf InitDestinationIp
+
+                {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf InitDestinationPort
+
+                {
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                leaf InitProtocol
+
+                {
+
+                    type base:Basetype_String
+
+                    {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf InitEnProtocol
+
+                {
+
+                    type base:Basetype_UnsignedChar
+
+                    {
+
+                        range "0..8";
+
+                    }
+
+                }
+
+                leaf Clear
+
+                {
+
+                    type empty;
+
+                }
+
+                leaf StopTime
+
+                {
+
+                    type base:Basetype_UnsignedInteger32
+
+                    {
+
+                        range "5..1000000";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container ExportIpv4Table
+
+        {
+
+            list Session_Export
+
+            {
+
+                key "Chassis Slot CPUID InitVRF IP4SourceIp IP4SourcePort IP4DestinationIp IP4DestinationPort ProtocolType";
+
+                leaf Chassis
+
+                {
+
+                    type base:Basetype_UnsignedInteger32
+
+                    {
+
+                        range "0..65534";
+
+                    }
+
+                }
+
+                leaf Slot
+
+                {
+
+                    type base:Basetype_UnsignedInteger32
+
+                    {
+
+                        range "0..65534";
+
+                    }
+
+                }
+
+                leaf CPUID
+
+                {
+
+                    type base:Basetype_UnsignedInteger32
+
+                    {
+
+                        range "0..7";
+
+                    }
+
+                }
+
+                leaf InitVRF
+
+                {
+
+                    type base:Basetype_VRF
+
+                    {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf IP4SourceIp
+
+                {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf IP4SourcePort
+
+                {
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                leaf IP4DestinationIp
+
+                {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf IP4DestinationPort
+
+                {
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                leaf ProtocolType
+
+                {
+
+                    type base:Basetype_UnsignedChar
+
+                    {
+
+                        range "0..8";
+
+                    }
+
+                }
+
+                leaf FileName
+
+                {
+
+                    type base:Basetype_String
+
+                    {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container ExportIpv6Table
+
+        {
+
+            list Session_Export
+
+            {
+
+                key "Chassis Slot CPUID InitVRF IP6SourceIp IP6SourcePort IP6DestinationIp IP6DestinationPort ProtocolType";
+
+                leaf Chassis
+
+                {
+
+                    type base:Basetype_UnsignedInteger32
+
+                    {
+
+                        range "0..65534";
+
+                    }
+
+                }
+
+                leaf Slot
+
+                {
+
+                    type base:Basetype_UnsignedInteger32
+
+                    {
+
+                        range "0..65534";
+
+                    }
+
+                }
+
+                leaf CPUID
+
+                {
+
+                    type base:Basetype_UnsignedInteger32
+
+                    {
+
+                        range "0..7";
+
+                    }
+
+                }
+
+                leaf InitVRF
+
+                {
+
+                    type base:Basetype_VRF
+
+                    {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf IP6SourceIp
+
+                {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf IP6SourcePort
+
+                {
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                leaf IP6DestinationIp
+
+                {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf IP6DestinationPort
+
+                {
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                leaf ProtocolType
+
+                {
+
+                    type base:Basetype_UnsignedChar
+
+                    {
+
+                        range "0..8";
+
+                    }
+
+                }
+
+                leaf FileName
+
+                {
+
+                    type base:Basetype_String
+
+                    {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

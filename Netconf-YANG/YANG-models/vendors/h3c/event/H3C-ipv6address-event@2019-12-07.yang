@@ -1,0 +1,89 @@
+module H3C-ipv6address-event {
+
+    namespace "http://www.h3c.com/netconf/event:1.0/ipv6address:1.0";
+
+    prefix "ipv6address-event";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ipv6address event.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    notification IPv6AddressEvent {
+
+        container IPv6Address {
+
+            leaf Name {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_InterfaceName;
+
+                }
+
+                description "Full name of an interface.";
+
+            }
+
+            leaf AddressOrigin {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..5";
+
+                }
+
+            }
+
+            leaf AddressStatus {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..5";
+
+                }
+
+            }
+
+            leaf AddressEvent {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..3";
+
+                }
+
+            }
+
+            leaf Ipv6Address {
+
+                type base:Basetype_Ipv6Address;
+
+            }
+
+        }
+
+    }
+
+}

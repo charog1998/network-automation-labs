@@ -1,0 +1,445 @@
+module H3C-dhcpsp-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "dhcpsp-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for dhcpsp data.";
+
+    revision 2019-12-17 {
+
+        description "Initial revision.";
+
+    }
+
+    container DHCPSP {
+
+        config false;
+
+        container DHCPSPBindingDatabase {
+
+            leaf FileName {
+
+                type base:Basetype_String {
+
+                    length "1..255";
+
+                }
+
+            }
+
+            leaf URL {
+
+                type base:Basetype_String {
+
+                    length "1..255";
+
+                }
+
+            }
+
+            leaf Username {
+
+                type base:Basetype_String {
+
+                    length "1..32";
+
+                }
+
+            }
+
+            leaf Password {
+
+                type base:Basetype_String {
+
+                    length "1..32";
+
+                }
+
+            }
+
+            leaf UpdateInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "60..864000";
+
+                }
+
+            }
+
+        }
+
+        container DHCPSPInterface {
+
+            list Interface {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf BindingRecord {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf CheckMacAddress {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf CheckRequestMessage {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf Trust {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf LearnMaxNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf RateLimitNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+        container DHCPSPOpt82CircuitIDVLAN {
+
+            list VLANCircuitID {
+
+                key "IfIndex VLANID";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                }
+
+                leaf CircuitID {
+
+                    type base:Basetype_String {
+
+                        length "3..63";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DHCPSPOpt82RemoteIDVLAN {
+
+            list VLANRemoteID {
+
+                key "IfIndex VLANID";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                }
+
+                leaf RemoteID {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+                leaf Sysname {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container DHCPSPOpt82 {
+
+            list Option82 {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Option82Enable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf Strategy {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                container Circuit {
+
+                    leaf CircuitID {
+
+                        type base:Basetype_String {
+
+                            length "3..63";
+
+                        }
+
+                    }
+
+                    leaf CircuitIDMode {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                    }
+
+                    leaf CircuitIDNodeIDType {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                    }
+
+                    leaf CircuitIDNodeID {
+
+                        type base:Basetype_String {
+
+                            length "1..50";
+
+                        }
+
+                    }
+
+                    leaf CircuitIDFormat {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                    }
+
+                }
+
+                container Remote {
+
+                    leaf RemoteIDMode {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                    }
+
+                    leaf RemoteID {
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                    }
+
+                    leaf RemoteIDFormat {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DHCPSPBinding {
+
+            list Binding {
+
+                key "Ipv4Address VLANID SVLANID";
+
+                leaf Ipv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                }
+
+                leaf SVLANID {
+
+                    type union {
+
+                        type uint32;
+
+                        type uint32;
+
+                    }
+
+                }
+
+                leaf MacAddress {
+
+                    type base:Basetype_MacAddress;
+
+                }
+
+                leaf Lease {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+            }
+
+        }
+
+        container DHCPSPConfig {
+
+            leaf DHCPSPEnable {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+        container DHCPSPSpecification {
+
+            leaf RateLimitMinNum {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf RateLimitMaxNum {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+        }
+
+    }
+
+}

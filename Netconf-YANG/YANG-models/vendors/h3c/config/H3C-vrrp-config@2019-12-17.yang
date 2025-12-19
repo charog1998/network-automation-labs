@@ -1,0 +1,409 @@
+module H3C-vrrp-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "vrrp-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for vrrp config.";
+
+    revision 2019-12-17 {
+
+        description "Initial revision.";
+
+    }
+
+    container VRRP {
+
+        container VRRPOper {
+
+            description "Table of VRRPOper
+
+                This table supports creating rows.";
+
+            list Operation {
+
+                description "Row Name";
+
+                key "AddressType IfIndex VrID";
+
+                leaf AddressType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Address Type,
+
+                           0: ipv4
+
+                           1: ipv6";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface Index";
+
+                }
+
+                leaf VrID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..255";
+
+                    }
+
+                    description "the number of vrid";
+
+                }
+
+                leaf PriorityConfig {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..254";
+
+                    }
+
+                    description "Config priority of router";
+
+                }
+
+                leaf AuthTypeConfig {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Type of Authentication,
+
+                          1: simpletype
+
+                          2: MD5type";
+
+                }
+
+                leaf AuthKey {
+
+                    type base:Basetype_String {
+
+                        length "1..8";
+
+                    }
+
+                    description "AuthKey";
+
+                }
+
+                leaf AdverInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "10..4095";
+
+                    }
+
+                    description "the time of Interval";
+
+                }
+
+                leaf PreemptMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "PreemptMode:
+
+                         1: preemptive mode
+
+                         2: non-preemptive mode";
+
+                }
+
+                leaf PreemptDelay {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..180000";
+
+                    }
+
+                    description "the time of delay";
+
+                }
+
+            }
+
+        }
+
+        container VRRPAssoIpAddress {
+
+            description "Table of VRRPAssoIpAddress
+
+                This table supports creating rows.";
+
+            list AssoIpAddr {
+
+                description "Row Name";
+
+                key "AddressType IfIndex VrID IpAddress";
+
+                leaf AddressType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Address Type,
+
+                           0: ipv4
+
+                           1: ipv6";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface Index";
+
+                }
+
+                leaf VrID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..255";
+
+                    }
+
+                    description "the number of vrid";
+
+                }
+
+                leaf IpAddress {
+
+                    type base:Basetype_IpAddress;
+
+                    description "Address of ipv4 or ipv6";
+
+                }
+
+                leaf LinkLocal {
+
+                    type base:Basetype_Boolean;
+
+                    description "LinkLocal
+
+                          0: Not specifies a link-local address as the virtual IPv6 address
+
+                          1: Specifies a link-local address as the virtual IPv6 address";
+
+                }
+
+            }
+
+        }
+
+        container VRRPTrack {
+
+            description "Table of VRRPTrack
+
+                This table supports creating rows.";
+
+            list Track {
+
+                description "Row Name";
+
+                key "AddressType IfIndex VrID TrackID TrackMode";
+
+                leaf AddressType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Address Type,
+
+                           0: ipv4
+
+                           1: ipv6";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface Index";
+
+                }
+
+                leaf VrID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..255";
+
+                    }
+
+                    description "the number of vrid";
+
+                }
+
+                leaf TrackID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..1024";
+
+                    }
+
+                    description "the number of track";
+
+                }
+
+                leaf TrackMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Type of Track,
+
+                          1: switchover
+
+                          2: priority reduced";
+
+                }
+
+                leaf ReducePriority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..255";
+
+                    }
+
+                    description "ReducePriority";
+
+                }
+
+            }
+
+        }
+
+        container VRRPInterface {
+
+            description "Table of VRRPInterface
+
+                This table supports creating rows.";
+
+            list Interface {
+
+                description "Row Name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface Index";
+
+                }
+
+                leaf Ipv4Dot1QVLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "the number of first vlan ID";
+
+                }
+
+                leaf Ipv4SecondDot1QVLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "the number of second vlan ID";
+
+                }
+
+                leaf Ipv4Version {
+
+                    type enumeration {
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Type of Version,
+
+                          2: VRRPv2
+
+                          3: VRRPv3";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

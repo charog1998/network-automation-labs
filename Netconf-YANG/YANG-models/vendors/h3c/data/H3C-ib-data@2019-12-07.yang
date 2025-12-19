@@ -1,0 +1,287 @@
+module H3C-ib-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "ib-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ib data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container IB {
+
+        config false;
+
+        container IbBackup {
+
+            list Backup {
+
+                key "IfIndex BackupIfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf BackupIfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..255";
+
+                    }
+
+                }
+
+                leaf State {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IbTrack {
+
+            list Track {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf TrackNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..1024";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IbBackupInfo {
+
+            list BackupInfo {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf UpperThreshold {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..99";
+
+                    }
+
+                }
+
+                leaf LowerThreshold {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..99";
+
+                    }
+
+                }
+
+                leaf UpDelay {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                }
+
+                leaf DownDelay {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                }
+
+                leaf FlowCheck {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "30..600";
+
+                    }
+
+                }
+
+                leaf State {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IbBackupStatistics {
+
+            list BackupStatistics {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf StatisticsInterval {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Bandwidth {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                }
+
+                leaf PrimaryTotalIn {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                }
+
+                leaf PrimaryTotalOut {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                }
+
+                leaf PrimaryIntervalIn {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                }
+
+                leaf PrimaryIntervalOut {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                }
+
+                leaf PrimaryUsedBandwidth {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                }
+
+                leaf TotalIn {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                }
+
+                leaf TotalOut {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                }
+
+                leaf TotalIntervalIn {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                }
+
+                leaf TotalIntervalOut {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                }
+
+                leaf TotalUsedBandwidth {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

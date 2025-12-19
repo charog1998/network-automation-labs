@@ -1,0 +1,213 @@
+module H3C-igmpsnooping-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "igmpsnooping-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for igmpsnooping config.";
+
+    revision 2019-12-17 {
+
+        description "Initial revision.";
+
+    }
+
+    container IGMPSnooping {
+
+        container Configuration {
+
+            description "IGMP Snooping global information table
+
+                This table supports creating rows.";
+
+            leaf Enabled {
+
+                type base:Basetype_EnableState;
+
+                description "Enable global IGMP Snooping";
+
+            }
+
+        }
+
+        container VLANs {
+
+            description "IGMP Snooping VLAN information table";
+
+            list VLAN {
+
+                description "Row name";
+
+                key "VLANID";
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..4094";
+
+                    }
+
+                    description "VLAN id";
+
+                }
+
+                leaf Enabled {
+
+                    type base:Basetype_EnableState;
+
+                    description "Enable IGMP Snooping on the VLAN";
+
+                }
+
+                leaf Version {
+
+                    type enumeration {
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Specify version";
+
+                }
+
+                leaf DropUnknown {
+
+                    type base:Basetype_EnableState;
+
+                    description "Configure drop-unknown";
+
+                }
+
+                leaf Querier {
+
+                    type base:Basetype_EnableState;
+
+                    description "Enable the querier function";
+
+                }
+
+                leaf QueryInterval {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "2..31744";
+
+                    }
+
+                    description "Set the interval between general queries";
+
+                }
+
+                leaf GeneralQuerySourceAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Configure the source address of general queries";
+
+                }
+
+                leaf SpecialQuerySourceAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Configure the source address of group-specific";
+
+                }
+
+            }
+
+        }
+
+        container FastLeavePorts {
+
+            description "IGMP Snooping port fast leave information table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf FastLeaveVlanList {
+
+                    type base:Basetype_VlanRange;
+
+                    description "Config fast leave vlan list";
+
+                }
+
+            }
+
+        }
+
+        container GroupLimitPorts {
+
+            description "IGMP Snooping port group limit information table
+
+                This table supports creating rows.";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex Limit";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Limit {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Group limit number";
+
+                }
+
+                leaf GroupLimitVlanList {
+
+                    type base:Basetype_VlanRange;
+
+                    description "Config group limit vlan list";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,905 @@
+module H3C-ifmgr-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "ifmgr-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ifmgr config.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container Ifmgr {
+
+        container TrafficStatistics {
+
+            description "TrafficStatistics sub module";
+
+            container Interval {
+
+                description "Interval table";
+
+                leaf Interval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "5..300";
+
+                    }
+
+                    description "Sampling interval of all interface, in seconds, in step of 5.";
+
+                }
+
+            }
+
+        }
+
+        container StormConstrain {
+
+            description "StormConstrain sub module";
+
+            container Interfaces {
+
+                description "This table contains interface storm constrain information.";
+
+                list Interface {
+
+                    description "The Name of Row";
+
+                    key "IfIndex";
+
+                    leaf IfIndex {
+
+                        type base:Basetype_NameAndIndexUnion;
+
+                        description "Interface index";
+
+                    }
+
+                    leaf CtlMode {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "Storm constrain protective action
+
+                                Enumeration:
+
+                                0(N/A)
+
+                                1(Block)
+
+                                2(Shutdown)";
+
+                    }
+
+                    leaf Trap {
+
+                        type base:Basetype_Boolean;
+
+                        description "Event trap switch";
+
+                    }
+
+                    leaf Log {
+
+                        type base:Basetype_Boolean;
+
+                        description "Event log switch";
+
+                    }
+
+                    container Broadcast {
+
+                        description "Broadcast storm constrain information of an interface";
+
+                        leaf Upper {
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..max";
+
+                            }
+
+                            description "Broadcast upper threshold value";
+
+                        }
+
+                        leaf Lower {
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..max";
+
+                            }
+
+                            description "Broadcast lower threshold value";
+
+                        }
+
+                        leaf Unit {
+
+                            type enumeration {
+
+                                enum 1;
+
+                                enum 2;
+
+                                enum 3;
+
+                            }
+
+                            description "Broadcast threshold unit:1(pps),2(ratio),3(kbps)";
+
+                        }
+
+                    }
+
+                    container Multicast {
+
+                        description "Multicast storm constrain information of an interface";
+
+                        leaf Upper {
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..max";
+
+                            }
+
+                            description "Multicast upper threshold value";
+
+                        }
+
+                        leaf Lower {
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..max";
+
+                            }
+
+                            description "Multicast lower threshold value";
+
+                        }
+
+                        leaf Unit {
+
+                            type enumeration {
+
+                                enum 1;
+
+                                enum 2;
+
+                                enum 3;
+
+                            }
+
+                            description "Multicast threshold unit:1(pps),2(ratio),3(kbps)";
+
+                        }
+
+                    }
+
+                    container UnknownUnitcast {
+
+                        description "Unknown-unitcast storm constrain information of an interface";
+
+                        leaf Upper {
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..max";
+
+                            }
+
+                            description "Unknown-unitcast upper threshold value";
+
+                        }
+
+                        leaf Lower {
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..max";
+
+                            }
+
+                            description "Unknown-unitcast lower threshold value";
+
+                        }
+
+                        leaf Unit {
+
+                            type enumeration {
+
+                                enum 1;
+
+                                enum 2;
+
+                                enum 3;
+
+                            }
+
+                            description "Unknown-unitcast threshold unit:1(pps),2(ratio),3(kbps)";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            container Interval {
+
+                description "Interval Table";
+
+                leaf Interval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..300";
+
+                    }
+
+                    description "Traffic statistics collection interval for storm constrain, in seconds.";
+
+                }
+
+            }
+
+        }
+
+        container PortIsolation {
+
+            description "Port isolate sub module";
+
+            container Groups {
+
+                description "Port isolate groups table
+
+                    This table supports creating rows.";
+
+                list Group {
+
+                    description "The name of Row";
+
+                    key "IsolatedGroupID";
+
+                    leaf IsolatedGroupID {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Isolation group ID";
+
+                    }
+
+                }
+
+            }
+
+            container Interfaces {
+
+                description "Interfaces table";
+
+                list Interface {
+
+                    description "The name of Row";
+
+                    key "IfIndex";
+
+                    leaf IfIndex {
+
+                        type base:Basetype_NameAndIndexUnion;
+
+                        description "Interface index.";
+
+                    }
+
+                    leaf IsolatedGroupID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..max";
+
+                        }
+
+                        description "Port isolation group ID of an interface.";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Interfaces {
+
+            description "This table contains basic interface information.";
+
+            list Interface {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index as table index.";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "0..255";
+
+                    }
+
+                    description "Interface description.String length constraints must be in range(0..255).";
+
+                }
+
+                leaf AdminStatus {
+
+                    type base:Basetype_Integer32 {
+
+                        range "1..2";
+
+                    }
+
+                    description "Interface administration status,as follows:
+
+                          1 Admin Up
+
+                          2 Admin Down";
+
+                }
+
+                leaf ConfigSpeed {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65536";
+
+                    }
+
+                    description "Configured speed of an interface.Each bit represents a speed as follows:
+
+                            1:Auto
+
+                            2:10Mbps
+
+                            4:100Mbps
+
+                            8:155Mbps
+
+                            16:622Mbps
+
+                            32:1Gbps
+
+                            64:2Gbps
+
+                            128:2.5Gbps
+
+                            256:4Gbps
+
+                            512:8Gbps
+
+                            1024:10Gbps
+
+                            2048:16Gbps
+
+                            4096:20Gbps
+
+                            8192:40Gbps
+
+                            16384:100Gbps
+
+                            32768:5Gbps
+
+                            65536:25Gbps";
+
+                }
+
+                leaf ConfigDuplex {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "This table contains storm constrain traffic collection interval information..";
+
+                }
+
+                leaf PortLayer {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Port layer of an interface as follows:
+
+                          1 Layer 2
+
+                          2 Layer 3";
+
+                }
+
+                leaf LinkType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "VLAN type of an interface as follows:
+
+                            1 ACCESS
+
+                            2 TRUNK
+
+                            3 HYBRID";
+
+                }
+
+                leaf PVID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "Port VLAN identification (PVID) of an interface.";
+
+                }
+
+                leaf MAC {
+
+                    type base:Basetype_MacAddress;
+
+                }
+
+                leaf Loopback {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Loopback test as follows:
+
+                          0 No loopback
+
+                          1 Internal
+
+                          2 External";
+
+                }
+
+                leaf MDI {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "MDI mode of an interface as follows:
+
+                          1 MDI-II (straight-through cable)
+
+                          2 MDI-X (crossover cable)
+
+                          3 MDI-AUTO (auto-sensing)";
+
+                }
+
+                leaf ConfigMTU {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Configured MTU of an interface.";
+
+                }
+
+                leaf ConfigBandwidth {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..400000000";
+
+                    }
+
+                    description "Configured bandwidth of an interface(units: kbit/s).";
+
+                }
+
+                leaf Interval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "5..300";
+
+                    }
+
+                    description "Sampling interval of an interface";
+
+                }
+
+                leaf ForceUP {
+
+                    type base:Basetype_Boolean;
+
+                    description "Forcibly bring up an interface.";
+
+                }
+
+                leaf KeepAlive {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..32767";
+
+                    }
+
+                    description "Set the hold timer of an interface";
+
+                }
+
+                leaf KeepAliveRetry {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..255";
+
+                    }
+
+                    description "Configured number of attempts for transmitting a keepalive message";
+
+                }
+
+                leaf TrafficStatisticsEnable {
+
+                    type base:Basetype_EnableState;
+
+                    description "Enable interface statistics collection:
+
+                          enable
+
+                          disable";
+
+                }
+
+                leaf SubIfRateStatisticsEnable {
+
+                    type base:Basetype_EnableState;
+
+                    description "Enable rate statistics collection for the subinterfaces of an Ethernet interface.
+
+                          enable
+
+                          disable";
+
+                }
+
+            }
+
+        }
+
+        container EthInterfaces {
+
+            description "EthInterfaces Table";
+
+            list Interface {
+
+                description "The name of Row";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Combo {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Combo mode of an interface(1(fiber mode); 2(copper mode))";
+
+                }
+
+                leaf FlowControl {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Flow control information of an interface
+
+                          1(Enable flow control)
+
+                          2(Disable)
+
+                          3(Only enable flow control packet receiving)";
+
+                }
+
+                leaf AutoPowerDown {
+
+                    type base:Basetype_Boolean;
+
+                    description "Port auto power down";
+
+                }
+
+                leaf Jumboframe {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Jumbo frame information of an interface";
+
+                }
+
+                container BroadcastSuppression {
+
+                    description "Broadcast suppression information of an interface";
+
+                    leaf ConfigValue {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Configured broadcast suppression value of an interface
+
+                                Value range:
+
+                                ratio: 0 to 100
+
+                                pps: 0 to 1.4881 × the maximum interface rate.
+
+                                kbps: 0 to the maximum interface rate";
+
+                    }
+
+                    leaf Unit {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "Broadcast suppression unit:1(ratio),2(pps),3(kbps)";
+
+                    }
+
+                }
+
+                container MulticastSuppression {
+
+                    description "Multicast suppression information of an interface";
+
+                    leaf ConfigValue {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Configured multicast suppression value of an interface
+
+                                Value range:
+
+                                ratio: 0 to 100
+
+                                pps: 0 to 1.4881 × the maximum interface rate.
+
+                                kbps: 0 to the maximum interface rate";
+
+                    }
+
+                    leaf Unit {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "Multicast suppression unit:1(ratio),2(pps),3(kbps)";
+
+                    }
+
+                }
+
+                container UnknownUnicastSuppression {
+
+                    description "UnknownUnicast suppression information of an interface";
+
+                    leaf ConfigValue {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Config unknownUnicast suppression value of an interface
+
+                                Value range:
+
+                                ratio: 0 to 100
+
+                                pps: 0 to 1.4881 × the maximum interface rate.
+
+                                kbps: 0 to the maximum interface rate";
+
+                    }
+
+                    leaf Unit {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "UnknownUnicast suppression unit:1(ratio),2(pps),3(kbps)";
+
+                    }
+
+                }
+
+                leaf BPDUDrop {
+
+                    type base:Basetype_Boolean;
+
+                    description "Whether any type of IEEE BPDUs is drop on the port.";
+
+                }
+
+                leaf EEE {
+
+                    type base:Basetype_Boolean;
+
+                    description "Whether energy efficient ethernet is enable on the port.";
+
+                }
+
+                leaf ConnectMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Port connection mode of an interface.
+
+                          Enumeration:
+
+                          1(Normal connection mode)
+
+                          2(Extend connection mode)";
+
+                }
+
+            }
+
+        }
+
+        container CellularChannel {
+
+            list Interface {
+
+                key "IfIndex CreateMode ChannelNum";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf CreateMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf ChannelNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

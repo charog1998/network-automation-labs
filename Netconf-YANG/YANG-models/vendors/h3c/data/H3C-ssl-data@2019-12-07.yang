@@ -1,0 +1,455 @@
+module H3C-ssl-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "ssl-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ssl data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container SSL {
+
+        config false;
+
+        container ClientPolicies {
+
+            description "Get SSL client policies
+
+                This table supports creating rows.";
+
+            list Policy {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "The name of the SSL client policy, 1 to 31 characters, case insensitive";
+
+                }
+
+                leaf SSLVersion {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The protocol version of ssl client
+
+                          Enumeration:
+
+                          1-TSL 1.0
+
+                          2-SSL 3.0
+
+                          3-TSL 1.1
+
+                          4-TSL 1.2";
+
+                }
+
+                leaf PKIDomain {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Specify a PKI domain for the SSL client policy, 1 to 31 characters, case insensitive";
+
+                }
+
+                container PerferCipherList {
+
+                    description "Perferential cipher list, data structure, members include: PerferCipherItem";
+
+                    leaf-list CipherItem {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The cipher suite number for SSL client, the cipher suite number is defined by SSLCapabilities table";
+
+                    }
+
+                }
+
+                leaf ServerVerify {
+
+                    type base:Basetype_Boolean;
+
+                    description "If verify SSL server
+
+                          Boolean:
+
+                          true-Verify SSL serve
+
+                          false-Don't verify SSL server
+
+                          Default value is true";
+
+                }
+
+            }
+
+        }
+
+        container ServerPolicies {
+
+            description "Get SSL server policies
+
+                This table supports creating rows.";
+
+            list Policy {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "The name of the SSL server policy, 1 to 31 characters, case insensitive";
+
+                }
+
+                leaf SessionCacheSize {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The maximum number of cached session, unsigned integer, 100 to 20480, default value is 500";
+
+                }
+
+                leaf SessionTimeout {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The session timeout value,unsigned integer, 0 to 86400, default value is 3600";
+
+                }
+
+                leaf PKIDomain {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Specify a PKI domain for the SSL server policy, 1 to 31 characters, case insensitive";
+
+                }
+
+                container CipherSuiteList {
+
+                    description "The list of cipher suite, data structure, members include: CipherSuiteItem";
+
+                    leaf-list CipherItem {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The cipher suite number for SSL server, the cipher suite number is defined by SSLCapabilities table";
+
+                    }
+
+                }
+
+                leaf ClientVerify {
+
+                    type base:Basetype_Boolean;
+
+                    description "If verify SSL client
+
+                          Boolean:
+
+                          true-Verify SSL client
+
+                          false-Don’t verify SSL client
+
+                          Default value is false";
+
+                }
+
+                leaf ClientVerifyMode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Authenticate client mode
+
+                          Enumeration:
+
+                          0-Don't verify SSL client
+
+                          1-Verify SSL client
+
+                          2-Verify SSL client is optional";
+
+                }
+
+                container SSLVersionControl {
+
+                    leaf SSL3Enabled {
+
+                        type base:Basetype_Boolean;
+
+                        description "Enable SSL3.0
+
+                                  Boolean:
+
+                                  true-Enable(default)
+
+                                  false-Disable";
+
+                    }
+
+                    leaf TLS1Dot0Enabled {
+
+                        type base:Basetype_Boolean;
+
+                        description "Enable TLS1.0
+
+                                  Boolean:
+
+                                  true-Enable(default)
+
+                                  false-Disable";
+
+                    }
+
+                    leaf TLS1Dot1Enabled {
+
+                        type base:Basetype_Boolean;
+
+                        description "Enable TLS1.1
+
+                                  Boolean:
+
+                                  true-Enable(default)
+
+                                  false-Disable";
+
+                    }
+
+                    leaf TLS1Dot2Enabled {
+
+                        type base:Basetype_Boolean;
+
+                        description "Enable TLS1.2
+
+                                  Boolean:
+
+                                  true-Enable(default)
+
+                                  false-Disable";
+
+                    }
+
+                    leaf GMTLS1Dot1Enabled {
+
+                        type base:Basetype_Boolean;
+
+                        description "Enable GMTLS1.1
+
+                                    Boolean:
+
+                                    true-Enable
+
+                                    false-Disable(default)";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container SSLCapabilities {
+
+            description "Displays all the algorithm capabilities that the SSL module support";
+
+            list SSLCapability {
+
+                description "Row name";
+
+                key "ID";
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..max";
+
+                    }
+
+                    description "SSL supports algorithm ID,unsigned integer";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String;
+
+                    description "SSL supports algorithm name";
+
+                }
+
+                leaf Strength {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The strength of the algorithm, unsigned integer";
+
+                }
+
+                leaf IsDefaultCipherSuite {
+
+                    type base:Basetype_Boolean;
+
+                    description "If the algorithm is default cipher suite
+
+                         Boolean:
+
+                         true-The algorithm is the default
+
+                         false-The algorithm isn’t the default";
+
+                }
+
+            }
+
+        }
+
+        container SSLGlobalConfig {
+
+            description "Operate SSL global config";
+
+            leaf SSL3Enabled {
+
+                type base:Basetype_Boolean;
+
+                description "Enable SSL3.0
+
+                    Boolean:
+
+                    true-Enable
+
+                    false-Disable";
+
+            }
+
+            leaf RenegotiationEnabled {
+
+                type base:Basetype_Boolean;
+
+                description "Enable renegotiation
+
+                    Boolean:
+
+                    true-Enable
+
+                    false-Disable";
+
+            }
+
+            leaf TLS1Dot0Enabled {
+
+                type base:Basetype_Boolean;
+
+                description "Enable TLS1.0
+
+                    Boolean:
+
+                    true-Enable(default)
+
+                    false-Disable";
+
+            }
+
+            leaf TLS1Dot1Enabled {
+
+                type base:Basetype_Boolean;
+
+                description "Enable TLS1.1
+
+                    Boolean:
+
+                    true-Enable(default)
+
+                    false-Disable";
+
+            }
+
+            leaf TLS1Dot2Enabled {
+
+                type base:Basetype_Boolean;
+
+                description "Enable TLS1.2
+
+                    Boolean:
+
+                    true-Enable(default)
+
+                    false-Disable";
+
+            }
+
+            leaf GMTLS1Dot1Enabled {
+
+                type base:Basetype_Boolean;
+
+                description "Enable GMTLS1.1
+
+                        Boolean:
+
+                        true-Enable
+
+                        false-Disable(default)";
+
+            }
+
+        }
+
+    }
+
+}

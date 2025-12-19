@@ -1,0 +1,47 @@
+module H3C-lpdt-event {
+
+    namespace "http://www.h3c.com/netconf/event:1.0/lpdt:1.0";
+
+    prefix "lpdt-event";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for lpdt event.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    notification IfLoopbackedEvent {
+
+        container IfLoopbacked {
+
+        }
+
+    }
+
+    notification IfVlanLoopbackedEvent {
+
+        container IfVlanLoopbacked {
+
+        }
+
+    }
+
+}

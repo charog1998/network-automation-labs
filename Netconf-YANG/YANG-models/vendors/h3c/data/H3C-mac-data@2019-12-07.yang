@@ -1,0 +1,325 @@
+module H3C-mac-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "mac-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for mac data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container MAC {
+
+        config false;
+
+        container MacUnicastTable {
+
+            list Unicast {
+
+                key "VLANID MacAddress";
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                }
+
+                leaf MacAddress {
+
+                    type base:Basetype_MacAddress;
+
+                }
+
+                leaf PortIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf NickName {
+
+                    type base:Basetype_String {
+
+                        length "1..253";
+
+                    }
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                        enum 10;
+
+                        enum 11;
+
+                        enum 12;
+
+                        enum 13;
+
+                        enum 14;
+
+                        enum 15;
+
+                        enum 16;
+
+                        enum 17;
+
+                    }
+
+                }
+
+                leaf Aging {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container MacGroupTable {
+
+            list Group {
+
+                key "VLANID MacAddress";
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                }
+
+                leaf MacAddress {
+
+                    type base:Basetype_MacAddress;
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 5;
+
+                        enum 6;
+
+                    }
+
+                }
+
+                leaf PortList {
+
+                    type base:Basetype_PortList;
+
+                }
+
+            }
+
+        }
+
+        container MacAging {
+
+            leaf AgingTimeMin {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf AgingTimeMax {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf AgingTime {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+        }
+
+        container MacPort {
+
+            list PortLearn {
+
+                key "PortIndex";
+
+                leaf PortIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf LearnEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf LearnMaxNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                }
+
+                leaf PortForwardingEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container MacVLAN {
+
+            list VLANLearn {
+
+                key "VLANID";
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                }
+
+                leaf LearnEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf LearnMaxNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                }
+
+                leaf VLANForwardingEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container MacSpecification {
+
+            leaf SupportMacGroup {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf SupportMacVLANLearnLimit {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf PortLearnMaxNumLimit {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf VLANLearnMaxNumLimit {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+        }
+
+        container MacFwdSrcCheck {
+
+            list FwdSrcCheck {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf FwdSrcCheckEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

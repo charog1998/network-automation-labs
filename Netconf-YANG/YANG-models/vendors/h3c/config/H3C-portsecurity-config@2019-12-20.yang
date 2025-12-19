@@ -1,0 +1,345 @@
+module H3C-portsecurity-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "portsecurity-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for portsecurity config.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container PortSecurity {
+
+        container Common {
+
+            description "PortSec common related paramenters";
+
+            leaf Enable {
+
+                type base:Basetype_Boolean;
+
+                description "Global PortSec feature.";
+
+            }
+
+            leaf MACMove {
+
+                type base:Basetype_Boolean;
+
+                description "Allows 802.1X or MAC authenticated users to move between ports on a device.";
+
+            }
+
+            leaf AuthorStrict {
+
+                type base:Basetype_Boolean;
+
+                description "Allows 802.1X or MAC authenticated users to be online or not while authorizing failed.";
+
+            }
+
+            leaf SecMACAgingInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..129600";
+
+                }
+
+                description "Period of secure MAC address aging timer.";
+
+            }
+
+            leaf IntrusionShutdownInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "20..300";
+
+                }
+
+                description "Period value of Intrusion Protection’s port shutdown timer.";
+
+            }
+
+        }
+
+        container OUIList {
+
+            description "PortSec OUIList feature table
+
+                This table supports creating rows.";
+
+            list OUIMAC {
+
+                key "Index";
+
+                leaf Index {
+
+                    type base:Basetype_IfIndex {
+
+                        range "1..16";
+
+                    }
+
+                    description "The index of a Interface";
+
+                }
+
+                leaf Address {
+
+                    type base:Basetype_MacAddress;
+
+                    description "An OUI string of a 48-bit MAC address in the H-H-H format. The system uses only the 24 high-order bits as the OUI value.";
+
+                }
+
+            }
+
+        }
+
+        container Interfaces {
+
+            description "PortSec interface's information";
+
+            list Interface {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "The index of a Interface";
+
+                }
+
+                leaf AuthenMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                        enum 10;
+
+                        enum 11;
+
+                        enum 12;
+
+                    }
+
+                    description "Authentication Mode:
+
+                          1—noRestrictions
+
+                          2—autolearn
+
+                          3—mac-authentication
+
+                          4—mac-else-userlogin-secure
+
+                          5—mac-else-userlogin-secure-ext
+
+                          6—secure
+
+                          7—userlogin
+
+                          8—userlogin-secure
+
+                          9—userlogin-secure-ext
+
+                          10—userlogin-secure-or-mac
+
+                          11—userlogin-secure-or-mac-ext
+
+                          12—userlogin-withoui";
+
+                }
+
+                leaf AuthorIgnore {
+
+                    type base:Basetype_Boolean;
+
+                    description "Ignore server’s authorization information or not to users logging on from the interface.";
+
+                }
+
+                leaf ProtectionMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "Protection action while intrusion detected.
+
+                          1—noaction
+
+                          2—blockusermac
+
+                          3—shutdownport
+
+                          4—shutdownportforatime";
+
+                }
+
+                leaf SecMACAgeMode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Secure MAC aging mode.
+
+                            0—Timeout 
+
+                            1—Inactivity";
+
+                }
+
+                leaf SecMACSticky {
+
+                    type base:Basetype_Boolean;
+
+                    description "Save secure MAC on the interface or not.";
+
+                }
+
+                leaf SecMACMaxCnt {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Max count of secure MAC address on the interface.";
+
+                }
+
+                leaf NTKMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "Need to Know mode.
+
+                          1—Noaction
+
+                          2—ntk-withbroadcasts
+
+                          3—ntk-withmulticasts
+
+                          4—ntkonly";
+
+                }
+
+            }
+
+        }
+
+        container InterfaceSecMAC {
+
+            description "PortSec InterfaceSecMAC information
+
+                This table supports creating rows.";
+
+            list SecureMAC {
+
+                key "IfIndex VLANID MAC";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "The index of a Interface";
+
+                }
+
+                leaf VLANID {
+
+                    type base:Basetype_IfIndex {
+
+                        range "1..4094";
+
+                    }
+
+                    description "VLAN ID for this secure MAC address.";
+
+                }
+
+                leaf MAC {
+
+                    type base:Basetype_MacAddress;
+
+                    description "Secure MAC address added.";
+
+                }
+
+                leaf Sticky {
+
+                    type base:Basetype_Boolean;
+
+                    description "The configured MAC ages or not.";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

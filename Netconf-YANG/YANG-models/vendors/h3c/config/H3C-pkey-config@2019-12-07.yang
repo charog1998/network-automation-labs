@@ -1,0 +1,75 @@
+module H3C-pkey-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "pkey-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for pkey config.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container PKEY {
+
+        container PeerKeys {
+
+            description "Configure peer public keys
+
+                This table supports creating rows.";
+
+            list Key {
+
+                description "Row name";
+
+                key "PeerKeyName";
+
+                leaf PeerKeyName {
+
+                    type base:Basetype_String {
+
+                        length "1..64";
+
+                    }
+
+                    description "Name of peer pubilc key, 1 to 31 characters";
+
+                }
+
+                leaf Value {
+
+                    type base:Basetype_OctectString {
+
+                        length "1..2047";
+
+                    }
+
+                    description "The data of Key";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

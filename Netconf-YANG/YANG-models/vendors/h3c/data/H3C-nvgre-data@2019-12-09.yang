@@ -1,0 +1,223 @@
+module H3C-nvgre-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "nvgre-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for nvgre data.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container NVGRE {
+
+        config false;
+
+        container Base {
+
+            description "NVGRE base table";
+
+            leaf NextNvgreID {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "4096..16777214";
+
+                }
+
+                description "Next useful NVGRE ID";
+
+            }
+
+            leaf TotalNvgreNum {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Total number of existing NVGREs";
+
+            }
+
+        }
+
+        container NVGREs {
+
+            description "NVGRE configurations table
+
+                This table supports creating rows.";
+
+            list Nvgre {
+
+                description "Row name of NVGREs table.";
+
+                key "NvgreID";
+
+                leaf NvgreID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "4096..16777214";
+
+                    }
+
+                    description "Index, NVGRE ID, value range: 4096-16777214";
+
+                }
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "VSI name";
+
+                }
+
+                leaf RmtMacCnt {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The count of remote MAC addresses";
+
+                }
+
+            }
+
+        }
+
+        container Tunnels {
+
+            description "Information about Tunnels associated with NVGREs.
+
+                This table supports creating rows.";
+
+            list Tunnel {
+
+                description "Row name of Tunnels table.";
+
+                key "NvgreID TunnelID";
+
+                leaf NvgreID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "4096..16777214";
+
+                    }
+
+                    description "Index, NVGRE ID.";
+
+                }
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Index, Tunnel ID.";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Tunnel type(0:auto Tunnel; 1:manual Tunnel)";
+
+                }
+
+            }
+
+        }
+
+        container RmtMACs {
+
+            description "Information about Remote MAC addresses of each NVGRE.
+
+                This table supports creating rows.";
+
+            list MAC {
+
+                description "Row name of RmtMACs table.";
+
+                key "VsiName MacAddr";
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Index, VSI name";
+
+                }
+
+                leaf MacAddr {
+
+                    type base:Basetype_MacAddress;
+
+                    description "Index, Remote MAC address";
+
+                }
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Tunnel ID, represents the out interface of this MAC address";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Type of remote MAC address(0:other 1：static 2：selfLearned 3:protocolLearned)";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

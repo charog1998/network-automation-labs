@@ -1,0 +1,241 @@
+module H3C-l2tpv2-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "l2tpv2-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for l2tpv2 config.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container L2TPV2 {
+
+        container L2tpGlobal {
+
+            leaf L2tpEnable {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+        container L2tpVaPool {
+
+            list VaPool {
+
+                key "L2tpVTNum";
+
+                leaf L2tpVTNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..2047";
+
+                    }
+
+                }
+
+                leaf L2tpVANum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65534";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container L2tpAutoClient {
+
+            list AutoClient {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf GroupID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container L2tpv2Group {
+
+            list Group {
+
+                key "GroupNum";
+
+                leaf GroupNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf AllowVTNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf AllowRtmName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf LnsIP {
+
+                    type base:Basetype_String {
+
+                        length "1..79";
+
+                    }
+
+                }
+
+                leaf UserType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+                leaf TunnelName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf Password {
+
+                    type base:Basetype_String {
+
+                        length "1..16";
+
+                    }
+
+                }
+
+                leaf AuthEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf MChapEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf MLcpEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf AvpHiddenEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf FlowControlEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf HelloTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "60..1000";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

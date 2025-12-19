@@ -1,0 +1,551 @@
+module H3C-dhcp-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "dhcp-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for dhcp config.";
+
+    revision 2020-04-10 {
+
+        description "Synchronize the modification of the schema file to the YANG file.";
+
+    }
+
+    revision 2019-12-17 {
+
+        description "Initial revision.";
+
+    }
+
+    container DHCP {
+
+        container DHCPServerIpPool {
+
+            list IpPool {
+
+                key "PoolIndex";
+
+                leaf PoolIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4096";
+
+                    }
+
+                }
+
+                leaf PoolName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+                leaf VRF {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf NetworkIpv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf NetworkIpv4Mask {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf StartIpv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf EndIpv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf LeaseDay {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..365";
+
+                    }
+
+                }
+
+                leaf LeaseHour {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..23";
+
+                    }
+
+                }
+
+                leaf LeaseMinute {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..59";
+
+                    }
+
+                }
+
+                leaf LeaseSecond {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..59";
+
+                    }
+
+                }
+
+                leaf LeaseUnlimit {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        length "1..50";
+
+                    }
+
+                }
+
+                leaf GatewayIpv4Address {
+
+                    type base:Basetype_String {
+
+                        length "1..1024";
+
+                    }
+
+                }
+
+                leaf DNSIpv4Address {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                }
+
+                leaf NetbiosType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                }
+
+                leaf NbnsIpv4Address {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                }
+
+                list ForbiddenIp {
+
+                    key "StartForbiddenIpv4Address EndForbiddenIpv4Address";
+
+                    leaf StartForbiddenIpv4Address {
+
+                        type base:Basetype_Ipv4Address;
+
+                    }
+
+                    leaf EndForbiddenIpv4Address {
+
+                        type base:Basetype_Ipv4Address;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DHCPServerPoolStatic {
+
+            list IpPoolStatic {
+
+                key "PoolIndex Ipv4Address";
+
+                leaf PoolIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4096";
+
+                    }
+
+                }
+
+                leaf Ipv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf Ipv4Mask {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf CID {
+
+                    type base:Basetype_String {
+
+                        length "4..254";
+
+                    }
+
+                }
+
+                leaf HAddress {
+
+                    type base:Basetype_String {
+
+                        length "4..79";
+
+                    }
+
+                }
+
+                leaf HType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DHCPServerPoolOption {
+
+            list IpPoolOption {
+
+                key "PoolIndex OptionCode";
+
+                leaf PoolIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4096";
+
+                    }
+
+                }
+
+                leaf OptionCode {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2..254";
+
+                    }
+
+                }
+
+                leaf OptionValueHex {
+
+                    type base:Basetype_String {
+
+                        length "2..256";
+
+                    }
+
+                }
+
+                leaf OptionValueAscii {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+                leaf OptionValueIpAddresses {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DHCPConfig {
+
+            leaf DHCPEnable {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            container ServerConfig {
+
+                leaf AlwaysBroadcast {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf IgnoreBOOTP {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf BOOTPReplyRFC1048 {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf Opt82Enabled {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf PingNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..10";
+
+                    }
+
+                }
+
+                leaf PingTimeout {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..10000";
+
+                    }
+
+                }
+
+            }
+
+            container RelayConfig {
+
+                leaf UserInfoRecord {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf UserInfoRefresh {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf UserInfoFlushTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..120";
+
+                    }
+
+                }
+
+            }
+
+            leaf DHCPMiniEnable {
+
+                type base:Basetype_String {
+
+                    length "1..63";
+
+                }
+
+            }
+
+        }
+
+        container DHCPIfMode {
+
+            list IfMode {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf ApplyIpPool {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DHCPRelaySrvIPv4Address {
+
+            list RelaySrvIPv4 {
+
+                key "IfIndex Ipv4Address";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Ipv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+            }
+
+        }
+
+        container DHCPServerForbiddenIp {
+
+            list ForbiddenIp {
+
+                key "VRF StartIpv4Address EndIpv4Address";
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VRF;
+
+                    }
+
+                    description "The VRF name.";
+
+                }
+
+                leaf StartIpv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf EndIpv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

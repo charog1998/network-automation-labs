@@ -1,0 +1,2105 @@
+module H3C-ikev1-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "ikev1-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ikev1 data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container IKEv1 {
+
+        config false;
+
+        container GlobalConfiguration {
+
+            description "IKE global configuration information";
+
+            container DPD {
+
+                description "Dead Peer Detection(DPD) parameters, Data structure, Members include: Mode, Interval, Retry";
+
+                leaf Mode {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The mode of DPD
+
+						 Enumeration:
+
+                         1-On-demand
+
+                         2-Periodic";
+
+                }
+
+                leaf Interval {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Interval time of triggering DPD";
+
+                }
+
+                leaf Retry {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The DPD retry interval";
+
+                }
+
+            }
+
+            container Keepalive {
+
+                description "Global keepalive configuration, Data structure, Members include: Interval, Timeout";
+
+                leaf Interval {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Keepalive Interval. Unsigned integer: Value range: 20 to 28800, in seconds";
+
+                }
+
+                leaf Timeout {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Keepalive Timout. Unsigned integer: Value range:20 to 28800, in seconds";
+
+                }
+
+            }
+
+            leaf SignIDfromCert {
+
+                type base:Basetype_Boolean;
+
+                description "Digital signature authentication. If enable get the identity of the local end from the certificate
+
+				  Boolean:
+
+                  true-Enable 
+
+                  false-Disable
+
+                  Default value is false";
+
+            }
+
+            leaf InvalidSPIRecovery {
+
+                type base:Basetype_Boolean;
+
+                description "If enable Re-stablish an IKE SA upon an invalid-SPI event
+
+				  Boolean:
+
+                  true-Enable
+
+				  false-Disable
+
+                  Default value is false";
+
+            }
+
+            leaf NatKeepaliveInterval {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "NAT keepalive Interval";
+
+            }
+
+            container IKESACountLimit {
+
+                description "IKE SA Count Limit, Data structure, Members include: EstablishLimit, NegotiateLimit";
+
+                leaf EstablishLimit {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Limit the maximum number of established SAs";
+
+                }
+
+                leaf NegotiateLimit {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Limit the maximum number of negotiation SAs";
+
+                }
+
+            }
+
+            container LocalID {
+
+                description "Local ID, Data structure, Members include: Type, IpAddress, Value";
+
+                leaf Type {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The type of the identity
+
+								Enumeration:
+
+								1-Ipv4Address
+
+								2-Ipv6Address
+
+								3-FQDN
+
+								4-User-FQDN
+
+								5-DN";
+
+                }
+
+                leaf IpAddress {
+
+                    type base:Basetype_IpAddress;
+
+                    description "Ipv4 Address or Ipv6 Address, The value is whether IPv4 address or IPv6 address lies on the type of the identity";
+
+                }
+
+                leaf Value {
+
+                    type base:Basetype_String;
+
+                    description "Local indentity value";
+
+                }
+
+            }
+
+            leaf LoggingNegotiation {
+
+                type base:Basetype_Boolean;
+
+                description "If enable Logging of IKE event negottiation
+
+                    Boolean:
+
+                    true-Enable
+
+                    false-Disable";
+
+            }
+
+            leaf CompatibleSm4 {
+
+                type base:Basetype_Boolean;
+
+                description "If enable Backward compatibility of the sm4-cbc algorithm
+
+                       Boolean:
+
+                       true-Enable
+
+                       false-Disable";
+
+            }
+
+        }
+
+        container Keychains {
+
+            description "IKE Keychains information
+
+                This table supports creating rows.";
+
+            list Keychain {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of IKE keychain
+
+                          String, Length: 1 to 63 characters, case insensitive";
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The priority of IKE keychain, unsigned integer, value range: 1 to 65535
+
+						  Default value is 100";
+
+                }
+
+                leaf KeychainVRF {
+
+                    type base:Basetype_String;
+
+                    description "The VPN instance of keychain belongs to
+
+                          String, Length: 1 to 31 characters, case sensitive";
+
+                }
+
+                container MatchLocalAddr {
+
+                    description "Match the local address
+
+						  Members include: AddressType, IpAddress, VRF, Interface";
+
+                    leaf AddressType {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The type of IP address
+
+							  Enumeration:
+
+                              1-Ipv4Address
+
+                              2-Ipv6Address
+
+			                  3-Interface";
+
+                    }
+
+                    leaf IpAddress {
+
+                        type base:Basetype_String;
+
+                        description "The value of address, Ipv4Address or Ipv6 Address 
+
+							  The value is whether IPv4 address or IPv6 address lies on the AddressType";
+
+                    }
+
+                    leaf VRF {
+
+                        type base:Basetype_String;
+
+                        description "The VPN instance, String, Length: 1 to 31 characters, case sensitive";
+
+                    }
+
+                    leaf Interface {
+
+                        type base:Basetype_String;
+
+                        description "The name of interface";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Profiles {
+
+            description "Name of IKE profile
+
+                This table supports creating rows.";
+
+            list Profile {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of IKE profile, String, Length: 1 to 63 characters Case insensitive";
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The priority of IKE profile, Unsigned integer, Value range: 1 to 65535, The more small value the more high priority";
+
+                }
+
+                leaf Mode {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The phase 1 negotiation mode
+
+                          Enumeration:
+
+                          1-Main
+
+                          2-Aggressive
+
+                          3-gm-main
+
+                          Default value is 1";
+
+                }
+
+                container ProposalList {
+
+                    description "Reference an IKE proposal for the IKE profile, Members include: ProposalItem";
+
+                    leaf-list ProposalItem {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "IKE proposal number, Unsigned integer, Value range: 1 to 65535";
+
+                    }
+
+                }
+
+                container KeychainList {
+
+                    description "Reference an IKE keychain for the IKE profile, Members include: KeychainItem";
+
+                    leaf-list KeychainItem {
+
+                        type base:Basetype_NameString;
+
+                        description "IKE keychain name, String, Length: 1 to 63 characters Case insensitive";
+
+                    }
+
+                }
+
+                container CertificateDomainList {
+
+                    description "Reference a PKI  domain for the IKE profile, Members include: DomainItem";
+
+                    leaf-list DomainItem {
+
+                        type base:Basetype_NameString;
+
+                        description "PKI domain name, String, Length: 1 to 31 characters Case insensitive. Contains up to 6 KeychainItem in KeychainList";
+
+                    }
+
+                }
+
+                container CertACPList {
+
+                    description "Reference a PKI  certificate access control policy for the IKE profile, Members include: CertACPItem";
+
+                    leaf-list CertACPItem {
+
+                        type base:Basetype_NameString;
+
+                        description "The Name of PKI certificate access control policy, String, Length: 1 to 31 characters Case insensitive";
+
+                    }
+
+                }
+
+                container MatchRemoteFQDNList {
+
+                    description "Configure a rule of match the peer FQDN information for the IKE profile";
+
+                    leaf-list FQDNItem {
+
+                        type base:Basetype_NameString;
+
+                        description "The peer FQDN name, String, Length: 1 to 255 characters Case sensitive";
+
+                    }
+
+                }
+
+                container MatchRemoteUserFQDNList {
+
+                    description "Configure a rule of match the peer User FQDN information for the IKE profile, Members include: UserFQDNItem";
+
+                    leaf-list UserFQDNItem {
+
+                        type base:Basetype_NameString;
+
+                        description "The peer user FQDN name, String, Length: 1 to 255 characters Case sensitive";
+
+                    }
+
+                }
+
+                container LocalID {
+
+                    description "The identity of the local end, Members include: Type, IPAddress, Value";
+
+                    leaf Type {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The type of the identity
+
+							  Enumeration:
+
+							  1-Ipv4Address,
+
+							  2-Ipv6Address
+
+							  3-FQDN
+
+							  4-User-FQDN
+
+							  5-DN";
+
+                    }
+
+                    leaf IpAddress {
+
+                        type base:Basetype_IpAddress;
+
+                        description "The value of address when the identity is IP address";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_OctectString255;
+
+                        description "The value when the identity isn’t IP address, String, Length: 0 to 255 characters Case sensitive";
+
+                    }
+
+                }
+
+                container MatchLocalAddr {
+
+                    description "Match the local address, Members include: AddressType, IPAddress, VRF, Interface";
+
+                    leaf AddressType {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The type of IP address
+
+							  Enumeration:
+
+							  1-Ipv4Address
+
+							  2-Ipv6Address
+
+							  3-Interface";
+
+                    }
+
+                    leaf IpAddress {
+
+                        type base:Basetype_IpAddress;
+
+                        description "IPv4 address or IPv6 address lies on the AddressType";
+
+                    }
+
+                    leaf VRF {
+
+                        type base:Basetype_String;
+
+                        description "The VPN instance, String, Length: 1 to 31 characters Case sensitive";
+
+                    }
+
+                    leaf Interface {
+
+                        type base:Basetype_InterfaceName;
+
+                        description "The name of interface, String, Case insensitive";
+
+                    }
+
+                }
+
+                container DPD {
+
+                    description "Dead Peer Detection(DPD) parameters, Data structureMembers include: Mode, Interval, Retry";
+
+                    leaf Mode {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The mode of DPD
+
+							  Enumeration:
+
+							  1-On-demand
+
+							  2-Periodic";
+
+                    }
+
+                    leaf Interval {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Interval time of triggering DPD, Unsigned integer, Value range: 1 to 300, in seconds";
+
+                    }
+
+                    leaf Retry {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The DPD retry interval, Unsigned integer, Value range:1 to 60, in seconds. Default value is 5";
+
+                    }
+
+                }
+
+                leaf InsideVRF {
+
+                    type base:Basetype_String;
+
+                    description "The inside VPN instance, String, Length:1 to 31 characters, Case sensitive";
+
+                }
+
+                leaf ClientXauth {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                container AAAAuthorization {
+
+                    leaf Domain {
+
+                        type base:Basetype_NameString {
+
+                            length "1..255";
+
+                        }
+
+                    }
+
+                    leaf UserName {
+
+                        type base:Basetype_NameString {
+
+                            length "1..55";
+
+                        }
+
+                    }
+
+                }
+
+                leaf SASoftDuration {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "IKEv1 SA life time, Unsigned integer, Value range: 10 to 36000, in seconds.";
+
+                }
+
+                container ClientXauthUser {
+
+                    leaf User {
+
+                        type base:Basetype_NameString {
+
+                            length "1..55";
+
+                        }
+
+                    }
+
+                    leaf PasswordType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The type of password
+
+                          Enumeration:
+
+                          1-Simple
+
+                          2-Cipher";
+
+                    }
+
+                    leaf Password {
+
+                        type base:Basetype_EncryptString {
+
+                            length "1..117";
+
+                        }
+
+                        description "The value of password
+
+                         According to the type of decision in length. Plaintext key stringLength: 1 to 63 characters Or Ciphertext key stringLength: 1 to 110 characters";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Proposals {
+
+            description "IKE proposals information
+
+                This table supports creating rows.";
+
+            list Proposal {
+
+                description "Row name";
+
+                key "Priority";
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "Priority";
+
+                }
+
+                leaf AuthorityMethod {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "AuthorityMethod Enumeration:
+
+                          1-Pre-Shared-Key
+
+                          2-RSA-Signature
+
+                          3-DSA-Signature
+
+                          4-RSA-DE-digital envelope
+
+                          5-SM2-DE-digital envelope
+
+                          Default value is 1";
+
+                }
+
+                leaf AuthorityAlg {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Authentication algorithm ID";
+
+                }
+
+                leaf EncryptionAlg {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Encryption algorithm ID";
+
+                }
+
+                leaf DHID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Diffie-Hellman group ID";
+
+                }
+
+                leaf SADuration {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "IKEv1 SA life time, Unsigned integer, Value range: 60 to 604800, in seconds. Default value is 86400";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text;
+
+                    description "Description of proposal
+
+							 String, Length: 1 to 80 characters, Case sensitive";
+
+                }
+
+            }
+
+        }
+
+        container IKESAs {
+
+            description "IKE IKESAs information";
+
+            list IKESA {
+
+                description "Row name";
+
+                key "ConnectionID";
+
+                leaf ConnectionID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Connection ID of IKE SA, unsigned integer";
+
+                }
+
+                leaf OutsideVRF {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Outbound VRF
+
+                          String, length: 1 to 31 characters, case sensitive";
+
+                }
+
+                leaf InsideVRF {
+
+                    type base:Basetype_String;
+
+                    description "Inbound VRF
+
+                          String, length: 1 to 31 characters, case sensitive";
+
+                }
+
+                leaf Profile {
+
+                    type base:Basetype_String;
+
+                    description "Name of IKE profile
+
+                        String, length: 1 to 63 characters, case insensitive";
+
+                }
+
+                leaf Initiator {
+
+                    type base:Basetype_Boolean;
+
+                    description "If local gateway is the initiator
+
+                         Boolean:
+
+						 true: initiator
+
+					     false: response";
+
+                }
+
+                container LocalID {
+
+                    description "The identity of the local end
+
+                          Members include: Type, Value";
+
+                    leaf Type {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The type of the local identity
+
+                            Enumeration:
+
+                            1-Ipv4Address
+
+                            2-Ipv6Address
+
+                            3-FQDN
+
+                            4-User-FQDN
+
+                            5-DN";
+
+                    }
+
+                    leaf IpAddress {
+
+                        type base:Basetype_IpAddress;
+
+                        description "The value of address when the local identity is IP address. Ipv4Address or Ipv6 Address";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_String;
+
+                        description "The value when the local identity isn't IP address
+
+                            String, Length:0 to 255 characters, case sensitive";
+
+                    }
+
+                }
+
+                container RemoteID {
+
+                    description "The identity of the peer end
+
+                        Members include: Type, Value";
+
+                    leaf Type {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The type of the peer identity
+
+                              Enumeration:
+
+							  1-Ipv4Address
+
+							  2-Ipv6Address
+
+							  3-FQDN
+
+							  4-User-FQDN
+
+							  5-DN";
+
+                    }
+
+                    leaf IpAddress {
+
+                        type base:Basetype_IpAddress;
+
+                        description "The value of address when the peer identity is IP address, Ipv4Address or Ipv6 Address";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_String;
+
+                        description "The value when the peer identity isn't IP address
+
+                            String, Length: 0 to 255 characters, case sensitive";
+
+                    }
+
+                }
+
+                leaf RemoteIpAddress {
+
+                    type base:Basetype_String;
+
+                    description "IP address of peer gateway, Ipv4Address or Ipv6 Address";
+
+                }
+
+                leaf LocalIpAddress {
+
+                    type base:Basetype_String;
+
+                    description "IP address of local gateway, Ipv4Address or Ipv6 Address";
+
+                }
+
+                leaf AuthorityMethod {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Enumeration:
+
+                          1-pre-shared-key
+
+                          2-rsa-signature
+
+                          3-dsa-signature
+
+                          4-RSA-DE-digital envelope
+
+                          5-SM2-DE-digital envelope";
+
+                }
+
+                leaf AuthorityAlg {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Unsigned integer. Authentication algorithm ID";
+
+                }
+
+                leaf EncryptionAlg {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Unsigned integer. Encryption algorithm ID";
+
+                }
+
+                leaf DHID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Unsigned integer. Diffie-Hellman group ID";
+
+                }
+
+                leaf ExchangeMode {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Enumeration:
+
+                          1-Main
+
+                          2-Aggressive";
+
+                }
+
+                leaf IsNATTraversal {
+
+                    type base:Basetype_Boolean;
+
+                    description "Boolean:
+
+                          true: Need traversal
+
+                          false: non-essential";
+
+                }
+
+                leaf SADuration {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "IKE SA lifetime
+
+                       Unsigned integer,Value range: 60 to 604800, in seconds";
+
+                }
+
+                leaf RemainingSADuration {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Remaining IKE SA lifetime
+
+                        Unsigned integer, Value range: 60 to 604800, in seconds.";
+
+                }
+
+                leaf Flag {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Unsigned integer. Flag of SA";
+
+                }
+
+                leaf DOI {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Enumeration:
+
+                          1-IPsec
+
+                          2-GDOI";
+
+                }
+
+                container AssignedIpAddress {
+
+                    description "Assigned IP address of peer 
+
+                          Members include: AddressType, IpAddress";
+
+                    leaf AddressType {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The type of the IP Address
+
+                            Enumeration:
+
+                            1-Ipv4Address
+
+                            2-Ipv6Address";
+
+                    }
+
+                    leaf IpAddress {
+
+                        type base:Basetype_IpAddress;
+
+                        description "The value of address. Ipv4Address or Ipv6 Address";
+
+                    }
+
+                    leaf Ipv6PrefixLength {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The prefix length of IPv6 address";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DefaultProposal {
+
+            description "Default IKE proposal information";
+
+            leaf AuthorityMethod {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Unsigned integer. Authentication method ID";
+
+            }
+
+            leaf AuthorityAlg {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Unsigned integer. Authentication algorithm ID";
+
+            }
+
+            leaf EncryptionAlg {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Unsigned integer. Encryption algorithm ID";
+
+            }
+
+            leaf DHID {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Unsigned integer. Diffie-Hellman group ID";
+
+            }
+
+            leaf SADuration {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Unsigned integer. Value range: 60 to 604800, in seconds";
+
+            }
+
+        }
+
+        container IKECapabilities {
+
+            description "IKE support algorithm capabilities";
+
+            list IKECapability {
+
+                description "Row name";
+
+                key "AlgID";
+
+                leaf AlgID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..max";
+
+                    }
+
+                    description "IKEv1 supports algorithm ID";
+
+                }
+
+                leaf AlgName {
+
+                    type base:Basetype_String;
+
+                    description "IKEv1 supports algorithm name";
+
+                }
+
+                leaf AlgType {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Type of algorithm,Enumeration:
+
+						  1-Diffie-Hellman group
+
+						  2-Encryption algorithm
+
+						  3-Authentication algorithm";
+
+                }
+
+            }
+
+        }
+
+        container GlobalStatistics {
+
+            description "IKE global statistics information";
+
+            leaf ActiveTunnels {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Number of active tunnel in the first stage. Unsigned integer, value range: 0 to 2^32-1";
+
+            }
+
+            leaf InitTunnels {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Number of as the initiator for the successful establishment of IKE tunnel.Unsigned integer, value range: 0 to 2^32-1";
+
+            }
+
+            leaf InitTunnelFails {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Number of as the initiator did not successfully establishmented IKE tunnel. Unsigned integer, value range: 0 to 2^32-1";
+
+            }
+
+            leaf RespTunnels {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Number of as a response to successful establishment of IKE tunnel. Unsigned integer, value range: 0 to 2^32-1";
+
+            }
+
+            leaf RespTunnelFails {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Number of as the response did not successfully establishmented IKE tunnel. Unsigned integer, value range: 0 to 2^32-1";
+
+            }
+
+            leaf InOctets {
+
+                type base:Basetype_UnsignedInteger64;
+
+                description "Number of the recived Bytes. Unsigned integer, value range: 0 to 2^64-1";
+
+            }
+
+            leaf OutOctets {
+
+                type base:Basetype_UnsignedInteger64;
+
+                description "Number of the sent Bytes. Unsigned integer, value range: 0 to 2^64-1";
+
+            }
+
+            leaf InPkts {
+
+                type base:Basetype_UnsignedInteger64;
+
+                description "Number of recived packets. Unsigned integer, value range: 0 to 2^64-1";
+
+            }
+
+            leaf OutPkts {
+
+                type base:Basetype_UnsignedInteger64;
+
+                description "Number of sent packets. Unsigned integer, value range: 0 to 2^64-1";
+
+            }
+
+            leaf InP2Exchanges {
+
+                type base:Basetype_UnsignedInteger64;
+
+                description "Number of recived exchanges in the second stage. Unsigned integer, value range: 0 to 2^64-1";
+
+            }
+
+            leaf OutP2Exchanges {
+
+                type base:Basetype_UnsignedInteger64;
+
+                description "Number of sent exchanges in the second stage. Unsigned integer, value range: 0 to 2^64-1";
+
+            }
+
+            leaf InP2ExchangeRejects {
+
+                type base:Basetype_UnsignedInteger64;
+
+                description "Number of dropped recived exchanges in the second stage. Unsigned integer, value range: 0 to 2^64-1";
+
+            }
+
+            leaf OutP2ExchangeRejects {
+
+                type base:Basetype_UnsignedInteger64;
+
+                description "Number of dropped sent exchanges in the second stage. Unsigned integer, value range: 0 to 2^64-1";
+
+            }
+
+            leaf InP2SADelRequests {
+
+                type base:Basetype_UnsignedInteger64;
+
+                description "Number of recived request of SA in the second stage. Unsigned integer, value range: 0 to 2^64-1";
+
+            }
+
+            leaf OutP2SADelRequests {
+
+                type base:Basetype_UnsignedInteger64;
+
+                description "Number of recived request of SA in the second stage. Unsigned integer, value range: 0 to 2^64-1";
+
+            }
+
+            leaf InNotifys {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Number of recived notify news. Unsigned integer, value range: 0 to 2^32-1";
+
+            }
+
+            leaf OutNotifys {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Number of sent notify news. Unsigned integer, value range: 0 to 2^32-1";
+
+            }
+
+            leaf InDropPkts {
+
+                type base:Basetype_UnsignedInteger64;
+
+                description "Number of droped recived packets. Unsigned integer, value range: 0 to 2^64-1";
+
+            }
+
+            leaf OutDropPkts {
+
+                type base:Basetype_UnsignedInteger64;
+
+                description "Number of droped sent packets. Unsigned integer, value range: 0 to 2^64-1";
+
+            }
+
+            container DropPktsDetails {
+
+                description "Number of dropped packets due to authentication failure
+
+                      Members include: AuthFails, NoSAFails, InvalidCookieFails
+
+                      AttrNotSuppFails, NoProposalChosenFails, UnsuppExchTypeFails
+
+                      InvalidIDFails, InvalidPropFails, CertTypeUnsuppFails
+
+                      InvalidCertAuthFails, InvalidSignFails, CertUnavailableFails";
+
+                leaf AuthFails {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The reason for the failure of building IKE tunnel. Unsigned integer, value range: 0 to 2^32-1";
+
+                }
+
+                leaf NoSAFails {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of lack of available IKE SA in the negotiate process. Unsigned integer, value range: 0 to 2^32-1";
+
+                }
+
+                leaf InvalidCookieFails {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of dropped packets due to invalid cookie. Unsigned integer, value range: 0 to 2^32-1.";
+
+                }
+
+                leaf AttrNotSuppFails {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of dropped packets due to nonsupport transform load attribute. Unsigned integer, value range: 0 to 2^32-1";
+
+                }
+
+                leaf NoProposalChosenFails {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of dropped packets due to witnout the option proposal. Unsigned integer, value range: 0 to 2^32-1";
+
+                }
+
+                leaf UnsuppExchTypeFails {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of dropped packets due to nonsupport exchange type. Unsigned integer, value range: 0 to 2^32-1";
+
+                }
+
+                leaf InvalidIDFails {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of dropped packets due to invalid ID load. Unsigned integer, value range: 0 to 2^32-1";
+
+                }
+
+                leaf InvalidPropFails {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of dropped packets due to invalid proposal. Unsigned integer, value range: 0 to 2^32-1";
+
+                }
+
+                leaf CertTypeUnsuppFails {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of dropped packets due to nonsupport certificate type. Unsigned integer, value range: 0 to 2^32-1";
+
+                }
+
+                leaf InvalidCertAuthFails {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of dropped packets due to invalid CA. Unsigned integer, value range: 0 to 2^32-1";
+
+                }
+
+                leaf InvalidSignFails {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of dropped packets due to invalid signature. Unsigned integer, value range: 0 to 2^32-1";
+
+                }
+
+                leaf CertUnavailableFails {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of dropped packets due to cannot obtain certificate. Unsigned integer, value range: 0 to 2^32-1";
+
+                }
+
+            }
+
+        }
+
+        container TunnelsStatistics {
+
+            description "IKE tunnel statistics information";
+
+            list Statistics {
+
+                description "Row name";
+
+                key "TunnelID";
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "IKE tunnel index, Value range: 0 to 2^32-1";
+
+                }
+
+                leaf InOctets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of the received Bytes, value range: 0 to 2^64-1";
+
+                }
+
+                leaf OutOctets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of the sent Bytes, value range: 0 to 2^64-1";
+
+                }
+
+                leaf InPkts {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of recived packets, value range: 0 to 2^64-1";
+
+                }
+
+                leaf OutPkts {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of sent packets, value range: 0 to 2^64-1";
+
+                }
+
+                leaf InP2Exchanges {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of recived exchanges in the second stage, value range: 0 to 2^64-1";
+
+                }
+
+                leaf OutP2Exchanges {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of sent exchanges in the second stage, value range: 0 to 2^64-1";
+
+                }
+
+                leaf InP2ExchangeRejects {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of dropped recived exchanges in the second stage, value range: 0 to 2^64-1";
+
+                }
+
+                leaf OutP2ExchangeRejects {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of dropped sent exchanges in the second stage, value range: 0 to 2^64-1";
+
+                }
+
+                leaf InP2SADelRequests {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of recived request of SA in the second stage, value range: 0 to 2^64-1";
+
+                }
+
+                leaf OutP2SADelRequests {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of recived request of SA in the second stage, value range: 0 to 2^64-1";
+
+                }
+
+                leaf InP1SADelRequests {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of recived request of SA in the first stage, value range: 0 to 2^64-1";
+
+                }
+
+                leaf OutP1SADelRequests {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of sent request of SA in the first stage, value range: 0 to 2^64-1";
+
+                }
+
+                leaf InNotifys {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of recived notify news, value range: 0 to 2^32-1";
+
+                }
+
+                leaf OutNotifys {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of sent notify news, value range: 0 to 2^32-1";
+
+                }
+
+                leaf InDropPkts {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of droped recived packets, value range: 0 to 2^64-1";
+
+                }
+
+                leaf OutDropPkts {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of droped sent packets, value range: 0 to 2^64-1";
+
+                }
+
+            }
+
+        }
+
+        container HostPreSharedKeys {
+
+            description "Host pre-shared-keys information for IKE keychain
+
+                This table supports creating rows.";
+
+            list PreSharedKey {
+
+                description "Row name";
+
+                key "Keychain Host";
+
+                leaf Keychain {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of IKE keychain.
+
+                          String, Length: 1 to 63 characters, case insensitive";
+
+                }
+
+                leaf Host {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                    description "Host name.
+
+                          String, Length: 1 to 255 characters, case sensitive.";
+
+                }
+
+            }
+
+        }
+
+        container Ipv4AddressPreSharedKeys {
+
+            description "IPv4 address presharedkeys information for IKE keychain
+
+                This table supports creating rows.";
+
+            list PreSharedKey {
+
+                description "Row name";
+
+                key "Keychain Ipv4Address";
+
+                leaf Keychain {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of IKE keychain, String, Length: 1 to 63 characters, Case insensitive";
+
+                }
+
+                leaf Ipv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "The value of IPv4 address";
+
+                }
+
+                leaf Ipv4Mask {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "The mask of IPv4 address";
+
+                }
+
+            }
+
+        }
+
+        container Ipv6AddressPreSharedKeys {
+
+            description "IPv6 address presharedkeys information for IKE keychain
+
+                This table supports creating rows.";
+
+            list PreSharedKey {
+
+                description "Row name";
+
+                key "Keychain Ipv6Address";
+
+                leaf Keychain {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of IKE keychain, String, Length: 1 to 63 characters, case insensitive";
+
+                }
+
+                leaf Ipv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "The value of Ipv6 address";
+
+                }
+
+                leaf Ipv6PrefixLength {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The prefix length of Ipv6 address, Unsigned integer, Value range: 0 to 128";
+
+                }
+
+            }
+
+        }
+
+        container MatchRemoteIpv4Address {
+
+            description "Match remote identity IPv4 address information
+
+                This table supports creating rows.";
+
+            list RemoteID {
+
+                description "Row name";
+
+                key "Profile Ipv4Address Ipv4Mask VRF";
+
+                leaf Profile {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of IKE profile, String, Length: 1 to 63 characters, case insensitive";
+
+                }
+
+                leaf Ipv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "The value of IPv4 address";
+
+                }
+
+                leaf Ipv4Mask {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "The mask of IPv4 address";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                    }
+
+                    description "The VPN instance which the address is belonged to, String, Length: 1 to 31 characters";
+
+                }
+
+            }
+
+        }
+
+        container MatchRemoteIpv6Address {
+
+            description "Match remote identity IPv6 address information
+
+                This table supports creating rows.";
+
+            list RemoteID {
+
+                description "Row name";
+
+                key "Profile Ipv6Address Ipv6PrefixLength VRF";
+
+                leaf Profile {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of IKE profile, String, Length: 1 to 63 characters, case insensitive";
+
+                }
+
+                leaf Ipv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "The value of IPv6 address";
+
+                }
+
+                leaf Ipv6PrefixLength {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..128";
+
+                    }
+
+                    description "The prefix length of IPv6 address";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                    }
+
+                    description "The VPN instance which the address is belonged to, String, Length: 1 to 31 characters";
+
+                }
+
+            }
+
+        }
+
+        container MatchRemoteIpv4Range {
+
+            description "Match remote identity IPv4 range information
+
+                This table supports creating rows.";
+
+            list RemoteID {
+
+                description "Row name";
+
+                key "Profile BeginIpv4Address EndIpv4Address VRF";
+
+                leaf Profile {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of IKE profile, String, Length: 1 to 63 characters, case insensitive";
+
+                }
+
+                leaf BeginIpv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Start IPv4 Address";
+
+                }
+
+                leaf EndIpv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "End IPv4 Address";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                    }
+
+                    description "The VPN instance which the address is belonged to, String, Length: 1 to 31 characters";
+
+                }
+
+            }
+
+        }
+
+        container MatchRemoteIpv6Range {
+
+            description "Match remote identity IPv6 range information
+
+                This table supports creating rows.";
+
+            list RemoteID {
+
+                description "Row name";
+
+                key "Profile BeginIpv6Address EndIpv6Address VRF";
+
+                leaf Profile {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of IKE profile, String, Length: 1 to 63 characters";
+
+                }
+
+                leaf BeginIpv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "Start IPv6 Address";
+
+                }
+
+                leaf EndIpv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "End IPv6 Address";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                    }
+
+                    description "The VPN instance which the address is belonged to, String, Length: 1 to 31 characters, case sensitive";
+
+                }
+
+            }
+
+        }
+
+        container Ipv4AddressGroup {
+
+            list AddressGroup {
+
+                key "GroupName";
+
+                leaf GroupName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+                leaf StartIPAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf EndIPAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf IPv4Mask {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+            }
+
+        }
+
+        container Ipv6AddressGroup {
+
+            list AddressGroup {
+
+                key "GroupName";
+
+                leaf GroupName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+                container IPv6Addr {
+
+                    description "IPv6, including IPv6Address and IPv6Prefix.";
+
+                    leaf Prefix {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_Ipv6Address;
+
+                        }
+
+                        description "Prefix IPv6 address.";
+
+                    }
+
+                    leaf PrefixLen {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..128";
+
+                            }
+
+                        }
+
+                        description "Prefix length of IPv6 address.";
+
+                    }
+
+                }
+
+                leaf AssignLen {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..128";
+
+                    }
+
+                    description "Unsigned integer, Value range: 0 to 128";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

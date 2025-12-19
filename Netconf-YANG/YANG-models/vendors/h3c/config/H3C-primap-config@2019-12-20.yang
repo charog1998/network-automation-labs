@@ -1,0 +1,307 @@
+module H3C-primap-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "primap-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for primap config.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container PRIMAP {
+
+        container MapTables {
+
+            description "Priority mapping table";
+
+            list MapTable {
+
+                description "Row name";
+
+                key "Source Target Color Direction Import";
+
+                leaf Source {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                    }
+
+                    description "Interface Index";
+
+                }
+
+                leaf Target {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                    }
+
+                    description "Port priority trust mode";
+
+                }
+
+                leaf Color {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Port priority trust mode";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Port priority trust mode";
+
+                }
+
+                leaf Import {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..63";
+
+                    }
+
+                    description "Port priority trust mode";
+
+                }
+
+                leaf Export {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..63";
+
+                    }
+
+                    description "Port priority trust mode";
+
+                }
+
+            }
+
+        }
+
+        container PortPriority {
+
+            description "Port priority table";
+
+            list Port {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface Index";
+
+                }
+
+                leaf Dscp {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..63";
+
+                    }
+
+                    description "DSCP";
+
+                }
+
+                leaf Dot1p {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..7";
+
+                    }
+
+                    description "802.1p priority";
+
+                }
+
+                leaf Exp {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..7";
+
+                    }
+
+                    description "MPLS EXP";
+
+                }
+
+                leaf DropPriority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..2";
+
+                    }
+
+                    description "Drop priority";
+
+                }
+
+                leaf LocalPrecedence {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..7";
+
+                    }
+
+                    description "Local precedence";
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..7";
+
+                    }
+
+                    description "Port default priority";
+
+                }
+
+            }
+
+        }
+
+        container PortTrustMode {
+
+            description "Port priority trust mode table";
+
+            list Port {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface Index";
+
+                }
+
+                leaf TrustMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                    }
+
+                    description "Port priority trust mode";
+
+                }
+
+                leaf Override {
+
+                    type boolean;
+
+                    description "Overwrite the original priority carried in the packet";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

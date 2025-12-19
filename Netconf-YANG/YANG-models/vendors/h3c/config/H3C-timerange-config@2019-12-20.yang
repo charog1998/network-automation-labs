@@ -1,0 +1,283 @@
+module H3C-timerange-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "timerange-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for timerange config.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container TimeRange {
+
+        container TimeRanges {
+
+            description "Time ranges table.
+
+                This table supports creating rows.";
+
+            list Range {
+
+                description "Time range row.";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{0,31}";
+
+                    }
+
+                    description "Time range name, a case-insensitive string of 1 to 32 characters.";
+
+                }
+
+            }
+
+        }
+
+        container AbsRanges {
+
+            description "Absolute time ranges table.
+
+                This table supports creating rows.";
+
+            list AbsRange {
+
+                key "TimeRangeName ID";
+
+                leaf TimeRangeName {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{0,31}";
+
+                    }
+
+                    description "Time range name, a case-insensitive string of 1 to 32 characters.";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..12";
+
+                    }
+
+                    description "Absolute time range sub-ID. Range from 0 to 12.";
+
+                }
+
+                container Start {
+
+                    description "The start time of absolute time range, including StartTime and StartDate.";
+
+                    leaf StartTime {
+
+                        type base:Basetype_String {
+
+                            pattern "(2[0-3]|[0-1]?[0-9])(:[0-5]?[0-9])(:[0-5]?[0-9])?";
+
+                        }
+
+                        description "The start time.";
+
+                    }
+
+                    leaf StartDate {
+
+                        type base:Basetype_Date;
+
+                        description "The start date.";
+
+                    }
+
+                }
+
+                container End {
+
+                    description "The end time of absolute time range, including EndTime and EndDate.";
+
+                    leaf EndTime {
+
+                        type base:Basetype_String {
+
+                            pattern "((2[0-3]|[0-1]?[0-9])(:[0-5]?[0-9])(:[0-5]?[0-9])?|(24:0?0(:0?0)?))";
+
+                        }
+
+                        description "The end time.";
+
+                    }
+
+                    leaf EndDate {
+
+                        type base:Basetype_Date;
+
+                        description "The end date.";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container PerRanges {
+
+            description "Periodic time ranges table.
+
+                This table supports creating rows.";
+
+            list PerRange {
+
+                key "TimeRangeName ID";
+
+                leaf TimeRangeName {
+
+                    type base:Basetype_String {
+
+                        pattern "[^?	
+
+]{0,31}";
+
+                    }
+
+                    description "Time range name, a case-insensitive string of 1 to 32 characters.";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..32";
+
+                    }
+
+                    description "Periodic time range sub-ID. Range from 0 to 32.";
+
+                }
+
+                leaf StartTime {
+
+                    type base:Basetype_String {
+
+                        pattern "(2[0-3]|[0-1]?[0-9])(:[0-5]?[0-9])(:[0-5]?[0-9])?";
+
+                    }
+
+                    description "The start time.";
+
+                }
+
+                leaf EndTime {
+
+                    type base:Basetype_String {
+
+                        pattern "((2[0-3]|[0-1]?[0-9])(:[0-5]?[0-9])(:[0-5]?[0-9])?|(24:0?0(:0?0)?))";
+
+                    }
+
+                    description "The end time.";
+
+                }
+
+                container DayOfWeek {
+
+                    description "The days of a week.";
+
+                    leaf Sun {
+
+                        type base:Basetype_Boolean;
+
+                        description "The flag of Sunday.";
+
+                    }
+
+                    leaf Mon {
+
+                        type base:Basetype_Boolean;
+
+                        description "The flag of Monday.";
+
+                    }
+
+                    leaf Tue {
+
+                        type base:Basetype_Boolean;
+
+                        description "The flag of Tuesday.";
+
+                    }
+
+                    leaf Wed {
+
+                        type base:Basetype_Boolean;
+
+                        description "The flag of Wednesday.";
+
+                    }
+
+                    leaf Thu {
+
+                        type base:Basetype_Boolean;
+
+                        description "The flag of Thursday.";
+
+                    }
+
+                    leaf Fri {
+
+                        type base:Basetype_Boolean;
+
+                        description "The flag of Friday.";
+
+                    }
+
+                    leaf Sat {
+
+                        type base:Basetype_Boolean;
+
+                        description "The flag of Saturday.";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

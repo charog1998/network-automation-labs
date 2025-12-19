@@ -1,0 +1,81 @@
+module H3C-radiusserver-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "radiusserver-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for radiusserver config.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container RadiusServer {
+
+        container Client {
+
+            container ClientInfos {
+
+                list ClientInfo {
+
+                    key "IpAddress VRF";
+
+                    leaf IpAddress {
+
+                        type base:Basetype_IpAddress;
+
+                    }
+
+                    leaf VRF {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "0..31";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf Key {
+
+                        type base:Basetype_String {
+
+                            length "1..64";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

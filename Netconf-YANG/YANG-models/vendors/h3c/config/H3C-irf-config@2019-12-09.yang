@@ -1,0 +1,253 @@
+module H3C-irf-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "irf-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for irf config.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container IRF {
+
+        container Configuration {
+
+            description "IRF global configuration information";
+
+            leaf AutoMerge {
+
+                type base:Basetype_EnableState;
+
+                description "State of the auto merge function: Enabled, Disabled";
+
+            }
+
+            leaf AutoUpgrade {
+
+                type base:Basetype_EnableState;
+
+                description "Status of the software auto-update function: Enabled, Disabled";
+
+            }
+
+            leaf Domain {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Domain ID for the IRF fabric";
+
+            }
+
+            leaf LinkDelay {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..10000";
+
+                }
+
+                description "IRF link down report delay";
+
+            }
+
+            leaf MacPersist {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                    enum 3;
+
+                }
+
+                description "MacIRF bridge MAC persistence setting
+
+                    Enumberation.
+
+                    1 Timer
+
+                    2 Always
+
+                    3 No
+
+                    Default: 1 Timer";
+
+            }
+
+        }
+
+        container Members {
+
+            description "stack members' infomations";
+
+            list Member {
+
+                description "Rowname";
+
+                key "MemberID";
+
+                leaf MemberID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..32";
+
+                    }
+
+                    description "Stack member identification";
+
+                }
+
+                leaf NewMemberID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..32";
+
+                    }
+
+                    description "Member ID assigned to the device";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "1..127";
+
+                    }
+
+                    description "Description for the member device.";
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..32";
+
+                    }
+
+                    description "Member priority";
+
+                }
+
+            }
+
+        }
+
+        container IRFPorts {
+
+            description "Stack ports' infomations";
+
+            list IRFPort {
+
+                description "Rowname";
+
+                key "MemberID Port";
+
+                leaf MemberID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..32";
+
+                    }
+
+                    description "Stack member identification";
+
+                }
+
+                leaf Port {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..2";
+
+                    }
+
+                    description "IRF port number";
+
+                }
+
+                list Interface {
+
+                    key "IfName MDCName Mode";
+
+                    leaf IfName {
+
+                        type base:Basetype_InterfaceName;
+
+                        description "Interface name";
+
+                    }
+
+                    leaf MDCName {
+
+                        type base:Basetype_String {
+
+                            length "1..15";
+
+                        }
+
+                        description "MDC name";
+
+                    }
+
+                    leaf Mode {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "Physical IRF port mode
+
+                                Enumeration.
+
+                                1 Normal
+
+                                2 Enhanced
+
+                                3 Extended";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

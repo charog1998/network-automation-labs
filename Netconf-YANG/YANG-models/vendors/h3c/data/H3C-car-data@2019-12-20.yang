@@ -1,0 +1,1009 @@
+module H3C-car-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "car-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for car data.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container CAR {
+
+        config false;
+
+        container CarLists {
+
+            description "CarList table
+
+                This table supports creating rows.";
+
+            list List {
+
+                description "Row name";
+
+                key "CarlID";
+
+                leaf CarlID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..199";
+
+                    }
+
+                    description "Carlist ID";
+
+                }
+
+                leaf Mac {
+
+                    type base:Basetype_MacAddress;
+
+                    description "Matches a source MAC address";
+
+                }
+
+                container DscpList {
+
+                    description "Matches DSCP values";
+
+                    leaf-list Dscp {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..63";
+
+                        }
+
+                    }
+
+                }
+
+                container ExpList {
+
+                    description "Matches MPLS EXP values";
+
+                    leaf-list Exp {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..7";
+
+                        }
+
+                    }
+
+                }
+
+                container IPPrecedenceList {
+
+                    description "Matches IP precedence";
+
+                    leaf-list IPPrecedence {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..7";
+
+                        }
+
+                    }
+
+                }
+
+                container DestIPRange {
+
+                    description "Specifies a DestIPAddress range";
+
+                    leaf DestIPStart {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "Specifies start Address";
+
+                    }
+
+                    leaf DestIPEnd {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "Specifies end Address";
+
+                    }
+
+                }
+
+                container SrcIPRange {
+
+                    description "Specifies a SrcIPAddress range";
+
+                    leaf SrcIPStart {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "Specifies start Address";
+
+                    }
+
+                    leaf SrcIPEnd {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "Specifies end Address";
+
+                    }
+
+                }
+
+                container DestIPSubnet {
+
+                    description "Specifies DestSubnetIP and DestMaskLength";
+
+                    leaf DestSubnetIP {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "Specifies a DestSubnetIP";
+
+                    }
+
+                    leaf DestMaskLength {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..31";
+
+                        }
+
+                        description "Specifies a DestMaskLength";
+
+                    }
+
+                }
+
+                container SrcIPSubnet {
+
+                    description "Specifies SrcSubnetIP and SrcMaskLength";
+
+                    leaf SrcSubnetIP {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "Specifies a SrcSubnetIP";
+
+                    }
+
+                    leaf SrcMaskLength {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..31";
+
+                        }
+
+                        description "Specifies a SrcMaskLength";
+
+                    }
+
+                }
+
+                leaf SrcIPObjGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Specifies SrcObjGroup";
+
+                }
+
+                leaf DestIPObjGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Specifies DestObjGroup";
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Specifies a Mode";
+
+                }
+
+                leaf Trange {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            pattern "[^?	
+
+]{0,31}";
+
+                        }
+
+                    }
+
+                    description "Specifies TimeRange";
+
+                }
+
+            }
+
+        }
+
+        container CarPolicies {
+
+            description "commited access rate policy table
+
+                This table supports creating rows.";
+
+            list Policy {
+
+                description "Row name";
+
+                key "IfIndex Direction Type Value";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "match type";
+
+                }
+
+                leaf Value {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "match value";
+
+                }
+
+                leaf BandwithUnit {
+
+                    type enumeration {
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Bandwith Unit";
+
+                }
+
+                leaf CIR {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "CIR in kbps";
+
+                }
+
+                leaf CBS {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "CBS in bytes";
+
+                }
+
+                leaf EBS {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "EBS in bytes";
+
+                }
+
+                leaf PIR {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "PIR in kbps";
+
+                }
+
+                container GreenAction {
+
+                    description "action color";
+
+                    leaf GreenActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 11;
+
+                            enum 12;
+
+                            enum 13;
+
+                            enum 14;
+
+                            enum 15;
+
+                            enum 16;
+
+                            enum 17;
+
+                            enum 19;
+
+                        }
+
+                        description "action type";
+
+                    }
+
+                    leaf GreenActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..63";
+
+                        }
+
+                        description "action value";
+
+                    }
+
+                }
+
+                container YellowAction {
+
+                    description "action color";
+
+                    leaf YellowActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 11;
+
+                            enum 12;
+
+                            enum 13;
+
+                            enum 14;
+
+                            enum 15;
+
+                            enum 16;
+
+                            enum 17;
+
+                            enum 19;
+
+                        }
+
+                        description "action type";
+
+                    }
+
+                    leaf YellowActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..63";
+
+                        }
+
+                        description "action value";
+
+                    }
+
+                }
+
+                container RedAction {
+
+                    description "action color";
+
+                    leaf RedActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 11;
+
+                            enum 12;
+
+                            enum 13;
+
+                            enum 14;
+
+                            enum 15;
+
+                            enum 16;
+
+                            enum 17;
+
+                            enum 19;
+
+                        }
+
+                        description "action type";
+
+                    }
+
+                    leaf RedActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..63";
+
+                        }
+
+                        description "action value";
+
+                    }
+
+                }
+
+                leaf GreenPkts {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of green packets that have passed";
+
+                }
+
+                leaf GreenBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Bytes of green packets that have passed";
+
+                }
+
+                leaf YellowPkts {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of yellow packets that have passed";
+
+                }
+
+                leaf YellowBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Bytes of yellow packets that have passed";
+
+                }
+
+                leaf RedPkts {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of red packets that have passed";
+
+                }
+
+                leaf RedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Bytes of red packets that have passed";
+
+                }
+
+            }
+
+        }
+
+        container CarCapability {
+
+            description "get car capability
+
+                This table supports creating rows.";
+
+            list Capability {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf CirMin {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "MIN CIR in kbps";
+
+                }
+
+                leaf CirMax {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "MAX CIR in kbps";
+
+                }
+
+            }
+
+        }
+
+        container Capability {
+
+            description "committed access rate capability table";
+
+            leaf MQCTokenPara {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Token Bucket Capability";
+
+            }
+
+            leaf CIRMin {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Minimum CIR value in kbps";
+
+            }
+
+            leaf CIRMax {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Maximum CIR value in kbps";
+
+            }
+
+            leaf CIRGranularity {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Granularity of CIR in kbps";
+
+            }
+
+            leaf CBSMin {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Minimum CBS value in bytes";
+
+            }
+
+            leaf CBSMax {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Maximum CBS value in bytes";
+
+            }
+
+            leaf CBSGranularity {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Granularity of CBS in bytes";
+
+            }
+
+            leaf EBSMin {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Minimum EBS value in bytes";
+
+            }
+
+            leaf EBSMax {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Maximum EBS value in bytes";
+
+            }
+
+            leaf EBSGranularity {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Granularity of EBS in bytes";
+
+            }
+
+            leaf PIRMin {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Minimum PIR value in kbps";
+
+            }
+
+            leaf PIRMax {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Maximum PIR value in kbps";
+
+            }
+
+            leaf PIRGranularity {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Granularity of PIR in kbps";
+
+            }
+
+        }
+
+        container UserProfileCAR {
+
+            description "This table contains information about User Profile CAR
+
+                This table supports creating rows.";
+
+            list Apply {
+
+                description "Row name";
+
+                key "Name Direction Type";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "User Profile Name";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Application direction";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 4;
+
+                    }
+
+                    description "match type";
+
+                }
+
+                leaf CIR {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "committed information rate in kbps";
+
+                }
+
+                leaf CBS {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "committed burst size in bytes";
+
+                }
+
+                leaf EBS {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "excess burst size in bytes";
+
+                }
+
+                leaf PIR {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "peak information rate in kbps";
+
+                }
+
+            }
+
+        }
+
+        container UserProfileCAREx {
+
+            description "This table contains information about User Profile CAR
+
+                This table supports creating rows.";
+
+            list Apply {
+
+                description "Row name";
+
+                key "Name Direction Type Value";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "User Profile Name";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Application direction";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 4;
+
+                    }
+
+                    description "match type";
+
+                }
+
+                leaf Value {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "match value";
+
+                }
+
+                leaf CIR {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "committed information rate in kbps";
+
+                }
+
+                leaf CBS {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "committed burst size in bytes";
+
+                }
+
+                leaf EBS {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "excess burst size in bytes";
+
+                }
+
+                leaf PIR {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "peak information rate in kbps";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,2183 @@
+module H3C-advpn-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "advpn-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for advpn data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container ADVPN {
+
+        config false;
+
+        container TunnelAdvpnCfg {
+
+            description "TunnelAdvpnCfg";
+
+            list Tunnel {
+
+                description "Tunnel advpn config";
+
+                key "TunnelID";
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf IPv4Client {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,63}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                leaf Compatible {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Encapsulation mode
+
+                            Enumeration:
+
+                            0-incompatible
+
+                            1-compatible
+
+                            2-invalid";
+
+                }
+
+                leaf IPv6Client {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,63}";
+
+                    }
+
+                    description "IPv6 vam client name";
+
+                }
+
+                leaf DumbTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "10..600";
+
+                    }
+
+                    description "Preference:10-600
+
+                          The default value is 120";
+
+                }
+
+                leaf IdleTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "60..65535";
+
+                    }
+
+                    description "Preference:60-65535
+
+                          The default value is 600";
+
+                }
+
+                leaf SourcePort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1025..65535";
+
+                    }
+
+                    description "Preference:1025-65535
+
+                          The default value is 18001";
+
+                }
+
+            }
+
+        }
+
+        container IPv4Networks {
+
+            description "IPv4Networks
+
+                This table supports creating rows.";
+
+            list IPv4Network {
+
+                description "IPv4Network";
+
+                key "TunnelID Address MaskLength";
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf MaskLength {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..32";
+
+                    }
+
+                    description "IPv4 mask Length
+
+                          Value range 0 to 32";
+
+                }
+
+                leaf Preference {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..255";
+
+                    }
+
+                    description "Preference, value range: 1 to 255";
+
+                }
+
+            }
+
+        }
+
+        container IPv6Networks {
+
+            description "IPv6Networks
+
+                This table supports creating rows.";
+
+            list IPv6Network {
+
+                description "IPv6Network";
+
+                key "TunnelID Address MaskLength";
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf MaskLength {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..128";
+
+                    }
+
+                    description "IPv6 Mask Length
+
+                          Value range 0 to 128";
+
+                }
+
+                leaf Preference {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..255";
+
+                    }
+
+                    description "Preference, value range: 1 to 255";
+
+                }
+
+            }
+
+        }
+
+        container IPv4TunnelAdvpnSession {
+
+            description "Table: IPv4TunnelAdvpnSession
+
+                This table supports creating rows.";
+
+            list IPv4AdvpnSession {
+
+                description "Row name: IPv4AdvpnSession";
+
+                key "TunnelID PrivateAddress";
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf PrivateAddress {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf PublicAddress {
+
+                    type base:Basetype_IpAddress;
+
+                }
+
+                leaf AdvpnPort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1025..65535";
+
+                    }
+
+                    description "post number, value range: 1025 to 65535";
+
+                }
+
+                container SPI {
+
+                    description "SP index for the inbound and outbound SAs";
+
+                    leaf AhInbound {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "AhInbound:Inbound AH SP index";
+
+                    }
+
+                    leaf AhOutbound {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "AhOutbound:Outbound AH SP index";
+
+                    }
+
+                    leaf EspInbound {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "EspInbound:Inbound ESP SP index";
+
+                    }
+
+                    leaf EspOutbound {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "EspOutbound:Inbound ESP SP index";
+
+                    }
+
+                }
+
+                leaf BehindNAT {
+
+                    type base:Basetype_Boolean;
+
+                    description "BehindNAT：Whether NAT peer node is behind NAT
+
+                          true
+
+                          false";
+
+                }
+
+                leaf SessionType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "ADVPN tunnel type
+
+        Enumeration:
+
+        0 - Unknown
+
+        1 - Hub-Hub
+
+        2 - Hub-Spoke
+
+        3 - Spoke-Hub
+
+        4 - Spoke-Spoke";
+
+                }
+
+                leaf TunnelState {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "ADVPN tunnel type
+
+        Enumeration:
+
+        0 - Establishing
+
+        1 - Dumb
+
+        2 - Success";
+
+                }
+
+                leaf HoldingTime {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "HoldingTime:Duration time since the tunnel stayed in the current state
+
+                          Unit: seconds";
+
+                }
+
+                container Input {
+
+                    description "Statistics for incoming packets, Data structure, Members include:TotalPackets, DataPackets, ControlPackets, Multicasts, Errors";
+
+                    leaf TotalPackets {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "TotalPackets:The number of all incoming packets";
+
+                    }
+
+                    leaf DataPackets {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "DataPackets:The number of incoming data packets";
+
+                    }
+
+                    leaf ControlPackets {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "ControlPackets:The number of incoming control packets";
+
+                    }
+
+                    leaf Multicasts {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Multicasts:The number of incoming multicast packets";
+
+                    }
+
+                    leaf Errors {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Errors:The number of incoming erroneous packets";
+
+                    }
+
+                }
+
+                container Output {
+
+                    description "Statistics for outgoing packets, Data structure, Members include:TotalPackets, DataPackets, ControlPackets, Multicasts, Errors";
+
+                    leaf TotalPackets {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "TotalPackets:The number of all outgoing packets";
+
+                    }
+
+                    leaf DataPackets {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "DataPackets:The number of outgoing data packets";
+
+                    }
+
+                    leaf ControlPackets {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "ControlPackets:The number of outgoing control packets";
+
+                    }
+
+                    leaf Multicasts {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Multicasts:The number of outgoing multicast packets";
+
+                    }
+
+                    leaf Errors {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Errors:The number of outgoing erroneous packets";
+
+                    }
+
+                }
+
+                leaf IPsecTunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "IPsecTunnelID:The IPsec Tunnel ID of the advpn ipv4 tunnel";
+
+                }
+
+                container SAIndex {
+
+                    description "SAIndex:The SA index of current advpn ipv4 tunnel";
+
+                    leaf AhInbound {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "AhInbound:Inbound AH SA Index";
+
+                    }
+
+                    leaf AhOutbound {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "AhOutbound:Outbound AH SA Index";
+
+                    }
+
+                    leaf EspInbound {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "EspInbound:Inbound ESP SA Index";
+
+                    }
+
+                    leaf EspOutbound {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "EspOutbound:Outbound ESP SA Index";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IPv6TunnelAdvpnSession {
+
+            description "Table: IPv6TunnelAdvpnSession
+
+                This table supports creating rows.";
+
+            list IPv6AdvpnSession {
+
+                description "Row name: IPv6AdvpnSession";
+
+                key "TunnelID PrivateAddress";
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf PrivateAddress {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf PublicAddress {
+
+                    type base:Basetype_IpAddress;
+
+                }
+
+                leaf AdvpnPort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1025..65535";
+
+                    }
+
+                    description "post number, value range: 1025 to 65535";
+
+                }
+
+                container SPI {
+
+                    description "SP index for the inbound and outbound SAs";
+
+                    leaf AhInbound {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "AhInbound:Inbound AH SP index";
+
+                    }
+
+                    leaf AhOutbound {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "AhOutbound:Outbound AH SP index";
+
+                    }
+
+                    leaf EspInbound {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "EspInbound:Inbound ESP SP index";
+
+                    }
+
+                    leaf EspOutbound {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "EspOutbound:Inbound ESP SP index";
+
+                    }
+
+                }
+
+                leaf BehindNAT {
+
+                    type base:Basetype_Boolean;
+
+                    description "BehindNAT：Whether NAT peer node is behind NAT
+
+                          true
+
+                          false";
+
+                }
+
+                leaf SessionType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "ADVPN tunnel type
+
+        Enumeration:
+
+        0 - Unknown
+
+        1 - Hub-Hub
+
+        2 - Hub-Spoke
+
+        3 - Spoke-Hub
+
+        4 - Spoke-Spoke";
+
+                }
+
+                leaf TunnelState {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "ADVPN tunnel type
+
+        Enumeration:
+
+        0 - Establishing
+
+        1 - Dumb
+
+        2 - Success";
+
+                }
+
+                leaf HoldingTime {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "HoldingTime:Duration time since the tunnel stayed in the current state
+
+                          Unit: seconds";
+
+                }
+
+                container Input {
+
+                    description "Statistics for incoming packets, Data structure, Members include:TotalPackets, DataPackets, ControlPackets, Multicasts, Errors";
+
+                    leaf TotalPackets {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "TotalPackets:The number of all incoming packets";
+
+                    }
+
+                    leaf DataPackets {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "DataPackets:The number of incoming data packets";
+
+                    }
+
+                    leaf ControlPackets {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "ControlPackets:The number of incoming control packets";
+
+                    }
+
+                    leaf Multicasts {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Multicasts:The number of incoming multicast packets";
+
+                    }
+
+                    leaf Errors {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Errors:The number of incoming erroneous packets";
+
+                    }
+
+                }
+
+                container Output {
+
+                    description "Statistics for outgoing packets, Data structure, Members include:TotalPackets, DataPackets, ControlPackets, Multicasts, Errors";
+
+                    leaf TotalPackets {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "TotalPackets:The number of all outgoing packets";
+
+                    }
+
+                    leaf DataPackets {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "DataPackets:The number of outgoing data packets";
+
+                    }
+
+                    leaf ControlPackets {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "ControlPackets:The number of outgoing control packets";
+
+                    }
+
+                    leaf Multicasts {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Multicasts:The number of outgoing multicast packets";
+
+                    }
+
+                    leaf Errors {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Errors:The number of outgoing erroneous packets";
+
+                    }
+
+                }
+
+                leaf IPsecTunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "IPsecTunnelID:The IPsec Tunnel ID of the advpn ipv6 tunnel";
+
+                }
+
+                container SAIndex {
+
+                    description "SAIndex:The SA index of current advpn ipv6 tunnel";
+
+                    leaf AhInbound {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "AhInbound:Inbound AH SA Index";
+
+                    }
+
+                    leaf AhOutbound {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "AhOutbound:Outbound AH SA Index";
+
+                    }
+
+                    leaf EspInbound {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "EspInbound:Inbound ESP SA Index";
+
+                    }
+
+                    leaf EspOutbound {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "EspOutbound:Outbound ESP SA Index";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IPv4TunnelRunInfo {
+
+            description "This table displays the ipv4 advpn session information";
+
+            list TunnelRunInfo {
+
+                description "Row name";
+
+                key "TunnelID";
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf ClientName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,63}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                leaf LinkProtocol {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "Link layer protocol used by the VAM client for ADVPN tunnel establishment
+
+        Enumeration:
+
+        0 - Unknown
+
+        1 - GRE
+
+        2 - UDP
+
+        3 - IPsec-GRE
+
+        4 - IPsec-UDP";
+
+                }
+
+                leaf SessionNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of IPv4 ADVPN tunnels established on the tunnel interface";
+
+                }
+
+            }
+
+        }
+
+        container IPv6TunnelRunInfo {
+
+            description "This table displays the ipv6 advpn session information";
+
+            list TunnelRunInfo {
+
+                description "Row name";
+
+                key "TunnelID";
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf ClientName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,63}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                leaf LinkProtocol {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "Link layer protocol used by the VAM client for ADVPN tunnel establishment
+
+        Enumeration:
+
+        0 - Unknown
+
+        1 - GRE
+
+        2 - UDP
+
+        3 - IPsec-GRE
+
+        4 - IPsec-UDP";
+
+                }
+
+                leaf SessionNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of IPv6 ADVPN tunnels established on the tunnel interface";
+
+                }
+
+            }
+
+        }
+
+        container VamcClients {
+
+            description "VamcClients TBL
+
+                This table supports creating rows.";
+
+            list VamcClient {
+
+                description "Row name: VamcClient";
+
+                key "ClientName";
+
+                leaf ClientName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,63}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                leaf AdvpnDomain {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf DumbTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "10..600";
+
+                    }
+
+                    description "Value: 10-600
+
+                          The default value is 120";
+
+                }
+
+                container Retry {
+
+                    description "Retry parameters, Members include: Interval, Count";
+
+                    leaf Interval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "3..30";
+
+                        }
+
+                        description "The time interval of retry.Unsigned integer: Value range: 3 to 30, in seconds";
+
+                    }
+
+                    leaf Count {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..6";
+
+                        }
+
+                        description "Count of retry, Unsigned integer: Value range: 1 to 6";
+
+                    }
+
+                }
+
+                container Authentication {
+
+                    description "user name and password, Members include: UserName, PasswordType, Password";
+
+                    leaf UserName {
+
+                        type base:Basetype_String {
+
+                            pattern "[^:/@\\\*<>]*";
+
+                            length "1..253";
+
+                        }
+
+                        description "user name string";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container VamcServerCfg {
+
+            description "VamcServerCfg
+
+                This table supports creating rows.";
+
+            list VamcServer {
+
+                description "VamcServer";
+
+                key "ClientName";
+
+                leaf ClientName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,63}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                container PriServer {
+
+                    description "Primary Server";
+
+                    leaf AddressType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "The Type of address:
+
+                                  1.IPv4
+
+                                  2.IPv6
+
+                                  3.Host";
+
+                    }
+
+                    leaf Address {
+
+                        type base:Basetype_String {
+
+                            pattern "([a-zA-Z0-9.:_-]){1,253}";
+
+                        }
+
+                        description "The value of Address";
+
+                    }
+
+                    leaf Port {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1025..65535";
+
+                        }
+
+                        description "post number, value range: 1025 to 65535";
+
+                    }
+
+                }
+
+                container SecServer {
+
+                    description "SecServer Server";
+
+                    leaf AddressType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "The type of Address
+
+                                Enumeration:
+
+                                1.IPv4
+
+                                2.IPv6
+
+                                3.Host";
+
+                    }
+
+                    leaf Address {
+
+                        type base:Basetype_String {
+
+                            pattern "([a-zA-Z0-9.:_-]){1,253}";
+
+                        }
+
+                        description "The value of Address";
+
+                    }
+
+                    leaf Port {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1025..65535";
+
+                        }
+
+                        description "post number, value range: 1025 to 65535";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container ClientFsms {
+
+            description "ClientFsms TBL";
+
+            list Fsm {
+
+                description "Row name: Fsm";
+
+                key "ClientName ServerType IPVersion";
+
+                leaf ClientName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,63}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                leaf ServerType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf IPVersion {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf EnableStatus {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                leaf ServerHost {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.:_-]){1,253}";
+
+                    }
+
+                    description "vam client Host string";
+
+                }
+
+                leaf ServerAddress {
+
+                    type base:Basetype_IpAddress;
+
+                }
+
+                leaf PrivateAddress {
+
+                    type base:Basetype_IpAddress;
+
+                }
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf FsmState {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                    }
+
+                    description "Fsm State Type:
+
+        0 - OFFINE
+
+        1 - INIT1
+
+        2 - INIT2
+
+        3 - REG
+
+        4 - ONLINE1
+
+        5 - ONLINE2
+
+        6 - DUMB";
+
+                }
+
+                leaf FsmActive {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf ClientType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Fsm State Type:
+
+        0 - Unknown
+
+        1 - Spoke
+
+        2 - Hub";
+
+                }
+
+                leaf HoldingTime {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf EncryptionAlg {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                    }
+
+                    description "The value of EncryptAlgItem
+
+      Enumeration:
+
+      0 - Unknown
+
+      1 - None
+
+      2 - DES
+
+      3 - 3DES
+
+      4 - AES-CBC-128
+
+      5 - AES-CBC-192
+
+      6 - AES-CBC-256
+
+      7 - AES-CTR-128
+
+      8 - AES-CTR-192
+
+      9 - AES-CTR-256";
+
+                }
+
+                leaf AuthenticationAlg {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                    }
+
+                    description "The value of EncryptAlgItem
+
+      Enumeration:
+
+      0 - Unknown
+
+      1 - None
+
+      2 - HMAC-MD5-96
+
+      3 - HMAC-MD5
+
+      4 - HMAC-SHA1-96
+
+      5 - HMAC-SHA1
+
+      6 - HMAC-SHA2-256
+
+      7 - HMAC-AES-XCBC-MAC";
+
+                }
+
+                leaf KeepaliveInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "5..65535";
+
+                    }
+
+                }
+
+                leaf KeepaliveCount {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..6";
+
+                    }
+
+                }
+
+                leaf HubsNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+        container IPv4ShortcutStats {
+
+            description "IPv4ShortcutStats TBL";
+
+            list IPv4Shortcut {
+
+                description "Row name: IPv4Shortcut";
+
+                key "ClientName";
+
+                leaf ClientName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,63}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                leaf ClientType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Fsm State Type:
+
+        0 - Unknown
+
+        1 - Spoke
+
+        2 - Hub";
+
+                }
+
+                leaf RuleNumber {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "IPv4 ACL rules number received by the VAM client";
+
+                }
+
+            }
+
+        }
+
+        container IPv6ShortcutStats {
+
+            description "IPv6ShortcutStats TBL";
+
+            list IPv6Shortcut {
+
+                description "Row name: IPv6Shortcut";
+
+                key "ClientName";
+
+                leaf ClientName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,63}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                leaf ClientType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Fsm State Type:
+
+        0 - Unknown
+
+        1 - Spoke
+
+        2 - Hub";
+
+                }
+
+                leaf RuleNumber {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "IPv6 ACL rules number received by the VAM client";
+
+                }
+
+            }
+
+        }
+
+        container IPv4ShortcutRules {
+
+            description "IPv4ShortcutRules TBL";
+
+            list Rule {
+
+                description "Row name: Rule";
+
+                key "ClientName RuleNumber";
+
+                leaf ClientName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,63}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                leaf RuleNumber {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Operation {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The operation of a rule.
+
+                          Enumeration:
+
+                          1—Permit
+
+                          2—Deny
+
+                          3—Discard";
+
+                }
+
+                leaf Protocol {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Matching IP protocol number";
+
+                }
+
+                container Source {
+
+                    description "Source parameters, Members include: StartAddr,EndAddr,StartPort,EndPort";
+
+                    leaf StartAddr {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "Matching start address of the source IPv4 address range";
+
+                    }
+
+                    leaf EndAddr {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "Matching end address of the source IPv4 address range";
+
+                    }
+
+                    leaf StartPort {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Matching start port number of the source port number range";
+
+                    }
+
+                    leaf EndPort {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Matching end port number of the source port number range";
+
+                    }
+
+                }
+
+                container Destination {
+
+                    description "Destination parameters, Members include: StartAddr,EndAddr,StartPort,EndPort";
+
+                    leaf StartAddr {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "Matching start address of the destination IPv4 address range";
+
+                    }
+
+                    leaf EndAddr {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "Matching end address of the destination IPv4 address range";
+
+                    }
+
+                    leaf StartPort {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Matching start port number of the destination port number range";
+
+                    }
+
+                    leaf EndPort {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Matching end port number of the destination port number range";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IPv6ShortcutRules {
+
+            description "IPv6ShortcutRules TBL";
+
+            list Rule {
+
+                description "Row name: Rule";
+
+                key "ClientName RuleNumber";
+
+                leaf ClientName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,63}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                leaf RuleNumber {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Operation {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The operation of a rule.
+
+                          Enumeration:
+
+                          1—Permit
+
+                          2—Deny
+
+                          3—Discard";
+
+                }
+
+                leaf Protocol {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Matching IP protocol number";
+
+                }
+
+                container Source {
+
+                    description "Source parameters, Members include: StartAddr,EndAddr,StartPort,EndPort";
+
+                    leaf StartAddr {
+
+                        type base:Basetype_Ipv6Address;
+
+                        description "Matching start address of the source IPv6 address range";
+
+                    }
+
+                    leaf EndAddr {
+
+                        type base:Basetype_Ipv6Address;
+
+                        description "Matching end address of the source IPv6 address range";
+
+                    }
+
+                    leaf StartPort {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Matching start port number of the source port number range";
+
+                    }
+
+                    leaf EndPort {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Matching end port number of the source port number range";
+
+                    }
+
+                }
+
+                container Destination {
+
+                    description "Destination parameters, Members include: StartAddr,EndAddr,StartPort,EndPort";
+
+                    leaf StartAddr {
+
+                        type base:Basetype_Ipv6Address;
+
+                        description "Matching start address of the destination IPv6 address range";
+
+                    }
+
+                    leaf EndAddr {
+
+                        type base:Basetype_Ipv6Address;
+
+                        description "Matching end address of the destination IPv6 address range";
+
+                    }
+
+                    leaf StartPort {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Matching start port number of the destination port number range";
+
+                    }
+
+                    leaf EndPort {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Matching end port number of the destination port number range";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container ClientStats {
+
+            description "ClientStats TBL";
+
+            list ClientStat {
+
+                description "Row name: ClientStat";
+
+                key "ClientName ServerType";
+
+                leaf ClientName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,63}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                leaf ServerType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Enumeration:
+
+                            0 — Primary server
+
+                            1 — Secondary server";
+
+                }
+
+                leaf ServerAddress {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.:_-]){1,253}";
+
+                    }
+
+                    description "vam client Host string";
+
+                }
+
+                leaf EnableStatus {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                container PacketSent {
+
+                    description "The number of packets sent to VAM server";
+
+                    leaf InitReqNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf SentInitFinNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf RegReqNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf AuthenResNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf AddrReqNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf NetworkRegReqNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf UpdateReqNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf LogoutReqNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf HubInfoResNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf DataFlowInfoResNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf SentKeepaliveNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf SentErrorNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                }
+
+                container PacketReceived {
+
+                    description "The number of packets received from VAM server";
+
+                    leaf InitResNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf RecvInitFinNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf AuthenReqNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf RegResNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf AddrResNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf NetworkRegResNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf UpdateResNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf HubInfoReqNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf DataFlowInfoReqNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf LogoutResNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf RecvKeepaliveNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf RecvErrorNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf RecvUnkonwnNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

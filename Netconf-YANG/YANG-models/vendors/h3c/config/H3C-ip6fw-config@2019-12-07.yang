@@ -1,0 +1,89 @@
+module H3C-ip6fw-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "ip6fw-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ip6fw config.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container IP6FW {
+
+        container IP6FWLastHopHold {
+
+            list LastHopHoldIPv6 {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IP6FWMTU {
+
+            list MTU {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf MTU {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1280..max";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

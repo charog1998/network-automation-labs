@@ -1,0 +1,291 @@
+module H3C-sflow-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "sflow-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for sflow data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container SFLOW {
+
+        config false;
+
+        container sFlowCollector {
+
+            list Collector {
+
+                key "CollectorID";
+
+                leaf CollectorID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..max";
+
+                    }
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VRF;
+
+                    }
+
+                    description "The VRF name.";
+
+                }
+
+                leaf IpAddress {
+
+                    type base:Basetype_IpAddress;
+
+                }
+
+                leaf Port {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                }
+
+                leaf MaxDatagramSize {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "200..3000";
+
+                    }
+
+                }
+
+                leaf Timeout {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..2147483647";
+
+                    }
+
+                }
+
+                leaf AgeTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..2147483647";
+
+                    }
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container sFlowFlowSampler {
+
+            list FlowSampler {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf CollectorID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..max";
+
+                    }
+
+                }
+
+                leaf PacketSamplingRate {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf SamplingMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf MaxHeaderSize {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "18..512";
+
+                    }
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container sFlowCounterSampler {
+
+            list CounterSampler {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf CollectorID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..max";
+
+                    }
+
+                }
+
+                leaf Interval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2..86400";
+
+                    }
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container sFlowConfig {
+
+            leaf AgentIpAddress {
+
+                type base:Basetype_IpAddress;
+
+            }
+
+            leaf SourceIpv4Address {
+
+                type base:Basetype_Ipv4Address;
+
+            }
+
+            leaf SourceIpv6Address {
+
+                type base:Basetype_Ipv6Address;
+
+            }
+
+        }
+
+        container sFlowSpecification {
+
+            leaf MaxCollectorID {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf MinSamplerRate {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf MaxSamplerRate {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf DefaultSamplerMode {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+        }
+
+    }
+
+}

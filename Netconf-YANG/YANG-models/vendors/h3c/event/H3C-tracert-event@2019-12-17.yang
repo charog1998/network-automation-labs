@@ -1,0 +1,31 @@
+module H3C-tracert-event {
+
+    namespace "http://www.h3c.com/netconf/event:1.0/tracert:1.0";
+
+    prefix "tracert-event";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for tracert event.";
+
+    revision 2019-12-17 {
+
+        description "Initial revision.";
+
+    }
+
+}

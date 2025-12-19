@@ -1,0 +1,133 @@
+module H3C-nqas-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "nqas-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for nqas config.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container NQAS {
+
+        container ServerStatus {
+
+            description "NQA server status table";
+
+            leaf Enable {
+
+                type base:Basetype_EnableState;
+
+                description "Enable. 0:BOOL_FALSE, 1:BOOL_TRUE";
+
+            }
+
+        }
+
+        container Servers {
+
+            description "NQA server table.
+
+                This table supports creating rows.";
+
+            list Server {
+
+                description "NQA server row.";
+
+                key "Type IPAddr Port VRF";
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Type. 0:TCP, 1:UDP-echo";
+
+                }
+
+                leaf IPAddr {
+
+                    type base:Basetype_IpAddress;
+
+                    description "IPAddr String, dotted decimal notation.Or Hexadecimal string, colon-separated.";
+
+                }
+
+                leaf Port {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "Port. Unsigned integer.Value range: 1 to 65535.";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VRF;
+
+                    }
+
+                    description "By default, the operation is performed on the public network.";
+
+                }
+
+                leaf HighPerformance {
+
+                    type base:Basetype_Boolean;
+
+                    description "HighPerformance. Boolean. Default: false";
+
+                }
+
+                leaf ToS {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..255";
+
+                    }
+
+                    description "ToS. Unsigned integer.Value range: 0 to 255.Default: 0.";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

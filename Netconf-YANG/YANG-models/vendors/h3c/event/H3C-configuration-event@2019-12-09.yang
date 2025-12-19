@@ -1,0 +1,79 @@
+module H3C-configuration-event {
+
+    namespace "http://www.h3c.com/netconf/event:1.0/configuration:1.0";
+
+    prefix "configuration-event";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for configuration event.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    notification SaveEvent {
+
+    }
+
+    notification ConfigurationEvent {
+
+        leaf User {
+
+            type base:Basetype_OctectString255;
+
+            mandatory true;
+
+        }
+
+        leaf IpAddress {
+
+            type base:Basetype_OctectString255;
+
+            mandatory true;
+
+        }
+
+        leaf ConfigSource {
+
+            type base:Basetype_OctectString255;
+
+            mandatory true;
+
+        }
+
+        leaf ConfigResult {
+
+            type base:Basetype_OctectString255;
+
+            mandatory true;
+
+        }
+
+        leaf Context {
+
+            type base:Basetype_OctectString255;
+
+            mandatory true;
+
+        }
+
+    }
+
+}

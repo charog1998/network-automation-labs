@@ -1,0 +1,363 @@
+module H3C-fundamentals-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "fundamentals-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for fundamentals config.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container Fundamentals {
+
+        container WebUI {
+
+            description "WEB服务信息表";
+
+            leaf SessionAgingTime {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..999";
+
+                }
+
+                description "WEB用户老化超时时间(单位:分钟[1~999])";
+
+            }
+
+            container HTTP {
+
+                description "HTTP相关信息";
+
+                leaf State {
+
+                    type base:Basetype_EnableState;
+
+                    description "HTTP服务的状态";
+
+                }
+
+                leaf Port {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "HTTP服务的端口[1-65535]";
+
+                }
+
+                leaf AclNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2000..4999";
+
+                    }
+
+                    description "HTTP服务的ACL号[2000-4999]";
+
+                }
+
+                leaf AclName {
+
+                    type base:Basetype_String {
+
+                        pattern "[a-zA-Z][^?	
+
+]{0,62}";
+
+                    }
+
+                    description "configurate acl name for http service";
+
+                }
+
+                leaf AclType {
+
+                    type enumeration {
+
+                        enum basic;
+
+                        enum advanced;
+
+                        enum mac;
+
+                    }
+
+                    description "configurate acl name for http service";
+
+                }
+
+            }
+
+            container HTTPS {
+
+                description "HTTPS相关信息";
+
+                leaf State {
+
+                    type base:Basetype_EnableState;
+
+                    description "HTTPS服务的状态";
+
+                }
+
+                leaf Port {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "HTTPS服务的端口[1-65535]";
+
+                }
+
+                leaf AclNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2000..4999";
+
+                    }
+
+                    description "HTTPS服务的ACL号[2000-4999]";
+
+                }
+
+                leaf AclName {
+
+                    type base:Basetype_String {
+
+                        pattern "[a-zA-Z][^?	
+
+]{0,62}";
+
+                    }
+
+                    description "configurate acl name for https service";
+
+                }
+
+                leaf AclType {
+
+                    type enumeration {
+
+                        enum basic;
+
+                        enum advanced;
+
+                        enum mac;
+
+                    }
+
+                    description "configurate acl type for https service,include basic,advnace and mac ACL.";
+
+                }
+
+                leaf SSLPolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "The name of the SSL server policy, 1 to 31 characters, case insensitive";
+
+                }
+
+                leaf LoginMode {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4";
+
+                    }
+
+                    description "Login mode of HTTPS service";
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                    description "Username of HTTPS service";
+
+                }
+
+            }
+
+        }
+
+        container SoapUI {
+
+            description "Soap服务信息表";
+
+            container HTTP {
+
+                description "HTTP相关信息";
+
+                leaf IPv4AclNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2000..2999";
+
+                    }
+
+                    description "HTTP IPv4服务的ACL号[2000-2999]";
+
+                }
+
+                leaf IPv4AclName {
+
+                    type base:Basetype_String {
+
+                        pattern "[a-zA-Z][^?	
+
+]{0,62}";
+
+                    }
+
+                    description "configurate acl name for http IPv4 service";
+
+                }
+
+                leaf IPv6AclNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2000..2999";
+
+                    }
+
+                    description "HTTP IPv6服务的ACL号[2000-2999]";
+
+                }
+
+                leaf IPv6AclName {
+
+                    type base:Basetype_String {
+
+                        pattern "[a-zA-Z][^?	
+
+]{0,62}";
+
+                    }
+
+                    description "configurate acl name for http IPv6 service";
+
+                }
+
+            }
+
+            container HTTPS {
+
+                description "HTTPS相关信息";
+
+                leaf IPv4AclNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2000..2999";
+
+                    }
+
+                    description "ACL number of HTTP IPv4 service";
+
+                }
+
+                leaf IPv4AclName {
+
+                    type base:Basetype_String {
+
+                        pattern "[a-zA-Z][^?	
+
+]{0,62}";
+
+                    }
+
+                    description "configurate acl name for http IPv4 service";
+
+                }
+
+                leaf IPv6AclNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2000..2999";
+
+                    }
+
+                    description "ACL number of HTTP IPv6 service";
+
+                }
+
+                leaf IPv6AclName {
+
+                    type base:Basetype_String {
+
+                        pattern "[a-zA-Z][^?	
+
+]{0,62}";
+
+                    }
+
+                    description "configurate acl name for http IPv6 service";
+
+                }
+
+            }
+
+            leaf HttpEnable {
+
+                type base:Basetype_EnableState;
+
+                description "HTTP服务的状态";
+
+            }
+
+            leaf HttpsEnable {
+
+                type base:Basetype_EnableState;
+
+                description "HTTP服务的状态";
+
+            }
+
+        }
+
+    }
+
+}

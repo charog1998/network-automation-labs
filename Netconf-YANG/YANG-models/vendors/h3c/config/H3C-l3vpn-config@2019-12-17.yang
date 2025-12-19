@@ -1,0 +1,529 @@
+module H3C-l3vpn-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "l3vpn-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for l3vpn config.";
+
+    revision 2019-12-17 {
+
+        description "Synchronize the modification of the schema file to the YANG file.";
+
+    }
+
+    revision 2016-07-15 {
+
+        description "Initial revision.";
+
+    }
+
+    container L3vpn {
+
+        container L3vpnVRF {
+
+            description "L3vpnVRF table.
+
+                This table supports creating rows.";
+
+            list VRF {
+
+                description "Row name of L3vpnVRF table.";
+
+                key "VRF";
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF name, a case-sensitive string of 1 to 31 characters.";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "1..79";
+
+                    }
+
+                    description "Description information.";
+
+                }
+
+                leaf RD {
+
+                    type base:Basetype_String {
+
+                        length "3..21";
+
+                    }
+
+                    description "Route distinguisher.";
+
+                }
+
+                container Ipv4RoutingLimit {
+
+                    description "The maximum number of active routes limit of ipv4 address-family view.";
+
+                    leaf Ipv4MaxRoutes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The maximum number of active routes of ipv4 address-family view.";
+
+                    }
+
+                    leaf Ipv4RouteThreshold {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..100";
+
+                        }
+
+                        description "Threshold value.";
+
+                    }
+
+                    leaf Ipv4SimplyAlert {
+
+                        type base:Basetype_Boolean;
+
+                        description "Whether to print syslog.";
+
+                    }
+
+                }
+
+                container Ipv6RoutingLimit {
+
+                    description "The maximum number of active routes limit of ipv6 address-family view.";
+
+                    leaf Ipv6MaxRoutes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The maximum number of active routes of ipv6 address-family view.";
+
+                    }
+
+                    leaf Ipv6RouteThreshold {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..100";
+
+                        }
+
+                        description "Threshold value.";
+
+                    }
+
+                    leaf Ipv6SimplyAlert {
+
+                        type base:Basetype_Boolean;
+
+                        description "Whether to print syslog.";
+
+                    }
+
+                }
+
+                leaf ExportRoutePolicy {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The export route policy in VPN view.";
+
+                }
+
+                leaf EVPNExportRoutePolicy {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The export route policy of the EVPN view.";
+
+                }
+
+                leaf Ipv4ExportRoutePolicy {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The export route policy of the Ipv4 view.";
+
+                }
+
+                leaf ImportRoutePolicy {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The import route policy in VPN view.";
+
+                }
+
+                leaf EVPNImportRoutePolicy {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The import route policy of the EVPN view.";
+
+                }
+
+                leaf Ipv4ImportRoutePolicy {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The import route policy of the Ipv4 view.";
+
+                }
+
+            }
+
+        }
+
+        container L3vpnIf {
+
+            description "Table of L3vpn binding with interfaces.
+
+                This table supports creating rows.";
+
+            list Bind {
+
+                description "Row name of L3vpnIf table.";
+
+                key "VRF IfIndex";
+
+                leaf VRF {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "VRF name, a case-sensitive string of 1 to 31 characters.";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index.";
+
+                }
+
+            }
+
+        }
+
+        container L3vpnRT {
+
+            description "Table of L3vpn vpn-target information.
+
+                This table supports creating rows.";
+
+            list RT {
+
+                description "Row name of L3vpnRT table.";
+
+                key "VRF AddressFamily RTType RTEntry";
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF name, a case-sensitive string of 1 to 31 characters.";
+
+                }
+
+                leaf AddressFamily {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 4;
+
+                    }
+
+                    description "Address Family.";
+
+                }
+
+                leaf RTType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..2";
+
+                    }
+
+                    description "RT type.";
+
+                }
+
+                leaf RTEntry {
+
+                    type base:Basetype_String {
+
+                        length "3..21";
+
+                    }
+
+                    description "VPN target.";
+
+                }
+
+            }
+
+        }
+
+        container L3vpnPeer {
+
+            description "Table of L3vpn peer information.
+
+                This table supports creating rows.";
+
+            list Peer {
+
+                description "Row name of L3vpnPeer table.";
+
+                key "PeerName";
+
+                leaf PeerName {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "VPN peer name, a case-sensitive string of 1 to 31 characters.";
+
+                }
+
+                leaf PeerId {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..134217727";
+
+                    }
+
+                    description "Peer ID value.";
+
+                }
+
+                leaf UserProfile {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "User profile name, a case-sensitive string of 1 to 31 characters.";
+
+                }
+
+            }
+
+        }
+
+        container L3vpnRep {
+
+            description "Table of L3vpn route-replicate information.
+
+                This table supports creating rows.";
+
+            list Replicate {
+
+                description "Row name of L3vpnRep table.";
+
+                key "VRF AddressFamily RepVRF Protocol ProtocolID";
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "Destination VRF name, a case-sensitive string of 1 to 31 characters.";
+
+                }
+
+                leaf AddressFamily {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Address Family.";
+
+                }
+
+                leaf RepVRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "Source VRF name, a case-sensitive string of 1 to 31 characters.";
+
+                }
+
+                leaf Protocol {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                    }
+
+                    description "Protocol.";
+
+                }
+
+                leaf ProtocolID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "1-65535(For IGP Protocol and Eigrp Protocol), 1-4294967295(for BGP Protocol),0(for Direct Protocol and Static Protocol).";
+
+                }
+
+                leaf Advertise {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Advertise.";
+
+                }
+
+                leaf RoutePolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Specify a routing policy.";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

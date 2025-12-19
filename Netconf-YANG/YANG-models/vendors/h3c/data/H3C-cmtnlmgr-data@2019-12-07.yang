@@ -1,0 +1,255 @@
+module H3C-cmtnlmgr-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "cmtnlmgr-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for cmtnlmgr data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container Cmtnlmgr {
+
+        config false;
+
+        container CloudAccount {
+
+            description "CloudAccount
+
+                This table supports creating rows.";
+
+            container CloudAccountEntry {
+
+                description "CloudAccoun表";
+
+                leaf CloudAccountName {
+
+                    type base:Basetype_String {
+
+                        length "0..128";
+
+                    }
+
+                    description "云平台用户账号";
+
+                }
+
+                leaf CloudConnectionState {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                    }
+
+                    description "云平台连接状态";
+
+                }
+
+            }
+
+        }
+
+        container CloudConnect {
+
+            description "CloudConnect
+
+                This table supports creating rows.";
+
+            container CloudConnectEntry {
+
+                description "云平台连接信息信息";
+
+                leaf LastConnectTime {
+
+                    type base:Basetype_String {
+
+                        length "0..128";
+
+                    }
+
+                    description "设备上次接入时间";
+
+                }
+
+                leaf LastSyncTime {
+
+                    type base:Basetype_String {
+
+                        length "0..128";
+
+                    }
+
+                    description "设备上次同步时间";
+
+                }
+
+                leaf ConnectState {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "设备连接状态";
+
+                }
+
+            }
+
+        }
+
+        container CloudMaintainAgent {
+
+            description "CloudMaintainAgent
+
+                This table supports creating rows.";
+
+            container CloudMaintainAgentEntry {
+
+                description "云端运维信息";
+
+                leaf AgentBind {
+
+                    type base:Basetype_Boolean;
+
+                    description "运维代理绑定";
+
+                }
+
+                leaf AgentName {
+
+                    type base:Basetype_String {
+
+                        length "0..128";
+
+                    }
+
+                    description "运维代理名称";
+
+                }
+
+            }
+
+        }
+
+        container CloudDomainName {
+
+            leaf DomainName {
+
+                type base:Basetype_String {
+
+                    length "1..253";
+
+                }
+
+            }
+
+        }
+
+        container UpdateStatus {
+
+            leaf CurDevUpdateStatus {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..11";
+
+                }
+
+            }
+
+        }
+
+        container VersionInfo {
+
+            leaf NewSoftWareVersion {
+
+                type base:Basetype_String {
+
+                    length "1..256";
+
+                }
+
+            }
+
+            leaf CurSoftWareVersion {
+
+                type base:Basetype_String {
+
+                    length "1..256";
+
+                }
+
+            }
+
+        }
+
+        container CloudBackupDomain {
+
+            list Domain {
+
+                key "DomainName";
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        length "1..253";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container CloudPort {
+
+            leaf Port {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..65535";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

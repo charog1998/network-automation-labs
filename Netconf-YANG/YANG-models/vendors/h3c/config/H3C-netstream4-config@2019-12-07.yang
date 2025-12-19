@@ -1,0 +1,413 @@
+module H3C-netstream4-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "netstream4-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for netstream4 config.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container NETSTREAM4 {
+
+        container NS4Enable {
+
+            list InterfaceEnable {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Enable {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container NS4Sampler {
+
+            list InterfaceSampler {
+
+                key "IfIndex Direction";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf SamplerName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container NS4Filter {
+
+            list InterfaceFilter {
+
+                key "IfIndex Direction";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf AclNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2000..3999";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container NS4V9RefreshTime {
+
+            leaf Time {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..3600";
+
+                }
+
+            }
+
+        }
+
+        container NS4V9RefreshPacket {
+
+            leaf Packet {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..600";
+
+                }
+
+            }
+
+        }
+
+        container NS4Aging {
+
+            leaf AgingEnable {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+        container NS4IPSECRawPacket {
+
+            list IPSECRawPacket {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf RawPacketEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container NS4MPLSCollection {
+
+            leaf LabelPosition1 {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                    enum 2;
+
+                    enum 3;
+
+                    enum 4;
+
+                    enum 5;
+
+                    enum 6;
+
+                }
+
+            }
+
+            leaf LabelPosition2 {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                    enum 2;
+
+                    enum 3;
+
+                    enum 4;
+
+                    enum 5;
+
+                    enum 6;
+
+                }
+
+            }
+
+            leaf LabelPosition3 {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                    enum 2;
+
+                    enum 3;
+
+                    enum 4;
+
+                    enum 5;
+
+                    enum 6;
+
+                }
+
+            }
+
+            leaf NoIPFieldsEnable {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+        container NS4Source {
+
+            leaf IfIndex {
+
+                type base:Basetype_NameAndIndexUnion;
+
+            }
+
+        }
+
+        container NS4ActiveTime {
+
+            leaf ActiveTime {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..max";
+
+                }
+
+            }
+
+        }
+
+        container NS4InActiveTime {
+
+            leaf InActiveTime {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "10..max";
+
+                }
+
+            }
+
+        }
+
+        container NS4Host {
+
+            list Host {
+
+                key "VrfIndex IP";
+
+                leaf VrfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf IP {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf UDPPort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container NS4MaxEntry {
+
+            leaf MaxEntry {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf Action {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+        container NS4Rate {
+
+            leaf Rate {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..1000";
+
+                }
+
+            }
+
+        }
+
+        container NS4Version {
+
+            leaf Version {
+
+                type enumeration {
+
+                    enum 5;
+
+                    enum 9;
+
+                }
+
+            }
+
+            leaf As {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                }
+
+            }
+
+            leaf Nexthop {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+    }
+
+}

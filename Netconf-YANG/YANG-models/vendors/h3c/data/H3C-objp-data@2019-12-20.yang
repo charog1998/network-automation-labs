@@ -1,0 +1,1325 @@
+module H3C-objp-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "objp-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for objp data.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container OBJP {
+
+        config false;
+
+        container IPv4Policies {
+
+            description "IPv4 object policy table
+
+                This table supports creating rows.";
+
+            list Policy {
+
+                description "Row name";
+
+                key "SrcZone DestZone";
+
+                leaf SrcZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source zone name";
+
+                }
+
+                leaf DestZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination zone name";
+
+                }
+
+                leaf Accelerate {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Accelerate";
+
+                }
+
+                leaf RuleNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of object policy rules";
+
+                }
+
+            }
+
+        }
+
+        container IPv4Rules {
+
+            description "IPv4 object policy rule table
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                key "SrcZone DestZone ID";
+
+                leaf SrcZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source zone name";
+
+                }
+
+                leaf DestZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination zone name";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..65534";
+
+                    }
+
+                    description "Object policy rule ID";
+
+                }
+
+                leaf Action {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Action of object policy rule";
+
+                }
+
+                leaf SrcIPv4Group {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source ipv4 address object group name";
+
+                }
+
+                leaf DestIPv4Group {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination ipv4 address object group name";
+
+                }
+
+                leaf ServGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Service address object group name";
+
+                }
+
+                leaf AppGrp {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                    }
+
+                    description "App group name";
+
+                }
+
+                leaf App {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                    }
+
+                    description "Application name";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF name";
+
+                }
+
+                leaf TimeRange {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            pattern "[^?	
+
+]{1,32}";
+
+                        }
+
+                    }
+
+                    description "Time range name";
+
+                }
+
+                leaf TimeRangeState {
+
+                    type base:Basetype_Boolean;
+
+                    description "State of time range";
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Disable object policy rule";
+
+                }
+
+                leaf Log {
+
+                    type base:Basetype_Boolean;
+
+                    description "Logging of object policy rule";
+
+                }
+
+                leaf Counting {
+
+                    type base:Basetype_Boolean;
+
+                    description "Counting of object policy rule";
+
+                }
+
+                leaf Comment {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_Text {
+
+                            length "0..127";
+
+                        }
+
+                    }
+
+                    description "Comment of object policy rule";
+
+                }
+
+                leaf Count {
+
+                    type base:Basetype_Counter64;
+
+                    description "Count of matched packets";
+
+                }
+
+                leaf Byte {
+
+                    type base:Basetype_Counter64;
+
+                    description "Byte of matched packets";
+
+                }
+
+                leaf Profile {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..127";
+
+                        }
+
+                    }
+
+                    description "Profile name";
+
+                }
+
+            }
+
+        }
+
+        container IPv4RuleSrcAddr {
+
+            description "This table contains IPv4 object policy rule Source IPv4 address information.
+
+                This table supports creating rows.";
+
+            list RuleSrcAddr {
+
+                key "SrcZone DestZone ID Type Name";
+
+                leaf SrcZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source zone name";
+
+                }
+
+                leaf DestZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination zone name";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..65534";
+
+                    }
+
+                    description "Rule ID";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                    }
+
+                    description "Type of the source IPv4 address";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Name of the data type";
+
+                }
+
+            }
+
+        }
+
+        container IPv4RuleDestAddr {
+
+            description "This table contains IPv4 object policy rule Destination IPv4 address information.
+
+                This table supports creating rows.";
+
+            list RuleDestAddr {
+
+                key "SrcZone DestZone ID Type Name";
+
+                leaf SrcZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source zone name";
+
+                }
+
+                leaf DestZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination zone name";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..65534";
+
+                    }
+
+                    description "Rule ID";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                    }
+
+                    description "Type of the destination IPv4 address";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Name of the data type";
+
+                }
+
+            }
+
+        }
+
+        container IPv4RuleServGrp {
+
+            description "This table contains IPv4 object policy rule Service object group information.
+
+                This table supports creating rows.";
+
+            list RuleServGrp {
+
+                key "SrcZone DestZone ID Name";
+
+                leaf SrcZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source zone name";
+
+                }
+
+                leaf DestZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination zone name";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..65534";
+
+                    }
+
+                    description "Rule ID";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Name of the server object group";
+
+                }
+
+            }
+
+        }
+
+        container IPv4RuleApp {
+
+            description "This table contains IPv4 object policy rule application information.
+
+                This table supports creating rows.";
+
+            list RuleApp {
+
+                key "SrcZone DestZone ID Type Name";
+
+                leaf SrcZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source zone name";
+
+                }
+
+                leaf DestZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination zone name";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..65534";
+
+                    }
+
+                    description "Rule ID";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Type of the application";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of the data type";
+
+                }
+
+            }
+
+        }
+
+        container IPv6Policies {
+
+            description "IPv6 object policy table
+
+                This table supports creating rows.";
+
+            list Policy {
+
+                description "Row name";
+
+                key "SrcZone DestZone";
+
+                leaf SrcZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source zone name";
+
+                }
+
+                leaf DestZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination zone name";
+
+                }
+
+                leaf Accelerate {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Accelerate";
+
+                }
+
+                leaf RuleNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of object policy rules";
+
+                }
+
+            }
+
+        }
+
+        container IPv6Rules {
+
+            description "IPv6 object policy rule table
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                key "SrcZone DestZone ID";
+
+                leaf SrcZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source zone name";
+
+                }
+
+                leaf DestZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination zone name";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..65534";
+
+                    }
+
+                    description "Object policy rule ID";
+
+                }
+
+                leaf Action {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Action of object policy rule";
+
+                }
+
+                leaf SrcIPv6Group {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source ipv6 address object group name";
+
+                }
+
+                leaf DestIPv6Group {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination ipv6 address object group name";
+
+                }
+
+                leaf ServGroup {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Service address object group name";
+
+                }
+
+                leaf AppGrp {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                    }
+
+                    description "App group name";
+
+                }
+
+                leaf App {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                    }
+
+                    description "Application name";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF name";
+
+                }
+
+                leaf TimeRange {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            pattern "[^?	
+
+]{1,32}";
+
+                        }
+
+                    }
+
+                    description "Time range name";
+
+                }
+
+                leaf TimeRangeState {
+
+                    type base:Basetype_Boolean;
+
+                    description "State of time range";
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Disable object policy rule";
+
+                }
+
+                leaf Log {
+
+                    type base:Basetype_Boolean;
+
+                    description "Logging of object policy rule";
+
+                }
+
+                leaf Counting {
+
+                    type base:Basetype_Boolean;
+
+                    description "Counting of object policy rule";
+
+                }
+
+                leaf Comment {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_Text {
+
+                            length "0..127";
+
+                        }
+
+                    }
+
+                    description "Comment of object policy rule";
+
+                }
+
+                leaf Count {
+
+                    type base:Basetype_Counter64;
+
+                    description "Count of matched packets";
+
+                }
+
+                leaf Byte {
+
+                    type base:Basetype_Counter64;
+
+                    description "Byte of matched packets";
+
+                }
+
+                leaf Profile {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..127";
+
+                        }
+
+                    }
+
+                    description "Profile name";
+
+                }
+
+            }
+
+        }
+
+        container IPv6RuleSrcAddr {
+
+            description "This table contains IPv6 object policy rule Source IPv6 address information.
+
+                This table supports creating rows.";
+
+            list RuleSrcAddr {
+
+                key "SrcZone DestZone ID Type Name";
+
+                leaf SrcZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source zone name";
+
+                }
+
+                leaf DestZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination zone name";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..65534";
+
+                    }
+
+                    description "Rule ID";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                    }
+
+                    description "Type of the source IPv6 address";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Name of the data type";
+
+                }
+
+            }
+
+        }
+
+        container IPv6RuleDestAddr {
+
+            description "This table contains IPv6 object policy rule Destination IPv6 address information.
+
+                This table supports creating rows.";
+
+            list RuleDestAddr {
+
+                key "SrcZone DestZone ID Type Name";
+
+                leaf SrcZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source zone name";
+
+                }
+
+                leaf DestZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination zone name";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..65534";
+
+                    }
+
+                    description "Rule ID";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                    }
+
+                    description "Type of the destination IPv6 address";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Name of the data type";
+
+                }
+
+            }
+
+        }
+
+        container IPv6RuleServGrp {
+
+            description "This table contains IPv6 object policy rule Service object group information.
+
+                This table supports creating rows.";
+
+            list RuleServGrp {
+
+                key "SrcZone DestZone ID Name";
+
+                leaf SrcZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source zone name";
+
+                }
+
+                leaf DestZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination zone name";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..65534";
+
+                    }
+
+                    description "Rule ID";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Name of the server object group";
+
+                }
+
+            }
+
+        }
+
+        container IPv6RuleApp {
+
+            description "This table contains IPv6 object policy rule application information.
+
+                This table supports creating rows.";
+
+            list RuleApp {
+
+                key "SrcZone DestZone ID Type Name";
+
+                leaf SrcZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source zone name";
+
+                }
+
+                leaf DestZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination zone name";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..65534";
+
+                    }
+
+                    description "Rule ID";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Type of the application";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of the data type";
+
+                }
+
+            }
+
+        }
+
+        container AllocRuleID {
+
+            description "This table contains an available rule ID.
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                key "SrcZone DestZone Type";
+
+                leaf SrcZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Source zone name";
+
+                }
+
+                leaf DestZone {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "Destination zone name";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Rule ID";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..65534";
+
+                    }
+
+                    description "Rule ID";
+
+                }
+
+            }
+
+        }
+
+        container Capability {
+
+            description "objpect policy capability";
+
+            container Support {
+
+                description "Support";
+
+                leaf APR {
+
+                    type base:Basetype_Boolean;
+
+                    description "Support APR";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

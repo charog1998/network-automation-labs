@@ -1,0 +1,335 @@
+module H3C-login-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "login-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for login config.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container Login {
+
+        container Class {
+
+            container Roles {
+
+                list Role {
+
+                    key "ClassType RoleName";
+
+                    leaf ClassType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                        }
+
+                    }
+
+                    leaf RoleName {
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            container Classes {
+
+                list Class {
+
+                    key "ClassType";
+
+                    leaf ClassType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                        }
+
+                    }
+
+                    leaf AuthMode {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                    }
+
+                    leaf Password {
+
+                        type base:Basetype_OctectString {
+
+                            length "4..16";
+
+                        }
+
+                    }
+
+                    leaf ProtocolIn {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 5;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Line {
+
+            container Lines {
+
+                list Line {
+
+                    key "LineType LineNumber";
+
+                    leaf LineType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                        }
+
+                    }
+
+                    leaf LineNumber {
+
+                        type base:Basetype_OctectString {
+
+                            pattern "([0-9][0-9]*([/][0-9][0-9]*)*)";
+
+                            length "1..10";
+
+                        }
+
+                    }
+
+                    leaf AuthMode {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                    }
+
+                    leaf Password {
+
+                        type base:Basetype_OctectString {
+
+                            length "4..16";
+
+                        }
+
+                    }
+
+                    leaf ProtocolIn {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 5;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            container Roles {
+
+                list Role {
+
+                    key "LineType LineNumber RoleName";
+
+                    leaf LineType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                        }
+
+                    }
+
+                    leaf LineNumber {
+
+                        type base:Basetype_OctectString {
+
+                            pattern "([0-9][0-9]*([/][0-9][0-9]*)*)";
+
+                            length "1..10";
+
+                        }
+
+                    }
+
+                    leaf RoleName {
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Header {
+
+            leaf Incoming {
+
+                type base:Basetype_OctectString {
+
+                    pattern "[^	]*";
+
+                    length "2..2002";
+
+                }
+
+            }
+
+            leaf Legal {
+
+                type base:Basetype_OctectString {
+
+                    pattern "[^	]*";
+
+                    length "2..2002";
+
+                }
+
+            }
+
+            leaf Login {
+
+                type base:Basetype_OctectString {
+
+                    pattern "[^	]*";
+
+                    length "2..2002";
+
+                }
+
+            }
+
+            leaf Motd {
+
+                type base:Basetype_OctectString {
+
+                    pattern "[^	]*";
+
+                    length "2..2002";
+
+                }
+
+            }
+
+            leaf Shell {
+
+                type base:Basetype_OctectString {
+
+                    pattern "[^	]*";
+
+                    length "2..2002";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

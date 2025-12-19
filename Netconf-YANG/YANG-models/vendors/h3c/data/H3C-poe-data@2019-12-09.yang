@@ -1,0 +1,965 @@
+module H3C-poe-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "poe-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for poe data.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container PoE {
+
+        config false;
+
+        container Capabilities {
+
+            description "This table contains PoE global capability information.";
+
+            leaf SupportPoE {
+
+                type base:Basetype_Boolean;
+
+                description "Whether Support PoE feature.";
+
+            }
+
+            leaf PSEPolicy {
+
+                type base:Basetype_Boolean;
+
+                description "Whether system support PSE power policy configuration.";
+
+            }
+
+            leaf PDPolicy {
+
+                type base:Basetype_Boolean;
+
+                description "Whether system support PD power policy configuration.";
+
+            }
+
+            leaf PowerManage {
+
+                type base:Basetype_Boolean;
+
+                description "Whether system support PoE power management.";
+
+            }
+
+            leaf MaxPower {
+
+                type base:Basetype_Boolean;
+
+                description "Whether system support PoE power MaxPower configuration.";
+
+            }
+
+            leaf PSEUpdate {
+
+                type base:Basetype_Boolean;
+
+                description "Whether system support PSE firmware updating.";
+
+            }
+
+            leaf PowerMode {
+
+                type base:Basetype_Boolean;
+
+                description "Whether system support PoE port power mode configuration.";
+
+            }
+
+        }
+
+        container PriorityPolicy {
+
+            description "POE system information";
+
+            leaf PSEPolicyMode {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+                description "Mode of PSE power policy.
+
+                    Enumberation.
+
+                    1 disalbed
+
+                    2 priority
+
+                    Default: disalbed.";
+
+            }
+
+            leaf PDPolicyMode {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+                description "Mode of PD power policy
+
+                    Enumberation.
+
+                    1 disalbed
+
+                    2 priority
+
+                    Default: disalbed.";
+
+            }
+
+        }
+
+        container Powers {
+
+            description "PoE profile information";
+
+            list Power {
+
+                description "row name";
+
+                key "PowerIndex";
+
+                leaf PowerIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Index of the profile";
+
+                }
+
+                leaf Chassis {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "ID of the member where the PSE resides.";
+
+                }
+
+                leaf Slot {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "The number of slot where the PSE resides";
+
+                }
+
+                leaf NominalPower {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The nominal power of the Power supply(mW).";
+
+                }
+
+                leaf CurrentPower {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The current power of the Power supply(mW).";
+
+                }
+
+                leaf PeakPower {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The peak power of the Power supply(mW).";
+
+                }
+
+                leaf AveragePower {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The average power of the Power supply(mW).";
+
+                }
+
+                leaf RemainingGuaranteedPower {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The remaining guaranteed  power of the Power supply(mW).";
+
+                }
+
+                leaf RemainingAllocablePower {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The remaining allocable power of the Power supply(mW).";
+
+                }
+
+                leaf PowerLimit {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The max power limit of the Power supply.";
+
+                }
+
+                leaf MaxPowerDefault {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The default value of PoE power max power(mW).";
+
+                }
+
+                leaf MaxPowerUpper {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The upper value of PoE power max power(mW).";
+
+                }
+
+                leaf MaxPowerLower {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The lower value of PoE power max power(mW).";
+
+                }
+
+            }
+
+        }
+
+        container PSEs {
+
+            description "Power supply equipment information";
+
+            list PSE {
+
+                description "row name";
+
+                key "PSEID";
+
+                leaf PSEID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Pse identification";
+
+                }
+
+                leaf Chassis {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "ID of the member where the PSE resides.";
+
+                }
+
+                leaf Slot {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "The number of slot where the PSE resides";
+
+                }
+
+                leaf SubSlot {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "The number of Subslot where the PSE resides";
+
+                }
+
+                leaf Model {
+
+                    type base:Basetype_String {
+
+                        length "1..32 ";
+
+                    }
+
+                    description "The type of the PSE";
+
+                }
+
+                leaf NominalPower {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The nominal power(mW).";
+
+                }
+
+                leaf CurrentPower {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The current power(mW).";
+
+                }
+
+                leaf PeakPower {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The peak power(mW).";
+
+                }
+
+                leaf AveragePower {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The average power(mW).";
+
+                }
+
+                leaf RemainingGuaranteedPower {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The remaining guaranteed  power(mW).";
+
+                }
+
+                leaf PowerLimit {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The max power limit of the PSE";
+
+                }
+
+                leaf OperStatus {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "The operational status of the PSE.
+
+                          Enumeration.
+
+                          1 on
+
+                          2 off
+
+                          3 faulty
+
+                          Default: off.";
+
+                }
+
+                leaf UsageThreshold {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..99";
+
+                    }
+
+                    description "The usage threshold of the power the PSE  used.Units in %.Value range: 1 to 99.";
+
+                }
+
+                leaf Priority {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "The power priority of the specified PSE.
+
+                          Enumeration.
+
+                          1 critical
+
+                          2 high
+
+                          3 low
+
+                          Default: low.";
+
+                }
+
+                leaf Legacy {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "The legacy mode status(for nonstandard PD detection)
+
+                          Enumeration.
+
+                          0 enabled
+
+                          1 disabled
+
+                          Default: disalbed.";
+
+                }
+
+                leaf MaxPowerDefault {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The default value of PoE power max power(mW).";
+
+                }
+
+                leaf MaxPowerUpper {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The upper value of PoE power max power(mW).";
+
+                }
+
+                leaf MaxPowerLower {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The lower value of PoE power max power(mW).";
+
+                }
+
+                leaf PortMaxPowerDefault {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The default value of Port max power(mW).";
+
+                }
+
+                leaf PortMaxPowerUpper {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The upper value of Port max power(mW).";
+
+                }
+
+                leaf PortMaxPowerLower {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The lower value of Port max power(mW).";
+
+                }
+
+                leaf PowerIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Index of the Power supply";
+
+                }
+
+            }
+
+        }
+
+        container Ports {
+
+            description "Port information";
+
+            list Port {
+
+                description "row name";
+
+                key "PSEID IfIndex";
+
+                leaf PSEID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Pse identification";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "IfIndex of port.";
+
+                }
+
+                leaf AdminEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "The admin enable status of an interface which can provide PSE functions.
+
+	                Bool.
+
+	                true:provide
+
+	                false:not provide";
+
+                }
+
+                leaf PairsControlAbility {
+
+                    type base:Basetype_Boolean;
+
+                    description "The capability of controlling the power pairs functionality to switch pins for sourcing power.
+
+                          Bool.
+
+                          1 true:support to switch
+
+                          2 false
+
+                          Default: false.";
+
+                }
+
+                leaf Pairs {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "The power pairs in use.
+
+                          Enumeration.
+
+                          1 signal
+
+                          2 spare";
+
+                }
+
+                leaf DetectionStatus {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                    }
+
+                    description "The operational status of the port PD detection.
+
+                          Enumeration.
+
+                          1 disabled
+
+                          2 searching
+
+                          3 deliveringPower
+
+                          4 fault
+
+                          5 test
+
+                          6 otherFault";
+
+                }
+
+                leaf Priority {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "The power priority of the specified interface
+
+                          Enumeration.
+
+                          1 critical
+
+                          2 high
+
+                          3 low
+
+                          Default: low.";
+
+                }
+
+                leaf MPSAbsentCounter {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The counter for interface state diagram transitions directly from the state POWER_ON to the state IDLE.";
+
+                }
+
+                leaf PDDescription {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_Text {
+
+                            length "0..80";
+
+                        }
+
+                    }
+
+                    description "The description for the Pd that is connected to the port.";
+
+                }
+
+                leaf PowerClassifications {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                    description "The Classification of the PD connected to the PoE interface
+
+                          Enumeration.
+
+                          1 class0
+
+                          2 class1
+
+                          3 class2
+
+                          4 class3
+
+                          5 class4";
+
+                }
+
+                leaf InvalidSignatureCounter {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "This counter is incremented when the PSE state diagram        enters the state SIGNATURE_INVALID";
+
+                }
+
+                leaf PowerDeniedCounter {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "This counter is incremented when the PSE state diagram        enters the state POWER_DENIED";
+
+                }
+
+                leaf OverLoadCounter {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "This counter is incremented when the PSE state diagram        enters the state ERROR_DELAY_OVER";
+
+                }
+
+                leaf ShortCounter {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "This counter is incremented when the PSE state diagram        enters the state ERROR_DELAY_SHORT";
+
+                }
+
+                leaf FaultDescription {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_Text {
+
+                            length "0..255";
+
+                        }
+
+                    }
+
+                    description "The fault category of Poe interface";
+
+                }
+
+                leaf PeakPower {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The peak power of the PD connected to the Poe interface(mW).";
+
+                }
+
+                leaf AveragePower {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The average power of the PD connected to the Poe interface(mW).";
+
+                }
+
+                leaf CurrentPower {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The current power of the PD connected to the Poe interface(mW).";
+
+                }
+
+                leaf PowerLimit {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The max power of the PD connected to the Poe interface(mW).";
+
+                }
+
+                leaf PowerModeDefault {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "The default mode of PoE port power mode
+
+                          Enumeration.
+
+                          1 signal.
+
+                          2 spare.";
+
+                }
+
+                leaf ProfileIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The profile index applied to the Poe interface";
+
+                }
+
+            }
+
+        }
+
+        container Profiles {
+
+            description "PoE profile information
+
+                This table supports creating rows.";
+
+            list Profile {
+
+                description "row name";
+
+                key "ProfileIndex";
+
+                leaf ProfileIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Index of the profile";
+
+                }
+
+                leaf ProfileName {
+
+                    type base:Basetype_String {
+
+                        length "1..15";
+
+                    }
+
+                    description "The name of profile";
+
+                }
+
+                leaf PowerMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "The power status of an interface which can provide PSE functions.
+
+                          Enumeration.
+
+                          1 powerDisabled
+
+                          2 powerEnabled
+
+                          Default: powerDisabled.";
+
+                }
+
+                leaf PowerLimit {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The max power of the PD connected to the Poe interface(mW).";
+
+                }
+
+                leaf Priority {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "The power priority of the specified interface
+
+                          Enumeration.
+
+                          1 critical
+
+                          2 high
+
+                          3 low
+
+                          Default: low.";
+
+                }
+
+                leaf Pairs {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "The power pairs in use.
+
+                          Enumeration.
+
+                          1 signal
+
+                          2 spare";
+
+                }
+
+                leaf ApplyNumber {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of this profile which has been applied.";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

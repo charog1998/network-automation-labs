@@ -1,0 +1,6087 @@
+module H3C-mqc-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "mqc-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for mqc data.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container MQC {
+
+        config false;
+
+        container GlobalRunInfo {
+
+            description "Global running status";
+
+            leaf ProcessingStatus {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+                description "Processing status. 1: Idle, 2: Processing";
+
+            }
+
+        }
+
+        container AppRunInfo {
+
+            description "Running information of apply instances";
+
+            list AppRunInfoEntry {
+
+                description "Row name";
+
+                key "AppType AppMainIndex AppSubIndex AppDirection";
+
+                leaf AppType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "Apply type. 1: Interface, 2: Vlan, 3: Global, 4: COPP";
+
+                }
+
+                leaf AppMainIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Apply main index";
+
+                }
+
+                leaf AppSubIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Apply sub index";
+
+                }
+
+                leaf AppDirection {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Apply direction. 1: inbount, 2: outbound";
+
+                }
+
+                leaf AppPolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Policy name";
+
+                }
+
+                leaf ApplyStatus {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Apply status. 1: Success, 2: Partial success";
+
+                }
+
+            }
+
+        }
+
+        container CBRunInfo {
+
+            description "CBMap run info";
+
+            list CBRunInfoEntry {
+
+                description "Row name";
+
+                key "AppType AppMainIndex AppSubIndex AppDirection CBMapIndex";
+
+                leaf AppType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "Apply type. 1: Interface, 2: Vlan, 3: Global, 4: COPP";
+
+                }
+
+                leaf AppMainIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Apply main index";
+
+                }
+
+                leaf AppSubIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Apply sub index";
+
+                }
+
+                leaf AppDirection {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Apply direction. 1: inbount, 2: outbound";
+
+                }
+
+                leaf CBMapIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "CBMap index";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf BehaviorName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Behavior name";
+
+                }
+
+                leaf CBApplyStatus {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "CBMap apply status. 1: Success, 2: Failed, 3: Partial success";
+
+                }
+
+            }
+
+        }
+
+        container AccountRunInfo {
+
+            description "Account runinfo";
+
+            list AccountRunInfoEntry {
+
+                description "Row name";
+
+                key "AppType AppMainIndex AppSubIndex AppDirection CBMapIndex";
+
+                leaf AppType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "Apply type. 1: Interface, 2: Vlan, 3: Global, 4: COPP";
+
+                }
+
+                leaf AppMainIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Apply main index";
+
+                }
+
+                leaf AppSubIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Apply sub index";
+
+                }
+
+                leaf AppDirection {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Apply direction. 1: inbount, 2: outbound";
+
+                }
+
+                leaf CBMapIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "CBMap index";
+
+                }
+
+                leaf AccountPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "Account packets";
+
+                }
+
+                leaf AccountBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "Account bytes";
+
+                }
+
+            }
+
+        }
+
+        container CARRunInfo {
+
+            description "CAR runinfo";
+
+            list CARRunInfoEntry {
+
+                description "Row name";
+
+                key "AppType AppMainIndex AppSubIndex AppDirection CBMapIndex";
+
+                leaf AppType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "Apply type. 1: Interface, 2: Vlan, 3: Global, 4: COPP";
+
+                }
+
+                leaf AppMainIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Apply main index";
+
+                }
+
+                leaf AppSubIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Apply sub index";
+
+                }
+
+                leaf AppDirection {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Apply direction. 1: inbount, 2: outbound";
+
+                }
+
+                leaf CBMapIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "CBMap index";
+
+                }
+
+                leaf CIR {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Committed information rate. Unit: kbps";
+
+                }
+
+                leaf CBS {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Committed burst size. Unit: byte";
+
+                }
+
+                leaf EBS {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Excess burst size. Unit: byte";
+
+                }
+
+                leaf PIR {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Peak information rate. Unit: kbps";
+
+                }
+
+                leaf GreenPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "Green packets";
+
+                }
+
+                leaf GreenBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "Green bytes";
+
+                }
+
+                leaf RedPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "Red packets";
+
+                }
+
+                leaf RedBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "Red bytes";
+
+                }
+
+                leaf YellowPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "Yellow packets";
+
+                }
+
+                leaf YellowBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "Yellow bytes";
+
+                }
+
+            }
+
+        }
+
+        container Classifiers {
+
+            description "Classifier table
+
+                This table supports creating rows.";
+
+            list Classifier {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Classifier name";
+
+                }
+
+                leaf Operator {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Operator 1:and 2:or";
+
+                }
+
+                leaf RuleNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of rules";
+
+                }
+
+                leaf DefineMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "1：system define 2：user define";
+
+                }
+
+                leaf NextRuleID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Next rule ID";
+
+                }
+
+            }
+
+        }
+
+        container Behaviors {
+
+            description "Behavior table
+
+                This table supports creating rows.";
+
+            list Behavior {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Behavior name";
+
+                }
+
+                leaf ActionMask {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Mask of action";
+
+                }
+
+                leaf DefineMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "1：system define 2：user define";
+
+                }
+
+            }
+
+        }
+
+        container Policies {
+
+            description "Policy table
+
+                This table supports creating rows.";
+
+            list Policy {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Policy name";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "policy type. 0: common, 1: remarking, 2: accounting, 3: mirroring.";
+
+                }
+
+                leaf CBMapNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of CBMaps";
+
+                }
+
+                leaf DefineMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "1：system define 2：user define";
+
+                }
+
+                leaf NextCBMapID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Next CBMap ID";
+
+                }
+
+            }
+
+        }
+
+        container CBMaps {
+
+            description "CBMap table
+
+                This table supports creating rows.";
+
+            list CBMap {
+
+                description "Row name";
+
+                key "PolicyName ClassifierName";
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Policy name";
+
+                }
+
+                leaf ClassifierName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Classifier name";
+
+                }
+
+                leaf BehaviorName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Behavior name";
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 2;
+
+                        enum 16;
+
+                    }
+
+                    description "CBMap mode";
+
+                }
+
+                leaf DefineMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "1：system define 2：user define";
+
+                }
+
+            }
+
+        }
+
+        container Rules {
+
+            description "Rule table
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                description "Row name";
+
+                key "ClassName RuleID";
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Classifier name";
+
+                }
+
+                leaf RuleID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Rule ID";
+
+                }
+
+                leaf Not {
+
+                    type boolean;
+
+                    description "Not match";
+
+                }
+
+                leaf PktType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                    }
+
+                    description "1:Any 2:IP 3:IPv6 4:Arp 5:Bt 6:Bridge 7:Route";
+
+                }
+
+                leaf IPv4Acl {
+
+                    type base:Basetype_String {
+
+                        pattern "([2-5][0-9]{3})|([a-zA-Z][^?	
+
+]{0,62})";
+
+                    }
+
+                    description "acl v4";
+
+                }
+
+                leaf IPv6Acl {
+
+                    type base:Basetype_String {
+
+                        pattern "([2-3][0-9]{3})|([a-zA-Z][^?	
+
+]{0,62})";
+
+                    }
+
+                    description "acl v6";
+
+                }
+
+                leaf SrcMac {
+
+                    type base:Basetype_MacAddress;
+
+                    description "Matches a source MAC address";
+
+                }
+
+                leaf DestMac {
+
+                    type base:Basetype_MacAddress;
+
+                    description "Matches a destination MAC address";
+
+                }
+
+                leaf ServiceVLANID {
+
+                    type base:Basetype_VlanRange;
+
+                    description "Matches the service provider VLAN IDs";
+
+                }
+
+                leaf CustomerVLANID {
+
+                    type base:Basetype_VlanRange;
+
+                    description "Matches the customer VLAN IDs";
+
+                }
+
+                container ServiceDot1pList {
+
+                    description "Matches the 802.1p priority of the service provider network";
+
+                    leaf-list ServiceDot1p {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..7";
+
+                        }
+
+                    }
+
+                }
+
+                container CustomerDot1pList {
+
+                    description "Matches the 802.1p priority of the customer network";
+
+                    leaf-list CustomerDot1p {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..7";
+
+                        }
+
+                    }
+
+                }
+
+                container ExpList {
+
+                    description "Matches MPLS EXP values";
+
+                    leaf-list Exp {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..7";
+
+                        }
+
+                    }
+
+                }
+
+                container InnerExpList {
+
+                    description "Matches inner MPLS EXP values";
+
+                    leaf-list InnerExp {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..7";
+
+                        }
+
+                    }
+
+                }
+
+                container IPPrecedenceList {
+
+                    description "Matches IP precedence";
+
+                    leaf-list IPPrecedence {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..7";
+
+                        }
+
+                    }
+
+                }
+
+                container LocalPrecedenceList {
+
+                    description "Matches local precedence";
+
+                    leaf-list LocalPrecedence {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..7";
+
+                        }
+
+                    }
+
+                }
+
+                container DscpList {
+
+                    description "Matches DSCP values";
+
+                    leaf-list Dscp {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..63";
+
+                        }
+
+                    }
+
+                }
+
+                container DropPriorityList {
+
+                    description "Matches drop priority";
+
+                    leaf-list DropPriority {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..2";
+
+                        }
+
+                    }
+
+                }
+
+                leaf QoSLocalID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4095";
+
+                    }
+
+                    description "Matches a local QoS ID";
+
+                }
+
+                container MplsLabelList {
+
+                    description "Matches MPLS labels";
+
+                    leaf-list MplsLabel {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1048575";
+
+                        }
+
+                    }
+
+                }
+
+                container InnerMplsLabelList {
+
+                    description "Matches inner MPLS labels";
+
+                    leaf-list InnerMplsLabel {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1048575";
+
+                        }
+
+                    }
+
+                }
+
+                container PktLength {
+
+                    description "Matches the packet length";
+
+                    leaf Min {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..65535";
+
+                        }
+
+                        description "Specifies the minimum packet length in bytes";
+
+                    }
+
+                    leaf Max {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..65535";
+
+                        }
+
+                        description "Specifies the maximum packet length in bytes";
+
+                    }
+
+                }
+
+                container MplsLabelRange {
+
+                    description "Specifies a MPLS label range";
+
+                    leaf LabelStart {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1048575";
+
+                        }
+
+                        description "Specifies start value";
+
+                    }
+
+                    leaf LabelEnd {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1048575";
+
+                        }
+
+                        description "Specifies end value";
+
+                    }
+
+                }
+
+                container InnerMplsLabelRange {
+
+                    description "Specifies an inner MPLS label range";
+
+                    leaf InnerLabelStart {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1048575";
+
+                        }
+
+                        description "Specifies start value";
+
+                    }
+
+                    leaf InnerLabelEnd {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1048575";
+
+                        }
+
+                        description "Specifies end value";
+
+                    }
+
+                }
+
+                container RTPPort {
+
+                    description "Matches the packet length";
+
+                    leaf PortStart {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "2000..65535";
+
+                        }
+
+                        description "Specifies start value";
+
+                    }
+
+                    leaf PortEnd {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "2000..65535";
+
+                        }
+
+                        description "Specifies end value";
+
+                    }
+
+                }
+
+                leaf Application {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9]|_|-){0,}";
+
+                        length "1..63";
+
+                    }
+
+                    description "Matches application";
+
+                }
+
+                leaf ApplicationGroup {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9]|_|-){0,}";
+
+                        length "1..63";
+
+                    }
+
+                    description "Matches application group";
+
+                }
+
+                container TunnelDscpList {
+
+                    description "Matches Tunnel DSCP values";
+
+                    leaf-list TunnelDscp {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..63";
+
+                        }
+
+                    }
+
+                }
+
+                leaf Vxlan {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..16777215";
+
+                    }
+
+                    description "vxlan ID";
+
+                }
+
+                leaf VxlanAny {
+
+                    type boolean;
+
+                    description "vxlan any";
+
+                }
+
+            }
+
+        }
+
+        container Remark {
+
+            description "Marking action table
+
+                This table supports creating rows.";
+
+            list Action {
+
+                description "Row name";
+
+                key "BehaviorName Type Color";
+
+                leaf BehaviorName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Behavior name";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                        enum 10;
+
+                        enum 11;
+
+                        enum 12;
+
+                        enum 16;
+
+                        enum 17;
+
+                        enum 19;
+
+                    }
+
+                    description "Marking action type";
+
+                }
+
+                leaf Color {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Specifies packet's color";
+
+                }
+
+                leaf Value {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "min..4294967294";
+
+                    }
+
+                    description "marking action value";
+
+                }
+
+            }
+
+        }
+
+        container Redirect {
+
+            description "Redirects traffic
+
+                This table supports creating rows.";
+
+            list Action {
+
+                description "Row name";
+
+                key "BehaviorName Type IfIndex";
+
+                leaf BehaviorName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Behavior name";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Redirect type";
+
+                }
+
+                leaf IfIndex {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_NameAndIndexUnion;
+
+                    }
+
+                    description "Interface index";
+
+                }
+
+                leaf TrackOap {
+
+                    type boolean;
+
+                    description "Enable the traffic redirecting action to collaborate with OAP";
+
+                }
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "Specifie VLAN ID which the traffic redirected to an interface with";
+
+                }
+
+                leaf VSI {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Vsi name";
+
+                }
+
+            }
+
+        }
+
+        container Filter {
+
+            description "Filtering action table";
+
+            list Action {
+
+                description "Row name";
+
+                key "BehaviorName";
+
+                leaf BehaviorName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Behavior name";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Filter type";
+
+                }
+
+            }
+
+        }
+
+        container GlobalPolicy {
+
+            description "Global policy table
+
+                This table supports creating rows.";
+
+            list Application {
+
+                description "Row name";
+
+                key "Direction";
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Policy name";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Status";
+
+                }
+
+            }
+
+        }
+
+        container VlanPolicy {
+
+            description "Vlan policy table
+
+                This table supports creating rows.";
+
+            list Application {
+
+                description "Row name";
+
+                key "VLANID Direction";
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "VLAN ID";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Policy name";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Status";
+
+                }
+
+            }
+
+        }
+
+        container InterfacePolicy {
+
+            description "Interface policy table
+
+                This table supports creating rows.";
+
+            list Application {
+
+                description "Row name";
+
+                key "IfIndex Direction";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Policy name";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Status";
+
+                }
+
+            }
+
+        }
+
+        container UserProfileQosPolicy {
+
+            description "Userprofile policy table
+
+                This table supports creating rows.";
+
+            list Apply {
+
+                description "Row name";
+
+                key "UserProfileName Direction";
+
+                leaf UserProfileName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "UserProfile name";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf QoSPolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Policy name";
+
+                }
+
+            }
+
+        }
+
+        container AssuredForwarding {
+
+            description "AssuredForwarding table";
+
+            list Action {
+
+                description "Row name";
+
+                key "BehaviorName";
+
+                leaf BehaviorName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Behavior name";
+
+                }
+
+                leaf Kbps {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967294";
+
+                        }
+
+                    }
+
+                    description "Bandwidth value in kbps";
+
+                }
+
+                leaf Pct {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..100";
+
+                    }
+
+                    description "Percentage of reserved bandwidth";
+
+                }
+
+                leaf RemainingPct {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..100";
+
+                    }
+
+                    description "Percentage of remaining bandwidth.";
+
+                }
+
+            }
+
+        }
+
+        container ExpeditedForwarding {
+
+            description "ExpeditedForwarding action table";
+
+            list Action {
+
+                description "Row name";
+
+                key "BehaviorName";
+
+                leaf BehaviorName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Behavior name";
+
+                }
+
+                container Bandwidth {
+
+                    description "Specify the bandwidth value in kpbs";
+
+                    leaf Kbps {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967294";
+
+                        }
+
+                        description "Value in kpbs";
+
+                    }
+
+                    leaf CBS {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967294";
+
+                        }
+
+                        description "Committed Burst Size";
+
+                    }
+
+                }
+
+                container BandwidthPct {
+
+                    description "Specify the percentage of reserved bandwidth";
+
+                    leaf Pct {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..100";
+
+                        }
+
+                        description "Percentage of reserved bandwidth";
+
+                    }
+
+                    leaf CBSRatio {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967294";
+
+                        }
+
+                        description "CBS Ratio";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container WFQ {
+
+            description "WFQ action table";
+
+            list Action {
+
+                description "Row name";
+
+                key "BehaviorName";
+
+                leaf BehaviorName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Behavior name";
+
+                }
+
+                leaf QueueNum {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967294";
+
+                        }
+
+                    }
+
+                    description "The maxinum number of queues";
+
+                }
+
+            }
+
+        }
+
+        container CAR {
+
+            description "CAR action table";
+
+            list Action {
+
+                description "Row name";
+
+                key "BehaviorName";
+
+                leaf BehaviorName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Behavior name";
+
+                }
+
+                leaf BandwidthUnit {
+
+                    type enumeration {
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Bandwidth Unit";
+
+                }
+
+                leaf CIR {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "CIR in kbps";
+
+                }
+
+                leaf CBS {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "CBS in bytes";
+
+                }
+
+                leaf EBS {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "EBS in bytes";
+
+                }
+
+                leaf PIR {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "PIR in kbps";
+
+                }
+
+                container GreenAction {
+
+                    description "Matches the green packets";
+
+                    leaf GreenActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 19;
+
+                        }
+
+                        description "Remark the type of packets";
+
+                    }
+
+                    leaf GreenActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..63";
+
+                        }
+
+                        description "Remark the value of different packets";
+
+                    }
+
+                }
+
+                container YellowAction {
+
+                    description "Matches the yellow packets";
+
+                    leaf YellowActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 19;
+
+                        }
+
+                        description "Remark the type of packets";
+
+                    }
+
+                    leaf YellowActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..63";
+
+                        }
+
+                        description "Remark the value of different packets";
+
+                    }
+
+                }
+
+                container RedAction {
+
+                    description "Matches the red packets";
+
+                    leaf RedActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 19;
+
+                        }
+
+                        description "Remark the type of packets";
+
+                    }
+
+                    leaf RedActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..63";
+
+                        }
+
+                        description "Remark the value of different packets";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container ReservedBandwidth {
+
+            description "qos reserved-bandwidth table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Pct {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..100";
+
+                    }
+
+                    description "The percentage of available bandwidth";
+
+                }
+
+            }
+
+        }
+
+        container IfPolicyCBMap {
+
+            description "interface cbmap run table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex Direction ClassName";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf BehaviorName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Behavior name";
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 2;
+
+                        enum 16;
+
+                    }
+
+                    description "CBMap mode";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Status";
+
+                }
+
+                leaf MatchedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Packets";
+
+                }
+
+                leaf MatchedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Bytes";
+
+                }
+
+            }
+
+        }
+
+        container IfPolicyCar {
+
+            description "IfPolicyCarRun table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex Direction ClassName";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf CIR {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Committed information rate. Unit: kbps";
+
+                }
+
+                leaf CBS {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Committed burst size. Unit: byte";
+
+                }
+
+                leaf EBS {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Excess burst size. Unit: byte";
+
+                }
+
+                leaf PIR {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Peak information rate. Unit: kbps";
+
+                }
+
+                container GreenAction {
+
+                    description "Matches the green packets";
+
+                    leaf GreenActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 19;
+
+                        }
+
+                        description "Remark the type of packets";
+
+                    }
+
+                    leaf GreenActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967294";
+
+                        }
+
+                        description "Remark the value of different packets";
+
+                    }
+
+                }
+
+                container YellowAction {
+
+                    description "Matches the yellow packets";
+
+                    leaf YellowActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 19;
+
+                        }
+
+                        description "Remark the type of packets";
+
+                    }
+
+                    leaf YellowActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967294";
+
+                        }
+
+                        description "Remark the value of different packets";
+
+                    }
+
+                }
+
+                container RedAction {
+
+                    description "Matches the red packets";
+
+                    leaf RedActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 19;
+
+                        }
+
+                        description "Remark the type of packets";
+
+                    }
+
+                    leaf RedActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967294";
+
+                        }
+
+                        description "Remark the value of different packets";
+
+                    }
+
+                }
+
+                leaf GreenPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "Green packets";
+
+                }
+
+                leaf GreenBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "Green bytes";
+
+                }
+
+                leaf YellowPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "Yellow packets";
+
+                }
+
+                leaf YellowBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "Yellow bytes";
+
+                }
+
+                leaf RedPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "Red packets";
+
+                }
+
+                leaf RedBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "Red bytes";
+
+                }
+
+            }
+
+        }
+
+        container IfPolicyAF {
+
+            description "AF run table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex ClassName";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf Kbps {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "Value in kbps";
+
+                }
+
+                leaf Bps {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "Value in bps";
+
+                }
+
+                leaf RemainingPct {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..100";
+
+                    }
+
+                    description "Percentage of remaining bandwidth.";
+
+                }
+
+                leaf MatchedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Packets";
+
+                }
+
+                leaf MatchedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Bytes";
+
+                }
+
+                leaf EnqueuedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Enqueued Packets";
+
+                }
+
+                leaf EnqueuedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Enqueued Bytes";
+
+                }
+
+                leaf DiscardedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Discarded Packets";
+
+                }
+
+                leaf DiscardedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Discarded Bytes";
+
+                }
+
+            }
+
+        }
+
+        container IfPolicyEF {
+
+            description "EF run table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex ClassName";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf Kbps {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "Value in kpbs";
+
+                }
+
+                leaf CBS {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "Committed Burst Size";
+
+                }
+
+                leaf MatchedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Packets";
+
+                }
+
+                leaf MatchedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Bytes";
+
+                }
+
+                leaf EnqueuedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Enqueued Packets";
+
+                }
+
+                leaf EnqueuedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Enqueued Bytes";
+
+                }
+
+                leaf DiscardedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Discarded Packets";
+
+                }
+
+                leaf DiscardedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Discarded Bytes";
+
+                }
+
+            }
+
+        }
+
+        container IfPolicyWFQ {
+
+            description "WFQ run table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex ClassName";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf QueueNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "The maxinum number of queues";
+
+                }
+
+                leaf MatchedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Packets";
+
+                }
+
+                leaf MatchedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Bytes";
+
+                }
+
+                leaf EnqueuedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Enqueued Packets";
+
+                }
+
+                leaf EnqueuedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Enqueued Bytes";
+
+                }
+
+                leaf DiscardedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Discarded Packets";
+
+                }
+
+                leaf DiscardedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Discarded Bytes";
+
+                }
+
+            }
+
+        }
+
+        container GlobalPolicyCBMap {
+
+            description "global cbmap run table";
+
+            list Global {
+
+                description "Row name";
+
+                key "Direction ClassName";
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf BehaviorName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Behavior name";
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 2;
+
+                        enum 16;
+
+                    }
+
+                    description "CBMap mode";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Status";
+
+                }
+
+                leaf MatchedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Packets";
+
+                }
+
+                leaf MatchedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Bytes";
+
+                }
+
+            }
+
+        }
+
+        container VLANPolicyCBMap {
+
+            description "Vlan cbmap run table";
+
+            list VLAN {
+
+                description "Row name";
+
+                key "VLANID Direction ClassName";
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "VLAN ID";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf BehaviorName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Behavior name";
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 2;
+
+                        enum 16;
+
+                    }
+
+                    description "CBMap mode";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Status";
+
+                }
+
+                leaf MatchedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Packets";
+
+                }
+
+                leaf MatchedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Bytes";
+
+                }
+
+            }
+
+        }
+
+        container Mirror {
+
+            description "This table contains information about mirroring
+
+                This table supports creating rows.";
+
+            list Action {
+
+                description "Row name";
+
+                key "BehaviorName Type IfIndex";
+
+                leaf BehaviorName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Behavior name";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Mirror type";
+
+                }
+
+                leaf IfIndex {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_NameAndIndexUnion;
+
+                    }
+
+                    description "Interface index";
+
+                }
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "Specifie VLAN ID which the traffic redirected to an interface with";
+
+                }
+
+                container IP {
+
+                    description "IP for Interface";
+
+                    leaf DestIP {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "Specifies destination IP address";
+
+                    }
+
+                    leaf SrcIP {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "Specifies source IP address";
+
+                    }
+
+                    leaf DSCP {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..63";
+
+                        }
+
+                        description "Specifies DSCP value";
+
+                    }
+
+                    leaf VLAN {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..4094";
+
+                        }
+
+                        description "Specifies VLANID value";
+
+                    }
+
+                    leaf VRF {
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                        description "Specifies VRF instance name";
+
+                    }
+
+                }
+
+                leaf Mac {
+
+                    type base:Basetype_MacAddress;
+
+                    description "Specify MAC for interface";
+
+                }
+
+            }
+
+        }
+
+        container IfPolicyEnhance {
+
+            description "Interface policy enhance table
+
+                This table supports creating rows.";
+
+            list Application {
+
+                description "Row name";
+
+                key "IfIndex Direction";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Policy name";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Status";
+
+                }
+
+            }
+
+        }
+
+        container GlobalPolicyEnhanceCBMap {
+
+            description "global enhance cbmap run table";
+
+            list Global {
+
+                description "Row name";
+
+                key "Direction ClassName";
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf BehaviorName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Behavior name";
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 2;
+
+                        enum 16;
+
+                    }
+
+                    description "CBMap mode";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Status";
+
+                }
+
+            }
+
+        }
+
+        container GlobalPolicyEnhance {
+
+            description "Global policy enhance table
+
+                This table supports creating rows.";
+
+            list Application {
+
+                description "Row name";
+
+                key "Direction";
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Policy name";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Status";
+
+                }
+
+            }
+
+        }
+
+        container IfPolicyEnhanceCBMap {
+
+            description "interface enhance cbmap run table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex Direction ClassName";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf BehaviorName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Behavior name";
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 2;
+
+                        enum 16;
+
+                    }
+
+                    description "CBMap mode";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Status";
+
+                }
+
+            }
+
+        }
+
+        container Account {
+
+            description "accounting action table";
+
+            list Action {
+
+                description "Row name";
+
+                key "BehaviorName";
+
+                leaf BehaviorName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Behavior Name";
+
+                }
+
+                leaf Byte {
+
+                    type boolean;
+
+                    description "Accounting in bytes";
+
+                }
+
+                leaf Packet {
+
+                    type boolean;
+
+                    description "Accounting in packets";
+
+                }
+
+            }
+
+        }
+
+        container IfPolicyAccount {
+
+            description "accounting action table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex Direction ClassName";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf Packets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Accounting Packets";
+
+                }
+
+                leaf Bytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Accounting Bytes";
+
+                }
+
+            }
+
+        }
+
+        container GlobalPolicyAccount {
+
+            description "accounting action table";
+
+            list Global {
+
+                description "Row name";
+
+                key "Direction ClassName";
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf Packets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Accounting Packets";
+
+                }
+
+                leaf Bytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Accounting Bytes";
+
+                }
+
+            }
+
+        }
+
+        container VLANPolicyCar {
+
+            description "VLANPolicyCarRun table";
+
+            list VLAN {
+
+                description "Row name";
+
+                key "VLANID Direction ClassName";
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "VLAN ID";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf CIR {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Committed information rate. Unit: kbps";
+
+                }
+
+                leaf CBS {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Committed burst size. Unit: byte";
+
+                }
+
+                leaf EBS {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Excess burst size. Unit: byte";
+
+                }
+
+                leaf PIR {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Peak information rate. Unit: kbps";
+
+                }
+
+                container GreenAction {
+
+                    description "Matches the green packets";
+
+                    leaf GreenActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 19;
+
+                        }
+
+                        description "Remark the type of packets";
+
+                    }
+
+                    leaf GreenActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967294";
+
+                        }
+
+                        description "Remark the value of different packets";
+
+                    }
+
+                }
+
+                container YellowAction {
+
+                    description "Matches the yellow packets";
+
+                    leaf YellowActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 19;
+
+                        }
+
+                        description "Remark the type of packets";
+
+                    }
+
+                    leaf YellowActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967294";
+
+                        }
+
+                        description "Remark the value of different packets";
+
+                    }
+
+                }
+
+                container RedAction {
+
+                    description "Matches the red packets";
+
+                    leaf RedActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 19;
+
+                        }
+
+                        description "Remark the type of packets";
+
+                    }
+
+                    leaf RedActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967294";
+
+                        }
+
+                        description "Remark the value of different packets";
+
+                    }
+
+                }
+
+                leaf GreenPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "Green packets";
+
+                }
+
+                leaf GreenBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "Green bytes";
+
+                }
+
+                leaf YellowPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "Yellow packets";
+
+                }
+
+                leaf YellowBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "Yellow bytes";
+
+                }
+
+                leaf RedPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "Red packets";
+
+                }
+
+                leaf RedBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "Red bytes";
+
+                }
+
+            }
+
+        }
+
+        container GlobalPolicyCar {
+
+            description "GlobalPolicyCarRun table";
+
+            list Global {
+
+                description "Row name";
+
+                key "Direction ClassName";
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf CIR {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Committed information rate. Unit: kbps";
+
+                }
+
+                leaf CBS {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Committed burst size. Unit: byte";
+
+                }
+
+                leaf EBS {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Excess burst size. Unit: byte";
+
+                }
+
+                leaf PIR {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Peak information rate. Unit: kbps";
+
+                }
+
+                container GreenAction {
+
+                    description "Matches the green packets";
+
+                    leaf GreenActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 19;
+
+                        }
+
+                        description "Remark the type of packets";
+
+                    }
+
+                    leaf GreenActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967294";
+
+                        }
+
+                        description "Remark the value of different packets";
+
+                    }
+
+                }
+
+                container YellowAction {
+
+                    description "Matches the yellow packets";
+
+                    leaf YellowActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 19;
+
+                        }
+
+                        description "Remark the type of packets";
+
+                    }
+
+                    leaf YellowActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967294";
+
+                        }
+
+                        description "Remark the value of different packets";
+
+                    }
+
+                }
+
+                container RedAction {
+
+                    description "Matches the red packets";
+
+                    leaf RedActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 19;
+
+                        }
+
+                        description "Remark the type of packets";
+
+                    }
+
+                    leaf RedActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967294";
+
+                        }
+
+                        description "Remark the value of different packets";
+
+                    }
+
+                }
+
+                leaf GreenPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "Green packets";
+
+                }
+
+                leaf GreenBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "Green bytes";
+
+                }
+
+                leaf YellowPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "Yellow packets";
+
+                }
+
+                leaf YellowBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "Yellow bytes";
+
+                }
+
+                leaf RedPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "Red packets";
+
+                }
+
+                leaf RedBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "Red bytes";
+
+                }
+
+            }
+
+        }
+
+        container VLANPolicyAccount {
+
+            description "accounting action table";
+
+            list VLAN {
+
+                description "Row name";
+
+                key "VLANID Direction ClassName";
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "Specifie VLAN ID which the traffic redirected to an interface with";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf Packets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Accounting Packets";
+
+                }
+
+                leaf Bytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Accounting Bytes";
+
+                }
+
+            }
+
+        }
+
+        container PostClassify {
+
+            description "Interface post-classify run table";
+
+            list Application {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf enable {
+
+                    type boolean;
+
+                    description "Enable";
+
+                }
+
+            }
+
+        }
+
+        container Capabilities {
+
+            description "MQC capabilies table";
+
+            leaf InterfacePolicy {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Interface Policy";
+
+            }
+
+            leaf GlobalPolicy {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Global Policy";
+
+            }
+
+            leaf VlanPolicy {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Global Policy";
+
+            }
+
+            leaf RemarkAction {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Remark Action";
+
+            }
+
+            leaf HardwareAccount {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Hardware Accounting";
+
+            }
+
+            leaf MirrorInterface {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Mirror to interface";
+
+            }
+
+            leaf MirrorCPU {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Mirror to CPU";
+
+            }
+
+            leaf RedirectInterface {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Redirect to interface";
+
+            }
+
+            leaf RedirectCPU {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Redirect to CPU";
+
+            }
+
+        }
+
+        container GlobalCategoryPolicy {
+
+            description "Global policy table
+
+                This table supports creating rows.";
+
+            list Application {
+
+                description "Row name";
+
+                key "Direction PolicyType PolicyName";
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf PolicyType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "policy type. 0: common, 1: remarking, 2: accounting, 3: mirroring.";
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Policy name";
+
+                }
+
+                leaf PreOrder {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Policy preorder.";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Status";
+
+                }
+
+            }
+
+        }
+
+        container InterfaceCategoryPolicy {
+
+            description "Interface policy table
+
+                This table supports creating rows.";
+
+            list Application {
+
+                description "Row name";
+
+                key "IfIndex Direction PolicyType PolicyName";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf PolicyType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "policy type. 0: common, 1: remarking, 2: accounting, 3: mirroring.";
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Policy name";
+
+                }
+
+                leaf PreOrder {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Policy preorder.";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Status";
+
+                }
+
+            }
+
+        }
+
+        container IfCategoryPolicyCBMap {
+
+            description "interface cbmap run table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex Direction PolicyType PolicyName ClassName";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf PolicyType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "policy type. 0: common, 1: remarking, 2: accounting, 3: mirroring.";
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Policy name";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf BehaviorName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Behavior name";
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 2;
+
+                        enum 16;
+
+                    }
+
+                    description "CBMap mode";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Status";
+
+                }
+
+                leaf MatchedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Packets";
+
+                }
+
+                leaf MatchedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Bytes";
+
+                }
+
+            }
+
+        }
+
+        container IfCategoryPolicyCar {
+
+            description "IfPolicyCarRun table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex Direction PolicyType PolicyName ClassName";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf PolicyType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "policy type. 0: common, 1: remarking, 2: accounting, 3: mirroring.";
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Policy name";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf CIR {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Committed information rate. Unit: kbps";
+
+                }
+
+                leaf CBS {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Committed burst size. Unit: byte";
+
+                }
+
+                leaf EBS {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Excess burst size. Unit: byte";
+
+                }
+
+                leaf PIR {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Peak information rate. Unit: kbps";
+
+                }
+
+                container GreenAction {
+
+                    description "Matches the green packets";
+
+                    leaf GreenActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 19;
+
+                        }
+
+                        description "Remark the type of packets";
+
+                    }
+
+                    leaf GreenActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967294";
+
+                        }
+
+                        description "Remark the value of different packets";
+
+                    }
+
+                }
+
+                container YellowAction {
+
+                    description "Matches the yellow packets";
+
+                    leaf YellowActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 19;
+
+                        }
+
+                        description "Remark the type of packets";
+
+                    }
+
+                    leaf YellowActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967294";
+
+                        }
+
+                        description "Remark the value of different packets";
+
+                    }
+
+                }
+
+                container RedAction {
+
+                    description "Matches the red packets";
+
+                    leaf RedActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 19;
+
+                        }
+
+                        description "Remark the type of packets";
+
+                    }
+
+                    leaf RedActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967294";
+
+                        }
+
+                        description "Remark the value of different packets";
+
+                    }
+
+                }
+
+                leaf GreenPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "Green packets";
+
+                }
+
+                leaf GreenBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "Green bytes";
+
+                }
+
+                leaf YellowPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "Yellow packets";
+
+                }
+
+                leaf YellowBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "Yellow bytes";
+
+                }
+
+                leaf RedPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "Red packets";
+
+                }
+
+                leaf RedBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "Red bytes";
+
+                }
+
+            }
+
+        }
+
+        container GlobalCategoryPolicyCBMap {
+
+            description "global cbmap run table";
+
+            list Global {
+
+                description "Row name";
+
+                key "Direction PolicyType PolicyName ClassName";
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf PolicyType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "policy type. 0: common, 1: remarking, 2: accounting, 3: mirroring.";
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Policy name";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf BehaviorName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Behavior name";
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 2;
+
+                        enum 16;
+
+                    }
+
+                    description "CBMap mode";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Status";
+
+                }
+
+                leaf MatchedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Packets";
+
+                }
+
+                leaf MatchedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Bytes";
+
+                }
+
+            }
+
+        }
+
+        container GlobalCategoryPolicyCar {
+
+            description "GlobalPolicyCarRun table";
+
+            list Global {
+
+                description "Row name";
+
+                key "Direction PolicyType PolicyName ClassName";
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf PolicyType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "policy type. 0: common, 1: remarking, 2: accounting, 3: mirroring.";
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Policy name";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf CIR {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Committed information rate. Unit: kbps";
+
+                }
+
+                leaf CBS {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Committed burst size. Unit: byte";
+
+                }
+
+                leaf EBS {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Excess burst size. Unit: byte";
+
+                }
+
+                leaf PIR {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Peak information rate. Unit: kbps";
+
+                }
+
+                container GreenAction {
+
+                    description "Matches the green packets";
+
+                    leaf GreenActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 19;
+
+                        }
+
+                        description "Remark the type of packets";
+
+                    }
+
+                    leaf GreenActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967294";
+
+                        }
+
+                        description "Remark the value of different packets";
+
+                    }
+
+                }
+
+                container YellowAction {
+
+                    description "Matches the yellow packets";
+
+                    leaf YellowActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 19;
+
+                        }
+
+                        description "Remark the type of packets";
+
+                    }
+
+                    leaf YellowActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967294";
+
+                        }
+
+                        description "Remark the value of different packets";
+
+                    }
+
+                }
+
+                container RedAction {
+
+                    description "Matches the red packets";
+
+                    leaf RedActionType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 10;
+
+                            enum 19;
+
+                        }
+
+                        description "Remark the type of packets";
+
+                    }
+
+                    leaf RedActionValue {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4294967294";
+
+                        }
+
+                        description "Remark the value of different packets";
+
+                    }
+
+                }
+
+                leaf GreenPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "Green packets";
+
+                }
+
+                leaf GreenBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "Green bytes";
+
+                }
+
+                leaf YellowPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "Yellow packets";
+
+                }
+
+                leaf YellowBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "Yellow bytes";
+
+                }
+
+                leaf RedPkts {
+
+                    type base:Basetype_Counter64;
+
+                    description "Red packets";
+
+                }
+
+                leaf RedBytes {
+
+                    type base:Basetype_Counter64;
+
+                    description "Red bytes";
+
+                }
+
+            }
+
+        }
+
+        container IfCategoryPolicyAccount {
+
+            description "accounting action table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex Direction PolicyType PolicyName ClassName";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf PolicyType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "policy type. 0: common, 1: remarking, 2: accounting, 3: mirroring.";
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Policy name";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf Packets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Accounting Packets";
+
+                }
+
+                leaf Bytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Accounting Bytes";
+
+                }
+
+                leaf pps {
+
+                    type base:Basetype_Counter64;
+
+                    description "Account packets per second";
+
+                }
+
+                leaf bps {
+
+                    type base:Basetype_Counter64;
+
+                    description "Account bits per second";
+
+                }
+
+            }
+
+        }
+
+        container GlobalCategoryPolicyAccount {
+
+            description "accounting action table";
+
+            list Global {
+
+                description "Row name";
+
+                key "Direction PolicyType PolicyName ClassName";
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf PolicyType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "policy type. 0: common, 1: remarking, 2: accounting, 3: mirroring.";
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Policy name";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf Packets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Accounting Packets";
+
+                }
+
+                leaf Bytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Accounting Bytes";
+
+                }
+
+                leaf pps {
+
+                    type base:Basetype_Counter64;
+
+                    description "Account packets per second";
+
+                }
+
+                leaf bps {
+
+                    type base:Basetype_Counter64;
+
+                    description "Account bits per second";
+
+                }
+
+            }
+
+        }
+
+        container IfCategoryPolicyAF {
+
+            description "Category policy AF run table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex PolicyType PolicyName ClassName";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf PolicyType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "policy type. 0: common, 1: remarking, 2: accounting, 3: mirroring.";
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Policy name";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf Kbps {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "Value in kbps";
+
+                }
+
+                leaf Bps {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "Value in bps";
+
+                }
+
+                leaf RemainingPct {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..100";
+
+                    }
+
+                    description "Percentage of remaining bandwidth.";
+
+                }
+
+                leaf MatchedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Packets";
+
+                }
+
+                leaf MatchedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Bytes";
+
+                }
+
+                leaf EnqueuedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Enqueued Packets";
+
+                }
+
+                leaf EnqueuedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Enqueued Bytes";
+
+                }
+
+                leaf DiscardedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Discarded Packets";
+
+                }
+
+                leaf DiscardedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Discarded Bytes";
+
+                }
+
+            }
+
+        }
+
+        container IfCategoryPolicyEF {
+
+            description "Category policy EF run table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex PolicyType PolicyName ClassName";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf PolicyType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "policy type. 0: common, 1: remarking, 2: accounting, 3: mirroring.";
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Policy name";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf Kbps {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "Value in kpbs";
+
+                }
+
+                leaf CBS {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "Committed Burst Size";
+
+                }
+
+                leaf MatchedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Packets";
+
+                }
+
+                leaf MatchedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Bytes";
+
+                }
+
+                leaf EnqueuedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Enqueued Packets";
+
+                }
+
+                leaf EnqueuedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Enqueued Bytes";
+
+                }
+
+                leaf DiscardedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Discarded Packets";
+
+                }
+
+                leaf DiscardedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Discarded Bytes";
+
+                }
+
+            }
+
+        }
+
+        container IfCategoryPolicyWFQ {
+
+            description "Category policy WFQ run table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex PolicyType PolicyName ClassName";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf PolicyType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "policy type. 0: common, 1: remarking, 2: accounting, 3: mirroring.";
+
+                }
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Policy name";
+
+                }
+
+                leaf ClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Class name";
+
+                }
+
+                leaf QueueNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "The maxinum number of queues";
+
+                }
+
+                leaf MatchedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Packets";
+
+                }
+
+                leaf MatchedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Matched Bytes";
+
+                }
+
+                leaf EnqueuedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Enqueued Packets";
+
+                }
+
+                leaf EnqueuedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Enqueued Bytes";
+
+                }
+
+                leaf DiscardedPackets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Discarded Packets";
+
+                }
+
+                leaf DiscardedBytes {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Discarded Bytes";
+
+                }
+
+            }
+
+        }
+
+        container OverheadLayer {
+
+            description "qos overhead layer run table";
+
+            leaf Layer {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+                description "Overhead layer";
+
+            }
+
+        }
+
+    }
+
+}

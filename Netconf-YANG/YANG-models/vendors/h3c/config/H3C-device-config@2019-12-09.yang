@@ -1,0 +1,621 @@
+module H3C-device-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "device-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for device config.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container Device {
+
+        container SummerTime {
+
+            leaf Name {
+
+                type base:Basetype_Text {
+
+                    length "1..32";
+
+                }
+
+                description "夏令时名称(字符串, 长度为[1~32])";
+
+            }
+
+            leaf AddTime {
+
+                type base:Basetype_Time;
+
+                description "偏移时间";
+
+            }
+
+            container DateBased {
+
+                leaf BeginMonth {
+
+                    type base:Basetype_Integer32 {
+
+                        range "1..12";
+
+                    }
+
+                    description "开始的月份";
+
+                }
+
+                leaf BeginDay {
+
+                    type base:Basetype_Integer32 {
+
+                        range "1..31";
+
+                    }
+
+                    description "开始的日期";
+
+                }
+
+                leaf BeginHour {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..23";
+
+                    }
+
+                    description "开始的小时";
+
+                }
+
+                leaf BeginMinute {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..59";
+
+                    }
+
+                    description "开始的分钟";
+
+                }
+
+                leaf BeginSecond {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..59";
+
+                    }
+
+                    description "开始的秒";
+
+                }
+
+                leaf EndMonth {
+
+                    type base:Basetype_Integer32 {
+
+                        range "1..12";
+
+                    }
+
+                    description "结束的月份";
+
+                }
+
+                leaf EndDay {
+
+                    type base:Basetype_Integer32 {
+
+                        range "1..31";
+
+                    }
+
+                    description "结束的日期";
+
+                }
+
+                leaf EndHour {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..23";
+
+                    }
+
+                    description "结束的小时";
+
+                }
+
+                leaf EndMinute {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..59";
+
+                    }
+
+                    description "结束的分钟";
+
+                }
+
+                leaf EndSecond {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..59";
+
+                    }
+
+                    description "结束的秒";
+
+                }
+
+            }
+
+            container WeekBased {
+
+                leaf BeginMonth {
+
+                    type base:Basetype_Integer32 {
+
+                        range "1..12";
+
+                    }
+
+                    description "开始的月份";
+
+                }
+
+                leaf BeginWeek {
+
+                    type base:Basetype_Integer32 {
+
+                        range "1..6";
+
+                    }
+
+                    description "开始的周次";
+
+                }
+
+                leaf BeginWeekDay {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..6";
+
+                    }
+
+                    description "星期几开始";
+
+                }
+
+                leaf BeginHour {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..23";
+
+                    }
+
+                    description "开始的小时";
+
+                }
+
+                leaf BeginMinute {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..59";
+
+                    }
+
+                    description "开始的分钟";
+
+                }
+
+                leaf BeginSecond {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..59";
+
+                    }
+
+                    description "开始的秒";
+
+                }
+
+                leaf EndMonth {
+
+                    type base:Basetype_Integer32 {
+
+                        range "1..12";
+
+                    }
+
+                    description "结束的月份";
+
+                }
+
+                leaf EndWeek {
+
+                    type base:Basetype_Integer32 {
+
+                        range "1..6";
+
+                    }
+
+                    description "结束的周次";
+
+                }
+
+                leaf EndWeekDay {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..6";
+
+                    }
+
+                    description "星期几结束";
+
+                }
+
+                leaf EndHour {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..23";
+
+                    }
+
+                    description "结束的小时";
+
+                }
+
+                leaf EndMinute {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..59";
+
+                    }
+
+                    description "结束的分钟";
+
+                }
+
+                leaf EndSecond {
+
+                    type base:Basetype_Integer32 {
+
+                        range "0..59";
+
+                    }
+
+                    description "结束的秒";
+
+                }
+
+            }
+
+        }
+
+        container Base {
+
+            description "设备信息表";
+
+            leaf HostName {
+
+                type base:Basetype_Text {
+
+                    length "0..64";
+
+                }
+
+                description "设备系统名称(字符串, 长度为[0~64]) ,头尾不为空白";
+
+            }
+
+            container TimeZone {
+
+                leaf Zone {
+
+                    type base:Basetype_OctectString {
+
+                        pattern "(Z|[\+\-](2[0-3]|[0-1]?[0-9])(:[0-5]?[0-9]){0,2})";
+
+                    }
+
+                    description "设备时区(字符串, 格式为Z, +HH:MM, -HH:MM)";
+
+                }
+
+                leaf ZoneName {
+
+                    type base:Basetype_String {
+
+                        length "0..32";
+
+                    }
+
+                    description "设备时区名称(字符串, 长度为[0~32])";
+
+                }
+
+            }
+
+            container ClockProtocol {
+
+                description "设备系统的配置方式";
+
+                leaf Protocol {
+
+                    type enumeration {
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                    description "设备系统时间协议";
+
+                }
+
+                leaf MDCID {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "设备时钟的来源MDC编号，以该MDC的时钟信号作为整个设备的基准时钟";
+
+                }
+
+            }
+
+        }
+
+        container FailoverGroups {
+
+            description "备份组配置表
+
+                This table supports creating rows.";
+
+            list FailoverGroup {
+
+                description "备份组行名";
+
+                key "ID";
+
+                leaf ID {
+
+                    type union {
+
+                        type uint32;
+
+                        type uint32;
+
+                    }
+
+                    description "备份组ID,[0,31]或65535";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "备份组名字，1~63位，索引列";
+
+                }
+
+                container PrimaryNode {
+
+                    description "备份组主节点";
+
+                    leaf Chassis {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "框号";
+
+                    }
+
+                    leaf Slot {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "槽位号";
+
+                    }
+
+                    leaf CPUID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "CPU号";
+
+                    }
+
+                }
+
+                container SecondaryNode {
+
+                    description "备份组备节点";
+
+                    leaf Chassis {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "框号";
+
+                    }
+
+                    leaf Slot {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "槽位号";
+
+                    }
+
+                    leaf CPUID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "CPU号";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container TemperatureSensors {
+
+            list Sensor {
+
+                key "Chassis Slot CPUID SensorType SensorIndex";
+
+                leaf Chassis {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "ID of the member device where the entity resides.";
+
+                }
+
+                leaf Slot {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Slot number of the device node.";
+
+                }
+
+                leaf CPUID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "CPU ID";
+
+                }
+
+                leaf SensorType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..2";
+
+                    }
+
+                    description "Sensor type";
+
+                }
+
+                leaf SensorIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "Sensor ID";
+
+                }
+
+                leaf LowerLimit {
+
+                    type base:Basetype_Integer32;
+
+                    description "Low-temperature threshold";
+
+                }
+
+                leaf WarningLimit {
+
+                    type base:Basetype_Integer32;
+
+                    description "High-temperature warning";
+
+                }
+
+                leaf AlarmLimit {
+
+                    type base:Basetype_Integer32;
+
+                    description "High-temperature alarming threshold";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

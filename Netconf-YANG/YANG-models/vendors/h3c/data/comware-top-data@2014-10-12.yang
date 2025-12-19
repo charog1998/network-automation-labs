@@ -1,0 +1,31 @@
+module comware-top-data 
+
+{
+
+        namespace "http://www.h3c.com/netconf/data:1.0";
+
+        prefix data;
+
+        organization "H3C";
+
+        contact "Hangzhou H3C Technologies Co., Ltd.";
+
+        description "top data";
+
+        revision 2014-10-12 
+
+        {
+
+                description "Initial revision";
+
+        }
+
+        grouping top-data
+
+        {
+
+                anyxml top;
+
+        }
+
+}

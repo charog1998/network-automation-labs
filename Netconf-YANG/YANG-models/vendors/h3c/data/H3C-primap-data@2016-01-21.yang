@@ -1,0 +1,331 @@
+module H3C-primap-data
+
+{
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "primap-data";
+
+    import comware-basetype 
+
+    {
+
+         prefix "base";
+
+    }
+
+    organization "H3C Inc.";
+
+    contact "Author";
+
+    description "The module entities for primap data.";
+
+    revision 2016-01-21
+
+    {
+
+        description "Initial revision.";
+
+    }
+
+    typedef PRIMAP_Dscp
+
+    {
+
+        type uint32
+
+        {
+
+            range "0..63";
+
+        }
+
+    }
+
+    typedef PRIMAP_Precedence
+
+    {
+
+        type uint32
+
+        {
+
+            range "0..7";
+
+        }
+
+    }
+
+    typedef PRIMAP_DropPriority
+
+    {
+
+        type uint32
+
+        {
+
+            range "0..2";
+
+        }
+
+    }
+
+    container PRIMAP
+
+    {
+
+        config false;
+
+        container MapTables
+
+        {
+
+            list MapTable
+
+            {
+
+                key "Source Target Color Direction Import";
+
+                leaf Source
+
+                {
+
+                    type enumeration
+
+                    {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                    }
+
+                }
+
+                leaf Target
+
+                {
+
+                    type enumeration
+
+                    {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                    }
+
+                }
+
+                leaf Color
+
+                {
+
+                    type enumeration
+
+                    {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                }
+
+                leaf Direction
+
+                {
+
+                    type enumeration
+
+                    {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf Import
+
+                {
+
+                    type PRIMAP_Dscp;
+
+                }
+
+                leaf Export
+
+                {
+
+                    type PRIMAP_Dscp;
+
+                }
+
+            }
+
+        }
+
+        container PortPriority
+
+        {
+
+            list Port
+
+            {
+
+                key "IfIndex";
+
+                leaf IfIndex
+
+                {
+
+                    type uint32;
+
+                }
+
+                leaf Dscp
+
+                {
+
+                    type PRIMAP_Dscp;
+
+                }
+
+                leaf Dot1p
+
+                {
+
+                    type PRIMAP_Precedence;
+
+                }
+
+                leaf Exp
+
+                {
+
+                    type PRIMAP_Precedence;
+
+                }
+
+                leaf DropPriority
+
+                {
+
+                    type PRIMAP_DropPriority;
+
+                }
+
+                leaf LocalPrecedence
+
+                {
+
+                    type PRIMAP_Precedence;
+
+                }
+
+                leaf Priority
+
+                {
+
+                    type PRIMAP_Precedence;
+
+                }
+
+            }
+
+        }
+
+        container PortTrustMode
+
+        {
+
+            list Port
+
+            {
+
+                key "IfIndex";
+
+                leaf IfIndex
+
+                {
+
+                    type uint32;
+
+                }
+
+                leaf TrustMode
+
+                {
+
+                    type enumeration
+
+                    {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                    }
+
+                }
+
+                leaf Override
+
+                {
+
+                    type boolean;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

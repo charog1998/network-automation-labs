@@ -1,0 +1,179 @@
+module H3C-lr-data
+
+{
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "lr-data";
+
+    import comware-basetype 
+
+    {
+
+         prefix "base";
+
+    }
+
+    organization "H3C Inc.";
+
+    contact "Author";
+
+    description "The module entities for lr data.";
+
+    revision 2016-01-09
+
+    {
+
+        description "Initial revision.";
+
+    }
+
+    typedef Lr_TokenPare
+
+    {
+
+        type uint32
+
+        {
+
+            range "0..4294967294";
+
+        }
+
+    }
+
+    container LR
+
+    {
+
+        config false;
+
+        container Interfaces
+
+        {
+
+            list Interface
+
+            {
+
+                key "IfIndex Direction";
+
+                leaf IfIndex
+
+                {
+
+                    type uint32;
+
+                }
+
+                leaf Direction
+
+                {
+
+                    type enumeration
+
+                    {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf CIR
+
+                {
+
+                    type Lr_TokenPare;
+
+                }
+
+                leaf CBS
+
+                {
+
+                    type Lr_TokenPare;
+
+                }
+
+                leaf EBS
+
+                {
+
+                    type Lr_TokenPare;
+
+                }
+
+                leaf PIR
+
+                {
+
+                    type Lr_TokenPare;
+
+                }
+
+                leaf PassedPkts
+
+                {
+
+                    type uint64;
+
+                }
+
+                leaf DiscardedPkts
+
+                {
+
+                    type uint64;
+
+                }
+
+                leaf DelayedPkts
+
+                {
+
+                    type uint64;
+
+                }
+
+                leaf PassedBytes
+
+                {
+
+                    type uint64;
+
+                }
+
+                leaf DiscardedBytes
+
+                {
+
+                    type uint64;
+
+                }
+
+                leaf DelayedBytes
+
+                {
+
+                    type uint64;
+
+                }
+
+                leaf Active
+
+                {
+
+                    type boolean;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

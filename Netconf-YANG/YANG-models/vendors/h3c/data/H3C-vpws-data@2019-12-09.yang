@@ -1,0 +1,1059 @@
+module H3C-vpws-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "vpws-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for vpws data.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container VPWS {
+
+        config false;
+
+        description "VPWS";
+
+        container XCGs {
+
+            description "XCG instance table
+
+                This table supports creating rows.";
+
+            list XCG {
+
+                description "XCG instance";
+
+                key "XCGName";
+
+                leaf XCGName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..31";
+
+                    }
+
+                    description "Index column XCG name, characters 1-31";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "1..80";
+
+                    }
+
+                    description "XCG description text, characters 1-80";
+
+                }
+
+                leaf AdminStatus {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "AdminStatus state, Enumeration 1:up(default) 2:down";
+
+                }
+
+            }
+
+        }
+
+        container Connections {
+
+            description "Connection instance table
+
+                This table supports creating rows.";
+
+            list Connection {
+
+                description "Connection instance";
+
+                key "XCGName ConnectionName";
+
+                leaf XCGName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..31";
+
+                    }
+
+                    description "Index column XCG name, characters 1-31";
+
+                }
+
+                leaf ConnectionName {
+
+                    type base:Basetype_String {
+
+                        length "1..20";
+
+                    }
+
+                    description "Index column Connection name, characters 1-20";
+
+                }
+
+                leaf Interworking {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Interworking for a cross-connect, Enumeration 1:none(default) 2:IPV4";
+
+                }
+
+                leaf MTU {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Maximum Transmission Unit, The value range varies by device model, Default value 1500";
+
+                }
+
+                leaf ArpSuppression {
+
+                    type base:Basetype_Boolean;
+
+                    description "ARP flooding suppression true-Enabled false-Disabled(default)";
+
+                }
+
+                leaf DualReceive {
+
+                    type base:Basetype_Boolean;
+
+                    description "Dual receive function for PW redundancy, true-Enabled false-Disabled(default)";
+
+                }
+
+                container Revertive {
+
+                    description "Switch traffic back to to the primary PW when it recovers";
+
+                    leaf Type {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "Revertive type, Enumeration 1-Never 2-WTR";
+
+                    }
+
+                    leaf Time {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..3600";
+
+                        }
+
+                        description "Time for WTR, value range 0~3600sec, Only works when the revertive type is WTR";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container LDPPeers {
+
+            description "LDPPeer table
+
+                This table supports creating rows.";
+
+            list LDPPeer {
+
+                description "LDPPeer row";
+
+                key "XCGName ConnectionName PeerAddr PWID";
+
+                leaf XCGName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..31";
+
+                    }
+
+                    description "Index column, XCG name, characters 1~31";
+
+                }
+
+                leaf ConnectionName {
+
+                    type base:Basetype_String {
+
+                        length "1..20";
+
+                    }
+
+                    description "Index column, Connection name, characters 1~20";
+
+                }
+
+                leaf PeerAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Index column, remote LSR ID, ipv4 address";
+
+                }
+
+                leaf PWID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "Index column, PWID UnsignedInteger32 [1~4294967295]";
+
+                }
+
+                leaf PWClass {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                    description "PW class name, characters 1~19";
+
+                }
+
+                leaf TunnelPolicy {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                    description "tunnel policy, characters 1~19";
+
+                }
+
+                leaf Statistics {
+
+                    type base:Basetype_Boolean;
+
+                    description "Statistics, true-Enabled, false-Disabled(default)";
+
+                }
+
+            }
+
+        }
+
+        container LDPBackupPeers {
+
+            description "LDPBackupPeer table
+
+                This table supports creating rows.";
+
+            list LDPBackupPeer {
+
+                description "LDPBackupPeer row";
+
+                key "XCGName ConnectionName MainPeerAddr MainPWID PeerAddr PWID";
+
+                leaf XCGName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..31";
+
+                    }
+
+                    description "Index column, XCG name, characters 1~31";
+
+                }
+
+                leaf ConnectionName {
+
+                    type base:Basetype_String {
+
+                        length "1..20";
+
+                    }
+
+                    description "Index column, Connection name, characters 1~20";
+
+                }
+
+                leaf MainPeerAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Index column, main pw ipv4 address";
+
+                }
+
+                leaf MainPWID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "Index column, main pw ID [1~4294967295]";
+
+                }
+
+                leaf PeerAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Index column, backup pw ipv4 address";
+
+                }
+
+                leaf PWID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "Index column, backup pw ID [1~4294967295]";
+
+                }
+
+                leaf PWClass {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                    description "PW class name, characters 1~19";
+
+                }
+
+                leaf TunnelPolicy {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                    description "tunnel policy, characters 1~19";
+
+                }
+
+                leaf Statistics {
+
+                    type base:Basetype_Boolean;
+
+                    description "Statistics, true-Enabled, false-Disabled(default)";
+
+                }
+
+            }
+
+        }
+
+        container StaticPeers {
+
+            description "StaticPeer table
+
+                This table supports creating rows.";
+
+            list StaticPeer {
+
+                description "StaticPeer row";
+
+                key "XCGName ConnectionName PeerAddr PWID";
+
+                leaf XCGName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..31";
+
+                    }
+
+                    description "Index column, XCG name, characters 1~31";
+
+                }
+
+                leaf ConnectionName {
+
+                    type base:Basetype_String {
+
+                        length "1..20";
+
+                    }
+
+                    description "Index column, Connection name, characters 1~20";
+
+                }
+
+                leaf PeerAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Index column, ipv4 peer address";
+
+                }
+
+                leaf PWID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "Index column, PWID UnsignedInteger32[1~4294967295]";
+
+                }
+
+                leaf InLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "PW inlabel, the value depends on the device";
+
+                }
+
+                leaf OutLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "PW outlabel, the value depends on the device";
+
+                }
+
+                leaf PWClass {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                    description "PW class nema, characters 1~19";
+
+                }
+
+                leaf TunnelPolicy {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                    description "tunnel policy, characters 1~19";
+
+                }
+
+                leaf Statistics {
+
+                    type base:Basetype_Boolean;
+
+                    description "Statistics, true-Enabled, false-Disabled(default)";
+
+                }
+
+            }
+
+        }
+
+        container StaticBackupPeers {
+
+            description "StaticBackupPeers table
+
+                This table supports creating rows.";
+
+            list StaticBackupPeer {
+
+                description "StaticBackupPeer row";
+
+                key "XCGName ConnectionName MainPeerAddr MainPWID PeerAddr PWID";
+
+                leaf XCGName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..31";
+
+                    }
+
+                    description "Index column, XCG name, characters 1~31";
+
+                }
+
+                leaf ConnectionName {
+
+                    type base:Basetype_String {
+
+                        length "1..20";
+
+                    }
+
+                    description "Index column, Connection name, characters 1~20";
+
+                }
+
+                leaf MainPeerAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Index column, main peer ipv4 address";
+
+                }
+
+                leaf MainPWID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "Index column, Main PW ID UnsignedInteger32[1~4294967295]";
+
+                }
+
+                leaf PeerAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Index column, backup peer ipv4 address";
+
+                }
+
+                leaf PWID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "Index column, PWID UnsignedInteger32[1~4294967295]";
+
+                }
+
+                leaf InLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "PW inlabel, the value depends on the device";
+
+                }
+
+                leaf OutLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "PW outlabel, the value depends on the device";
+
+                }
+
+                leaf PWClass {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                    description "PW class name, characters 1~19";
+
+                }
+
+                leaf TunnelPolicy {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                    description "tunnel policy, characters 1~19";
+
+                }
+
+                leaf Statistics {
+
+                    type base:Basetype_Boolean;
+
+                    description "Statistics, true-Enabled, false-Disabled(default)";
+
+                }
+
+            }
+
+        }
+
+        container L3Interfaces {
+
+            description "AC table of layer 3 interface";
+
+            list L3Interface {
+
+                description "One row of L3Interfaces";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Index column, the value is interface index, NameAndIndexUnion";
+
+                }
+
+                leaf XCGName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..31";
+
+                    }
+
+                    description "XCG name";
+
+                }
+
+                leaf ConnectionName {
+
+                    type base:Basetype_String {
+
+                        length "1..20";
+
+                    }
+
+                    description "Connection name";
+
+                }
+
+            }
+
+        }
+
+        container ACs {
+
+            description "AC table of layer 2 interface";
+
+            list AC {
+
+                description "One row of ACs";
+
+                key "IfIndex SrvID";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Index column, the value is interface index, NameAndIndexUnion";
+
+                }
+
+                leaf SrvID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4096";
+
+                    }
+
+                    description "Index column, the value is service-instance id, 1-4096";
+
+                }
+
+                leaf XCGName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..31";
+
+                    }
+
+                    description "XCG name";
+
+                }
+
+                leaf ConnectionName {
+
+                    type base:Basetype_String {
+
+                        length "1..20";
+
+                    }
+
+                    description "Connection name";
+
+                }
+
+                leaf AccessMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Access mode Enumeration,
+
+                        1:vlan
+
+                        2:ethernet";
+
+                }
+
+            }
+
+        }
+
+        container PWs {
+
+            description "PWs table
+
+                This table supports creating rows.";
+
+            list PW {
+
+                description "PW row";
+
+                key "XCGName ConnectionName PeerAddr PWID";
+
+                leaf XCGName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..31";
+
+                    }
+
+                    description "Index column, XCG name, characters 1~31";
+
+                }
+
+                leaf ConnectionName {
+
+                    type base:Basetype_String {
+
+                        length "1..20";
+
+                    }
+
+                    description "Index column, Connection name, characters 1~20";
+
+                }
+
+                leaf PeerAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Index column, ipv4 peer address";
+
+                }
+
+                leaf PWID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "Index column, PWID UnsignedInteger32 [1~4294967295]";
+
+                }
+
+                leaf Protocol {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Protocol, Enumeration 1-STATIC 2-LDP";
+
+                }
+
+                leaf InLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "PW inlabel, the value depends on the device";
+
+                }
+
+                leaf OutLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "PW outlabel, the value depends on the device";
+
+                }
+
+                leaf MTU {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "PW mtu";
+
+                }
+
+                leaf TunnelGroupID {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "TunnelGroupID";
+
+                }
+
+                container TunnelNHLFEIDs {
+
+                    description "next hop label forwarding entry, Repeat supported";
+
+                    leaf-list TunnelNHLFEID {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                }
+
+                leaf IsMainPW {
+
+                    type base:Basetype_Boolean;
+
+                    description "true - Main PW, false - Backup PW";
+
+                }
+
+                leaf ControlWord {
+
+                    type base:Basetype_Boolean;
+
+                    description "ControlWord, true-Enabled(default), false-Disabled";
+
+                }
+
+                leaf PWType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..25";
+
+                    }
+
+                    description "PW type, Enumeration,
+
+                          0 Unknown
+
+                          1 FR_DLCI_MARTINI
+
+                          2 ATM_AAL5_SDU_VCC
+
+                          3 ATM_CELL_TRANSPORT
+
+                          4 VLAN
+
+                          5 ETHERNET
+
+                          6 HDLC
+
+                          7 PPP
+
+                          8 CESOM
+
+                          9 ATM_CELL_VCC
+
+                          10 ATM_CELL_VPC
+
+                          11 IP_INTERWORKING
+
+                          12 ATM_CELL_1TO1_VCC
+
+                          13 ATM_CELL_1TO1_VPC
+
+                          14 ATM_AAL5_PDU_VCC
+
+                          15 FR_PORT
+
+                          16 CEP
+
+                          17 TDM_SATOP_E1
+
+                          18 TDM_SATOP_T1
+
+                          19 TDM_SATOP_E3
+
+                          20 TDM_SATOP_T3
+
+                          21 TDM_CESOPSN_BASIC
+
+                          22 TDMoIP_AAL1_Mode
+
+                          23 TDM_CESOPSN_WITH_CAS
+
+                          24 TDMoIP_AAL2_Mode
+
+                          25 FR_DLCI";
+
+                }
+
+                leaf LinkID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Link ID of the PW";
+
+                }
+
+                leaf State {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..6";
+
+                    }
+
+                    description "State of the PW, Enumeration 1-UP 2-Down  3-Blocked  4-Defect 5-Idle 6-Duplicate";
+
+                }
+
+                container InputStatistics {
+
+                    description "Input statistcs";
+
+                    leaf Octets {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Packet octets of input";
+
+                    }
+
+                    leaf Packets {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Packet number of input";
+
+                    }
+
+                    leaf Errors {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Error packet number of input";
+
+                    }
+
+                    leaf Discards {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Discarded packet number of input";
+
+                    }
+
+                }
+
+                container OutputStatistics {
+
+                    description "Output statistics";
+
+                    leaf Octets {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Packet octets of output";
+
+                    }
+
+                    leaf Packets {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Packet number of output";
+
+                    }
+
+                    leaf Errors {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Error packet number of output";
+
+                    }
+
+                    leaf Discards {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Discarded packet number of output";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

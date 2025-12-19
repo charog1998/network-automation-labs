@@ -1,0 +1,63 @@
+module H3C-pppoec-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "pppoec-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for pppoec config.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container PPPOEC {
+
+        container PppoecClient {
+
+            list Client {
+
+                key "IfIndex BundleNum";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf BundleNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Hostuniq {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

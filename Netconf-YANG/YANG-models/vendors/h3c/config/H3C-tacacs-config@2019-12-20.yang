@@ -1,0 +1,497 @@
+module H3C-tacacs-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "tacacs-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for tacacs config.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container Tacacs {
+
+        container GlobalNasIps {
+
+            list GlobalNasIp {
+
+                key "VRF IpType";
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                    }
+
+                }
+
+                leaf IpType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..1";
+
+                    }
+
+                }
+
+                leaf IpAddress {
+
+                    type base:Basetype_IpAddress;
+
+                }
+
+            }
+
+        }
+
+        container Schemes {
+
+            list Scheme {
+
+                key "SchemeName";
+
+                leaf SchemeName {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                }
+
+                leaf RealAcctInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..60";
+
+                    }
+
+                }
+
+                leaf TimeOut {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..300";
+
+                    }
+
+                }
+
+                leaf QuietTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..255";
+
+                    }
+
+                }
+
+                leaf UserNameFormat {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..2";
+
+                    }
+
+                }
+
+                leaf BytesUnit {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..3";
+
+                    }
+
+                }
+
+                leaf PacketsUint {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..3";
+
+                    }
+
+                }
+
+                leaf NasIpv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf NasIpv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf AuthenKey {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+                leaf AuthorKey {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+                leaf AcctKey {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container AuthServers {
+
+            list AuthServer {
+
+                key "SchemeName Priority VRF IpType Host Port";
+
+                leaf SchemeName {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..1";
+
+                    }
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                    }
+
+                }
+
+                leaf IpType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..2";
+
+                    }
+
+                }
+
+                leaf Host {
+
+                    type base:Basetype_OctectString;
+
+                }
+
+                leaf Port {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..65535";
+
+                        }
+
+                    }
+
+                }
+
+                leaf Key {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+                leaf SingleConn {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container AuthorServers {
+
+            list AuthorServer {
+
+                key "SchemeName Priority VRF IpType Host Port";
+
+                leaf SchemeName {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..1";
+
+                    }
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                    }
+
+                }
+
+                leaf IpType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..2";
+
+                    }
+
+                }
+
+                leaf Host {
+
+                    type base:Basetype_OctectString;
+
+                }
+
+                leaf Port {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..65535";
+
+                        }
+
+                    }
+
+                }
+
+                leaf Key {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+                leaf SingleConn {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container AcctServers {
+
+            list AcctServer {
+
+                key "SchemeName Priority VRF IpType Host Port";
+
+                leaf SchemeName {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..1";
+
+                    }
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                    }
+
+                }
+
+                leaf IpType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..2";
+
+                    }
+
+                }
+
+                leaf Host {
+
+                    type base:Basetype_OctectString;
+
+                }
+
+                leaf Port {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..65535";
+
+                        }
+
+                    }
+
+                }
+
+                leaf Key {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+                leaf SingleConn {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

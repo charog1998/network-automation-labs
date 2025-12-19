@@ -1,0 +1,679 @@
+module H3C-rip-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "rip-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for rip data.";
+
+    revision 2020-04-10 {
+
+        description "Synchronize the modification of the schema file to the YANG file.";
+
+    }
+
+    revision 2019-12-17 {
+
+        description "Synchronize the modification of the schema file to the YANG file.";
+
+    }
+
+    revision 2016-07-15 {
+
+        description "Initial revision.";
+
+    }
+
+    container RIP {
+
+        config false;
+
+        container Instances {
+
+            description "RIP Instance Table
+
+                This table supports creating rows.";
+
+            list Instance {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Instance name";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VRF;
+
+                    }
+
+                    description "Vrf name";
+
+                }
+
+                leaf Summary {
+
+                    type base:Basetype_Boolean;
+
+                    description "Enable route summary";
+
+                }
+
+                leaf Version {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Version of RIP.
+
+                          Enumeration:
+
+                          0-Not specified(default).
+
+                          1—Version 1.
+
+                          2—Version 2.";
+
+                }
+
+            }
+
+        }
+
+        container Networks {
+
+            description "RIP Network Table
+
+                This table supports creating rows.";
+
+            list Network {
+
+                description "Row name";
+
+                key "Name NetworkAddr";
+
+                leaf Name {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Instance name";
+
+                }
+
+                leaf NetworkAddr {
+
+                    type base:Basetype_IpAddress;
+
+                    description "Network address";
+
+                }
+
+                leaf WildcardMask {
+
+                    type base:Basetype_IpAddress;
+
+                    description "Wildcard mask";
+
+                }
+
+            }
+
+        }
+
+        container Interfaces {
+
+            description "rip interface  table";
+
+            list If {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Version {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Version";
+
+                }
+
+                container IfEnable {
+
+                    description "Interface enable";
+
+                    leaf Name {
+
+                        type base:Basetype_UnsignedShort {
+
+                            range "1..max";
+
+                        }
+
+                        description "Instance name";
+
+                    }
+
+                    leaf ExcludedSubIp {
+
+                        type base:Basetype_Boolean;
+
+                        description "Whether to exclude secondary IP addresses";
+
+                    }
+
+                }
+
+                leaf MetricIn {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..16";
+
+                    }
+
+                    description "Metric to be added to inbound routes.";
+
+                }
+
+                leaf MetricInPolicy {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of the routing policy.";
+
+                }
+
+                leaf BfdEnable {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Whether or not to enable BFD for RIP on the interface.";
+
+                }
+
+                leaf BfdMode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "BFD session mode.";
+
+                }
+
+                leaf BfdDestination {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Destination IP address of the BFD session.";
+
+                }
+
+                leaf Input {
+
+                    type base:Basetype_Boolean;
+
+                    description "Input";
+
+                }
+
+                leaf Output {
+
+                    type base:Basetype_Boolean;
+
+                    description "Input";
+
+                }
+
+                container Authentication {
+
+                    description "Simple authentication";
+
+                    leaf AuthType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "Authentication type";
+
+                    }
+
+                    leaf PasswordType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "Password Type";
+
+                    }
+
+                    leaf Password {
+
+                        type base:Basetype_EncryptString {
+
+                            length "1..53";
+
+                        }
+
+                        description "Simple password";
+
+                    }
+
+                    leaf KeyId {
+
+                        type base:Basetype_UnsignedChar {
+
+                            range "1..max";
+
+                        }
+
+                        description "Simple password";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Redistributes {
+
+            description "Rip Redistributes Table
+
+                This table supports creating rows.";
+
+            list Redist {
+
+                description "Row name";
+
+                key "Name Protocol RedistName";
+
+                leaf Name {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Instance Name";
+
+                }
+
+                leaf Protocol {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                    }
+
+                    description "Protocol Type";
+
+                }
+
+                leaf RedistName {
+
+                    type union {
+
+                        type string;
+
+                        type uint32;
+
+                    }
+
+                    description "Redistribute Instance Name";
+
+                }
+
+                leaf Cost {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..16";
+
+                    }
+
+                    description "Redistribute metric.";
+
+                }
+
+                leaf RoutePolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of the routing policy.";
+
+                }
+
+                leaf AllowIBGP {
+
+                    type base:Basetype_Boolean;
+
+                    description "Allow IBGP routes when importing BGP routes.";
+
+                }
+
+            }
+
+        }
+
+        container FilterPolicyExports {
+
+            description "filter-policy export information
+
+                This table supports creating rows.";
+
+            list FilterPolicyExport {
+
+                description "filter-policy export information table";
+
+                key "Name IfIndex ProtocolExport InstanceNameExport";
+
+                leaf Name {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Instance name";
+
+                }
+
+                leaf IfIndex {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_NameAndIndexUnion;
+
+                    }
+
+                    description "Interface index";
+
+                }
+
+                leaf ProtocolExport {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                        }
+
+                    }
+
+                    description "Protocol type.
+
+                          Enumeration:
+
+                          0-All.
+
+                          1—Direct.
+
+                          2—Static.
+
+                          3—RIP.
+
+                          4—OSPF.
+
+                          5—ISIS.
+
+                          6—BGP.
+
+                          7—EIGRP.";
+
+                }
+
+                leaf InstanceNameExport {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_UnsignedShort {
+
+                            range "1..max";
+
+                        }
+
+                    }
+
+                    description "Instance name.";
+
+                }
+
+                leaf AclNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2000..3999";
+
+                    }
+
+                    description "ACL number.";
+
+                }
+
+                leaf PrefixListName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of the prefix-list.";
+
+                }
+
+            }
+
+        }
+
+        container FilterPolicyImports {
+
+            description "filter-policy import information
+
+                This table supports creating rows.";
+
+            list FilterPolicyImport {
+
+                description "filter-policy import information table";
+
+                key "Name IfIndex";
+
+                leaf Name {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Instance name";
+
+                }
+
+                leaf IfIndex {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_NameAndIndexUnion;
+
+                    }
+
+                    description "Interface index";
+
+                }
+
+                leaf AclNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2000..3999";
+
+                    }
+
+                    description "ACL number.";
+
+                }
+
+                leaf PrefixListName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of the prefix-list.";
+
+                }
+
+                leaf Gateway {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of the gateway.";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

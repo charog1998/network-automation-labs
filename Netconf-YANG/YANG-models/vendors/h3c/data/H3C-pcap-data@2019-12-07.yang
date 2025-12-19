@@ -1,0 +1,165 @@
+module H3C-pcap-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "pcap-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for pcap data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container PCAP {
+
+        config false;
+
+        container Status {
+
+            leaf CaptureMode {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+            }
+
+            leaf ApName {
+
+                type base:Basetype_String {
+
+                    pattern "([][a-zA-Z0-9/_-]){1,64}";
+
+                }
+
+            }
+
+            leaf RadioID {
+
+                type base:Basetype_UnsignedShort {
+
+                    range "1..31";
+
+                }
+
+            }
+
+            leaf RadioMode {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                    enum 4;
+
+                    enum 8;
+
+                    enum 16;
+
+                    enum 32;
+
+                    enum 64;
+
+                }
+
+            }
+
+            leaf WriteURL {
+
+                type base:Basetype_String {
+
+                    length "1..255";
+
+                }
+
+            }
+
+            leaf Username {
+
+                type base:Basetype_String {
+
+                    length "1..32";
+
+                }
+
+            }
+
+            leaf PortNumber {
+
+                type base:Basetype_UnsignedShort {
+
+                    range "1..65535";
+
+                }
+
+            }
+
+            leaf CaptureFilter {
+
+                type base:Basetype_String {
+
+                    length "1..256";
+
+                }
+
+            }
+
+            leaf LimitFrameSize {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "64..8000";
+
+                }
+
+            }
+
+            leaf AutoStopDuration {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..2147483647";
+
+                }
+
+            }
+
+            leaf AutoStopFilesize {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..65536";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

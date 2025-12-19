@@ -1,0 +1,115 @@
+module H3C-ipv6address-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "ipv6address-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ipv6address config.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container IPV6ADDRESS {
+
+        container Ipv6AddressesConfig {
+
+            list AddressEntry {
+
+                key "IfIndex Ipv6Address AddressOrigin";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Ipv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf AddressOrigin {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                }
+
+                leaf Ipv6PrefixLength {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..128";
+
+                    }
+
+                }
+
+                leaf AnycastFlag {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container Ipv6AddressesAuto {
+
+            list AutoAddress {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Auto {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf AutoLinkLocal {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

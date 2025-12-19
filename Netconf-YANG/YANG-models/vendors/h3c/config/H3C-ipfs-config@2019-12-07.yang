@@ -1,0 +1,65 @@
+module H3C-ipfs-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "ipfs-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ipfs config.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container IPFS {
+
+        container MACFS {
+
+            leaf IgnoreVLANID {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+        container InlineFS {
+
+            leaf IgnoreVLANID {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+        container IPFSLoadSharing {
+
+            leaf IPFastForwardingLoadSharing {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+    }
+
+}

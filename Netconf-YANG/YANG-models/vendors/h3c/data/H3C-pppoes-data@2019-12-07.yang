@@ -1,0 +1,111 @@
+module H3C-pppoes-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "pppoes-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for pppoes data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container PPPOES {
+
+        config false;
+
+        container PppoesBind {
+
+            list BindVT {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf VTNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+        container PppoesIfLimit {
+
+            list IfLimit {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf LimitIf {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65534";
+
+                    }
+
+                }
+
+                leaf LimitClnMac {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65534";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container PppoesSpecification {
+
+            leaf MinVTNum {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf MaxVTNum {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+        }
+
+    }
+
+}

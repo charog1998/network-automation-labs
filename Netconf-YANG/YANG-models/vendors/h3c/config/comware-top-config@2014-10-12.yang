@@ -1,0 +1,33 @@
+module comware-top-config 
+
+{
+
+        namespace "http://www.h3c.com/netconf/config:1.0";
+
+        prefix config;
+
+        organization "H3C";
+
+        contact "Hangzhou H3C Technologies Co., Ltd.";
+
+        description "DO NOT use \'comware-top-config\' as module name under \'rpc\\action\' element, 
+
+                                 only \'top\' element can placed under \'rpc\\action\' element";
+
+        revision 2014-10-12 
+
+        {
+
+                description "Initial revision";
+
+        }
+
+        grouping top-config
+
+        {
+
+                anyxml top;
+
+        }
+
+}

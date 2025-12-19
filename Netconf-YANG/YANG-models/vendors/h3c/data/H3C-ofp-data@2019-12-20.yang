@@ -1,0 +1,467 @@
+module H3C-ofp-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "ofp-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ofp data.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container OFP {
+
+        config false;
+
+        container LogicalSwitches {
+
+            description "OpenFlow instance configuration
+
+                This table supports creating rows.";
+
+            list LogicalSwitch {
+
+                key "InstanceID";
+
+                leaf InstanceID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "Instance ID";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                    description "Description of instance";
+
+                }
+
+                leaf DatapathID {
+
+                    type base:Basetype_UnsignedInteger64 {
+
+                        range "1..max";
+
+                    }
+
+                    description "Datapath ID of instance";
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Enable status of instance";
+
+                }
+
+                container Capabilities {
+
+                    description "Instance's capabilities";
+
+                    leaf MaxEntries {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..65535";
+
+                        }
+
+                        description "Max entries in instance.";
+
+                    }
+
+                    leaf DynamicMacAware {
+
+                        type base:Basetype_Boolean;
+
+                        description "Enable Dynmaic mac aware";
+
+                    }
+
+                    leaf MacLearning {
+
+                        type base:Basetype_Boolean;
+
+                        description "Enable mac learning";
+
+                    }
+
+                    leaf TableMissDefaultPermit {
+
+                        type base:Basetype_Boolean;
+
+                        description "Set table miss default Permit";
+
+                    }
+
+                    leaf ForbiddenPort {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Forbidden reporting ports of specific type.";
+
+                    }
+
+                }
+
+                container Resources {
+
+                    description "Instance's resources";
+
+                    leaf ClassificationType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "Classification type of instance:
+
+                                1--VLANMask;2--Gloabal";
+
+                    }
+
+                    leaf ClassificationVLAN {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..4094";
+
+                        }
+
+                        description "VLAN configuration when classification is VLANMASK";
+
+                    }
+
+                    leaf ClassificationVLANMask {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4095";
+
+                        }
+
+                        description "VLAN mask configuration when classification is VLANMASK";
+
+                    }
+
+                    leaf ClassificationVLANLoosen {
+
+                        type base:Basetype_Boolean;
+
+                        description "Enable VLAN loosen mode.";
+
+                    }
+
+                    leaf InbandManagementVLANList {
+
+                        type base:Basetype_VlanRange;
+
+                        description "VLAN list for in-band management.";
+
+                    }
+
+                    leaf MACIPTableIDList {
+
+                        type base:Basetype_String;
+
+                        description "MACIP table ID list.";
+
+                    }
+
+                    leaf ExtensibilityFlowTableIDList {
+
+                        type base:Basetype_String;
+
+                        description "Extensibility table ID list.";
+
+                    }
+
+                }
+
+                container ConnectionCfg {
+
+                    description "Instance's connection configuration";
+
+                    leaf ConnectionMode {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                        }
+
+                        description "Connection mode. Enumeration:
+
+                                0--Parallel;1--Serially";
+
+                    }
+
+                    leaf ConnectionInterval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "10..120";
+
+                        }
+
+                        description "Connection retry interval.";
+
+                    }
+
+                    leaf EchoInterval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..10";
+
+                        }
+
+                        description "Echo packet sending interval.";
+
+                    }
+
+                    leaf LostConnectionBehavior {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "FailOpen mode. Enumeration:
+
+                                1--Standalone;2--Secure";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Controllers {
+
+            description "OpenFlow controller configuration
+
+                This table supports creating rows.";
+
+            list Controller {
+
+                key "InstanceID ControllerID";
+
+                leaf InstanceID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "Instance ID";
+
+                }
+
+                leaf ControllerID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..63";
+
+                    }
+
+                    description "Controller ID.";
+
+                }
+
+                leaf Role {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Controller connection role:
+
+                          0--Unknown;1--Equal;2--Master;3--Slave";
+
+                }
+
+                leaf IPv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Controller's ipv4 address.";
+
+                }
+
+                leaf IPv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "Controller's ipv6 address.";
+
+                }
+
+                leaf Port {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "Controller's Port.";
+
+                }
+
+                leaf LocalIPv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Local IPv4 Address of connection with Controller.";
+
+                }
+
+                leaf LocalIPv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "Local IPv6 Address of connection with Controller.";
+
+                }
+
+                leaf LocalPort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "Local Port of connection with Controller.";
+
+                }
+
+                leaf Protocol {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Controller connection protocol:
+
+                          1--TCP;2--SSL";
+
+                }
+
+                leaf VRF {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "VRF configuration for connection";
+
+                }
+
+                leaf SSLPolicy {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "SSL Policy for connection";
+
+                }
+
+                leaf ConnectionState {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Connection state:
+
+                          0--Idle;1--Established";
+
+                }
+
+                leaf CurrentVersion {
+
+                    type base:Basetype_String {
+
+                        length "1..15";
+
+                    }
+
+                    description "Current protocol version.";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

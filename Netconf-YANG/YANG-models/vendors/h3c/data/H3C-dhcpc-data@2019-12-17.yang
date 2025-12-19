@@ -1,0 +1,261 @@
+module H3C-dhcpc-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "dhcpc-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for dhcpc data.";
+
+    revision 2019-12-17 {
+
+        description "Initial revision.";
+
+    }
+
+    container DHCPC {
+
+        config false;
+
+        container DHCPCConfig {
+
+            leaf DadEnable {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf DSCP {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..63";
+
+                }
+
+            }
+
+        }
+
+        container DHCPAlloc {
+
+            list Alloc {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf AllocEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf CurrentState {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                    }
+
+                }
+
+                leaf AllocatedIpv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf AllocatedIpv4Mask {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf DHCPServerIpv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf Allocatedlease {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf T1 {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf T2 {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+        container DHCPClientID {
+
+            list ClientID {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf ASCII {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+                leaf Hex {
+
+                    type base:Basetype_String {
+
+                        length "4..64";
+
+                    }
+
+                }
+
+                leaf ClientIfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+            }
+
+        }
+
+        container BootpAlloc {
+
+            list Alloc {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf AllocEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf AllocatedIpv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf AllocatedIpv4Mask {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf MacAddress {
+
+                    type base:Basetype_MacAddress;
+
+                }
+
+            }
+
+        }
+
+        container DHCPCIfConfig {
+
+            list IfConfigure {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf TrackID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..1024";
+
+                    }
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..255";
+
+                    }
+
+                }
+
+                leaf NextHop {
+
+                    type base:Basetype_IpAddress;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

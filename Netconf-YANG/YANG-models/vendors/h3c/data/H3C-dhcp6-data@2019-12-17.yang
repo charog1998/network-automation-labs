@@ -1,0 +1,1085 @@
+module H3C-dhcp6-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "dhcp6-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for dhcp6 data.";
+
+    revision 2019-12-17 {
+
+        description "Initial revision.";
+
+    }
+
+    container DHCP6 {
+
+        config false;
+
+        container DHCP6ServerDatabase {
+
+            leaf FileName {
+
+                type base:Basetype_String {
+
+                    length "1..255";
+
+                }
+
+            }
+
+            leaf URL {
+
+                type base:Basetype_String {
+
+                    length "1..255";
+
+                }
+
+            }
+
+            leaf Username {
+
+                type base:Basetype_String {
+
+                    length "1..32";
+
+                }
+
+            }
+
+            leaf Password {
+
+                type base:Basetype_String {
+
+                    length "1..32";
+
+                }
+
+            }
+
+            leaf UpdateInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "60..864000";
+
+                }
+
+            }
+
+        }
+
+        container DHCP6ServerIpPool {
+
+            list Pool {
+
+                key "PoolIndex";
+
+                leaf PoolIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..1024";
+
+                    }
+
+                }
+
+                leaf PoolName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VRF;
+
+                    }
+
+                    description "The VRF name.";
+
+                }
+
+                container Network {
+
+                    leaf NetworkIpv6Address {
+
+                        type base:Basetype_Ipv6Address;
+
+                    }
+
+                    leaf NetworkIpv6PrefixLength {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..128";
+
+                        }
+
+                    }
+
+                    leaf NetworkPreferLifetime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "60..max";
+
+                        }
+
+                    }
+
+                    leaf NetworkValidLifetime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "60..max";
+
+                        }
+
+                    }
+
+                    leaf NetworkExportRoute {
+
+                        type base:Basetype_Boolean;
+
+                    }
+
+                }
+
+                container Range {
+
+                    leaf StartIpv6Address {
+
+                        type base:Basetype_Ipv6Address;
+
+                    }
+
+                    leaf EndIpv6Address {
+
+                        type base:Basetype_Ipv6Address;
+
+                    }
+
+                    leaf RangePreferLifetime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "60..max";
+
+                        }
+
+                    }
+
+                    leaf RangeValidLifetime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "60..max";
+
+                        }
+
+                    }
+
+                }
+
+                container TempRange {
+
+                    leaf TempStartIpv6Address {
+
+                        type base:Basetype_Ipv6Address;
+
+                    }
+
+                    leaf TempEndIpv6Address {
+
+                        type base:Basetype_Ipv6Address;
+
+                    }
+
+                    leaf TempRangePreferLifetime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "60..max";
+
+                        }
+
+                    }
+
+                    leaf TempRangeValidLifetime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "60..max";
+
+                        }
+
+                    }
+
+                }
+
+                container PrefixPool {
+
+                    leaf PrefixPoolNumber {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..128";
+
+                        }
+
+                    }
+
+                    leaf PrefixPoolPreferLifetime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "60..max";
+
+                        }
+
+                    }
+
+                    leaf PrefixPoolValidLifetime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "60..max";
+
+                        }
+
+                    }
+
+                }
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        length "1..50";
+
+                    }
+
+                }
+
+                leaf GatewayIpv6Address {
+
+                    type base:Basetype_String {
+
+                        length "1..367";
+
+                    }
+
+                }
+
+                leaf DNSIpv6Address {
+
+                    type base:Basetype_String {
+
+                        length "1..367";
+
+                    }
+
+                }
+
+                leaf SIPIpv6Address {
+
+                    type base:Basetype_String {
+
+                        length "1..367";
+
+                    }
+
+                }
+
+                leaf SIPDomainName {
+
+                    type base:Basetype_String {
+
+                        length "1..407";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DHCP6RelayPoolRemoteServer {
+
+            list RemoteServer {
+
+                key "PoolIndex RemoteServerIpv6Address OutIfIndex";
+
+                leaf PoolIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..1024";
+
+                    }
+
+                }
+
+                leaf RemoteServerIpv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf OutIfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+            }
+
+        }
+
+        container DHCP6ServerPoolStaticAddress {
+
+            list PoolStaticAddress {
+
+                key "PoolIndex Ipv6Address";
+
+                leaf PoolIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..1024";
+
+                    }
+
+                }
+
+                leaf Ipv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf Ipv6PrefixLength {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..128";
+
+                    }
+
+                }
+
+                leaf DUID {
+
+                    type base:Basetype_String {
+
+                        length "2..256";
+
+                    }
+
+                }
+
+                leaf IAID {
+
+                                        type string;
+
+                }
+
+                leaf PreferLifetime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "60..max";
+
+                    }
+
+                }
+
+                leaf ValidLifetime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "60..max";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DHCP6ServerPoolStaticPrefix {
+
+            list PoolStaticPrefix {
+
+                key "PoolIndex";
+
+                leaf PoolIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..1024";
+
+                    }
+
+                }
+
+                list Ipv6Prefix {
+
+                    key "Ipv6Address Ipv6PrefixLength";
+
+                    leaf Ipv6Address {
+
+                        type base:Basetype_Ipv6Address;
+
+                    }
+
+                    leaf Ipv6PrefixLength {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..128";
+
+                        }
+
+                    }
+
+                }
+
+                leaf DUID {
+
+                    type base:Basetype_String {
+
+                        length "2..256";
+
+                    }
+
+                }
+
+                leaf IAID {
+
+                                        type string;
+
+                }
+
+                leaf PreferLifetime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "60..max";
+
+                    }
+
+                }
+
+                leaf ValidLifetime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "60..max";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DHCP6OptionGroup {
+
+            list OptionGroup {
+
+                key "GroupNumber";
+
+                leaf GroupNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..100";
+
+                    }
+
+                }
+
+                leaf DNSIpv6Address {
+
+                    type base:Basetype_String {
+
+                        length "1..367";
+
+                    }
+
+                }
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        length "1..50";
+
+                    }
+
+                }
+
+                leaf SIPIpv6Address {
+
+                    type base:Basetype_String {
+
+                        length "1..367";
+
+                    }
+
+                }
+
+                leaf SIPDomainName {
+
+                    type base:Basetype_String {
+
+                        length "1..407";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DHCP6OptionGroupOption {
+
+            list GroupOption {
+
+                key "GroupNumber OptionCode";
+
+                leaf GroupNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..100";
+
+                    }
+
+                }
+
+                leaf OptionCode {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "21..65535";
+
+                    }
+
+                }
+
+                leaf OptionValueHex {
+
+                    type base:Basetype_String {
+
+                        length "2..256";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DHCP6PrefixPool {
+
+            list PrefixPool {
+
+                key "VRF PrefixPoolNumber";
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VRF;
+
+                    }
+
+                    description "The VRF name.";
+
+                }
+
+                leaf PrefixPoolNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..128";
+
+                    }
+
+                }
+
+                container Ipv6Prefix {
+
+                    leaf Ipv6Address {
+
+                        type base:Basetype_Ipv6Address;
+
+                    }
+
+                    leaf Ipv6PrefixLength {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..128";
+
+                        }
+
+                    }
+
+                }
+
+                leaf AssignIpv6PrefixLength {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..128";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DHCP6ServerPoolOption {
+
+            list PoolOption {
+
+                key "PoolIndex OptionCode";
+
+                leaf PoolIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..1024";
+
+                    }
+
+                }
+
+                leaf OptionCode {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "21..65535";
+
+                    }
+
+                }
+
+                leaf OptionValueHex {
+
+                    type base:Basetype_String {
+
+                        length "2..256";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DHCP6ServerIpInUse {
+
+            list IpInUse {
+
+                key "PoolIndex Ipv6Address";
+
+                leaf PoolIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..1024";
+
+                    }
+
+                }
+
+                leaf Ipv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                }
+
+                leaf EndLease {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                }
+
+                leaf ClientIPv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf DUID {
+
+                    type base:Basetype_String {
+
+                        length "2..256";
+
+                    }
+
+                }
+
+                leaf IAID {
+
+                                        type string;
+
+                }
+
+                leaf PreferLifetime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "60..max";
+
+                    }
+
+                }
+
+                leaf ValidLifetime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "60..max";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DHCP6ServerPDInUse {
+
+            list PDInUse {
+
+                key "PoolIndex";
+
+                leaf PoolIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..1024";
+
+                    }
+
+                }
+
+                list Ipv6Prefix {
+
+                    key "Ipv6Address Ipv6PrefixLength";
+
+                    leaf Ipv6Address {
+
+                        type base:Basetype_Ipv6Address;
+
+                    }
+
+                    leaf Ipv6PrefixLength {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..128";
+
+                        }
+
+                    }
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                }
+
+                leaf EndLease {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                }
+
+                leaf ClientIPv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf DUID {
+
+                    type base:Basetype_String {
+
+                        length "2..256";
+
+                    }
+
+                }
+
+                leaf IAID {
+
+                                        type string;
+
+                }
+
+                leaf PreferLifetime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "60..max";
+
+                    }
+
+                }
+
+                leaf ValidLifetime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "60..max";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container DHCP6Config {
+
+            leaf DSCP {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..63";
+
+                }
+
+            }
+
+        }
+
+        container DHCP6If {
+
+            list IfConfigure {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf ServerAllowHint {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf ServerRapidCommit {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf ServerPreference {
+
+                    type union {
+
+                        type uint32;
+
+                        type uint32;
+
+                    }
+
+                }
+
+                leaf ApplyPoolName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+                leaf ApplyPoolAllowHint {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf ApplyPoolRapidCommit {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf ApplyPoolPreference {
+
+                    type union {
+
+                        type uint32;
+
+                        type uint32;
+
+                    }
+
+                }
+
+                leaf RelayInterfaceIDMode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf RelayGatewayAddress {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+            }
+
+        }
+
+        container DHCP6RelaySrvAddress {
+
+            list RelaySrvIPv6 {
+
+                key "IfIndex Ipv6Address OutIfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Ipv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf OutIfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

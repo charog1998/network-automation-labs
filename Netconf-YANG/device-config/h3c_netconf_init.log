@@ -1,0 +1,25 @@
+system-view
+
+# 创建本地用户
+local-user zzy class manage
+ password simple 123456qwer
+ service-type ssh
+ authorization-attribute user-role network-admin
+
+# SSH相关配置
+ssh server enable
+ssh user zzy service-type all authentication-type password
+
+# NETCONF配置
+netconf ssh server enable
+
+# VTY线路配置
+user-interface vty 0 15
+ authentication-mode scheme
+ protocol inbound ssh
+ user-role network-admin
+ quit
+
+# 接口配置
+interface GigabitEthernet0/0
+ ip address 192.168.56.101 255.255.255.0

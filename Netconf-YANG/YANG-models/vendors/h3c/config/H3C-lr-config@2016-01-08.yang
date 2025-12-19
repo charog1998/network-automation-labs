@@ -1,0 +1,121 @@
+module H3C-lr-config
+
+{
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "lr-config";
+
+    import comware-basetype 
+
+    {
+
+         prefix "base";
+
+    }
+
+    organization "H3C Inc.";
+
+    contact "Author";
+
+    description "The module entities for lr config.";
+
+    revision 2016-01-08
+
+	{
+
+        description "Initial revision.";
+
+    }
+
+    typedef Lr_TokenPare
+
+    {
+
+        type uint32
+
+        {
+
+            range "0..4294967294";
+
+        }
+
+    }
+
+    container LR
+
+    {
+
+        container Interfaces
+
+        {
+
+            list Interface
+
+            {
+
+                key "IfIndex Direction";
+
+                leaf IfIndex
+
+                {
+
+                    type uint32;
+
+                }
+
+                leaf Direction
+
+                {
+
+                    type enumeration
+
+                    {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf CIR
+
+                {
+
+                    type Lr_TokenPare;
+
+                }
+
+                leaf CBS
+
+                {
+
+                    type Lr_TokenPare;
+
+                }
+
+                leaf EBS
+
+                {
+
+                    type Lr_TokenPare;
+
+                }
+
+                leaf PIR
+
+                {
+
+                    type Lr_TokenPare;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

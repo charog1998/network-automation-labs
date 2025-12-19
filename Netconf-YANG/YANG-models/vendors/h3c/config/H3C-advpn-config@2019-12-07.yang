@@ -1,0 +1,569 @@
+module H3C-advpn-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "advpn-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for advpn config.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container ADVPN {
+
+        container TunnelAdvpnCfg {
+
+            description "TunnelAdvpnCfg";
+
+            list Tunnel {
+
+                description "Tunnel advpn config";
+
+                key "TunnelID";
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf IPv4Client {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,63}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                leaf Compatible {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Encapsulation mode
+
+                            Enumeration:
+
+                            0-incompatible
+
+                            1-compatible
+
+                            2-invalid";
+
+                }
+
+                leaf IPv6Client {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,63}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                leaf DumbTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "10..600";
+
+                    }
+
+                    description "Preference:10-600
+
+                          The default value is 120";
+
+                }
+
+                leaf IdleTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "60..65535";
+
+                    }
+
+                    description "Preference:60-65535
+
+                          The default value is 600";
+
+                }
+
+                leaf SourcePort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1025..65535";
+
+                    }
+
+                    description "Preference:1025-65535
+
+                          The default value is 18001";
+
+                }
+
+            }
+
+        }
+
+        container IPv4Networks {
+
+            description "IPv4Networks
+
+                This table supports creating rows.";
+
+            list IPv4Network {
+
+                description "IPv4Network";
+
+                key "TunnelID Address MaskLength";
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf MaskLength {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..32";
+
+                    }
+
+                    description "IPv4 mask Length
+
+                          Value range 0 to 32";
+
+                }
+
+                leaf Preference {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..255";
+
+                    }
+
+                    description "Preference, value range: 1 to 255";
+
+                }
+
+            }
+
+        }
+
+        container IPv6Networks {
+
+            description "IPv6Networks
+
+                This table supports creating rows.";
+
+            list IPv6Network {
+
+                description "IPv6Network";
+
+                key "TunnelID Address MaskLength";
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf MaskLength {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..128";
+
+                    }
+
+                    description "IPv6 Mask Length
+
+                          Value range 0 to 128";
+
+                }
+
+                leaf Preference {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..255";
+
+                    }
+
+                    description "Preference, value range: 1 to 255";
+
+                }
+
+            }
+
+        }
+
+        container VamcClients {
+
+            description "VamcClients TBL
+
+                This table supports creating rows.";
+
+            list VamcClient {
+
+                description "Row name: VamcClient";
+
+                key "ClientName";
+
+                leaf ClientName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,63}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                leaf AdvpnDomain {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf DumbTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "10..600";
+
+                    }
+
+                    description "Preference:10-600
+
+                          The default value is 120";
+
+                }
+
+                container PreSharedKey {
+
+                    description "PreSharedKey parameters, Members include: Type, Value";
+
+                    leaf Type {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The Type of PreSharedKey
+
+                              Enumeration:
+
+                              1-Simple
+
+                              2-Cipher";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_EncryptString {
+
+                            length "1..73";
+
+                        }
+
+                        description "Interval time of triggering DPD, Unsigned integer: Value range: 1 to 300, in seconds";
+
+                    }
+
+                }
+
+                container Retry {
+
+                    description "Retry parameters, Members include: Interval, Count";
+
+                    leaf Interval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "3..30";
+
+                        }
+
+                        description "The time interval of retry.Unsigned integer: Value range: 3 to 30, in seconds";
+
+                    }
+
+                    leaf Count {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..6";
+
+                        }
+
+                        description "Count of retry, Unsigned integer: Value range: 1 to 6";
+
+                    }
+
+                }
+
+                container Authentication {
+
+                    description "user name and password, Members include: UserName, PasswordType, Password";
+
+                    leaf UserName {
+
+                        type base:Basetype_String {
+
+                            pattern "[^:/@\\\*<>]*";
+
+                            length "1..253";
+
+                        }
+
+                        description "user name string";
+
+                    }
+
+                    leaf PasswordType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The type of password
+
+                                Enumeration:
+
+                                1-Simple
+
+                                2-Cipher";
+
+                    }
+
+                    leaf Password {
+
+                        type base:Basetype_EncryptString {
+
+                            length "1..117";
+
+                        }
+
+                        description "The value of password, According to the type of decision in length.
+
+                                Plaintext key string Length: 1 to 63 characters Or Ciphertext key string Length: 1 to 117 characters";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container VamcServerCfg {
+
+            description "VamcServerCfg
+
+                This table supports creating rows.";
+
+            list VamcServer {
+
+                description "VamcServer";
+
+                key "ClientName";
+
+                leaf ClientName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,63}";
+
+                    }
+
+                    description "vam client name string";
+
+                }
+
+                container PriServer {
+
+                    description "Primary Server";
+
+                    leaf AddressType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "The Type of address:
+
+                                  1.IPv4
+
+                                  2.IPv6
+
+                                  3.Host";
+
+                    }
+
+                    leaf Address {
+
+                        type base:Basetype_String {
+
+                            pattern "([a-zA-Z0-9.:_-]){1,253}";
+
+                        }
+
+                        description "The value of Address";
+
+                    }
+
+                    leaf Port {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1025..65535";
+
+                        }
+
+                        description "post number, value range: 1025 to 65535";
+
+                    }
+
+                }
+
+                container SecServer {
+
+                    description "SecServer Server";
+
+                    leaf AddressType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "The type of Address
+
+                                Enumeration:
+
+                                1.IPv4
+
+                                2.IPv6
+
+                                3.Host";
+
+                    }
+
+                    leaf Address {
+
+                        type base:Basetype_String {
+
+                            pattern "([a-zA-Z0-9.:_-]){1,253}";
+
+                        }
+
+                        description "The value of Address";
+
+                    }
+
+                    leaf Port {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1025..65535";
+
+                        }
+
+                        description "post number, value range: 1025 to 65535";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,581 @@
+module H3C-vpls-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "vpls-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for vpls config.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container VPLS {
+
+        container SignalingLDPs {
+
+            description "The table descriped Revertive information of PW created by SignalingLDP.
+
+                This table supports creating rows.";
+
+            list SignalingLDP {
+
+                description "Revertive information of PW created by SignalingLDP.";
+
+                key "VsiName";
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Index column VSI name characters 1-31";
+
+                }
+
+                container Revertive {
+
+                    description "Switch traffic back to to the primary PW when it recovers.";
+
+                    leaf Type {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "Revertive type, Enumeration：
+                              1.never 
+                              2.wtr";
+
+                    }
+
+                    leaf Time {
+
+                        type base:Basetype_UnsignedShort {
+
+                            range "0..3600";
+
+                        }
+
+                        description "Time for WTR,Only works when the revertive type is WTR
+                              value range 0~3600sec";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container LDPPeers {
+
+            description "LDPPeers table
+
+                This table supports creating rows.";
+
+            list LDPPeer {
+
+                description "LDPPeer row";
+
+                key "VsiName PeerAddr PWID";
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Index column, VSI name, characters 1-31";
+
+                }
+
+                leaf PeerAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "ipv4 peer address";
+
+                }
+
+                leaf PWID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "PW ID from 1 to 4294967295";
+
+                }
+
+                leaf Hub {
+
+                    type base:Basetype_Boolean;
+
+                    description "Boolean:
+                        true： Hub
+                        false：Spoke(default)";
+
+                }
+
+                leaf SplitHorizon {
+
+                    type base:Basetype_Boolean;
+
+                    description "Boolean:
+                        true: Enabled(default)
+                        false:Disabled";
+
+                }
+
+                leaf PWClass {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                    description "PWClass name";
+
+                }
+
+                leaf TunnelPolicy {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                    description "TunnelPolicy name";
+
+                }
+
+                leaf Statistics {
+
+                    type base:Basetype_Boolean;
+
+                    description "PW statistics, Boolean:
+                        true
+                        false(default)";
+
+                }
+
+            }
+
+        }
+
+        container LDPBackupPeers {
+
+            description "LDPBackupPeers table
+
+                This table supports creating rows.";
+
+            list LDPBackupPeer {
+
+                description "LDPBackupPeer row";
+
+                key "VsiName MainPeerAddr MainPWID PeerAddr PWID";
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Index column, VSI name, characters 1-31";
+
+                }
+
+                leaf MainPeerAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "ipv4 address of main peer";
+
+                }
+
+                leaf MainPWID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "PW ID of main pw ranges from 1 to 4294967295";
+
+                }
+
+                leaf PeerAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "ipv4 address of backup peer";
+
+                }
+
+                leaf PWID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "PW ID of backup pw ranges from 1 to 4294967295";
+
+                }
+
+                leaf PWClass {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                    description "PWClass name";
+
+                }
+
+                leaf TunnelPolicy {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                    description "TunnelPolicy name";
+
+                }
+
+            }
+
+        }
+
+        container SignalingStatics {
+
+            description "The table describe Revertive information of PW created by SignalingStatic.
+
+                This table supports creating rows.";
+
+            list SignalingStatic {
+
+                description "Revertive information of PW created by SignalingStatic.";
+
+                key "VsiName";
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Index column VSI name characters 1-31";
+
+                }
+
+                container Revertive {
+
+                    description "Switch traffic back to to the primary PW when it recovers.";
+
+                    leaf Type {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "Revertive type, Enumeration:
+                              1.never 
+                              2.wtr";
+
+                    }
+
+                    leaf Time {
+
+                        type base:Basetype_UnsignedShort {
+
+                            range "0..3600";
+
+                        }
+
+                        description "Time for WTR,Only works when the revertive type is WTR,
+                              value range 0~3600sec";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container StaticPeers {
+
+            description "StaticPeers table
+
+                This table supports creating rows.";
+
+            list StaticPeer {
+
+                description "StaticPeer row";
+
+                key "VsiName PeerAddr PWID";
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Index column, VSI name, characters 1-31";
+
+                }
+
+                leaf PeerAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "ipv4 address of peer";
+
+                }
+
+                leaf PWID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "PW ID 1 to 4294967295";
+
+                }
+
+                leaf InLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "InLabel";
+
+                }
+
+                leaf OutLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "OutLabel";
+
+                }
+
+                leaf Hub {
+
+                    type base:Basetype_Boolean;
+
+                    description "Boolean:
+                        true： Hub
+                        false：Spoke(default)";
+
+                }
+
+                leaf SplitHorizon {
+
+                    type base:Basetype_Boolean;
+
+                    description "Boolean:
+                        true: Enabled(default)
+                        false:Disabled";
+
+                }
+
+                leaf PWClass {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                    description "PWClass name";
+
+                }
+
+                leaf TunnelPolicy {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                    description "TunnelPolicy name";
+
+                }
+
+                leaf Statistics {
+
+                    type base:Basetype_Boolean;
+
+                    description "PW statistics, Boolean:
+                        true : Enabled
+                        false: Disabled(default)";
+
+                }
+
+            }
+
+        }
+
+        container StaticBackupPeers {
+
+            description "StaticBackupPeers table
+
+                This table supports creating rows.";
+
+            list StaticBackupPeer {
+
+                description "StaticBackupPeer row";
+
+                key "VsiName MainPeerAddr MainPWID PeerAddr PWID";
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Index column, VSI name, characters 1-31";
+
+                }
+
+                leaf MainPeerAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "ipv4 address of main peer";
+
+                }
+
+                leaf MainPWID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "PW ID of main pw ranges from 1 to 4294967295";
+
+                }
+
+                leaf PeerAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "ipv4 address of backup peer";
+
+                }
+
+                leaf PWID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4294967295";
+
+                    }
+
+                    description "PW ID of backup pw ranges from 1 to 4294967295";
+
+                }
+
+                leaf InLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "InLabel";
+
+                }
+
+                leaf OutLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "OutLabel";
+
+                }
+
+                leaf PWClass {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                    description "PWClass name";
+
+                }
+
+                leaf TunnelPolicy {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                    description "TunnelPolicy name";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

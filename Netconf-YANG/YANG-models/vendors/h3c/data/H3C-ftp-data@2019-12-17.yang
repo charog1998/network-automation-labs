@@ -1,0 +1,137 @@
+module H3C-ftp-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "ftp-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ftp data.";
+
+    revision 2019-12-17 {
+
+        description "Initial revision.";
+
+    }
+
+    container FTP {
+
+        config false;
+
+        container Capabilities {
+
+            description "FTP capabilities server table.";
+
+            leaf FtpServerSupport {
+
+                type base:Basetype_Boolean;
+
+                description "FTP supported or not";
+
+            }
+
+        }
+
+        container Server {
+
+            description "FTP server table.";
+
+            leaf State {
+
+                type base:Basetype_EnableState;
+
+                description "Global FTP Server feature.";
+
+            }
+
+            leaf Ipv4DSCP {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..63";
+
+                }
+
+                description "Set the IPv4 Differentiated Services Codepoint (DSCP) value.";
+
+            }
+
+            leaf Ipv6DSCP {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..63";
+
+                }
+
+                description "Set the IPv6 Differentiated Services Codepoint (DSCP) value.";
+
+            }
+
+            leaf Ipv4ACLNum {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "2000..4999";
+
+                }
+
+                description "Specify an IPv4 ACL used to control the FTP clients' access.";
+
+            }
+
+            leaf Ipv6ACLNum {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "2000..4999";
+
+                }
+
+                description "Specify an IPv6 ACL used to control the FTP clients' access.";
+
+            }
+
+            leaf Timeout {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..35791";
+
+                }
+
+                description "Specify FTP timeout value.";
+
+            }
+
+            leaf SslServerPolicy {
+
+                type base:Basetype_String {
+
+                    length "1..31";
+
+                }
+
+                description "Specify an SSL server poloicy for the FTP server.";
+
+            }
+
+        }
+
+    }
+
+}

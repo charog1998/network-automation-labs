@@ -1,0 +1,65 @@
+module H3C-mroute-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "mroute-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for mroute config.";
+
+    revision 2019-12-17 {
+
+        description "Initial revision.";
+
+    }
+
+    container Mroute {
+
+        container Ipv4Instances {
+
+            description "IPv4 multicast routing VRF information table
+
+                This table supports creating rows.";
+
+            list Instance {
+
+                description "Row name";
+
+                key "VRF";
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VRF;
+
+                    }
+
+                    description "VRF name";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

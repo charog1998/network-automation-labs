@@ -1,0 +1,77 @@
+module H3C-route-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "route-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for route config.";
+
+    revision 2019-12-17 {
+
+        description "Synchronize the modification of the schema file to the YANG file.";
+
+    }
+
+    revision 2016-07-15 {
+
+        description "Initial revision.";
+
+    }
+
+    container Route {
+
+        container Ipv4BandwidthBasedSharing {
+
+            description "IPv4 bandwidth-based load sharing information.";
+
+            leaf Mode {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..1";
+
+                }
+
+                description "IPv4 bandwidth-based load sharing mode.";
+
+            }
+
+        }
+
+        container Ipv6BandwidthBasedSharing {
+
+            description "IPv6 bandwidth-based load sharing information.";
+
+            leaf Mode {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..1";
+
+                }
+
+                description "IPv6 bandwidth-based load sharing mode.";
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,63 @@
+module H3C-l2mad-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "l2mad-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for l2mad config.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container L2MAD {
+
+        container L2MADEnable {
+
+            list Enable {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf MADARPEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf MADNDEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

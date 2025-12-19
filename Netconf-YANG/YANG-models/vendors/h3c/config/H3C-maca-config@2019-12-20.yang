@@ -1,0 +1,309 @@
+module H3C-maca-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "maca-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for maca config.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container MACA {
+
+        container Common {
+
+            description "MAC authentication global paramenters";
+
+            leaf Enable {
+
+                type base:Basetype_Boolean;
+
+                description "Global MAC authentication  feature.";
+
+            }
+
+            leaf Domain {
+
+                type base:Basetype_String {
+
+                    length "1..255";
+
+                }
+
+                description "Authentication domain of the user";
+
+            }
+
+            leaf UserNameFormat {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+                description "Format of user's name:
+
+                      1--Fixed; 2--Individual MAC address.";
+
+            }
+
+            leaf Section {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                    enum 3;
+
+                }
+
+                description "MAC address format:
+
+                      1--Six-section; 2--Without hyphen; 3--Three-section.";
+
+            }
+
+            leaf LowerCase {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+                description "Letters in lower case:
+
+                      1--Lowercase; 2--Uppercase.";
+
+            }
+
+            leaf UserName {
+
+                type base:Basetype_String {
+
+                    length "1..55";
+
+                }
+
+                description "Fixed user name of the device.";
+
+            }
+
+            leaf UserPassword {
+
+                type base:Basetype_String;
+
+                description "Password for fixed user name.";
+
+            }
+
+            leaf IdleInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "60..2147483647";
+
+                }
+
+                description "Period value of user idle detection timer.";
+
+            }
+
+            leaf QuietInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..3600";
+
+                }
+
+                description "Period value of Quiet timer.";
+
+            }
+
+            leaf ServerInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "100..300";
+
+                }
+
+                description "Period value of server response timer.";
+
+            }
+
+        }
+
+        container Interfaces {
+
+            description "MAC authentication interface's information";
+
+            list Interface {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index.";
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Enable MAC authentication.";
+
+                }
+
+                leaf AuthDelayInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..180";
+
+                    }
+
+                    description "Period value of delay authentication timer.";
+
+                }
+
+                leaf MaxUser {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Maximum user number on this interface.";
+
+                }
+
+                leaf ReauthUnreachableMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Status of user online or offline when the AAA server is not available during re-authenticating.";
+
+                }
+
+                leaf MultiVLAN {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Allow authenticated user in multi-VLANs on this interfaces.";
+
+                }
+
+                leaf CriticalVLAN {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "VLAN for users as the server is unreachable.";
+
+                }
+
+                leaf GuestVLAN {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "VLAN for users failed in authentication.";
+
+                }
+
+                leaf Domain {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                    description "Authentication domain of user on the interface";
+
+                }
+
+            }
+
+        }
+
+        container AccessUserLog {
+
+            description "This table controls the enabling status of logging about MAC authentication users.";
+
+            leaf FailedLogin {
+
+                type base:Basetype_Boolean;
+
+                description "Whether to enable logging about MAC authentication user login failures.";
+
+            }
+
+            leaf Logoff {
+
+                type base:Basetype_Boolean;
+
+                description "Whether to enable logging about MAC authentication user logoffs.";
+
+            }
+
+            leaf SuccessfulLogin {
+
+                type base:Basetype_Boolean;
+
+                description "Whether to enable logging about successful MAC authentication user logins.";
+
+            }
+
+        }
+
+    }
+
+}

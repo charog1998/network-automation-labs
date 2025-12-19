@@ -1,0 +1,147 @@
+module H3C-nat-action
+
+{
+
+    namespace "http://www.h3c.com/netconf/action:1.0";
+
+    prefix "nat-action";
+
+    import comware-basetype 
+
+    {
+
+         prefix "base";
+
+    }
+
+    organization "H3C Inc.";
+
+    contact "Author";
+
+    description "The module entities for nat action.";
+
+    revision 2017-06-05
+
+	{
+
+        description "Initial revision.";
+
+    }
+
+    container NAT
+
+    {
+
+        config false;
+
+        container ResetNatStaticLoadBalance
+
+        {
+
+            leaf Reset
+
+            {
+
+                type empty;
+
+            }
+
+        }
+
+        container ResetNatDynamicLoadBalance
+
+        {
+
+            list Dynamic
+
+            {
+
+                key "AddrGroupNumber";
+
+                leaf AddrGroupNumber
+
+                {
+
+                    type base:Basetype_UnsignedInteger32
+
+                    {
+
+                        range "min..65535";
+
+                    }
+
+                }
+
+                leaf Reset
+
+                {
+
+                    type empty;
+
+                }
+
+            }
+
+        }
+
+        container PolicyRuleMove
+
+        {
+
+            list Rule
+
+            {
+
+                key "SrcRuleName DstRuleName Direction";
+
+                leaf SrcRuleName
+
+                {
+
+                    type base:Basetype_NameString
+
+                    {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+                leaf DstRuleName
+
+                {
+
+                    type base:Basetype_NameString
+
+                    {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+                leaf Direction
+
+                {
+
+                    type enumeration
+
+                    {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,151 @@
+module H3C-dhcpc6-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "dhcpc6-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for dhcpc6 config.";
+
+    revision 2019-12-17 {
+
+        description "Initial revision.";
+
+    }
+
+    container DHCPC6 {
+
+        container DHCPC6Config {
+
+            leaf DSCP {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..63";
+
+                }
+
+            }
+
+        }
+
+        container DHCP6Alloc {
+
+            list Alloc {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf AllocEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf OptionGroup {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..100";
+
+                    }
+
+                }
+
+                leaf RapidCommit {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container DHCP6PrefixDelegation {
+
+            list PrefixDelegation {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf PrefixNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..1024";
+
+                    }
+
+                }
+
+                leaf OptionGroup {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..100";
+
+                    }
+
+                }
+
+                leaf RapidCommit {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container DHCP6Stateless {
+
+            list Stateless {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf StatelessEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

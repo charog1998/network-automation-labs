@@ -1,0 +1,457 @@
+module H3C-acl-action
+
+{
+
+    namespace "http://www.h3c.com/netconf/action:1.0";
+
+    prefix "acl-action";
+
+    import comware-basetype 
+
+    {
+
+         prefix "base";
+
+    }
+
+    organization "H3C Inc.";
+
+    contact "Author";
+
+    description "The module entities for acl action.";
+
+    revision 2016-01-01
+
+	{
+
+        description "Initial revision.";
+
+    }
+
+    typedef Acl_GroupIndex
+
+    {
+
+        type string
+
+        {
+
+            pattern "(^[2345][0-9]{3}$)|(^[a-zA-Z][^?   
+
+]{0,62}$)";
+
+            pattern "^[^?	
+
+]*$";
+
+        }
+
+    }
+
+    typedef AclGroupType
+
+    {
+
+        type string
+
+        {
+
+            pattern "(^0$)|(^[2345][0-9]{3}$)|(^[a-zA-Z][^? 
+
+]{0,62}$)";
+
+            pattern "^[^?	
+
+]*$";
+
+        }
+
+    }
+
+    typedef ZoneNameString
+
+    {
+
+        type string
+
+        {
+
+		    pattern "^[^?	
+
+]*$";
+
+            length "0..31";
+
+        }
+
+    }
+
+    container ACL
+
+    {
+
+        config false;
+
+        container Groups
+
+        {
+
+            list Group
+
+            {
+
+                key "GroupType GroupID";
+
+                leaf GroupType
+
+                {
+
+                    type enumeration
+
+                    {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                }
+
+                leaf GroupID
+
+                {
+
+                    type uint32
+
+                    {
+
+                        range "2000..5999";
+
+                    }
+
+                }
+
+                leaf CountClear
+
+                {
+
+                    type empty;
+
+                }
+
+            }
+
+        }
+
+        container NamedGroups
+
+        {
+
+            list Group
+
+            {
+
+                key "GroupType GroupIndex";
+
+                leaf GroupType
+
+                {
+
+                    type enumeration
+
+                    {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                }
+
+                leaf GroupIndex
+
+                {
+
+                    type Acl_GroupIndex;
+
+                }
+
+                leaf CountClear
+
+                {
+
+                    type empty;
+
+                }
+
+            }
+
+        }
+
+        container PfilterApply
+
+        {
+
+            list Pfilter
+
+            {
+
+                key "AppObjType AppObjIndex AppDirection AppAclType AppAclGroup";
+
+                leaf AppObjType
+
+                {
+
+                    type enumeration
+
+                    {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                }
+
+                leaf AppObjIndex
+
+                {
+
+                    type uint32;
+
+                }
+
+                leaf AppDirection
+
+                {
+
+                    type enumeration
+
+                    {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf AppAclType
+
+                {
+
+                    type enumeration
+
+                    {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                }
+
+                leaf AppAclGroup
+
+                {
+
+                    type AclGroupType;
+
+                }
+
+                leaf CountClear
+
+                {
+
+                    type empty;
+
+                }
+
+            }
+
+        }
+
+        container ClearZonePairPfilter
+
+        {
+
+            list Pfilter
+
+            {
+
+                key "SrcZone DestZone AclType AclGroup";
+
+                leaf SrcZone
+
+                {
+
+                    type ZoneNameString;
+
+                }
+
+                leaf DestZone
+
+                {
+
+                    type ZoneNameString;
+
+                }
+
+                leaf AclType
+
+                {
+
+                    type enumeration
+
+                    {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf AclGroup
+
+                {
+
+                    type string
+
+                    {
+
+					    pattern "^[^?	
+
+]*$";
+
+                        length "0..61";
+
+                    }
+
+                }
+
+                leaf Clear
+
+                {
+
+                    type empty;
+
+                }
+
+            }
+
+        }
+
+        container ExportMacRules
+
+        {
+
+            leaf FileName
+
+            {
+
+                type string
+
+				{
+
+				    pattern "^[^?	
+
+][^	
+
+]*$";
+
+				}
+
+            }
+
+            leaf GroupID
+
+            {
+
+                type uint32;
+
+            }
+
+        }
+
+        container ImportMacRules
+
+        {
+
+            leaf FileName
+
+            {
+
+                type string
+
+				{
+
+				    pattern "^[^?	
+
+][^	
+
+]*$";
+
+				}
+
+            }
+
+            leaf GroupID
+
+            {
+
+                type uint32;
+
+            }
+
+        }
+
+        container ExportMacTemplet
+
+        {
+
+            leaf FileName
+
+            {
+
+                type string
+
+				{
+
+				    pattern "^[^?	
+
+][^	
+
+]*$";
+
+				}
+
+            }
+
+        }
+
+    }
+
+}

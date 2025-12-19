@@ -1,0 +1,523 @@
+module H3C-scheduler-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "scheduler-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for scheduler data.";
+
+    revision 2019-12-09 {
+
+        description "Synchronize the modification of the schema file to the YANG file.";
+
+    }
+
+    revision 2019-03-14 {
+
+        description "Initial revision.";
+
+    }
+
+    container Scheduler {
+
+        config false;
+
+        container System {
+
+            description "This table contains the size setting for the job execution log file.";
+
+            leaf LogfileSize {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "16..1024";
+
+                }
+
+                description "Job execution log file size in KB";
+
+            }
+
+        }
+
+        container Jobs {
+
+            description "This table contains information about jobs.";
+
+            list Job {
+
+                description "Row name";
+
+                key "JobName";
+
+                leaf JobName {
+
+                    type base:Basetype_String {
+
+                        length "1..47";
+
+                    }
+
+                    description "Job name.String length constraints must be in range(1..47).";
+
+                }
+
+                container JobCommands {
+
+                    description "Job commands.";
+
+                    list JobCommand {
+
+                        description "Job commands.";
+
+                        key "CommandId";
+
+                        leaf CommandId {
+
+                            type base:Basetype_UnsignedInteger32;
+
+                            description "Command ID.";
+
+                        }
+
+                        leaf Command {
+
+                            type base:Basetype_String {
+
+                                length "1..512";
+
+                            }
+
+                            description "Command line.String length constraints must be in range(1..512).";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container ScheduleJobs {
+
+            description "This table contains information about job schedules.
+
+                This table supports creating rows.";
+
+            list ScheduleJob {
+
+                description "Row name";
+
+                key "ScheduleName JobName";
+
+                leaf ScheduleName {
+
+                    type base:Basetype_String {
+
+                        length "1..47";
+
+                    }
+
+                    description "Schedule name.";
+
+                }
+
+                leaf JobName {
+
+                    type base:Basetype_String {
+
+                        length "1..47";
+
+                    }
+
+                    description "Job name.";
+
+                }
+
+            }
+
+        }
+
+        container ScheduleUserRoles {
+
+            description "This table contains user role settings for the job schedules.
+
+                This table supports creating rows.";
+
+            list ScheduleUserRole {
+
+                description "Row name";
+
+                key "ScheduleName UserRole";
+
+                leaf ScheduleName {
+
+                    type base:Basetype_String {
+
+                        length "1..47";
+
+                    }
+
+                    description "Schedule name.";
+
+                }
+
+                leaf UserRole {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "User roles for the schedule.";
+
+                }
+
+            }
+
+        }
+
+        container ScheduleRepeats {
+
+            description "This table contains settings for periodic schedules.
+
+                This table supports creating rows.";
+
+            list ScheduleRepeat {
+
+                description "Row name";
+
+                key "ScheduleName";
+
+                leaf ScheduleName {
+
+                    type base:Basetype_String {
+
+                        length "1..47";
+
+                    }
+
+                    description "Schedule name.";
+
+                }
+
+                leaf Time {
+
+                    type base:Basetype_String {
+
+                        length "3..5";
+
+                    }
+
+                    description "Execution time";
+
+                }
+
+                leaf Date {
+
+                    type base:Basetype_String;
+
+                    description "Execution date";
+
+                }
+
+                container Period {
+
+                    leaf Interval {
+
+                        type base:Basetype_String {
+
+                            length "1..6";
+
+                        }
+
+                        description "Execution interval.";
+
+                    }
+
+                    leaf MonthDay {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..32";
+
+                        }
+
+                        description "Day in a month.";
+
+                    }
+
+                    leaf WeekDay {
+
+                        type base:Basetype_String;
+
+                        description "Week day.";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container ScheduleInfos {
+
+            description "This table contains execution statistics for all schedules.
+
+                This table supports creating rows.";
+
+            list ScheduleInfo {
+
+                description "Row name";
+
+                key "ScheduleName";
+
+                leaf ScheduleName {
+
+                    type base:Basetype_String {
+
+                        length "1..47";
+
+                    }
+
+                    description "Schedule name.";
+
+                }
+
+                leaf ScheduleType {
+
+                    type base:Basetype_String {
+
+                        length "1..64";
+
+                    }
+
+                    description "Execution time settings of the schedule";
+
+                }
+
+                leaf StartTime {
+
+                    type base:Basetype_String {
+
+                        length "1..64";
+
+                    }
+
+                    description "Time when the schedule was executed or is to be executed for the first time.";
+
+                }
+
+                leaf LastExecutionTime {
+
+                    type base:Basetype_String {
+
+                        length "1..64";
+
+                    }
+
+                    description "Last time when the schedule was executed.";
+
+                }
+
+                leaf LastCompletionTime {
+
+                    type base:Basetype_String {
+
+                        length "1..64";
+
+                    }
+
+                    description "Last time when the schedule was completed.";
+
+                }
+
+                leaf ExecutionCounts {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of times the schedule has been executed.";
+
+                }
+
+                list Jobs {
+
+                    description "Jobs in the schedule";
+
+                    key "JobName LastExecutionStatus";
+
+                    leaf JobName {
+
+                        type base:Basetype_String {
+
+                            length "1..47";
+
+                        }
+
+                        description "Job name.";
+
+                    }
+
+                    leaf LastExecutionStatus {
+
+                        type base:Basetype_String {
+
+                            length "1..32";
+
+                        }
+
+                        description "Result of the most recent execution.";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container SchedulerReboot {
+
+            description "This table contains information about the device reboot schedule.";
+
+            leaf Time {
+
+                type base:Basetype_String {
+
+                    length "5..8";
+
+                }
+
+                description "Execution time.";
+
+            }
+
+            leaf Date {
+
+                type base:Basetype_String {
+
+                    length "8..10";
+
+                }
+
+                description "Execution date.";
+
+            }
+
+            leaf Remain {
+
+                type base:Basetype_String;
+
+                description "Remain time.";
+
+            }
+
+        }
+
+        container ScheduleOnces {
+
+            description "This table contains settings for non-periodic schedules.
+
+                This table supports creating rows.";
+
+            list ScheduleOnce {
+
+                description "Row name";
+
+                key "ScheduleName";
+
+                leaf ScheduleName {
+
+                    type base:Basetype_String {
+
+                        length "1..47";
+
+                    }
+
+                    description "Schedule name.";
+
+                }
+
+                leaf Time {
+
+                    type base:Basetype_String {
+
+                        length "3..5";
+
+                    }
+
+                    description "Execution time";
+
+                }
+
+                container Once {
+
+                    leaf Date {
+
+                        type base:Basetype_String;
+
+                        description "Execution date";
+
+                    }
+
+                    leaf MonthDay {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..31";
+
+                        }
+
+                        description "Day in a month.";
+
+                    }
+
+                    leaf WeekDay {
+
+                        type base:Basetype_String;
+
+                        description "Week day.";
+
+                    }
+
+                }
+
+                leaf Delay {
+
+                    type base:Basetype_String {
+
+                        length "1..6";
+
+                    }
+
+                    description "Delay time.";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

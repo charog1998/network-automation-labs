@@ -1,0 +1,167 @@
+module H3C-comware-event 
+
+{
+
+        namespace "http://www.h3c.com/netconf/event:1.0";
+
+        prefix comware-event;
+
+        organization "H3C";
+
+        contact "Hangzhou H3C Technologies Co., Ltd.";
+
+        description "";
+
+        revision 2014-10-12 
+
+        {
+
+                description "Initial revision";
+
+        }
+
+        grouping comware-create-event 
+
+        {
+
+                description "internal struct to start a notification";
+
+                container event
+
+                {
+
+                        config false;
+
+                        leaf Group 
+
+                        {
+
+                                type string
+
+                                {
+
+                                        length "1..8";
+
+                                }
+
+                                description "";
+
+                        }
+
+                        leaf Code 
+
+                        {
+
+                                type string
+
+                                {
+
+                                        length "1..32";
+
+                                }
+
+                                description "";
+
+                        }
+
+                        leaf Chassis
+
+                        {
+
+                                type uint16;
+
+                                description "";
+
+                        }
+
+                        leaf Slot
+
+                        {
+
+                                type uint16;
+
+                                description "";
+
+                        }
+
+                        leaf Severity                   
+
+                        {
+
+                                type enumeration
+
+                                {
+
+                                        enum Emergency
+
+                                        {
+
+                                                description "";
+
+                                        }
+
+                                        enum Alert
+
+                                        {
+
+                                                description "";
+
+                                        }
+
+                                        enum Critical
+
+                                        {
+
+                                                description "";
+
+                                        }
+
+                                        enum Error
+
+                                        {
+
+                                                description "";
+
+                                        }
+
+                                        enum Warning
+
+                                        {
+
+                                                description "";
+
+                                        }
+
+                                        enum Notification
+
+                                        {
+
+                                                description "";
+
+                                        }
+
+                                        enum Informational
+
+                                        {
+
+                                                description "";
+
+                                        }       
+
+                                        enum Debugging
+
+                                        {
+
+                                                description "";
+
+                                        }
+
+                                }
+
+                        }
+
+                }
+
+   }
+
+}

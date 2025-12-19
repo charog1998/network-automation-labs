@@ -1,0 +1,259 @@
+module H3C-ipfw-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "ipfw-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ipfw config.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container IPFW {
+
+        container IPFWLoadSharing {
+
+            container LoadSharing {
+
+                list DeviceNode {
+
+                    key "Chassis Slot CPUID";
+
+                    leaf Chassis {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                    }
+
+                    leaf Slot {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                    }
+
+                    leaf CPUID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..7";
+
+                        }
+
+                    }
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                }
+
+                leaf AlgorithmNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..7";
+
+                    }
+
+                }
+
+                leaf DestIp {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf SrcIp {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf IpPro {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf DestPort {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf SrcPort {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf IngressPort {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container IPFWLastHopHold {
+
+            list LastHopHold {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IPFWSetService {
+
+            leaf DscpEnable {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf VpnPeerIdEnable {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf MplsExpEnable {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+        container IPFWLastHopBackupSwitch {
+
+            leaf BackupEnable {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+            }
+
+        }
+
+        container IPFWTcpMss {
+
+            list TcpMss {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Num {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IPFWDFSet {
+
+            leaf IPDFBit {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+            }
+
+        }
+
+        container IPFWFwdPolicy {
+
+            leaf FwdPolicy {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,619 @@
+module H3C-vxlan-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "vxlan-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for vxlan data.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container VXLAN {
+
+        config false;
+
+        container Base {
+
+            description "VXLAN base table";
+
+            leaf RmtMacLearn {
+
+                type base:Basetype_Boolean;
+
+                description "Remote MAC address learning function";
+
+            }
+
+            leaf LocMacNtf {
+
+                type base:Basetype_Boolean;
+
+                description "Local MAC report function";
+
+            }
+
+            leaf NextVxlanID {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..16777215";
+
+                }
+
+                description "Next useful VXLAN ID";
+
+            }
+
+            leaf TotalVxlanNum {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Total number of existing VXLANs";
+
+            }
+
+            leaf ReservedVxlanID {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..16777215";
+
+                }
+
+                description "Reserved VXLAN ID";
+
+            }
+
+            leaf RmtArpLearn {
+
+                type base:Basetype_Boolean;
+
+                description "Remote ARP learning function";
+
+            }
+
+        }
+
+        container VXLANs {
+
+            description "VXLAN configurations table
+
+                This table supports creating rows.";
+
+            list Vxlan {
+
+                description "Row name of VXLANs table.";
+
+                key "VxlanID";
+
+                leaf VxlanID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..16777215";
+
+                    }
+
+                    description "VXLAN ID";
+
+                }
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "VSI name";
+
+                }
+
+                container Ipv4Group {
+
+                    description "VXLAN multicast group structure";
+
+                    leaf GroupAddr {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "IPv4 multicast destination address";
+
+                    }
+
+                    leaf SrcAddr {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "IPV4 source address";
+
+                    }
+
+                }
+
+                leaf RmtMacCnt {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The count of remote MAC addresses";
+
+                }
+
+            }
+
+        }
+
+        container Tunnels {
+
+            description "Information about Tunnels associated with VXLANs.
+
+                This table supports creating rows.";
+
+            list Tunnel {
+
+                description "Row name of Tunnels table.";
+
+                key "VxlanID TunnelID";
+
+                leaf VxlanID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..16777215";
+
+                    }
+
+                    description "Index, VXLAN ID";
+
+                }
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Index, Tunnel ID";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Tunnel type";
+
+                }
+
+                leaf FloodingProxy {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Flooding proxy";
+
+                }
+
+                leaf NoSplitHorizon {
+
+                    type base:Basetype_Boolean;
+
+                    description "Cancel split horizon";
+
+                }
+
+                leaf State {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "Tunnel state: 1-down 2-up 3-defect 4-blocked";
+
+                }
+
+                leaf InPkts {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of incoming packets";
+
+                }
+
+                leaf InOctets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of incoming bytes";
+
+                }
+
+                leaf OutPkts {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of outgoing packets";
+
+                }
+
+                leaf OutOctets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of outgoing bytes";
+
+                }
+
+                leaf SystemTime {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Time that has elapsed since the device started up when the tunnel statistics are updated";
+
+                }
+
+            }
+
+        }
+
+        container RmtMACs {
+
+            description "Information about Remote MAC addresses of each VXLAN
+
+                This table supports creating rows.";
+
+            list MAC {
+
+                description "Row name of RmtMACs table";
+
+                key "VsiName MacAddr";
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Index, VSI name";
+
+                }
+
+                leaf MacAddr {
+
+                    type base:Basetype_MacAddress;
+
+                    description "Index, Remote MAC address";
+
+                }
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Tunnel ID, represents the out interface of this MAC address";
+
+                }
+
+                leaf Status {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                    description "Type of remote MAC address";
+
+                }
+
+            }
+
+        }
+
+        container VXLANAllocations {
+
+            description "the VXLAN's Context";
+
+            list VXLANAllocation {
+
+                description "row name";
+
+                key "VXLANID";
+
+                leaf VXLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..16777215";
+
+                    }
+
+                    description "VXLAN ID, index";
+
+                }
+
+                leaf ContextID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Context ID";
+
+                }
+
+            }
+
+        }
+
+        container ESs {
+
+            description "This table contains Tunnel information.";
+
+            list ES {
+
+                description "ES row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Index column IfIndex UnsignedInteger32";
+
+                }
+
+                leaf ESI {
+
+                    type base:Basetype_String {
+
+                        length "1..26";
+
+                    }
+
+                    description "ES Identifier.";
+
+                }
+
+            }
+
+        }
+
+        container EvpnVxlanEncaps {
+
+            description "EVPN configurations table
+
+                This table supports creating rows.";
+
+            list VxlanEncap {
+
+                description "Row name of VxlanEncap table.";
+
+                key "VsiName";
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "VSI name";
+
+                }
+
+                leaf bRDAuto {
+
+                    type base:Basetype_Boolean;
+
+                    description "路由标志自动配置";
+
+                }
+
+                leaf RD {
+
+                    type base:Basetype_String {
+
+                        length "3..21";
+
+                    }
+
+                    description "Route distinguisher";
+
+                }
+
+                leaf bIrtAuto {
+
+                    type base:Basetype_Boolean;
+
+                    description "Route Target自动配置";
+
+                }
+
+                leaf bErtAuto {
+
+                    type base:Basetype_Boolean;
+
+                    description "Route Target自动配置";
+
+                }
+
+                leaf bMacAdvertise {
+
+                    type base:Basetype_Boolean;
+
+                    description "Mac Advertise";
+
+                }
+
+                leaf bArpMacLearn {
+
+                    type base:Basetype_Boolean;
+
+                    description "Arp Mac Learn";
+
+                }
+
+                leaf MappingVni {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..16777215";
+
+                    }
+
+                    description "Mapping Vni Vxlan";
+
+                }
+
+            }
+
+        }
+
+        container EvpnVxlanRTs {
+
+            description "EVPN configurations table
+
+                This table supports creating rows.";
+
+            list VxlanRT {
+
+                description "Row name of VxlanRT table.";
+
+                key "VsiName RTType RTEntry";
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "VSI name";
+
+                }
+
+                leaf RTType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Route Target type";
+
+                }
+
+                leaf RTEntry {
+
+                    type base:Basetype_String {
+
+                        length "3..21";
+
+                    }
+
+                    description "VPN target";
+
+                }
+
+            }
+
+        }
+
+        container VRFs {
+
+            description "VRF configurations table";
+
+            list VRF {
+
+                description "Row name of VRFs table.";
+
+                key "VRF";
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF name";
+
+                }
+
+                leaf VNI {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..16777215";
+
+                    }
+
+                    description "VNI for the tenant";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

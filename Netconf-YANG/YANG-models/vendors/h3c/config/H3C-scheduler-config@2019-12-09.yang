@@ -1,0 +1,297 @@
+module H3C-scheduler-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "scheduler-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for scheduler config.";
+
+    revision 2019-12-09 {
+
+        description "Synchronize the modification of the schema file to the YANG file.";
+
+    }
+
+    revision 2019-03-14 {
+
+        description "Initial revision.";
+
+    }
+
+    container Scheduler {
+
+        container System {
+
+            description "This table contains the size setting for the job execution log file.";
+
+            leaf LogfileSize {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "16..1024";
+
+                }
+
+                description "Job execution log file size in KB";
+
+            }
+
+        }
+
+        container Jobs {
+
+            description "This table contains information about jobs.";
+
+            list Job {
+
+                description "Row name";
+
+                key "JobName";
+
+                leaf JobName {
+
+                    type base:Basetype_String {
+
+                        length "1..47";
+
+                    }
+
+                    description "Job name.String length constraints must be in range(1..47).";
+
+                }
+
+                container JobCommands {
+
+                    description "Job commands.";
+
+                    list JobCommand {
+
+                        description "Job commands.";
+
+                        key "CommandId";
+
+                        leaf CommandId {
+
+                            type base:Basetype_UnsignedInteger32;
+
+                            description "Command ID.";
+
+                        }
+
+                        leaf Command {
+
+                            type base:Basetype_String {
+
+                                length "1..512";
+
+                            }
+
+                            description "Command line.String length constraints must be in range(1..512).";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container ScheduleJobs {
+
+            description "This table contains information about job schedules.
+
+                This table supports creating rows.";
+
+            list ScheduleJob {
+
+                description "Row name";
+
+                key "ScheduleName JobName";
+
+                leaf ScheduleName {
+
+                    type base:Basetype_String {
+
+                        length "1..47";
+
+                    }
+
+                    description "Schedule name.";
+
+                }
+
+                leaf JobName {
+
+                    type base:Basetype_String {
+
+                        length "1..47";
+
+                    }
+
+                    description "Job name.";
+
+                }
+
+            }
+
+        }
+
+        container ScheduleUserRoles {
+
+            description "This table contains user role settings for the job schedules.
+
+                This table supports creating rows.";
+
+            list ScheduleUserRole {
+
+                description "Row name";
+
+                key "ScheduleName UserRole";
+
+                leaf ScheduleName {
+
+                    type base:Basetype_String {
+
+                        length "1..47";
+
+                    }
+
+                    description "Schedule name.";
+
+                }
+
+                leaf UserRole {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "User roles for the schedule.";
+
+                }
+
+            }
+
+        }
+
+        container ScheduleRepeats {
+
+            description "This table contains settings for periodic schedules.
+
+                This table supports creating rows.";
+
+            list ScheduleRepeat {
+
+                description "Row name";
+
+                key "ScheduleName";
+
+                leaf ScheduleName {
+
+                    type base:Basetype_String {
+
+                        length "1..47";
+
+                    }
+
+                    description "Schedule name.";
+
+                }
+
+                leaf Time {
+
+                    type base:Basetype_String {
+
+                        pattern "(0?[0-9]|1[0-9]|2[0-3]):[0-5]?[0-9]";
+
+                        length "3..5";
+
+                    }
+
+                    description "Execution time";
+
+                }
+
+                leaf Date {
+
+                    type base:Basetype_String {
+
+                        pattern "((20([0-2][0-9]|3[0-5])/(0?[1-9]|1[0-2])/(0?[1-9]|[1-2][0-9]|3[0-1]))|((0?[1-9]|1[0-2])/(0?[1-9]|[1-2][0-9]|3[0-1])/20([0-2][0-9]|3[0-5])))";
+
+                        length "8..10";
+
+                    }
+
+                    description "Execution date";
+
+                }
+
+                container Period {
+
+                    leaf Interval {
+
+                        type base:Basetype_String {
+
+                            pattern "[0-9]?([0-9]{0,4}|[0-9]{1,2}:[0-5]|[0-9]{1,3}:)[0-9]";
+
+                            length "1..6";
+
+                        }
+
+                        description "Execution interval.";
+
+                    }
+
+                    leaf MonthDay {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..32";
+
+                        }
+
+                        description "Day in a month.";
+
+                    }
+
+                    leaf WeekDay {
+
+                        type base:Basetype_String {
+
+                            pattern "[0-6]( [0-6]){0,6}";
+
+                        }
+
+                        description "Week day,such as 0 1 2 3 4 5 6";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

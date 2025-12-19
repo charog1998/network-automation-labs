@@ -1,0 +1,241 @@
+module H3C-filesystem-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "filesystem-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for filesystem data.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container FileSystem {
+
+        config false;
+
+        container Files {
+
+            description "存储设备文件表";
+
+            list File {
+
+                description "行的名称";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_NameString {
+
+                        length "1..4096";
+
+                    }
+
+                    description "文件名, 表索引";
+
+                }
+
+                leaf Path {
+
+                    type base:Basetype_NameString {
+
+                        length "1..4096";
+
+                    }
+
+                    description "文件路径";
+
+                }
+
+                leaf Size {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "文件大小";
+
+                }
+
+                leaf Time {
+
+                    type base:Basetype_DateTime {
+
+                        pattern "[0-9]{4}-[0-1][0-9]-[0-3][0-9]T[0-2][0-9]:[0-5][0-9]:[0-5][0-9]";
+
+                    }
+
+                    description "文件创建时间";
+
+                }
+
+                leaf IsDirectory {
+
+                    type base:Basetype_Boolean;
+
+                    description "Whether the path is a directory";
+
+                }
+
+            }
+
+        }
+
+        container RecycleBin {
+
+            description "回收站文件";
+
+            list RecycleBinFile {
+
+                description "行的名称";
+
+                key "Medium";
+
+                leaf Medium {
+
+                    type base:Basetype_NameString {
+
+                        length "1..255";
+
+                    }
+
+                    description "文件名, 表索引";
+
+                }
+
+                container TrashFiles {
+
+                    leaf FileName {
+
+                        type base:Basetype_NameString;
+
+                        description "TrashFile name";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Media {
+
+            description "Filesystem media infomations";
+
+            list Medium {
+
+                description "Rowname";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_NameString {
+
+                        length "1..255";
+
+                    }
+
+                    description "Storage medium name.";
+
+                }
+
+                leaf PartitionCapability {
+
+                    type base:Basetype_Boolean;
+
+                    description "Whether the medium can be partitioned.";
+
+                }
+
+            }
+
+        }
+
+        container Partitions {
+
+            description "存储设备表";
+
+            list Partition {
+
+                description "行的名称";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_NameString {
+
+                        length "1..255";
+
+                    }
+
+                    description "分区名称";
+
+                }
+
+                leaf Total {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "分区总空间";
+
+                }
+
+                leaf Used {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "分区已使用空间";
+
+                }
+
+                leaf Free {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "分区剩余可用空间";
+
+                }
+
+                leaf Bootable {
+
+                    type base:Basetype_Boolean;
+
+                    description "是否可启动分区";
+
+                }
+
+                leaf MountState {
+
+                    type base:Basetype_Boolean;
+
+                    description "是否已挂载";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,121 @@
+module H3C-lr-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "lr-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for lr config.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container LR {
+
+        container Interfaces {
+
+            description "Line rate table
+
+                This table supports creating rows.";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex Direction";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Apply direction";
+
+                }
+
+                leaf CIR {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "CIR in kbps";
+
+                }
+
+                leaf CBS {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "CBS in bytes";
+
+                }
+
+                leaf EBS {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "EBS in bytes";
+
+                }
+
+                leaf PIR {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967294";
+
+                    }
+
+                    description "PIR in kbps";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,603 @@
+module H3C-package-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "package-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for package data.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container Package {
+
+        config false;
+
+        container BootLoaderList {
+
+            list BootList {
+
+                key "BootType";
+
+                list DeviceNode {
+
+                    key "Chassis Slot CPUID";
+
+                    leaf Chassis {
+
+                        type base:Basetype_UnsignedShort;
+
+                    }
+
+                    leaf Slot {
+
+                        type base:Basetype_UnsignedShort;
+
+                    }
+
+                    leaf CPUID {
+
+                        type base:Basetype_UnsignedShort;
+
+                    }
+
+                }
+
+                leaf BootType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                container ImageFiles {
+
+                    leaf-list FileName {
+
+                        type base:Basetype_String {
+
+                            length "0..63";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container ExtendStartupList {
+
+            list ExtendList {
+
+                key "Model BootType";
+
+                leaf Model {
+
+                    type base:Basetype_String {
+
+                        length "0..63";
+
+                    }
+
+                }
+
+                leaf BootType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                container ImageFiles {
+
+                    leaf-list FileName {
+
+                        type base:Basetype_String {
+
+                            length "0..63";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IssuOpResult {
+
+            list OpResult {
+
+                list DeviceNode {
+
+                    key "Chassis Slot CPUID";
+
+                    leaf Chassis {
+
+                        type base:Basetype_UnsignedShort;
+
+                    }
+
+                    leaf Slot {
+
+                        type base:Basetype_UnsignedShort;
+
+                    }
+
+                    leaf CPUID {
+
+                        type base:Basetype_UnsignedShort;
+
+                    }
+
+                }
+
+                leaf UpgradeType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                    }
+
+                }
+
+                leaf UpgradeStatus {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                    }
+
+                }
+
+                leaf DevStatus {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                }
+
+                leaf FailedReason {
+
+                    type base:Basetype_String {
+
+                        length "0..192";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IssuMPUFileList {
+
+            container ImageFiles {
+
+                leaf-list FileName {
+
+                    type base:Basetype_String {
+
+                        length "0..63";
+
+                    }
+
+                }
+
+            }
+
+            leaf OverwriteLocalFile {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf DeleteIPEFile {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+        container IssuExtendFileList {
+
+            list IssuExtendFile {
+
+                key "Model";
+
+                leaf Model {
+
+                    type base:Basetype_String {
+
+                        length "0..63";
+
+                    }
+
+                }
+
+                container ImageFiles {
+
+                    leaf-list FileName {
+
+                        type base:Basetype_String {
+
+                            length "0..63";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IssuUpgrade {
+
+            leaf Action {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                    enum 3;
+
+                    enum 4;
+
+                }
+
+            }
+
+            leaf Timeout {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..120";
+
+                }
+
+            }
+
+            leaf Status {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                    enum 3;
+
+                    enum 4;
+
+                    enum 5;
+
+                    enum 6;
+
+                }
+
+            }
+
+            leaf FailedReason {
+
+                type base:Basetype_String {
+
+                    length "0..192";
+
+                }
+
+            }
+
+        }
+
+        container IPEInfo {
+
+            list InfoList {
+
+                key "IPEFileName FileName";
+
+                leaf IPEFileName {
+
+                    type base:Basetype_String {
+
+                        length "0..127";
+
+                    }
+
+                }
+
+                leaf FileName {
+
+                    type base:Basetype_String {
+
+                        length "0..63";
+
+                    }
+
+                }
+
+                leaf Model {
+
+                    type base:Basetype_String {
+
+                        length "0..63";
+
+                    }
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf Service {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                }
+
+                leaf FilePlatVersion {
+
+                    type base:Basetype_String {
+
+                        length "0..63";
+
+                    }
+
+                }
+
+                leaf FileProductVersion {
+
+                    type base:Basetype_String {
+
+                        length "0..63";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container ImageLists {
+
+            list ImageList {
+
+                key "FileName";
+
+                leaf FileName {
+
+                    type base:Basetype_String {
+
+                        length "0..127";
+
+                    }
+
+                }
+
+                leaf Model {
+
+                    type base:Basetype_String {
+
+                        length "0..63";
+
+                    }
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf Service {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                }
+
+                leaf FilePlatVersion {
+
+                    type base:Basetype_String {
+
+                        length "0..63";
+
+                    }
+
+                }
+
+                leaf FileProductVersion {
+
+                    type base:Basetype_String {
+
+                        length "0..63";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container BootIpeResult {
+
+            list IpeResult {
+
+                list DeviceNode {
+
+                    key "Chassis Slot CPUID";
+
+                    leaf Chassis {
+
+                        type base:Basetype_UnsignedShort;
+
+                    }
+
+                    leaf Slot {
+
+                        type base:Basetype_UnsignedShort;
+
+                    }
+
+                    leaf CPUID {
+
+                        type base:Basetype_UnsignedShort;
+
+                    }
+
+                }
+
+                leaf IpeName {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Result {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

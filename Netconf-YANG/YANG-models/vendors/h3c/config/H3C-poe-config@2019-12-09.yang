@@ -1,0 +1,459 @@
+module H3C-poe-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "poe-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for poe config.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container PoE {
+
+        container PriorityPolicy {
+
+            description "POE system information";
+
+            leaf PSEPolicyMode {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+                description "Mode of PSE power policy.
+
+                    Enumberation.
+
+                    1 disalbed
+
+                    2 priority
+
+                    Default: disalbed.";
+
+            }
+
+            leaf PDPolicyMode {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+                description "Mode of PD power policy
+
+                    Enumberation.
+
+                    1 disalbed
+
+                    2 priority
+
+                    Default: disalbed.";
+
+            }
+
+        }
+
+        container Powers {
+
+            description "PoE profile information";
+
+            list Power {
+
+                description "row name";
+
+                key "PowerIndex";
+
+                leaf PowerIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Index of the profile";
+
+                }
+
+                leaf PowerLimit {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The max power limit of the Power supply(mW).";
+
+                }
+
+            }
+
+        }
+
+        container PSEs {
+
+            description "Power supply equipment information";
+
+            list PSE {
+
+                description "row name";
+
+                key "PSEID";
+
+                leaf PSEID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Pse identification";
+
+                }
+
+                leaf PowerLimit {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The max power limit of the PSE(mW).";
+
+                }
+
+                leaf UsageThreshold {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..99";
+
+                    }
+
+                    description "The usage threshold of the power the PSE  used.Units in %.Value range: 1 to 99.";
+
+                }
+
+                leaf Priority {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "The power priority of the specified PSE.
+
+                          Enumeration.
+
+                          1 critical
+
+                          2 high
+
+                          3 low
+
+                          Default: low.";
+
+                }
+
+                leaf Legacy {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "The legacy mode status(for nonstandard PD detection)
+
+                          Enumeration.
+
+                          0 enabled
+
+                          1 disabled
+
+                          Default: disalbed.";
+
+                }
+
+            }
+
+        }
+
+        container Ports {
+
+            description "Port information";
+
+            list Port {
+
+                description "row name";
+
+                key "PSEID IfIndex";
+
+                leaf PSEID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Pse identification";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "IfIndex of port.";
+
+                }
+
+                leaf AdminEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "The admin enable status of an interface which can provide PSE functions.
+
+	                Bool.
+
+	                true:provide
+
+	                false:not provide";
+
+                }
+
+                leaf Pairs {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "The power pairs in use.
+
+                          Enumeration.
+
+                          1 signal
+
+                          2 spare";
+
+                }
+
+                leaf Priority {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "The power priority of the specified interface
+
+                          Enumeration.
+
+                          1 critical
+
+                          2 high
+
+                          3 low
+
+                          Default: low.";
+
+                }
+
+                leaf PDDescription {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_Text {
+
+                            length "0..80";
+
+                        }
+
+                    }
+
+                    description "The description for the Pd that is connected to the port.";
+
+                }
+
+                leaf FaultDescription {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_Text {
+
+                            length "0..255";
+
+                        }
+
+                    }
+
+                    description "The fault category of Poe interface";
+
+                }
+
+                leaf PowerLimit {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The max power of the PD connected to the Poe interface(mW).";
+
+                }
+
+                leaf ProfileIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The profile index applied to the Poe interface";
+
+                }
+
+            }
+
+        }
+
+        container Profiles {
+
+            description "PoE profile information
+
+                This table supports creating rows.";
+
+            list Profile {
+
+                description "row name";
+
+                key "ProfileIndex";
+
+                leaf ProfileIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Index of the profile";
+
+                }
+
+                leaf ProfileName {
+
+                    type base:Basetype_String {
+
+                        length "1..15";
+
+                    }
+
+                    description "The name of profile";
+
+                }
+
+                leaf PowerMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "The power status of an interface which can provide PSE functions.
+
+                          Enumeration.
+
+                          1 powerDisabled
+
+                          2 powerEnabled
+
+                          Default: powerDisabled.";
+
+                }
+
+                leaf PowerLimit {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The max power(mW).";
+
+                }
+
+                leaf Priority {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "The power priority of the specified interface
+
+                          Enumeration.
+
+                          1 critical
+
+                          2 high
+
+                          3 low
+
+                          Default: low.";
+
+                }
+
+                leaf Pairs {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "The power pairs in use.
+
+                          Enumeration.
+
+                          1 signal
+
+                          2 spare";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

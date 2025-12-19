@@ -1,0 +1,329 @@
+module H3C-ldap-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "ldap-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ldap data.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container Ldap {
+
+        config false;
+
+        container Schemes {
+
+            list Scheme {
+
+                key "SchemeName";
+
+                leaf SchemeName {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                }
+
+                leaf ServerName {
+
+                    type base:Basetype_String {
+
+                        length "1..64";
+
+                    }
+
+                }
+
+                leaf MapInstanceName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Servers {
+
+            list Server {
+
+                key "ServerName";
+
+                leaf ServerName {
+
+                    type base:Basetype_String {
+
+                        length "1..64";
+
+                    }
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                    }
+
+                }
+
+                leaf IpType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..2";
+
+                    }
+
+                }
+
+                leaf Host {
+
+                    type base:Basetype_OctectString;
+
+                }
+
+                leaf Port {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                }
+
+                leaf TimeOut {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "5..20";
+
+                    }
+
+                }
+
+                leaf ProtocolVersion {
+
+                    type enumeration {
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                }
+
+                leaf LoginDn {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+                leaf SearchScope {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                }
+
+                leaf SearchBaseDn {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+                container UserParas {
+
+                    leaf NameType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                    }
+
+                    leaf NameFormat {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                        }
+
+                    }
+
+                    leaf NameAttribute {
+
+                        type base:Basetype_String {
+
+                            length "1..64";
+
+                        }
+
+                    }
+
+                    leaf ObjClassName {
+
+                        type base:Basetype_String {
+
+                            length "1..64";
+
+                        }
+
+                    }
+
+                }
+
+                leaf GroupFilter {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                }
+
+                leaf EncodingFormat {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container AttributeMaps {
+
+            list AttributeMap {
+
+                key "MapName LdapAttrName";
+
+                leaf MapName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf LdapAttrName {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                    }
+
+                }
+
+                leaf Prefix {
+
+                    type base:Basetype_String {
+
+                        length "1..7";
+
+                    }
+
+                }
+
+                leaf Delimiter {
+
+                    type base:Basetype_String;
+
+                }
+
+                leaf AaaAttrType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..2";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

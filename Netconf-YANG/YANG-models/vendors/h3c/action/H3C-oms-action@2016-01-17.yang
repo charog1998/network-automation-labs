@@ -1,0 +1,95 @@
+module H3C-oms-action
+
+{
+
+    namespace "http://www.h3c.com/netconf/action:1.0";
+
+    prefix "oms-action";
+
+    import comware-basetype 
+
+    {
+
+         prefix "base";
+
+    }
+
+    organization "H3C Inc.";
+
+    contact "Author";
+
+    description "The module entities for oms action.";
+
+    revision 2016-01-17
+
+	{
+
+        description "Initial revision.";
+
+    }
+
+    typedef OMS_ObjGrpNameString
+
+    {
+
+        type string
+
+        {
+
+		    pattern "^[^?	
+
+]*$";
+
+            length "0..31";
+
+        }
+
+    }
+
+    container OMS
+
+    {
+
+        config false;
+
+        container RenameGroups
+
+        {
+
+            list Group
+
+            {
+
+                key "Name";
+
+                leaf Name
+
+                {
+
+                    type OMS_ObjGrpNameString;
+
+                }
+
+                leaf NewName
+
+                {
+
+                    type OMS_ObjGrpNameString;
+
+                }
+
+                leaf Rename
+
+                {
+
+                    type empty;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

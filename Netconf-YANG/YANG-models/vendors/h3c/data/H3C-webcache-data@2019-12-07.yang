@@ -1,0 +1,603 @@
+module H3C-webcache-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "webcache-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for webcache data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container WebCache {
+
+        config false;
+
+        container Configurations {
+
+            description "configuration of WebCache
+
+                This table supports creating rows.";
+
+            list Configuration {
+
+                key "Chassis Slot";
+
+                leaf Chassis {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                }
+
+                leaf Slot {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                }
+
+                leaf PortNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                }
+
+                leaf HttpsPortNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                }
+
+                leaf DataType {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-z0-9 ]){1,127}";
+
+                    }
+
+                }
+
+                leaf FileDir {
+
+                    type base:Basetype_String {
+
+                        pattern "^.{1,255}";
+
+                    }
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf HttpsEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container StatisticsHistory {
+
+            description "history web caching statistics";
+
+            list Statistics {
+
+                key "Date TimeRange";
+
+                leaf Date {
+
+                    type base:Basetype_String {
+
+                        pattern "[0-9\-]{10}";
+
+                    }
+
+                }
+
+                leaf TimeRange {
+
+                    type base:Basetype_String;
+
+                }
+
+                leaf ConnectTop {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf CacheTop {
+
+                    type base:Basetype_String;
+
+                }
+
+                leaf BandwidthSaved {
+
+                    type base:Basetype_String;
+
+                }
+
+                leaf ServiceSpeed {
+
+                    type base:Basetype_String;
+
+                }
+
+                leaf ServiceSize {
+
+                    type base:Basetype_String;
+
+                }
+
+                leaf DownloadSpeed {
+
+                    type base:Basetype_String;
+
+                }
+
+                leaf DownloadSize {
+
+                    type base:Basetype_String;
+
+                }
+
+                leaf CacheHitRate {
+
+                    type base:Basetype_String;
+
+                }
+
+                leaf HitCount {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                }
+
+                leaf MissCount {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                }
+
+            }
+
+        }
+
+        container Informations {
+
+            description "current web caching statistics";
+
+            list Information {
+
+                key "Chassis Slot";
+
+                leaf Chassis {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                }
+
+                leaf Slot {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                }
+
+                leaf CachePath {
+
+                    type base:Basetype_String;
+
+                }
+
+                leaf MaxConnect {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf MaxCache {
+
+                    type base:Basetype_String;
+
+                }
+
+                leaf CacheMemory {
+
+                    type base:Basetype_String;
+
+                }
+
+                leaf CacheCount {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                }
+
+                container Last1min {
+
+                    description "statistics in last 1 minute";
+
+                    leaf ConnectTop {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf CacheTop {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf BandwidthSaved {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf ServiceSpeed {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf ServiceSize {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf DownloadSpeed {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf DownloadSize {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf CacheHitRate {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf HitCount {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                    }
+
+                    leaf MissCount {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                    }
+
+                }
+
+                container Last1hour {
+
+                    description "statistics in last 1 hour";
+
+                    leaf ConnectTop {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf CacheTop {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf BandwidthSaved {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf ServiceSpeed {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf ServiceSize {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf DownloadSpeed {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf DownloadSize {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf CacheHitRate {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf HitCount {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                    }
+
+                    leaf MissCount {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                    }
+
+                }
+
+                container Last1day {
+
+                    description "statistics in last 1 day";
+
+                    leaf ConnectTop {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf CacheTop {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf BandwidthSaved {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf ServiceSpeed {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf ServiceSize {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf DownloadSpeed {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf DownloadSize {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf CacheHitRate {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf HitCount {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                    }
+
+                    leaf MissCount {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                    }
+
+                }
+
+                container Last30days {
+
+                    description "statistics in last 30 days";
+
+                    leaf ConnectTop {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf CacheTop {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf BandwidthSaved {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf ServiceSpeed {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf ServiceSize {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf DownloadSpeed {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf DownloadSize {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf CacheHitRate {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf HitCount {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                    }
+
+                    leaf MissCount {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                    }
+
+                }
+
+                container Last365days {
+
+                    description "statistics in last 365 days";
+
+                    leaf ConnectTop {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf CacheTop {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf BandwidthSaved {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf ServiceSpeed {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf ServiceSize {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf DownloadSpeed {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf DownloadSize {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf CacheHitRate {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf HitCount {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                    }
+
+                    leaf MissCount {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

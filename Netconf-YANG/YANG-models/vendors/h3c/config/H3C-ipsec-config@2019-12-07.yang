@@ -1,0 +1,3485 @@
+module H3C-ipsec-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "ipsec-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ipsec config.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container IPsec {
+
+        container TransformSets {
+
+            description "IPsec transformSet information
+
+                This table supports creating rows.";
+
+            list TransformSet {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The name of the IPsec transform set, String, length: 1 to 63 characters";
+
+                }
+
+                leaf EncapMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Encapsulation mode 
+
+                                                    Enumeration:
+
+                                                    1-transport
+
+                                                    2-tunnel";
+
+                }
+
+                leaf Proto {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Security protocol
+
+                                                    Enumeration:
+
+													1-Specifies the AH protocol.
+
+													2-Specifies using the ESP protocol first and then using the AH protocol.
+
+													3-Specifies the ESP protocol(default).";
+
+                }
+
+                container ESPAuthAlgList {
+
+                    description "The authentication algorithm for ESP";
+
+                    leaf-list ESPAuthAlgItem {
+
+                        type enumeration {
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 9;
+
+                            enum 10;
+
+                            enum 130;
+
+                        }
+
+                    }
+
+                }
+
+                container ESPEncrAlgList {
+
+                    description "The encryption algorithm for ESP";
+
+                    leaf-list ESPEncrAlgItem {
+
+                        type enumeration {
+
+                            enum 11;
+
+                            enum 12;
+
+                            enum 13;
+
+                            enum 14;
+
+                            enum 15;
+
+                            enum 16;
+
+                            enum 128;
+
+                            enum 129;
+
+                        }
+
+                    }
+
+                }
+
+                container AHAuthAlgList {
+
+                    description "The authentication algorithm number for AH";
+
+                    leaf-list AHAuthAlgItem {
+
+                        type enumeration {
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 9;
+
+                            enum 10;
+
+                            enum 130;
+
+                        }
+
+                    }
+
+                }
+
+                leaf PFS {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..5";
+
+                    }
+
+                    description "Using PFS(Perfect Forward Secrecy), 
+
+													the Diffie-Hellman group ID is defined by IPsecCapabilities table";
+
+                }
+
+                leaf EsnEnable {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "EsnEnable  
+
+                                                    Enumeration:
+
+                                                    1-DISABLE
+
+                                                    2-ESN
+
+                                                    3-ESN and non-ESN";
+
+                }
+
+            }
+
+        }
+
+        container GlobalConf {
+
+            description "IPsec global configuration information";
+
+            leaf DecryptCheck {
+
+                type base:Basetype_Boolean;
+
+                description "ACL checking for de-encapsulated IPsec packets, Boolean:
+
+                                        true-Enable(default)
+
+                                        false-Disable";
+
+            }
+
+            leaf LoggingPacket {
+
+                type base:Basetype_Boolean;
+
+                description "Logging for IPsec packets, Boolean:
+
+                                        true-Enable
+
+                                        false-Disable(default)";
+
+            }
+
+            leaf DFBit {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                    enum 3;
+
+                }
+
+                description "Set the DF bit for outer IP headers of encapsulated IPsec packets on all interface.
+
+									Enumeration:
+
+                                        1-clear
+
+                                        2-copy(default)
+
+                                        3-set";
+
+            }
+
+            leaf Redundancy {
+
+                type base:Basetype_Boolean;
+
+                description "IPsec redundancy function, Boolean:
+
+                                        true: Enable
+
+                                        false: Disable(default)";
+
+            }
+
+            container AntiReplay {
+
+                leaf State {
+
+                    type base:Basetype_Boolean;
+
+                    description "Anti-replay state, Boolean:
+
+													Boolean:
+
+													true-Enable(default)
+
+													false-Disable";
+
+                }
+
+                leaf CheckWindow {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                    description "Anti-replay window size
+
+													Enumeration:
+
+													1-Window size is 64(default)
+
+													2-Window size is 128
+
+													3-Window size is 256
+
+													4-Window size is 512
+
+													5-Window size is 1024";
+
+                }
+
+            }
+
+            container SADuration {
+
+                leaf Seconds {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "180..604800";
+
+                    }
+
+                    description "The time-based global lifetime of IPsec SAUnsigned integer, 
+
+												  value range: 180 to 604800,
+
+												  the default is 3600";
+
+                }
+
+                leaf KiloBytes {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2560..4294967295";
+
+                    }
+
+                    description "The traffic-based global lifetime of IPsec SA, Unsigned integer, 
+
+												  value range: 2560 to 4294967295, 
+
+												  the default is 1843200";
+
+                }
+
+            }
+
+            leaf SAIdleTime {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "60..86400";
+
+                }
+
+                description "SA idle timeout function, Unsigned integer, value range: 60 to 86400";
+
+            }
+
+            leaf FlowRedirect {
+
+                type base:Basetype_Boolean;
+
+                description "IPsec FlowRedirect function, Boolean:
+
+                                        true: Enable
+
+                                        false: Disable(default)";
+
+            }
+
+            leaf EstablishTunnelLimit {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..4294967295";
+
+                }
+
+                description "Establish Tunnel Limit function, Unsigned integer, 
+
+                                      value range: 1 to 4294967295,";
+
+            }
+
+            leaf Fragmentation {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+                description "Fragment MTU-exceeded packets.
+
+                                    Enumeration:
+
+                                        1-Fragment packets before IPsec encapsulation (default)
+
+                                        2-Fragment packets after IPsec encapsulation";
+
+            }
+
+            leaf LoggingNegotiation {
+
+                type base:Basetype_Boolean;
+
+                description "Logging for IPsec Negotiation, Boolean:
+
+                                        true-Enable
+
+                                        false-Disable(default)";
+
+            }
+
+            container SASoftDuration {
+
+                leaf Seconds {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "20..201600";
+
+                    }
+
+                    description "The time-based global lifetime of IPsec SAUnsigned integer,
+
+                                                  value range: 20 to 201600,";
+
+                }
+
+                leaf KiloBytes {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1000..4294901760";
+
+                    }
+
+                    description "The traffic-based global lifetime of IPsec SA, Unsigned integer,
+
+                                                  value range: 1000 to 4294901760,";
+
+                }
+
+            }
+
+        }
+
+        container IPv4PolicyTemplates {
+
+            description "IPv4 policy templates information
+
+                This table supports creating rows.";
+
+            list Template {
+
+                description "Row name";
+
+                key "Name SeqNum";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The ISAKMP policy name, string, length: 1 to 63 characters";
+
+                }
+
+                leaf SeqNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "The sequence number for the IPsec policy, unsigned integer, value range: 1 to 65535";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "0..80";
+
+                    }
+
+                    description "Description for an IPsec policyString, length: 1 to 80 characters";
+
+                }
+
+                container ACL {
+
+                    leaf Name {
+
+                        type base:Basetype_ACLName;
+
+                        description "ACL nameString, string, length: 1 to 63 characters";
+
+                    }
+
+                    leaf Number {
+
+                        type base:Basetype_ACLNumberAdvance;
+
+                        description "ACL number, unsigned integer, value range: 3000 to 3999";
+
+                    }
+
+                    leaf Mode {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "Protection modes:
+
+                                                                Enumeration:
+
+                                                                1: per-rule(default)
+
+                                                                2: per-host
+
+                                                                3: aggregation";
+
+                    }
+
+                }
+
+                container Remote {
+
+                    leaf Addr {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "Remote IP address";
+
+                    }
+
+                    leaf HostName {
+
+                        type base:Basetype_String {
+
+                            length "1..253";
+
+                        }
+
+                        description "Remote host name";
+
+                    }
+
+                }
+
+                leaf LocalAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Local IP address for the IPsec policy";
+
+                }
+
+                leaf IKEProfile {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Specify an IKE profile for the IPsec policy, string, length: 1 to 63 characters";
+
+                }
+
+                container TransformsetList {
+
+                    description "IPsec transform set name, string, length: 1 to 63 characters. Contains up to 6 Transformset in TransformsetList";
+
+                    leaf-list Transformset {
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                    }
+
+                }
+
+                leaf QosPreClassify {
+
+                    type base:Basetype_Boolean;
+
+                    description "QoS pre-classify feature
+
+													Boolean:
+
+													true-Enable
+
+													false-Disable(default)";
+
+                }
+
+                container RRI {
+
+                    leaf RRIEnable {
+
+                        type base:Basetype_Boolean;
+
+                        description "The IPsec reverse route inject (RRI) feature, Boolean:
+
+														   true-Enable
+
+														   false-Disable(default)";
+
+                    }
+
+                    leaf Preference {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..255";
+
+                        }
+
+                        description "The preference of the static routes, unsigned integer, value range: 1 to 255, default value is 60";
+
+                    }
+
+                    leaf Tag {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..4294967295";
+
+                        }
+
+                        description "The route tag for the static routes, Unsigned integer, value range: 1 to 4294967295, default value is 0";
+
+                    }
+
+                }
+
+                container SADuration {
+
+                    leaf Seconds {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "180..604800";
+
+                        }
+
+                        description "The time-based lifetime of IPsec SA, unsigned integer, value range: 180 to 604800";
+
+                    }
+
+                    leaf KiloBytes {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "2560..4294967295";
+
+                        }
+
+                        description "The traffic-based lifetime of IPsec SA, unsigned integer, value range: 2560 to 4294967295, in kiloBytes";
+
+                    }
+
+                }
+
+                leaf SAIdleTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "60..86400";
+
+                    }
+
+                    description "SA idle timeout functionUnsigned integer, value range: 60 to 86400, in seconds";
+
+                }
+
+                container Redundancy {
+
+                    leaf InboundSyncInterval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1000";
+
+                        }
+
+                        description "Inbound synchronization interval";
+
+                    }
+
+                    leaf OutboundSyncInterval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1000..100000";
+
+                        }
+
+                        description "Outbound synchronization interval";
+
+                    }
+
+                }
+
+                leaf IKEv2Profile {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Specify an IKEv2 profile for the IPsec policy, string, length: 1 to 63 characters";
+
+                }
+
+                leaf TfcEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "QoS pre-classify feature
+
+                                                 Boolean:
+
+                                                 true-Enable
+
+                                                 false-Disable(default)";
+
+                }
+
+            }
+
+        }
+
+        container IPv6PolicyTemplates {
+
+            description "IPv6 policy templates information
+
+                This table supports creating rows.";
+
+            list Template {
+
+                description "Row name";
+
+                key "Name SeqNum";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The ISAKMP policy name, string, length: 1 to 63 characters";
+
+                }
+
+                leaf SeqNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "The sequence number for the IPsec policy, unsigned integer, value range: 1 to 65535";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "0..80";
+
+                    }
+
+                    description "Description for an IPsec policy, string, length: 1 to 80 characters";
+
+                }
+
+                container ACL {
+
+                    leaf Name {
+
+                        type base:Basetype_ACLName;
+
+                        description "ACL name, String, length: 1 to 63 characters";
+
+                    }
+
+                    leaf Number {
+
+                        type base:Basetype_ACLNumberAdvance;
+
+                        description "ACL number: Unsigned integer, value range: 3000 to 3999";
+
+                    }
+
+                    leaf Mode {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "Protection modes:
+
+                                                                Enumeration:
+
+                                                                1: per-rule(default)
+
+                                                                2: per-host
+
+                                                                3: aggregation";
+
+                    }
+
+                }
+
+                container Remote {
+
+                    leaf Addr {
+
+                        type base:Basetype_Ipv6Address;
+
+                        description "Remote IP address";
+
+                    }
+
+                    leaf HostName {
+
+                        type base:Basetype_String {
+
+                            length "1..253";
+
+                        }
+
+                        description "Remote host name";
+
+                    }
+
+                }
+
+                leaf LocalAddr {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "Local IP address for the IPsec policy";
+
+                }
+
+                leaf IKEProfile {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Specify an IKE profile for the IPsec policy, string, length: 1 to 63 characters";
+
+                }
+
+                container TransformsetList {
+
+                    description "IPsec transform set  name, string, length: 1 to 63 characters
+
+													Contains up to 6 Transformset in TransformsetList";
+
+                    leaf-list Transformset {
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                    }
+
+                }
+
+                leaf QosPreClassify {
+
+                    type base:Basetype_Boolean;
+
+                    description "QoS pre-classify feature 
+
+													Boolean:
+
+													true-Enable.
+
+													false-Disable(default)";
+
+                }
+
+                container RRI {
+
+                    leaf RRIEnable {
+
+                        type base:Basetype_Boolean;
+
+                        description "The IPsec reverse route inject (RRI) feature:
+
+														   Boolean:
+
+														   true-Enable
+
+														   false-Disable(default)";
+
+                    }
+
+                    leaf Preference {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..255";
+
+                        }
+
+                        description "The preference of the static routes, unsigned integer, Value range: 1 to 255, default value is 60";
+
+                    }
+
+                    leaf Tag {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..4294967295";
+
+                        }
+
+                        description "The route tag for the static routes, unsigned integer, value range: 1 to 4294967295";
+
+                    }
+
+                }
+
+                container SADuration {
+
+                    leaf Seconds {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "180..604800";
+
+                        }
+
+                        description "The time-based lifetime of IPsec SA, unsigned integer, value range: 180 to 604800, in seconds";
+
+                    }
+
+                    leaf KiloBytes {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "2560..4294967295";
+
+                        }
+
+                        description "The traffic-based lifetime of IPsec SA, unsigned integer, value range: 2560 to 4294967295";
+
+                    }
+
+                }
+
+                leaf SAIdleTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "60..86400";
+
+                    }
+
+                    description "SA idle timeout functionUnsigned integer, value range: 60 to 86400, in seconds";
+
+                }
+
+                container Redundancy {
+
+                    leaf InboundSyncInterval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1000";
+
+                        }
+
+                        description "Inbound synchronization interval";
+
+                    }
+
+                    leaf OutboundSyncInterval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1000..100000";
+
+                        }
+
+                        description "outbound synchronization interval";
+
+                    }
+
+                }
+
+                leaf IKEv2Profile {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Specify an IKEv2 profile for the IPsec policy, string, length: 1 to 63 characters";
+
+                }
+
+                leaf TfcEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "QoS pre-classify feature
+
+                                                 Boolean:
+
+                                                 true-Enable
+
+                                                 false-Disable(default)";
+
+                }
+
+            }
+
+        }
+
+        container IPv4ISAKMPPolicies {
+
+            description "IPv4 ISAKMP policies information
+
+                This table supports creating rows.";
+
+            list Policy {
+
+                description "Row name";
+
+                key "Name SeqNum";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The ISAKMP policy name, string, length: 1 to 63 characters";
+
+                }
+
+                leaf SeqNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "The sequence number for the IPsec policy, unsigned integer, value range: 1 to 65535";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "0..80";
+
+                    }
+
+                    description "Description for an IPsec policy, string, length: 1 to 80 characters";
+
+                }
+
+                container ACL {
+
+                    leaf Name {
+
+                        type base:Basetype_ACLName;
+
+                        description "ACL name, String, length: 1 to 63 characters";
+
+                    }
+
+                    leaf Number {
+
+                        type base:Basetype_ACLNumberAdvance;
+
+                        description "ACL numberUnsigned integer, value range: 3000 to 3999";
+
+                    }
+
+                    leaf Mode {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "Protection modes:
+
+                                                                Enumeration:
+
+                                                                1: per-rule(default)
+
+                                                                2: per-host
+
+                                                                3: aggregation";
+
+                    }
+
+                }
+
+                container Remote {
+
+                    leaf Addr {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "Remote IP address";
+
+                    }
+
+                    leaf HostName {
+
+                        type base:Basetype_String {
+
+                            length "1..253";
+
+                        }
+
+                        description "Remote host name";
+
+                    }
+
+                }
+
+                leaf LocalAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Local IP address for the IPsec policy";
+
+                }
+
+                leaf IKEProfile {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Specify an IKE profile for the IPsec policy, string, length: 1 to 63 characters";
+
+                }
+
+                container TransformsetList {
+
+                    description "IPsec transform set  name, string, length: 1 to 63 characters
+
+                                                    Contains up to 6 Transformset in TransformsetList";
+
+                    leaf-list Transformset {
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                    }
+
+                }
+
+                leaf QosPreClassify {
+
+                    type base:Basetype_Boolean;
+
+                    description "QoS pre-classify feature
+
+                                                    Boolean:
+
+                                                    true-Enable
+
+                                                    false-Disable(default)";
+
+                }
+
+                container RRI {
+
+                    leaf RRIEnable {
+
+                        type base:Basetype_Boolean;
+
+                        description "The IPsec reverse route inject (RRI) feature
+
+                                                           Boolean:
+
+                                                           true-Enable
+
+                                                           false-Disable(default)";
+
+                    }
+
+                    leaf Preference {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..255";
+
+                        }
+
+                        description "The preference of the static routes, unsigned integer, value range: 1 to 255";
+
+                    }
+
+                    leaf Tag {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..4294967295";
+
+                        }
+
+                        description "The route tag for the static routes, unsigned integer, value range: 1 to 4294967295";
+
+                    }
+
+                }
+
+                container SADuration {
+
+                    leaf Seconds {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "180..604800";
+
+                        }
+
+                        description "The time-based lifetime of IPsec SA, unsigned integer, value range: 180 to 604800, in seconds";
+
+                    }
+
+                    leaf KiloBytes {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "2560..4294967295";
+
+                        }
+
+                        description "The traffic-based  lifetime of IPsec SA, unsigned integer,  value range: 2560 to 4294967295, in kiloBytes";
+
+                    }
+
+                }
+
+                leaf SAIdleTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "60..86400";
+
+                    }
+
+                    description "SA idle timeout function, unsigned integer, value range: 60 to 86400, in seconds";
+
+                }
+
+                container Redundancy {
+
+                    leaf InboundSyncInterval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1000";
+
+                        }
+
+                        description "Inbound synchronization interval";
+
+                    }
+
+                    leaf OutboundSyncInterval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1000..100000";
+
+                        }
+
+                        description "Outbound synchronization interval";
+
+                    }
+
+                }
+
+                leaf SmartLinkProfile {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+                leaf SATriggerMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                container SASoftDuration {
+
+                    leaf Seconds {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "20..201600";
+
+                        }
+
+                        description "The time-based global lifetime of IPsec SAUnsigned integer,
+
+                                                       value range: 20 to 201600,";
+
+                    }
+
+                    leaf KiloBytes {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1000..4294901760";
+
+                        }
+
+                        description "The traffic-based global lifetime of IPsec SA, Unsigned integer,
+
+                                                        value range: 1000 to 4294901760,";
+
+                    }
+
+                }
+
+                leaf IKEv2Profile {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Specify an IKEv2 profile for the IPsec policy, string, length: 1 to 63 characters";
+
+                }
+
+                leaf TfcEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "TfcEnable pre-classify feature
+
+                                                   Boolean:
+
+                                                   true-Enable
+
+                                                   false-Disable(default)";
+
+                }
+
+                container RemoteAddrList {
+
+                    description "Name of RemoteAddr for IPSEC POlicy, String, Length: 1 to 253 characters Case insensitive";
+
+                    leaf-list RemoteAddrItem {
+
+                        type base:Basetype_String {
+
+                            length "1..253";
+
+                        }
+
+                    }
+
+                }
+
+                leaf Primary {
+
+                    type base:Basetype_Boolean;
+
+                    description "Primary RemoteAddr feature
+
+                                                   Boolean:
+
+                                                   true-
+
+                                                   false-(default)";
+
+                }
+
+            }
+
+        }
+
+        container IPv6ISAKMPPolicies {
+
+            description "IPv6 ISAKMP policies information
+
+                This table supports creating rows.";
+
+            list Policy {
+
+                description "Row name";
+
+                key "Name SeqNum";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The ISAKMP policy name, string, length: 1 to 63 characters";
+
+                }
+
+                leaf SeqNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "The sequence number for the IPsec policy, unsigned integer, value range: 1 to 65535";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "0..80";
+
+                    }
+
+                    description "Description for an IPsec policy, string, length: 1 to 80 characters";
+
+                }
+
+                container ACL {
+
+                    leaf Name {
+
+                        type base:Basetype_ACLName;
+
+                        description "ACL name, string, length: 1 to 63 characters";
+
+                    }
+
+                    leaf Number {
+
+                        type base:Basetype_ACLNumberAdvance;
+
+                        description "ACL number, unsigned integer, value range: 3000 to 3999";
+
+                    }
+
+                    leaf Mode {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "Protection modes
+
+                                                                Enumeration:
+
+                                                                1: per-rule
+
+                                                                2: per-host
+
+                                                                3: aggregation";
+
+                    }
+
+                }
+
+                container Remote {
+
+                    leaf Addr {
+
+                        type base:Basetype_Ipv6Address;
+
+                        description "Remote IP address";
+
+                    }
+
+                    leaf HostName {
+
+                        type base:Basetype_String {
+
+                            length "1..253";
+
+                        }
+
+                        description "Remote host name";
+
+                    }
+
+                }
+
+                leaf LocalAddr {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "Local IP address for the IPsec policy";
+
+                }
+
+                leaf IKEProfile {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Specify an IKE profile for the IPsec policy, string, length: 1 to 63 characters";
+
+                }
+
+                container TransformsetList {
+
+                    description "IPsec transform set name, string, length: 1 to 63 characters
+
+                                                    Contains up to 6 Transformset in TransformsetList";
+
+                    leaf-list Transformset {
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                    }
+
+                }
+
+                leaf QosPreClassify {
+
+                    type base:Basetype_Boolean;
+
+                    description "QoS pre-classify feature
+
+                                                    Boolean:
+
+                                                    true-Enable
+
+                                                    false-Disable(default)";
+
+                }
+
+                container RRI {
+
+                    leaf RRIEnable {
+
+                        type base:Basetype_Boolean;
+
+                        description "The IPsec reverse route inject (RRI) feature
+
+                                                           Boolean:
+
+                                                           true-Enable
+
+                                                           false-Disable(default)";
+
+                    }
+
+                    leaf Preference {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..255";
+
+                        }
+
+                        description "The preference of the static routes, unsigned integer, value range: 1 to 255";
+
+                    }
+
+                    leaf Tag {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..4294967295";
+
+                        }
+
+                        description "The route tag for the static routes, unsigned integer, value range: 1 to 4294967295";
+
+                    }
+
+                }
+
+                container SADuration {
+
+                    leaf Seconds {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "180..604800";
+
+                        }
+
+                        description "The time-based lifetime of IPsec SA, unsigned integer, value range: 180 to 604800, in seconds";
+
+                    }
+
+                    leaf KiloBytes {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "2560..4294967295";
+
+                        }
+
+                        description "The traffic-based lifetime of IPsec SA, unsigned integer, value range: 2560 to 4294967295, in kiloBytes";
+
+                    }
+
+                }
+
+                leaf SAIdleTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "60..86400";
+
+                    }
+
+                    description "SA idle timeout function, unsigned integer, value range: 60 to 86400, in seconds";
+
+                }
+
+                container Redundancy {
+
+                    leaf InboundSyncInterval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1000";
+
+                        }
+
+                        description "Inbound synchronization interval";
+
+                    }
+
+                    leaf OutboundSyncInterval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1000..100000";
+
+                        }
+
+                        description "outbound synchronization interval";
+
+                    }
+
+                }
+
+                leaf SATriggerMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                container SASoftDuration {
+
+                    leaf Seconds {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "20..201600";
+
+                        }
+
+                        description "The time-based global lifetime of IPsec SAUnsigned integer,
+
+                                                       value range: 20 to 201600";
+
+                    }
+
+                    leaf KiloBytes {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1000..4294901760";
+
+                        }
+
+                        description "The traffic-based global lifetime of IPsec SA, Unsigned integer,
+
+                                                        value range: 1000 to 4294901760";
+
+                    }
+
+                }
+
+                leaf IKEv2Profile {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Specify an IKEv2 profile for the IPsec policy, string, length: 1 to 63 characters";
+
+                }
+
+                leaf TfcEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "TfcEnable pre-classify feature
+
+                                                   Boolean:
+
+                                                   true-Enable
+
+                                                   false-Disable(default)";
+
+                }
+
+                container RemoteAddrList {
+
+                    description "Name of RemoteAddr for IPSEC POlicy, String, Length: 1 to 253 characters Case insensitive";
+
+                    leaf-list RemoteAddrItem {
+
+                        type base:Basetype_String {
+
+                            length "1..253";
+
+                        }
+
+                    }
+
+                }
+
+                leaf Primary {
+
+                    type base:Basetype_Boolean;
+
+                    description "Primary RemoteAddr feature
+
+                                                   Boolean:
+
+                                                   true-
+
+                                                   false-(default)";
+
+                }
+
+            }
+
+        }
+
+        container IPv4ISAKMPTemplatePolicies {
+
+            description "IPsec template policies
+
+                This table supports creating rows.";
+
+            list TemplatePolicy {
+
+                description "Row name";
+
+                key "Name SeqNum";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The template policy name, string, length: 1 to 63 characters";
+
+                }
+
+                leaf SeqNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "The sequence number for the template  policy, unsigned integer, value range: 1 to 65535";
+
+                }
+
+                leaf Template {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Specifies an IPsec policy template by its name, string, length: 1 to 63 characters";
+
+                }
+
+            }
+
+        }
+
+        container IPv6ISAKMPTemplatePolicies {
+
+            description "IPsec template policies
+
+                This table supports creating rows.";
+
+            list TemplatePolicy {
+
+                description "Row name";
+
+                key "Name SeqNum";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The template policy name, string, length: 1 to 63 characters";
+
+                }
+
+                leaf SeqNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "The sequence number for the template  policy, unsigned integer, value range: 1 to 65535";
+
+                }
+
+                leaf Template {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Specifies an IPsec policy template by its name, string, length: 1 to 63 characters";
+
+                }
+
+            }
+
+        }
+
+        container IPv4ApplyPolicies {
+
+            description "IPv4 IPsec policies that have been applied to interface";
+
+            list ApplyPolicy {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index, unsigned integer";
+
+                }
+
+                leaf Policy {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "IPsec policy name, string, length: 1 to 63 characters";
+
+                }
+
+            }
+
+        }
+
+        container IPv6ApplyPolicies {
+
+            description "IPv6 IPsec policies that have been applied to interface";
+
+            list ApplyPolicy {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index, unsigned integer";
+
+                }
+
+                leaf Policy {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "IPsec policy name, string, length: 1 to 63 characters";
+
+                }
+
+            }
+
+        }
+
+        container InterfacesDFBit {
+
+            description "The DF bit on the interface";
+
+            list InterfaceDFBit {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index, unsigned integer";
+
+                }
+
+                leaf DFBit {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Set the DF bit for outer IP headers of encapsulated IPsec packets on an interface
+
+							   Enumeration:
+
+							   1-clear
+
+							   2-copy
+
+							   3-set";
+
+                }
+
+            }
+
+        }
+
+        container IPv4SourceInterfaces {
+
+            description "IPv4 IPsec policies that have been bound to a source interface
+
+                This table supports creating rows.";
+
+            list IPv4SourceInterface {
+
+                description "Row name";
+
+                key "PolicyName";
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "IPsec policy name, string, length: 1 to 63 characters, case insensitive";
+
+                }
+
+                leaf Interface {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The source interface name, string";
+
+                }
+
+            }
+
+        }
+
+        container IPv6SourceInterfaces {
+
+            description "IPv6 IPsec policies that have been bound to a source interface
+
+                This table supports creating rows.";
+
+            list IPv6SourceInterface {
+
+                description "Row name";
+
+                key "PolicyName";
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "IPsec policy name, string, length: 1 to 63 characters, case insensitive";
+
+                }
+
+                leaf Interface {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The source interface name, string";
+
+                }
+
+            }
+
+        }
+
+        container IPv4ManualPolicies {
+
+            description "IPv4 IPsec manual policies
+
+                This table supports creating rows.";
+
+            list Policy {
+
+                description "Row name";
+
+                key "Name SeqNum";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The policy name, string, length: 1 to 63 characters, case insensitive";
+
+                }
+
+                leaf SeqNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "The policy serial number, unsigned integer, value range: 1 to 65535";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "0..80";
+
+                    }
+
+                    description "The policy description, string, length: 1 to 80 characters, case sensitive";
+
+                }
+
+                leaf Transformset {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The name of the IPsec transform set, string, length: 1 to 63 characters, case sensitive";
+
+                }
+
+                container ACL {
+
+                    leaf Name {
+
+                        type base:Basetype_ACLName;
+
+                        description "ACL name, string, length: 1 to 63 characters, case sensitive";
+
+                    }
+
+                    leaf Number {
+
+                        type base:Basetype_ACLNumberAdvance;
+
+                        description "ACL number, unsigned integer, value range: 3000 to 3999";
+
+                    }
+
+                }
+
+                leaf RemoteAddress {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Remote IP address";
+
+                }
+
+                leaf QosPreClassify {
+
+                    type base:Basetype_Boolean;
+
+                    description "QoS pre-classify feature
+
+													Boolean:
+
+													true: Enable
+
+													false: Disable(default)";
+
+                }
+
+            }
+
+        }
+
+        container IPv6ManualPolicies {
+
+            description "IPv6 IPsec IPsec manual policies
+
+                This table supports creating rows.";
+
+            list Policy {
+
+                description "Row name";
+
+                key "Name SeqNum";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The policy name, string, length: 1 to 63 characters, case insensitive";
+
+                }
+
+                leaf SeqNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "The policy serial number, unsigned integer, value range: 1 to 65535";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "0..80";
+
+                    }
+
+                    description "The policy description, string, length: 1 to 80 characters, case sensitive";
+
+                }
+
+                leaf Transformset {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The name of the IPsec transform set, string, length: 1 to 63 characters, case sensitive";
+
+                }
+
+                container ACL {
+
+                    leaf Name {
+
+                        type base:Basetype_ACLName;
+
+                        description "ACL name, string, length: 1 to 63 characters, case sensitive";
+
+                    }
+
+                    leaf Number {
+
+                        type base:Basetype_ACLNumberAdvance;
+
+                        description "ACL number, unsigned integer, value range: 3000 to 3999";
+
+                    }
+
+                }
+
+                leaf RemoteAddress {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "Remote IP address";
+
+                }
+
+                leaf QosPreClassify {
+
+                    type base:Basetype_Boolean;
+
+                    description "QoS pre-classify feature, 
+
+													Boolean:
+
+													true-Enable
+
+													false-Disable(default)";
+
+                }
+
+            }
+
+        }
+
+        container ManualProfileKeys {
+
+            description "The manual IPsec profile key information
+
+                This table supports creating rows.";
+
+            list Key {
+
+                description "Row name";
+
+                key "ProfileName Direction Protocol";
+
+                leaf ProfileName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of the used IPsec profile, string, length: 1 to 63 characters, case insensitive";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "SA’s direction
+
+						  Enumeration:
+
+                          1-Inbound
+
+                          2-Outbound";
+
+                }
+
+                leaf Protocol {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Security protocol
+
+						  Enumeration:
+
+                          1-ESP
+
+                          2-AH";
+
+                }
+
+                leaf SPI {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "256..4294967295";
+
+                    }
+
+                    description "Security Parameter Index, Unsigned integer, value range: 256 to 4294967295";
+
+                }
+
+                container AuthorityHexKey {
+
+                    description "The hexadecimal authentication key, data structure, members include: Type, Value";
+
+                    leaf Type {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The type of the key
+
+						 Enumeration: 
+
+                         1-simple
+
+                         2-cipher";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_String {
+
+                            length "1..85";
+
+                        }
+
+                        description "The value of the key, string.
+
+                          The plaintext authentication key is case insensitive and must be a 16-byte hexadecimal string for HMAC-MD5, 
+
+						  and a 20-byte hexadecimal string for HMAC-SHA1. The ciphertext authentication key is a case-sensitive string of 1 to 85 characters";
+
+                    }
+
+                }
+
+                container EncryptionHexKey {
+
+                    description "The hexadecimal encryption key, data structure, members include: Type, Value";
+
+                    leaf Type {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The type of the key
+
+						 Enumeration:
+
+                         1-simple
+
+                         2-cipher";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_String {
+
+                            length "1..117";
+
+                        }
+
+                        description "The value of the key.
+
+						The plaintext authentication key is case insensitive and must be must be an 8-byte hexadecimal string for DES-CBC, 
+
+						a 24-byte hexadecimal string for 3DES-CBC, a 16-byte hexadecimal string for AES128-CBC, a 24-byte hexadecimal string for AES192-CBC, 
+
+						and a 32-byte hexadecimal string for AES256-CBC.The ciphertext authentication key is a case-sensitive string of 1 to 117 characters";
+
+                    }
+
+                }
+
+                container StringKey {
+
+                    description "The string key, Data structure, members include: Type, Value";
+
+                    leaf Type {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The type of the key
+
+						 Enumeration:
+
+                         1-simple
+
+                         2-cipher";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_String {
+
+                            length "1..373";
+
+                        }
+
+                        description "The value of the key, string.
+
+						   The plaintext key is a case-sensitive string of 1 to 255 characters
+
+						   The ciphertext key is a case-sensitive string of 1 to 373 characters";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container ManualProfiles {
+
+            description "The manual IPsec profile information
+
+                This table supports creating rows.";
+
+            list ManualProfile {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Name of the used IPsec profile, string, length: 1 to 63 characters, case insensitive";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "1..80";
+
+                    }
+
+                    description "The description of the used IPsec profile, string, length: 1 to 80 characters, case sensitive";
+
+                }
+
+                leaf TransformSet {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The name of the IPsec transform set, string, length: 1 to 63 characters, case insensitive";
+
+                }
+
+            }
+
+        }
+
+        container IPv4ManualPolicyKeys {
+
+            description "The IPv4 manual IPsec policy key information
+
+                This table supports creating rows.";
+
+            list Key {
+
+                description "Row name";
+
+                key "PolicyName SequenceNum Direction Protocol";
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The policy name, string, length: 1 to 63 characters";
+
+                }
+
+                leaf SequenceNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "The policy serial number, unsigned integer, value range: 1 to 65535";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "SA’s direction
+
+                                    Enumeration:
+
+									1-Inbound
+
+									2-Outbound";
+
+                }
+
+                leaf Protocol {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Security protocol
+
+                                    Enumeration:
+
+									1-ESP
+
+									2-AH";
+
+                }
+
+                leaf SPI {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "256..4294967295";
+
+                    }
+
+                    description "Security Parameter Index";
+
+                }
+
+                container AuthorityHexKey {
+
+                    description "The hexadecimal authentication key, data structure, members include: Type, Value";
+
+                    leaf Type {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The key type
+
+						 Enumeration:
+
+                         1-simple
+
+                         2-cipher";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_String {
+
+                            length "1..85";
+
+                        }
+
+                        description "The value of the key, string.
+
+						  The plaintext authentication key is case insensitive and must be a 16-byte hexadecimal string for HMAC-MD5, and a 20-byte hexadecimal string for HMAC-SHA1
+
+						  The ciphertext authentication key is a case-sensitive string of 1 to 85 characters";
+
+                    }
+
+                }
+
+                container EncryptionHexKey {
+
+                    description "The hexadecimal encryption key, data structure, members include: Type, value";
+
+                    leaf Type {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The key type
+
+						 Enumeration:
+
+                         1-simple
+
+                         2-cipher";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_String {
+
+                            length "1..117";
+
+                        }
+
+                        description "The value of the key, string.
+
+                          The plaintext authentication key is case insensitive and must be must be an 8-byte hexadecimal string for DES-CBC, a 24-byte hexadecimal string for 3DES-CBC, a 16-byte hexadecimal string for AES128-CBC, a 24-byte hexadecimal string for AES192-CBC, and a 32-byte hexadecimal string for AES256-CBC
+
+					      The ciphertext authentication key is a case-sensitive string of 1 to 117 characters";
+
+                    }
+
+                }
+
+                container StringKey {
+
+                    description "The hexadecimal authentication key, data structure, members include: Type, Value";
+
+                    leaf Type {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The key type
+
+						 Enumeration:
+
+                         1-simple
+
+                         2-cipher";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_String {
+
+                            length "1..373";
+
+                        }
+
+                        description "The value of the key, string.
+
+						  The plaintext key is a case-sensitive string of 1 to 255 characters
+
+						  The ciphertext key is a case-sensitive string of 1 to 373 characters";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IPv6ManualPolicyKeys {
+
+            description "The IPv6 manual IPsec policy key information
+
+                This table supports creating rows.";
+
+            list Key {
+
+                description "Row name";
+
+                key "PolicyName SequenceNum Direction Protocol";
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The policy name, string, length: 1 to 63 characters, case insensitive";
+
+                }
+
+                leaf SequenceNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "The policy serial number, unsigned integer, value range: 1 to 2^16-1";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "SA’s direction
+
+                                    Enumeration:
+
+									1-Inbound
+
+									2-Outbound";
+
+                }
+
+                leaf Protocol {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Security protocol
+
+                                   Enumeration:
+
+								   1-ESP
+
+								   2-AH";
+
+                }
+
+                leaf SPI {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "256..4294967295";
+
+                    }
+
+                    description "Security Parameter Index";
+
+                }
+
+                container AuthorityHexKey {
+
+                    description "The hexadecimal authentication key, data structure, members include: Type, Value.";
+
+                    leaf Type {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The key type
+
+						 Enumeration:
+
+                         1-simple
+
+                         2-cipher";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_String {
+
+                            length "1..85";
+
+                        }
+
+                        description "The value of the key
+
+                          The plaintext authentication key is case insensitive and must be a 16-byte hexadecimal string for HMAC-MD5, and a 20-byte hexadecimal string for HMAC-SHA1
+
+						  The ciphertext authentication key is a case-sensitive string of 1 to 85 characters";
+
+                    }
+
+                }
+
+                container EncryptionHexKey {
+
+                    description "The hexadecimal encryption key, data structure, members include: Type, Value";
+
+                    leaf Type {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The key type
+
+						 Enumeration:
+
+                         1-simple
+
+                         2-cipher";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_String {
+
+                            length "1..117";
+
+                        }
+
+                        description "The value of the key, string.
+
+						  The plaintext authentication key is case insensitive and must be must be an 8-byte hexadecimal string for DES-CBC, a 24-byte hexadecimal string for 3DES-CBC, a 16-byte hexadecimal string for AES128-CBC, a 24-byte hexadecimal string for AES192-CBC, and a 32-byte hexadecimal string for AES256-CBC
+
+						  The ciphertext authentication key is a case-sensitive string of 1 to 117 characters";
+
+                    }
+
+                }
+
+                container StringKey {
+
+                    description "The hexadecimal authentication key, data structure, members include: Type, Value";
+
+                    leaf Type {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The key type
+
+						 Enumeration:
+
+                         1-simple
+
+                         2-cipher";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_String {
+
+                            length "1..373";
+
+                        }
+
+                        description "The value of the key, string
+
+						  The plaintext key is a case-sensitive string of 1 to 255 characters
+
+						  The ciphertext key is a case-sensitive string of 1 to 373 characters";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IsakmpProfiles {
+
+            description "Displays the Isakmp IPsec profile information
+
+                This table supports creating rows.";
+
+            list IsakmpProfile {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The IPsec profile name, 1 to 63 characters, case insensitive";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "1..80";
+
+                    }
+
+                    description "The description of the used IPsec profile, 1 to 80 characters, Case sensitive";
+
+                }
+
+                container TransformSetList {
+
+                    description "The name of the IPsec transform set, 1 to 63 characters, case insensitive";
+
+                    leaf-list TransformSet {
+
+                        type base:Basetype_String {
+
+                            length "1..63";
+
+                        }
+
+                        description "IPsec string type, be Used for TransformSet name, ACL name, templatepolicy name, policy name etc";
+
+                    }
+
+                }
+
+                leaf IkeProfileName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The name of the ike profile, 1 to 63 characters, case insensitive";
+
+                }
+
+                container SADuration {
+
+                    leaf Seconds {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "180..604800";
+
+                        }
+
+                        description "The time-based lifetime of IPsec SA, unsigned integer, value range: 180 to 604800, in seconds";
+
+                    }
+
+                    leaf KiloBytes {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "2560..4294967295";
+
+                        }
+
+                        description "The traffic-based  lifetime of IPsec SA, unsigned integer,  value range: 2560 to 4294967295, in kiloBytes";
+
+                    }
+
+                }
+
+                leaf SAIdleTime {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "60..86400";
+
+                    }
+
+                    description "SA idle timeout functionUnsigned integer, value range: 60 to 86400, in seconds";
+
+                }
+
+                container SASoftDuration {
+
+                    leaf Seconds {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "20..201600";
+
+                        }
+
+                        description "The time-based global lifetime of IPsec SAUnsigned integer,
+
+                                          value range: 20 to 201600,";
+
+                    }
+
+                    leaf KiloBytes {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1000..4294901760";
+
+                        }
+
+                        description "The traffic-based global lifetime of IPsec SA, Unsigned integer,
+
+                                           value range: 1000 to 4294901760,";
+
+                    }
+
+                }
+
+                leaf IKEv2ProfileName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The name of the ike profile, 1 to 63 characters, case insensitive";
+
+                }
+
+            }
+
+        }
+
+        container TunnelApplyProfile {
+
+            description "displays IPsec profile name of ADVPN configuration in the specified tunnels";
+
+            list ApplyProfile {
+
+                description "Row name";
+
+                key "TunnelID";
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Tunnel ID";
+
+                }
+
+                leaf IPsecPrfName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "IPsec profile name";
+
+                }
+
+                container ACL {
+
+                    leaf Name {
+
+                        type base:Basetype_ACLName;
+
+                        description "ACL name, string, length: 1 to 63 characters, case sensitive";
+
+                    }
+
+                    leaf Number {
+
+                        type base:Basetype_ACLNumberAdvance;
+
+                        description "ACL number, unsigned integer, value range: 3000 to 3999";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container SmartVpnProfiles {
+
+            list SmartVpnProfile {
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+                leaf AutoSwitchCycles {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..5";
+
+                    }
+
+                }
+
+                container DetectionInterval {
+
+                    leaf IntervalNum {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..3";
+
+                        }
+
+                    }
+
+                    leaf PacketNum {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..30";
+
+                        }
+
+                    }
+
+                    leaf ThresholdLoss {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..100";
+
+                        }
+
+                    }
+
+                    leaf ThresholdDelay {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..3000";
+
+                        }
+
+                    }
+
+                    leaf SrcAddr {
+
+                        type base:Basetype_Ipv4Address;
+
+                    }
+
+                    leaf DestAddr {
+
+                        type base:Basetype_Ipv4Address;
+
+                    }
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container SmartVpnGateways {
+
+            list SmartVpnGateway {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf GatewayAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf NoRouteEnable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container SmartVpnLinkLists {
+
+            list SmartVpnLinkList {
+
+                key "ProfileName LinkID";
+
+                leaf ProfileName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+                leaf LinkID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..30";
+
+                    }
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf LinkLocalAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf LinkNextHop {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf LinkRemote {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+            }
+
+        }
+
+        container InterfacesNoNat {
+
+            list InterfaceNoNat {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_IfIndex;
+
+                    description "接口索引";
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                    description "接口开关，布尔值
+
+                                ture , false
+
+                                Default is false";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

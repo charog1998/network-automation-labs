@@ -1,0 +1,509 @@
+module H3C-configuration-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "configuration-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for configuration data.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container Configuration {
+
+        config false;
+
+        container Files {
+
+            description "Information of configuration files.";
+
+            list File {
+
+                description "Name of row.";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_Text {
+
+                        pattern "[^/ ][^ ]*:/[^/ ][^ ]*\\.cfg";
+
+                        length "1..255";
+
+                    }
+
+                    description "Index of file.";
+
+                }
+
+                leaf Running {
+
+                    type base:Basetype_Boolean;
+
+                    description "Current startup saved-configuration file.";
+
+                }
+
+                leaf NextMain {
+
+                    type base:Basetype_Boolean;
+
+                    description "Next main startup saved-configuration file.";
+
+                }
+
+                leaf NextBackup {
+
+                    type base:Basetype_Boolean;
+
+                    description "Next backup startup saved-configuration file.";
+
+                }
+
+            }
+
+        }
+
+        container System {
+
+            description "Information of system configuration.";
+
+            leaf Encryption {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+                description "Encryption type of configuration file, 0: No encryption，1：Private key，2：Public key";
+
+            }
+
+        }
+
+        container MDCOrContextFiles {
+
+            description "Configuration files in MDC or context.";
+
+            list MDCOrContextFile {
+
+                description "Name of this row.";
+
+                key "MDCOrContextID Name";
+
+                leaf MDCOrContextID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "ID of MDC or context. Index column.";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_Text {
+
+                        pattern "[^/ ][^ ]*\\.cfg";
+
+                        length "1..300";
+
+                    }
+
+                    description "Index of this row.";
+
+                }
+
+                leaf Running {
+
+                    type base:Basetype_Boolean;
+
+                    description "Current startup saved-configuration file.";
+
+                }
+
+                leaf NextMain {
+
+                    type base:Basetype_Boolean;
+
+                    description "Next main startup saved-configuration file.";
+
+                }
+
+                leaf NextBackup {
+
+                    type base:Basetype_Boolean;
+
+                    description "Next backup startup saved-configuration file.";
+
+                }
+
+            }
+
+        }
+
+        container ArchiveLocal {
+
+            description "Contains information about the automatic backup local settings.";
+
+            leaf Interval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0 | 10..525600";
+
+                }
+
+                description "Time interval to automatic backup.";
+
+            }
+
+            leaf Count {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..10";
+
+                }
+
+                description "Save the maximum number of backup files locally.";
+
+            }
+
+            leaf DirPath {
+
+                type base:Basetype_String {
+
+                    length "1..63";
+
+                }
+
+                description "Local save path.";
+
+            }
+
+            leaf Prefix {
+
+                type base:Basetype_String {
+
+                    length "1..30";
+
+                }
+
+                description "Local save file prefix.";
+
+            }
+
+        }
+
+        container ArchiveServer {
+
+            description "contains information about the automatic backup server settings.
+
+                This table supports creating rows.";
+
+            list ArchiveHost {
+
+                description "Rowname.";
+
+                key "ServerType AddressType Address VRF";
+
+                leaf ServerType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Server type. Index of ArchiveHost.1:FTP 2:TFTP 3:SCP";
+
+                }
+
+                leaf AddressType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Address type. 1-IPV4 2-IPV6";
+
+                }
+
+                leaf Address {
+
+                    type base:Basetype_IpAddress;
+
+                    description "Address of the remote manage. Index of ArchiveHost.
+
+                          IPv4 example: 1.1.1.1
+
+                          IPv6 example: 1:2:3:4:5:6:7:8";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF instance name. Index of ArchiveHost.";
+
+                }
+
+                leaf Interval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0 | 10..525600";
+
+                    }
+
+                    description "Time interval to automatic backup.";
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "User name to backup server.";
+
+                }
+
+                leaf Password {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Password to backup server.";
+
+                }
+
+                leaf Port {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "Port Number.";
+
+                }
+
+                leaf DirPath {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Server save path.";
+
+                }
+
+                leaf Prefix {
+
+                    type base:Basetype_String {
+
+                        length "1..30";
+
+                    }
+
+                    description "Server save file prefix.";
+
+                }
+
+            }
+
+        }
+
+        container ReplaceServer {
+
+            description "contains information about the automatic rollback server settings.
+
+                This table supports creating rows.";
+
+            list ReplaceHost {
+
+                description "Rowname.";
+
+                key "ServerType AddressType Address VRF";
+
+                leaf ServerType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Server type. Index of ArchiveHost.1:FTP 2:TFTP 3:SCP";
+
+                }
+
+                leaf AddressType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Address type. 1-IPV4 2-IPV6";
+
+                }
+
+                leaf Address {
+
+                    type base:Basetype_IpAddress;
+
+                    description "Address of the remote manage. Index of ArchiveHost.
+
+                          IPv4 example: 1.1.1.1
+
+                          IPv6 example: 1:2:3:4:5:6:7:8";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF instance name. Index of ArchiveHost.";
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "User name to backup server.";
+
+                }
+
+                leaf Password {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Password to replace server.";
+
+                }
+
+                leaf Port {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "Port Number.";
+
+                }
+
+                leaf DirPath {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Server save path.";
+
+                }
+
+                leaf RollbackName {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                    description "Server Rollback.";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

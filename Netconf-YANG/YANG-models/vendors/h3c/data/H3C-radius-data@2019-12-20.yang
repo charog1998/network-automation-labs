@@ -1,0 +1,1125 @@
+module H3C-radius-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "radius-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for radius data.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container Radius {
+
+        config false;
+
+        container Server {
+
+            config false;
+
+            container SessCtrlService {
+
+                leaf Status {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf Port {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                }
+
+            }
+
+            container SessCtrlClients {
+
+                list SessCtrlClient {
+
+                    key "VRF IpType IpAddress";
+
+                    leaf VRF {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "1..31";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf IpType {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                        }
+
+                    }
+
+                    leaf IpAddress {
+
+                        type base:Basetype_IpAddress;
+
+                    }
+
+                }
+
+            }
+
+            container DaeService {
+
+                leaf Status {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf Port {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                }
+
+            }
+
+            container DaeClients {
+
+                list DaeClient {
+
+                    key "VRF IpType IpAddress";
+
+                    leaf VRF {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "1..31";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf IpType {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                        }
+
+                    }
+
+                    leaf IpAddress {
+
+                        type base:Basetype_IpAddress;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Client {
+
+            config false;
+
+            container GlobalNasIps {
+
+                list GlobalNasIp {
+
+                    key "VRF IpType";
+
+                    leaf VRF {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "1..31";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf IpType {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                        }
+
+                    }
+
+                    leaf IpAddress {
+
+                        type base:Basetype_IpAddress;
+
+                    }
+
+                }
+
+            }
+
+            container ServerTestProfiles {
+
+                list ServerTestProfile {
+
+                    key "ProfileName";
+
+                    leaf ProfileName {
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                    }
+
+                    leaf UserName {
+
+                        type base:Basetype_String {
+
+                            length "1..253";
+
+                        }
+
+                    }
+
+                    leaf Interval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..3600";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            container Schemes {
+
+                list Scheme {
+
+                    key "SchemeName";
+
+                    leaf SchemeName {
+
+                        type base:Basetype_String {
+
+                            length "1..32";
+
+                        }
+
+                    }
+
+                    leaf RealAcctInterval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..71582";
+
+                        }
+
+                    }
+
+                    leaf TimeOut {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..10";
+
+                        }
+
+                    }
+
+                    leaf QuietTime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..255";
+
+                        }
+
+                    }
+
+                    leaf PktRetryTimes {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..20";
+
+                        }
+
+                    }
+
+                    leaf RealAcctRetryTimes {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..255";
+
+                        }
+
+                    }
+
+                    leaf UserNameFormat {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..2";
+
+                        }
+
+                    }
+
+                    leaf BytesUnit {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..3";
+
+                        }
+
+                    }
+
+                    leaf PacketsUint {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..3";
+
+                        }
+
+                    }
+
+                    leaf NasIpv4Address {
+
+                        type base:Basetype_Ipv4Address;
+
+                    }
+
+                    leaf NasIpv6Address {
+
+                        type base:Basetype_Ipv6Address;
+
+                    }
+
+                    leaf VRF {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "1..31";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf ClassType {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                    }
+
+                    leaf AcctOnEnable {
+
+                        type base:Basetype_Boolean;
+
+                    }
+
+                    leaf AcctOnSendInterval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..15";
+
+                        }
+
+                    }
+
+                    leaf AcctOnSendTimes {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..255";
+
+                        }
+
+                    }
+
+                    leaf ChangePassword {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            container AuthServers {
+
+                list AuthServer {
+
+                    key "SchemeName Priority VRF IpType Host Port";
+
+                    leaf SchemeName {
+
+                        type base:Basetype_String {
+
+                            length "1..32";
+
+                        }
+
+                    }
+
+                    leaf Priority {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                    }
+
+                    leaf VRF {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "1..31";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf IpType {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..2";
+
+                        }
+
+                    }
+
+                    leaf Host {
+
+                        type base:Basetype_OctectString;
+
+                    }
+
+                    leaf Port {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..65535";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf SvrTestProfileName {
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                    }
+
+                    leaf State {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            container AcctServers {
+
+                list AcctServer {
+
+                    key "SchemeName Priority VRF IpType Host Port";
+
+                    leaf SchemeName {
+
+                        type base:Basetype_String {
+
+                            length "1..32";
+
+                        }
+
+                    }
+
+                    leaf Priority {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                    }
+
+                    leaf VRF {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "1..31";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf IpType {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..2";
+
+                        }
+
+                    }
+
+                    leaf Host {
+
+                        type base:Basetype_OctectString;
+
+                    }
+
+                    leaf Port {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..65535";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf State {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+            container ReplyMessageRules {
+
+                list ReplyMessageRule {
+
+                    key "SchemeName MatchString";
+
+                    leaf SchemeName {
+
+                        type base:Basetype_String {
+
+                            length "1..32";
+
+                        }
+
+                    }
+
+                    leaf MatchString {
+
+                        type base:Basetype_String;
+
+                    }
+
+                    leaf Action {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Statistic {
+
+            config false;
+
+            container AuthServers {
+
+                list AuthServer {
+
+                    key "VRF IpType Host Port";
+
+                    leaf VRF {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "1..31";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf IpType {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                        }
+
+                    }
+
+                    leaf Host {
+
+                        type base:Basetype_IpAddress;
+
+                    }
+
+                    leaf Port {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..65535";
+
+                        }
+
+                    }
+
+                    leaf Request {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf ReTrans {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf Accept {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf Reject {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf Challenge {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf Malformed {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf BadAuthenticator {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf PendingRequest {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf TimeOut {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf UnKnownType {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf Dropped {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf LastRoundTripTime {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                }
+
+            }
+
+            container AcctServers {
+
+                list AcctServer {
+
+                    key "VRF IpType Host Port";
+
+                    leaf VRF {
+
+                        type union {
+
+                            type base:Basetype_EmptyString;
+
+                            type base:Basetype_String {
+
+                                length "1..31";
+
+                            }
+
+                        }
+
+                    }
+
+                    leaf IpType {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                        }
+
+                    }
+
+                    leaf Host {
+
+                        type base:Basetype_IpAddress;
+
+                    }
+
+                    leaf Port {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..65535";
+
+                        }
+
+                    }
+
+                    leaf Request {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf ReTrans {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf Response {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf Malformed {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf BadAuthenticator {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf PendingRequest {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf TimeOut {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf UnKnownType {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf Dropped {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf LastRoundTripTime {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf AcctStartRequest {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf AcctStartResponse {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf AcctUpdateRequest {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf AcctUpdateResponse {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf AcctStopRequest {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf AcctStopResponse {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                }
+
+            }
+
+            container SessCtrl {
+
+                leaf Request {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Response {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Dropped {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf CheckFail {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Terminate {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf SetPolicy {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+            container Dae {
+
+                leaf Request {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf ReTrans {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Response {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Dropped {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf CheckFail {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Disconnect {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf Coa {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf UnknownType {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+        container Trap {
+
+            leaf AuthErrThreshold {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..100";
+
+                }
+
+            }
+
+            container Switchs {
+
+                leaf AuthServerDown {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf AuthServerUp {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf AcctServerDown {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf AcctServerUp {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf AuthErrReachThreshold {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container Dscp {
+
+            leaf Ipv4 {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..63";
+
+                }
+
+            }
+
+            leaf Ipv6 {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..63";
+
+                }
+
+            }
+
+        }
+
+        container PasswordLimit {
+
+            leaf MinLen {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf MaxLen {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf MinTypeNum {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+        }
+
+    }
+
+}

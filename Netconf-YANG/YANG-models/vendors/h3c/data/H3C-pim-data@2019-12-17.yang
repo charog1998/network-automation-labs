@@ -1,0 +1,169 @@
+module H3C-pim-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "pim-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for pim data.";
+
+    revision 2019-12-17 {
+
+        description "Initial revision.";
+
+    }
+
+    container PIM {
+
+        config false;
+
+        container Ipv4Instances {
+
+            description "IPv4 PIM VRF information table
+
+                This table supports creating rows.";
+
+            list Instance {
+
+                description "Row name";
+
+                key "VRF";
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VRF;
+
+                    }
+
+                    description "VRF name";
+
+                }
+
+                leaf RegWholeChks {
+
+                    type base:Basetype_Boolean;
+
+                    description "Whether calculate the checksum based on the entire register message";
+
+                }
+
+                leaf SsmPolicy {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "2000..2999";
+
+                    }
+
+                    description "ACL number of SSM group range";
+
+                }
+
+            }
+
+        }
+
+        container Ipv4Interfaces {
+
+            description "IPv4 PIM interface information table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "PIM mode, 1 for SM and 2 for DM";
+
+                }
+
+            }
+
+        }
+
+        container Ipv4Nbrs {
+
+            description "IPv4 PIM neighbor information table";
+
+            list Nbr {
+
+                description "Row name";
+
+                key "IfIndex NbrAddr";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf NbrAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Neighbor address";
+
+                }
+
+                leaf Uptime {
+
+                    type base:Basetype_TimeTicks;
+
+                    description "Uptime in seconds";
+
+                }
+
+                leaf Expires {
+
+                    type base:Basetype_TimeTicks;
+
+                    description "Expire time in seconds";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

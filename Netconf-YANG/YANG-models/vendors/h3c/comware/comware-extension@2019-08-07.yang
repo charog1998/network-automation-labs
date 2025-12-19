@@ -1,0 +1,73 @@
+module comware-extension {
+
+    namespace "http://www.h3c.com/netconf/extension:1.0";
+
+    prefix comware-extension;
+
+    organization "H3C";
+
+    contact "New H3C Technologies Co., Ltd.";
+
+    description "comware extension yang syntax";
+
+    revision 2019-08-07
+
+    {
+
+        description "Initial revision";
+
+    }
+
+    extension support-incremental {
+
+        argument value;
+
+        description "Comware private.
+
+                    The 'supportIncrementalOper' attribute, which is optional, indicates that the current column supports incremental operation.
+
+                    Default: false";
+
+    }
+
+    extension support-filter {
+
+        argument value;
+
+        description "Comware private.
+
+                    Used to filter information";
+
+    }
+
+    extension count {
+
+        argument value;
+
+        description "Comware private.
+
+                    Specify the number of data entries to get.";
+
+    }
+
+    extension support-name2index {
+
+        argument value;
+
+        description "Comware private.
+
+                    The 'valuetype' attribute, which is optional, indicates that the current column supports name to index conversion.
+
+                    Enumberation.
+
+                    1 auto
+
+                    2 name
+
+                    3 index
+
+                    Default: 1 auto";
+
+    }
+
+}

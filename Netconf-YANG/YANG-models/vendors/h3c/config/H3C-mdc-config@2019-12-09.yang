@@ -1,0 +1,395 @@
+module H3C-mdc-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "mdc-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for mdc config.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container MDC {
+
+        container Resources {
+
+            container Disks {
+
+                description "MDC磁盘资源表";
+
+                list Disk {
+
+                    description "行的名称";
+
+                    key "MDCID Chassis Slot CPUID";
+
+                    leaf MDCID {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "MDC编号,索引列";
+
+                    }
+
+                    leaf Chassis {
+
+                        type base:Basetype_UnsignedShort;
+
+                        description "框号，索引列";
+
+                    }
+
+                    leaf Slot {
+
+                        type base:Basetype_UnsignedShort;
+
+                        description "槽号，索引列";
+
+                    }
+
+                    leaf CPUID {
+
+                        type base:Basetype_UnsignedShort;
+
+                        description "CPU号，索引列";
+
+                    }
+
+                    leaf ReservedRatio {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..100";
+
+                        }
+
+                        description "磁盘限额保留限制,单位%,取值0-100";
+
+                    }
+
+                    leaf QuotaRatio {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..100";
+
+                        }
+
+                        description "磁盘限额大小，单位%，取值1-100";
+
+                    }
+
+                }
+
+            }
+
+            container Memories {
+
+                description "MDC内存资源表";
+
+                list Memory {
+
+                    description "行的名称";
+
+                    key "MDCID Chassis Slot CPUID";
+
+                    leaf MDCID {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "MDC编号,索引列";
+
+                    }
+
+                    leaf Chassis {
+
+                        type base:Basetype_UnsignedShort;
+
+                        description "框号，索引列";
+
+                    }
+
+                    leaf Slot {
+
+                        type base:Basetype_UnsignedShort;
+
+                        description "槽号，索引列";
+
+                    }
+
+                    leaf CPUID {
+
+                        type base:Basetype_UnsignedShort;
+
+                        description "CPU号，索引列";
+
+                    }
+
+                    leaf ReservedRatio {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..100";
+
+                        }
+
+                        description "内存限额保留限制,单位%,取值0-100";
+
+                    }
+
+                    leaf QuotaRatio {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..100";
+
+                        }
+
+                        description "内存限额大小，单位%，取值1-100";
+
+                    }
+
+                }
+
+            }
+
+            container CPUs {
+
+                description "MDC CPU资源表";
+
+                list CPU {
+
+                    description "行的名称";
+
+                    key "MDCID";
+
+                    leaf MDCID {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "MDC编号,索引列";
+
+                    }
+
+                    leaf Weight {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..10";
+
+                        }
+
+                        description "CPU权重，1-10";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Contexts {
+
+            description "MDC配置表
+
+                This table supports creating rows.";
+
+            list Context {
+
+                description "行的名称";
+
+                key "MDCID";
+
+                leaf MDCID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "MDC编号,索引列";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..15";
+
+                    }
+
+                    description "MDC名，1~15位";
+
+                }
+
+                leaf State {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..2";
+
+                    }
+
+                    description "MDC配置：
+
+                          1: start
+
+                          2: stop";
+
+                }
+
+            }
+
+        }
+
+        container Locations {
+
+            description "MDC接口板location信息表";
+
+            list Location {
+
+                description "行的名称";
+
+                key "MDCID Chassis Slot";
+
+                leaf MDCID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "MDC编号,索引列";
+
+                }
+
+                leaf Chassis {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "框号，索引列";
+
+                }
+
+                leaf Slot {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "槽号，索引列";
+
+                }
+
+                leaf State {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..2";
+
+                    }
+
+                    description "Location状态,1表示location，2表示undo location";
+
+                }
+
+            }
+
+        }
+
+        container LocationBladeControllerTeams {
+
+            description "MDC接口板locationBladeControllerTeam信息表";
+
+            list LocationBladeControllerTeam {
+
+                description "行的名称";
+
+                key "MDCID BladeControllerTeam";
+
+                leaf MDCID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "MDC编号,索引列";
+
+                }
+
+                leaf BladeControllerTeam {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..256";
+
+                    }
+
+                    description "BladeControllerTeam，索引列";
+
+                }
+
+                leaf State {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..2";
+
+                    }
+
+                    description "Location状态,1表示location，2表示undo location";
+
+                }
+
+            }
+
+        }
+
+        container Allocations {
+
+            description "MDC Allocate表";
+
+            list Allocation {
+
+                description "行的名称";
+
+                key "MDCID";
+
+                leaf MDCID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "MDC编号,索引列";
+
+                }
+
+                leaf InterfaceList {
+
+                    type base:Basetype_String {
+
+                        length "1..32767";
+
+                    }
+
+                    description "接口列表,1~32767位";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

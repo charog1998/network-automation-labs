@@ -1,0 +1,1337 @@
+module H3C-rmon-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "rmon-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for rmon data.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container RMON {
+
+        config false;
+
+        container Capabilities {
+
+            description "RMON Capabilities";
+
+            leaf MaxEtherStats {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..65535";
+
+                }
+
+                description "The maximum number of EtherStats in a rmon.";
+
+            }
+
+            leaf MaxHistoryControls {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..65535";
+
+                }
+
+                description "The maximum number of HistoryControls in a rmon.";
+
+            }
+
+            leaf MaxEtherHistorySamples {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..65535";
+
+                }
+
+                description "The maximum number of EtherHistorySamples in a rmon.";
+
+            }
+
+            leaf MaxAlarms {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..65535";
+
+                }
+
+                description "The maximum number of Alarms in a rmon.";
+
+            }
+
+            leaf MaxEvents {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..65535";
+
+                }
+
+                description "The maximum number of Events in a rmon.";
+
+            }
+
+            leaf MaxLogs {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..65535";
+
+                }
+
+                description "The maximum number of Logs in a rmon.";
+
+            }
+
+            leaf MaxUsrHistoryControls {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..65535";
+
+                }
+
+                description "The maximum number of UsrHistoryControls in a rmon.";
+
+            }
+
+            leaf MaxUsrHistoryObjects {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..65535";
+
+                }
+
+                description "The maximum number of UsrHistoryObjects in a rmon.";
+
+            }
+
+            leaf MaxUsrHistorySamples {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..65535";
+
+                }
+
+                description "The maximum number of UsrHistorySamples in a rmon.";
+
+            }
+
+            leaf MaxExtAlarms {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..65535";
+
+                }
+
+                description "The maximum number of ExtAlarms in a rmon.";
+
+            }
+
+        }
+
+        container EtherStats {
+
+            description "RMON EtherStats
+
+                This table supports creating rows.";
+
+            list Statistic {
+
+                description "Rowname";
+
+                key "Index";
+
+                leaf Index {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "Entry index";
+
+                }
+
+                leaf DataSource {
+
+                    type base:Basetype_String;
+
+                    description "The particular ethernet interface to be sampled.";
+
+                }
+
+                leaf DropEvents {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of events in which packets were dropped by the probe due to lack of resources.";
+
+                }
+
+                leaf Octets {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of octets of data (including those in bad packets)
+                          received on the network (excluding framing bits but including FCS octets).";
+
+                }
+
+                leaf Pkts {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of packets (including bad packets, broadcast packets, and multicast packets) received.";
+
+                }
+
+                leaf BroadcastPkts {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of good packets received that were directed to the broadcast address.";
+
+                }
+
+                leaf MulticastPkts {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of good packets received that were directed to a multicast address.";
+
+                }
+
+                leaf CRCAlignErrors {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of packets received that had a length (excluding framing bits, but including FCS octets)
+                          between 64 and 1518 octets, inclusive, but had either a bad Frame Check Sequence (FCS)
+                          with an integral number of octets (FCS Error) or
+                          a bad FCS with a non-integral number of octets (Alignment Error).";
+
+                }
+
+                leaf UndersizePkts {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of packets received that were less than 64 octets long
+                          (excluding framing bits, but including FCS octets) and were otherwise well formed.";
+
+                }
+
+                leaf OversizePkts {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of packets received that were longer than 1518 octets
+                          (excluding framing bits, but including FCS octets) and were otherwise well formed.";
+
+                }
+
+                leaf Fragments {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of packets received that were less than 64 octets in length
+                          (excluding framing bits but including FCS octets) and had either
+                          a bad Frame Check Sequence (FCS) with an integral number of octets (FCS Error)
+                          or a bad FCS with a non-integral number of octets (Alignment Error).";
+
+                }
+
+                leaf Jabbers {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of packets received that were longer than 1518 octets (excluding framing bits, but including FCS octets),
+                          and had either a bad Frame Check Sequence (FCS) with an integral number of octets (FCS Error)
+                          or a bad FCS with a non-integral number of octets (Alignment Error).";
+
+                }
+
+                leaf Collisions {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The best estimate of the total number of collisions on this ethernet segment.";
+
+                }
+
+                leaf Pkts64Octets {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of packets (including bad packets) received that were 64 octets in length
+                          (excluding framing bits but including FCS octets).";
+
+                }
+
+                leaf Pkts65to127Octets {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of packets (including bad packets) received that were between 65 and 127 octets in length inclusive
+                          (excluding framing bits but including FCS octets).";
+
+                }
+
+                leaf Pkts128to255Octets {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of packets (including bad packets) received that were between 128 and 255 octets in length inclusive
+                          (excluding framing bits but including FCS octets).";
+
+                }
+
+                leaf Pkts256to511Octets {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of packets (including bad packets) received that were between 256 and 511 octets in length inclusive
+                          (excluding framing bits but including FCS octets).";
+
+                }
+
+                leaf Pkts512to1023Octets {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of packets (including bad packets) received that were between 512 and 1023 octets in length inclusive
+                          (excluding framing bits but including FCS octets).";
+
+                }
+
+                leaf Pkts1024to1518Octets {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of packets (including bad packets) received that were between 1024 and 1518 octets in length inclusive
+                          (excluding framing bits but including FCS octets).";
+
+                }
+
+                leaf Owner {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                    description "The entity that configured this entry.";
+
+                }
+
+                leaf TemporaryStatus {
+
+                    type base:Basetype_Boolean;
+
+                    description "The status of this entry.";
+
+                }
+
+            }
+
+        }
+
+        container EtherHistoryControls {
+
+            description "rmon EtherHistoryControls infomations
+
+                This table supports creating rows.";
+
+            list Control {
+
+                description "Rowname";
+
+                key "Index";
+
+                leaf Index {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "EtherHistoryControls Index";
+
+                }
+
+                leaf DataSource {
+
+                    type base:Basetype_String;
+
+                    description "The source of the data for which
+                          historical data was sampled.";
+
+                }
+
+                leaf BucketsRequested {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "The requested number of records
+                          to be saved for each interface.";
+
+                }
+
+                leaf Interval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..3600";
+
+                    }
+
+                    description "The sample interval. Unit: second.";
+
+                }
+
+                leaf Owner {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                    description "The entity that configured this entry.";
+
+                }
+
+                leaf TemporaryStatus {
+
+                    type base:Basetype_Boolean;
+
+                    description "The status of this entry.";
+
+                }
+
+            }
+
+        }
+
+        container EtherHistorySamples {
+
+            description "EtherHistorySamples Table";
+
+            list Sample {
+
+                description "Rowname";
+
+                key "ControlIndex SampleIndex";
+
+                leaf ControlIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "The controls index.";
+
+                }
+
+                leaf SampleIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..2147483647";
+
+                    }
+
+                    description "The samples index.";
+
+                }
+
+                leaf IntervalStart {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Time at the start of the interval over which this sample was measured.
+                          Unit: second.";
+
+                }
+
+                leaf DropEvents {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of events in which packets were dropped by the
+                          probe due to lack of resources during this sampling interval.";
+
+                }
+
+                leaf Octets {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of octets of data (including those in bad packets)
+                          received on the network (excluding framing bits but including FCS octets)
+                          during this sampling interval.";
+
+                }
+
+                leaf Pkts {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of octets of data (including those in bad packets)
+                          received on the network (excluding framing bits but including FCS octets) during this
+                          sampling interval.";
+
+                }
+
+                leaf BroadcastPkts {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of good packets received during this sampling
+                          interval that were directed to the broadcast address.";
+
+                }
+
+                leaf MulticastPkts {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of good packets received during this sampling
+                          interval that were directed to a multicast address.";
+
+                }
+
+                leaf CRCAlignErrors {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of packets received during this sampling
+                          interval that had a length (excluding framing bits but including FCS octets)
+                          between 64 and 1518 octets, inclusive, but had either a bad Frame Check
+                          Sequence (FCS) with an integral number of octets (FCS Error) or a bad FCS
+                          with a non-integral number of octets (Alignment Error).";
+
+                }
+
+                leaf UndersizePkts {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of packets received during this sampling interval
+                          that were less than 64 octets long (excluding framing bits, but including FCS octets)
+                          and were otherwise well formed.";
+
+                }
+
+                leaf OversizePkts {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of packets received during this sampling interval
+                          that were longer than 1518 octets (excluding framing bits, but including FCS octets)
+                          and were otherwise well formed.";
+
+                }
+
+                leaf Fragments {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The total number of packets received during this sampling interval
+                          that were less than 64 octets in length (excluding framing bits but including FCS octets)
+                          had either a bad Frame Check Sequence (FCS) with an integral number of octets (FCS Error)
+                          or a bad FCS with a non-integral number of octets (Alignment Error).";
+
+                }
+
+                leaf Jabbers {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of packets received during this sampling interval that
+                          were longer than 1518 octets (excluding framing bits but including FCS octets), and
+                          had either a bad Frame Check Sequence (FCS) with an integral number of octets (FCS Error)
+                          or a bad FCS with a non-integral number of octets (Alignment Error).";
+
+                }
+
+                leaf Collisions {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The best estimate of the total number of collisions on this
+                          ethernet segment during this sampling interval.";
+
+                }
+
+                leaf Utilization {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..100";
+
+                    }
+
+                    description "The best estimate of the mean physical layer network utilization
+                          on this interface during this sampling interval.Unit: percent.";
+
+                }
+
+            }
+
+        }
+
+        container Alarms {
+
+            description "Alarms infomations
+
+                This table supports creating rows.";
+
+            list Alarm {
+
+                description "Rowname";
+
+                key "Index";
+
+                leaf Index {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "Entry index";
+
+                }
+
+                leaf Interval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "5..65535";
+
+                    }
+
+                    description "The interval over which the data is sampled and compared with the rising and falling thresholds.";
+
+                }
+
+                leaf Variable {
+
+                    type base:Basetype_String;
+
+                    description "A comment describing this event entry.";
+
+                }
+
+                leaf SampleType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Alarms SampleType";
+
+                }
+
+                leaf Value {
+
+                    type base:Basetype_Integer32;
+
+                    description "The value of the statistic during the last sampling period.";
+
+                }
+
+                leaf StartupAlarm {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "The alarm that may be sent when this entry is first set to valid.";
+
+                }
+
+                leaf RisingThreshold {
+
+                    type base:Basetype_Integer32;
+
+                    description "A threshold for the sampled statistic.";
+
+                }
+
+                leaf FallingThreshold {
+
+                    type base:Basetype_Integer32;
+
+                    description "A threshold for the sampled statistic.";
+
+                }
+
+                leaf RisingEventIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "The index in RMON/Events that is used when a rising threshold is crossed.";
+
+                }
+
+                leaf FallingEventIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "The index in RMON/Events that is used when a falling threshold is crossed.";
+
+                }
+
+                leaf Owner {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                    description "Alarms Owner";
+
+                }
+
+                leaf TemporaryStatus {
+
+                    type base:Basetype_Boolean;
+
+                    description "The status of this entry.";
+
+                }
+
+            }
+
+        }
+
+        container Events {
+
+            description "Events infomations
+
+                This table supports creating rows.";
+
+            list Event {
+
+                description "Rowname";
+
+                key "Index";
+
+                leaf Index {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "Entry index";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                    description "A comment describing this event entry.";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "The type of notification that the probe will make about this event.
+                          Enumeration.
+                          1—None
+                          2—Log
+                          3—SnmpTrap
+                          4—LogAndTrap";
+
+                }
+
+                leaf Community {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                    description "Event Community";
+
+                }
+
+                leaf LastTimeSent {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Time at the time this event entry last generated an event.";
+
+                }
+
+                leaf Owner {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                    description "Event Owner";
+
+                }
+
+                leaf TemporaryStatus {
+
+                    type base:Basetype_Boolean;
+
+                    description "Event TemporaryStatus";
+
+                }
+
+            }
+
+        }
+
+        container Logs {
+
+            description "RMON Logs";
+
+            list Log {
+
+                description "Rowname";
+
+                key "EventIndex LogIndex";
+
+                leaf EventIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "The event index.";
+
+                }
+
+                leaf LogIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..2147483647";
+
+                    }
+
+                    description "The log index.";
+
+                }
+
+                leaf Time {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Time when this log entry was created.";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                    description "An implementation dependent description of the event that activated this log entry.";
+
+                }
+
+            }
+
+        }
+
+        container UsrHistoryControls {
+
+            description "UsrHistoryControls table
+
+                This table supports creating rows.";
+
+            list Control {
+
+                description "rowname";
+
+                key "Index";
+
+                leaf Index {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "index number";
+
+                }
+
+                leaf MaxObjects {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "The max number of objects to be sampled.";
+
+                }
+
+                container Objects {
+
+                    leaf Variable {
+
+                        type base:Basetype_String;
+
+                        description "The object identifier of the particular variable to be sampled";
+
+                    }
+
+                    leaf SampleType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The method of sampling the selected variables.
+                                Enumeration.
+                                1—AbsoluteValue
+                                2—DeltaValue";
+
+                    }
+
+                }
+
+                leaf BucketsRequested {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "The requested number of records to be saved in UsrHistorySamples";
+
+                }
+
+                leaf Interval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..2147483647";
+
+                    }
+
+                    description "The sample interval";
+
+                }
+
+                leaf Owner {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                    description "The entity that configured this entry";
+
+                }
+
+                leaf TemporaryStatus {
+
+                    type base:Basetype_Boolean;
+
+                    description "The status of this entry";
+
+                }
+
+            }
+
+        }
+
+        container UsrHistorySamples {
+
+            description "UsrHistorySamples table";
+
+            list Sample {
+
+                description "rowname";
+
+                key "ControlIndex SampleIndex";
+
+                leaf ControlIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "first index number";
+
+                }
+
+                leaf SampleIndex {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..2147483647";
+
+                    }
+
+                    description "second index number";
+
+                }
+
+                leaf IntervalStart {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Time at the start of the interval over which this sample was measured";
+
+                }
+
+                leaf IntervalEnd {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Time at the end  of the interval over which this sample was measured";
+
+                }
+
+                container Objects {
+
+                    leaf Variable {
+
+                        type base:Basetype_String;
+
+                        description "The object identifier of the particular variable to be sampled";
+
+                    }
+
+                    leaf SampleType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The method of sampling the selected variables.
+                                Enumeration.
+                                1—AbsoluteValue
+                                2—DeltaValue";
+
+                    }
+
+                    leaf AbsValue {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "he absolute value of the user-specified statistic during the last sampling period";
+
+                    }
+
+                    leaf ValStatus {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "The status of this entry";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container ExtAlarms {
+
+            description "RMON ExtAlarms
+
+                This table supports creating rows.";
+
+            list Alarm {
+
+                description "Rowname";
+
+                key "Index";
+
+                leaf Index {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "Entry index";
+
+                }
+
+                leaf Interval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "10..65535";
+
+                    }
+
+                    description "The interval over which the data is sampled and compared with the rising and falling thresholds.
+                          Unit: second.";
+
+                }
+
+                leaf Variable {
+
+                    type base:Basetype_String;
+
+                    description "The object identifier of the particular variable to be sampled.";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                    description "A comment describing this alarm entry.";
+
+                }
+
+                leaf SampleType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "The method of sampling the selected variable and calculating the value
+                          to be compared against the thresholds.
+                          1—AbsoluteValue
+                          2—DeltaValue";
+
+                }
+
+                leaf Value {
+
+                    type base:Basetype_Integer32;
+
+                    description "The value of the statistic during the last sampling period.";
+
+                }
+
+                leaf StartupAlarm {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "The alarm that may be sent when this entry is first set to valid.
+                          1—RisingAlarm
+                          2—FallingAlarm
+                          3—RisingOrFallingAlarm";
+
+                }
+
+                leaf RisingThreshold {
+
+                    type base:Basetype_Integer32;
+
+                    description "A rising threshold for the sampled statistic.";
+
+                }
+
+                leaf FallingThreshold {
+
+                    type base:Basetype_Integer32;
+
+                    description "A rising threshold for the sampled statistic.";
+
+                }
+
+                leaf RisingEvtIndex {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "The index in RMON/Events that is used when a rising threshold is crossed.";
+
+                }
+
+                leaf FallingEvtIndex {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "The index in RMON/Events that is used when a falling threshold is crossed.";
+
+                }
+
+                leaf StatCycle {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967";
+
+                    }
+
+                    description "The lifetime starts when an alarm entry is set in valid state.
+                          Unit: second.";
+
+                }
+
+                leaf StatType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Type of statistic period.
+                          1—Forever
+                          2—During";
+
+                }
+
+                leaf Owner {
+
+                    type base:Basetype_String {
+
+                        length "1..127";
+
+                    }
+
+                    description "The entity that configured this entry.";
+
+                }
+
+                leaf TemporaryStatus {
+
+                    type base:Basetype_Boolean;
+
+                    description "The status of this entry.";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,3903 @@
+module H3C-lldp-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "lldp-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for lldp data.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container LLDP {
+
+        config false;
+
+        container CDPNeighbors {
+
+            description "CDP neighbor table";
+
+            list CDPNeighbor {
+
+                description "CDP neighbor";
+
+                key "TimeMark IfIndex NeighborIndex";
+
+                leaf TimeMark {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "time mark";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "interface index";
+
+                }
+
+                leaf NeighborIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "neighbor index";
+
+                }
+
+                leaf ChassisId {
+
+                    type base:Basetype_OctectString255;
+
+                    description "chassis identifier, a string of 0 to 255 characters";
+
+                }
+
+                leaf PortId {
+
+                    type base:Basetype_OctectString255;
+
+                    description "port identifier, a string of 0 to 255 characters";
+
+                }
+
+                leaf ManageAddress {
+
+                    type base:Basetype_String {
+
+                        length "0..31";
+
+                    }
+
+                    description "manage address, a string of 0 to 31 characters";
+
+                }
+
+                leaf SoftwareVersion {
+
+                    type base:Basetype_OctectString255;
+
+                    description "software version, a string of 0 to 255 characters";
+
+                }
+
+                leaf PlatformVersion {
+
+                    type base:Basetype_OctectString255;
+
+                    description "platform version, a string of 0 to 255 characters";
+
+                }
+
+                leaf Duplex {
+
+                    type base:Basetype_UnsignedChar;
+
+                    description "duplex: 0(HALF); 1(FULL); others(UNKNOWN)";
+
+                }
+
+                leaf TTL {
+
+                    type base:Basetype_UnsignedChar;
+
+                    description "time to live, 0~255";
+
+                }
+
+            }
+
+        }
+
+        container LLDPNeighbors {
+
+            description "LLDP neighbor table";
+
+            list LLDPNeighbor {
+
+                description "LLDP neighbor";
+
+                key "TimeMark IfIndex NeighborIndex";
+
+                leaf TimeMark {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "time mark";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "interface index";
+
+                }
+
+                leaf NeighborIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "neighbor index";
+
+                }
+
+                leaf SystemName {
+
+                    type base:Basetype_OctectString255;
+
+                    description "system name, a string of 0 to 255 characters";
+
+                }
+
+                leaf ChassisId {
+
+                    type base:Basetype_OctectString255;
+
+                    description "chassis identifier, a string of 0 to 255 characters";
+
+                }
+
+                leaf PortId {
+
+                    type base:Basetype_OctectString255;
+
+                    description "port identifier, a string of 0 to 255 characters";
+
+                }
+
+            }
+
+        }
+
+        container GlobalStatus {
+
+            description "LLDP global status information";
+
+            leaf Enable {
+
+                type base:Basetype_Boolean;
+
+                description "LLDP feature enable status";
+
+            }
+
+            leaf CDP {
+
+                type base:Basetype_Boolean;
+
+                description "CDP compliance status";
+
+            }
+
+            leaf TxInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "5..32768";
+
+                }
+
+                description "Transmit interval of LLDPDU";
+
+            }
+
+            leaf FastInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..3600";
+
+                }
+
+                description "Fast transmit interval of LLDPDU";
+
+            }
+
+            leaf ReInitDelay {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..10";
+
+                }
+
+                description "Reinitialize delay";
+
+            }
+
+            leaf NofityInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "5..3600";
+
+                }
+
+                description "Traps notify interval";
+
+            }
+
+            leaf Mode {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                }
+
+                description "Bridge mode, Enumeration:
+
+                    0 Customer bridge mode.
+
+                    1 Service bridge mode.";
+
+            }
+
+            leaf MaxCredit {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..100";
+
+                }
+
+                description "Token bucket size for sending LLDPDUs";
+
+            }
+
+            leaf HoldMult {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "2..10";
+
+                }
+
+                description "TTL multiplier";
+
+            }
+
+            leaf FastCount {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..8";
+
+                }
+
+                description "TTL multiplier";
+
+            }
+
+            leaf RxTimeout {
+
+                type union {
+
+                    type uint32;
+
+                    type uint32;
+
+                }
+
+                description "The timeout for receiving LLDPDUs";
+
+            }
+
+            container ChassisID {
+
+                description "Chassis identifier";
+
+                leaf SubType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                    }
+
+                    description "Sub type of chassis ID";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_Binary {
+
+                        length "1..255";
+
+                    }
+
+                    description "Value of identifier";
+
+                }
+
+            }
+
+            leaf SystemName {
+
+                type base:Basetype_OctectString255;
+
+                description "System name";
+
+            }
+
+            leaf SystemDesc {
+
+                type base:Basetype_OctectString255;
+
+                description "System description";
+
+            }
+
+            leaf DeviceClass {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                    enum 3;
+
+                    enum 4;
+
+                }
+
+                description "MED device class, Enumeration:
+
+                    1 ClassI.
+
+                    2 ClassII.
+
+                    3 ClassIII.
+
+                    4 Connectivity device.";
+
+            }
+
+        }
+
+        container SysCaps {
+
+            description "LLDP system capabilities";
+
+            container Support {
+
+                description "Supported capabilities";
+
+                leaf Other {
+
+                    type base:Basetype_Boolean;
+
+                    description "Capabilities out of the list";
+
+                }
+
+                leaf Repeater {
+
+                    type base:Basetype_Boolean;
+
+                    description "Repeater capability";
+
+                }
+
+                leaf Bridge {
+
+                    type base:Basetype_Boolean;
+
+                    description "Bridge capability";
+
+                }
+
+                leaf WLANAccessPoint {
+
+                    type base:Basetype_Boolean;
+
+                    description "WLAN AP capability";
+
+                }
+
+                leaf Router {
+
+                    type base:Basetype_Boolean;
+
+                    description "Router capability";
+
+                }
+
+                leaf Telephone {
+
+                    type base:Basetype_Boolean;
+
+                    description "Telephone capability";
+
+                }
+
+                leaf DocsisCableDevice {
+
+                    type base:Basetype_Boolean;
+
+                    description "Docsis cable device capability";
+
+                }
+
+                leaf StationOnly {
+
+                    type base:Basetype_Boolean;
+
+                    description "Station only";
+
+                }
+
+                leaf CustomerBridge {
+
+                    type base:Basetype_Boolean;
+
+                    description "Customer bridge capability";
+
+                }
+
+                leaf ServiceBridge {
+
+                    type base:Basetype_Boolean;
+
+                    description "Service bridge capability";
+
+                }
+
+                leaf TPMR {
+
+                    type base:Basetype_Boolean;
+
+                    description "Two port MAC relay capability";
+
+                }
+
+            }
+
+            container Enable {
+
+                description "Enabled capabilities";
+
+                leaf Other {
+
+                    type base:Basetype_Boolean;
+
+                    description "Capabilities out of the list";
+
+                }
+
+                leaf Repeater {
+
+                    type base:Basetype_Boolean;
+
+                    description "Repeater capability";
+
+                }
+
+                leaf Bridge {
+
+                    type base:Basetype_Boolean;
+
+                    description "Bridge capability";
+
+                }
+
+                leaf WLANAccessPoint {
+
+                    type base:Basetype_Boolean;
+
+                    description "WLAN AP capability";
+
+                }
+
+                leaf Router {
+
+                    type base:Basetype_Boolean;
+
+                    description "Router capability";
+
+                }
+
+                leaf Telephone {
+
+                    type base:Basetype_Boolean;
+
+                    description "Telephone capability";
+
+                }
+
+                leaf DocsisCableDevice {
+
+                    type base:Basetype_Boolean;
+
+                    description "Docsis cable device capability";
+
+                }
+
+                leaf StationOnly {
+
+                    type base:Basetype_Boolean;
+
+                    description "Station only";
+
+                }
+
+                leaf CustomerBridge {
+
+                    type base:Basetype_Boolean;
+
+                    description "Customer bridge capability";
+
+                }
+
+                leaf ServiceBridge {
+
+                    type base:Basetype_Boolean;
+
+                    description "Service bridge capability";
+
+                }
+
+                leaf TPMR {
+
+                    type base:Basetype_Boolean;
+
+                    description "Two port MAC relay capability";
+
+                }
+
+            }
+
+        }
+
+        container Inventory {
+
+            description "LLDP system inventory information";
+
+            leaf HardwareRev {
+
+                type base:Basetype_OctectString255;
+
+                description "Hardware revision";
+
+            }
+
+            leaf FirmwareRev {
+
+                type base:Basetype_OctectString255;
+
+                description "Firmware revision";
+
+            }
+
+            leaf SoftwareRev {
+
+                type base:Basetype_OctectString255;
+
+                description "Software revision";
+
+            }
+
+            leaf SerialNum {
+
+                type base:Basetype_OctectString255;
+
+                description "Serial number";
+
+            }
+
+            leaf Manufacturer {
+
+                type base:Basetype_OctectString255;
+
+                description "Manufacture information";
+
+            }
+
+            leaf ModelName {
+
+                type base:Basetype_OctectString255;
+
+                description "Model name";
+
+            }
+
+            leaf AssetID {
+
+                type base:Basetype_OctectString255;
+
+                description "Asset identifier";
+
+            }
+
+        }
+
+        container GlobalStatistics {
+
+            description "LLDP global statistics information";
+
+            leaf LastUpdate {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "System running time when the last neighbor was updated. Unit: second.";
+
+            }
+
+            leaf NbAdd {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Total number of neighbors added";
+
+            }
+
+            leaf NbDelete {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Total number of neighbors deleted";
+
+            }
+
+            leaf NbDrop {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Total number of neighbors dropped";
+
+            }
+
+            leaf NbAged {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Total number of neighbors aged out";
+
+            }
+
+        }
+
+        container Interfaces {
+
+            description "LLDP interface status information";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Protocol interface status";
+
+                }
+
+                leaf CDP {
+
+                    type base:Basetype_Boolean;
+
+                    description "Interface CDP compliance status";
+
+                }
+
+                leaf MEDTopoChange {
+
+                    type base:Basetype_Boolean;
+
+                    description "MED topology change notification status";
+
+                }
+
+            }
+
+        }
+
+        container IfAgents {
+
+            description "LLDP interface agent information";
+
+            list IfAgent {
+
+                description "Row name";
+
+                key "IfIndex AgentID";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf AgentID {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "LLDP agent ID";
+
+                }
+
+                container AdminStatus {
+
+                    description "Admin status of LLDP";
+
+                    leaf Tx {
+
+                        type base:Basetype_Boolean;
+
+                        description "Transmit status";
+
+                    }
+
+                    leaf Rx {
+
+                        type base:Basetype_Boolean;
+
+                        description "Receive status";
+
+                    }
+
+                }
+
+                leaf CheckChangeInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..30";
+
+                    }
+
+                    description "Check change interval";
+
+                }
+
+                leaf Encap {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "LLDPDU Ethernet head encapsulation, Enumeration:
+
+                          0 Ethernet II encapsulation.
+
+                          1 SNAP encapsulation.";
+
+                }
+
+                leaf AddressFormat {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "MED topology change notification status";
+
+                }
+
+                leaf RemoteChange {
+
+                    type base:Basetype_Boolean;
+
+                    description "Remote change notification status";
+
+                }
+
+                leaf LLDPNbNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Total number of LLDP neighbors on the interface";
+
+                }
+
+                leaf CDPNbNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Total number of CDP neighbors on the interface";
+
+                }
+
+                leaf MEDNbNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Total number of MED neighbors on the interface";
+
+                }
+
+                leaf OptionalTLVNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Total number of optional TLVs in the last LLDPDU transmitted";
+
+                }
+
+                leaf UnknownTLVNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Total number of unknown TLVs received in all LLDPDUs";
+
+                }
+
+            }
+
+        }
+
+        container TLVSelects {
+
+            description "LLDP interface TLV transmitting status information";
+
+            list TLV {
+
+                description "Row name";
+
+                key "IfIndex AgentID";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf AgentID {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "LLDP agent ID";
+
+                }
+
+                leaf PortDesc {
+
+                    type base:Basetype_Boolean;
+
+                    description "Port description TLV transmitting status";
+
+                }
+
+                leaf SysName {
+
+                    type base:Basetype_Boolean;
+
+                    description "System name TLV transmitting status";
+
+                }
+
+                leaf SysDesc {
+
+                    type base:Basetype_Boolean;
+
+                    description "System description TLV transmitting status";
+
+                }
+
+                leaf SysCap {
+
+                    type base:Basetype_Boolean;
+
+                    description "System capability TLV transmitting status";
+
+                }
+
+                container ManageAddress {
+
+                    description "Management address TLV transmitting configuration";
+
+                    leaf SubType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "Management address sub type, Enumeration:
+
+                                1 Ipv4.
+
+                                2 Ipv6.";
+
+                    }
+
+                    leaf Address {
+
+                        type base:Basetype_Binary {
+
+                            length "1..31";
+
+                        }
+
+                        description "Management address value, Base64 Binary. 
+
+                                Length: 1 to 31 octets.
+
+                                The format of data is determined by the address subtype.";
+
+                    }
+
+                    leaf Enable {
+
+                        type base:Basetype_Boolean;
+
+                        description "Management address TLV transmitting status";
+
+                    }
+
+                }
+
+                leaf PVID {
+
+                    type base:Basetype_Boolean;
+
+                    description "Port VLAN ID TLV transmitting status";
+
+                }
+
+                container ProtocolVLAN {
+
+                    description "Port and protocol VLAN ID TLV transmitting configuration";
+
+                    leaf VLANID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..4094";
+
+                        }
+
+                        description "Protocol VLAN ID.";
+
+                    }
+
+                    leaf Enable {
+
+                        type base:Basetype_Boolean;
+
+                        description "Port and protocol VLAN ID TLV transmitting status";
+
+                    }
+
+                }
+
+                container VLANName {
+
+                    description "VLAN name TLV transmitting configuration";
+
+                    leaf VLANID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..4094";
+
+                        }
+
+                        description "VLAN ID";
+
+                    }
+
+                    leaf Enable {
+
+                        type base:Basetype_Boolean;
+
+                        description "VLAN name TLV transmitting status";
+
+                    }
+
+                }
+
+                leaf DCBX {
+
+                    type base:Basetype_Boolean;
+
+                    description "DCBX TLV transmitting status";
+
+                }
+
+                leaf LinkAgg {
+
+                    type base:Basetype_Boolean;
+
+                    description "Link aggregation TLV transmitting status";
+
+                }
+
+                container ManageVLAN {
+
+                    description "Management VLAN TLV transmitting configuration";
+
+                    leaf VLANID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..4094";
+
+                        }
+
+                        description "VLAN ID";
+
+                    }
+
+                    leaf Enable {
+
+                        type base:Basetype_Boolean;
+
+                        description "Management VLAN TLV transmitting status";
+
+                    }
+
+                }
+
+                leaf EVB {
+
+                    type base:Basetype_Boolean;
+
+                    description "EVB TLV transmitting status";
+
+                }
+
+                leaf QCN {
+
+                    type base:Basetype_Boolean;
+
+                    description "QCN TLV transmitting status";
+
+                }
+
+                leaf MACPHY {
+
+                    type base:Basetype_Boolean;
+
+                    description "Mac physic configuration/status TLV transmitting status";
+
+                }
+
+                leaf Power {
+
+                    type base:Basetype_Boolean;
+
+                    description "Power via MDI TLV transmitting status";
+
+                }
+
+                leaf MaxFrame {
+
+                    type base:Basetype_Boolean;
+
+                    description "Max frame size TLV transmitting status";
+
+                }
+
+                leaf MEDCapability {
+
+                    type base:Basetype_Boolean;
+
+                    description "MED capability TLV transmitting status";
+
+                }
+
+                leaf NetworkPolicy {
+
+                    type base:Basetype_Boolean;
+
+                    description "Network policy TLV transmitting status";
+
+                }
+
+                leaf ExtPower {
+
+                    type base:Basetype_Boolean;
+
+                    description "Extended power via MDI TLV transmitting status";
+
+                }
+
+                leaf Inventory {
+
+                    type base:Basetype_Boolean;
+
+                    description "Inventory TLVs transmitting status";
+
+                }
+
+            }
+
+        }
+
+        container ELINumbers {
+
+            description "LLDP emergency location identification number";
+
+            list ELIN {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf ELINumber {
+
+                    type base:Basetype_String {
+
+                        pattern "[0-9]{10,25}";
+
+                    }
+
+                    description "Emergency Location Identification Number";
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Location ID TLV transmitting status";
+
+                }
+
+            }
+
+        }
+
+        container CivicAddresses {
+
+            description "LLDP civic address";
+
+            list CivicAddress {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf DeviceType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Device type, Enumeration:
+
+                          0 DHCP Server.
+
+                          1 Network device.
+
+                          2 MED endpoint.";
+
+                }
+
+                leaf CountryCode {
+
+                    type base:Basetype_String {
+
+                        pattern "[A-Z]{2,2}";
+
+                    }
+
+                    description "Country code";
+
+                }
+
+                list CA {
+
+                    description "Civic address";
+
+                    key "Type Value";
+
+                    leaf Type {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..255";
+
+                        }
+
+                        description "Civic address type, Value range: 0 to 255.";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_OctectString {
+
+                            length "1..250";
+
+                        }
+
+                        description "Civic address value";
+
+                    }
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Location ID TLV transmitting status";
+
+                }
+
+            }
+
+        }
+
+        container IfStatistics {
+
+            description "LLDP interface statistics information";
+
+            list Stats {
+
+                description "Row name";
+
+                key "IfIndex AgentID";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf AgentID {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "LLDP agent ID";
+
+                }
+
+                leaf TxFrameNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of LLDP frames transmitted";
+
+                }
+
+                leaf RxFrameNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of LLDP frames received";
+
+                }
+
+                leaf DiscardFrameNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of LLDP frames discarded";
+
+                }
+
+                leaf ErrorFrameNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of LLDP error frames";
+
+                }
+
+                leaf DiscardTLVNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of LLDP TLVs discarded";
+
+                }
+
+                leaf UnknownTLVNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of LLDP TLVs unrecognized";
+
+                }
+
+                leaf AgedNbNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of LLDP neighbor information aged out";
+
+                }
+
+                leaf TxCDPFrameNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of CDP frames transmitted";
+
+                }
+
+                leaf RxCDPFrameNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of CDP frames received";
+
+                }
+
+                leaf DiscardCDPFrameNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of CDP frames discarded";
+
+                }
+
+                leaf ErrorCDPFrameNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The number of CDP error frames";
+
+                }
+
+            }
+
+        }
+
+        container NbBasicInfos {
+
+            description "Basic information of LLDP neighbors";
+
+            list BasicInfo {
+
+                description "Row name";
+
+                key "TimeMark IfIndex AgentID NeighborIndex";
+
+                leaf TimeMark {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Time mark";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf AgentID {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "LLDP agent ID";
+
+                }
+
+                leaf NeighborIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Neighbor index";
+
+                }
+
+                container ChassisID {
+
+                    description "Chassis identifier";
+
+                    leaf SubType {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                        }
+
+                        description "Sub type of chassis ID";
+
+                    }
+
+                    leaf ID {
+
+                        type base:Basetype_Binary {
+
+                            length "1..255";
+
+                        }
+
+                        description "Value of identifier, The format is determined by the subtype";
+
+                    }
+
+                }
+
+                container PortID {
+
+                    description "Port identifier";
+
+                    leaf SubType {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                        }
+
+                        description "Sub type of port ID";
+
+                    }
+
+                    leaf ID {
+
+                        type base:Basetype_Binary {
+
+                            length "1..255";
+
+                        }
+
+                        description "Value of identifier, The format is determined by the subtype";
+
+                    }
+
+                }
+
+                leaf TTL {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Time of Live";
+
+                }
+
+                leaf PortDesc {
+
+                    type base:Basetype_OctectString255;
+
+                    description "Port description";
+
+                }
+
+                leaf SystemName {
+
+                    type base:Basetype_OctectString255;
+
+                    description "System name";
+
+                }
+
+                leaf SystemDesc {
+
+                    type base:Basetype_OctectString255;
+
+                    description "System description";
+
+                }
+
+            }
+
+        }
+
+        container NbSysCaps {
+
+            description "system capabilities of LLDP neighbors";
+
+            list SysCap {
+
+                description "Row name";
+
+                key "TimeMark IfIndex AgentID NeighborIndex";
+
+                leaf TimeMark {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Time mark";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf AgentID {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "LLDP agent ID";
+
+                }
+
+                leaf NeighborIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Neighbor index";
+
+                }
+
+                container Support {
+
+                    description "Supported capabilities";
+
+                    leaf Other {
+
+                        type base:Basetype_Boolean;
+
+                        description "Capabilities out of the list";
+
+                    }
+
+                    leaf Repeater {
+
+                        type base:Basetype_Boolean;
+
+                        description "Repeater capability";
+
+                    }
+
+                    leaf Bridge {
+
+                        type base:Basetype_Boolean;
+
+                        description "Bridge capability";
+
+                    }
+
+                    leaf WLANAccessPoint {
+
+                        type base:Basetype_Boolean;
+
+                        description "WLAN AP capability";
+
+                    }
+
+                    leaf Router {
+
+                        type base:Basetype_Boolean;
+
+                        description "Router capability";
+
+                    }
+
+                    leaf Telephone {
+
+                        type base:Basetype_Boolean;
+
+                        description "Telephone capability";
+
+                    }
+
+                    leaf DocsisCableDevice {
+
+                        type base:Basetype_Boolean;
+
+                        description "Docsis cable device capability";
+
+                    }
+
+                    leaf StationOnly {
+
+                        type base:Basetype_Boolean;
+
+                        description "Station only";
+
+                    }
+
+                    leaf CustomerBridge {
+
+                        type base:Basetype_Boolean;
+
+                        description "Customer bridge capability";
+
+                    }
+
+                    leaf ServiceBridge {
+
+                        type base:Basetype_Boolean;
+
+                        description "Service bridge capability";
+
+                    }
+
+                    leaf TPMR {
+
+                        type base:Basetype_Boolean;
+
+                        description "Two port MAC relay capability";
+
+                    }
+
+                }
+
+                container Enable {
+
+                    description "Enabled capabilities";
+
+                    leaf Other {
+
+                        type base:Basetype_Boolean;
+
+                        description "Capabilities out of the list";
+
+                    }
+
+                    leaf Repeater {
+
+                        type base:Basetype_Boolean;
+
+                        description "Repeater capability";
+
+                    }
+
+                    leaf Bridge {
+
+                        type base:Basetype_Boolean;
+
+                        description "Bridge capability";
+
+                    }
+
+                    leaf WLANAccessPoint {
+
+                        type base:Basetype_Boolean;
+
+                        description "WLAN AP capability";
+
+                    }
+
+                    leaf Router {
+
+                        type base:Basetype_Boolean;
+
+                        description "Router capability";
+
+                    }
+
+                    leaf Telephone {
+
+                        type base:Basetype_Boolean;
+
+                        description "Telephone capability";
+
+                    }
+
+                    leaf DocsisCableDevice {
+
+                        type base:Basetype_Boolean;
+
+                        description "Docsis cable device capability";
+
+                    }
+
+                    leaf StationOnly {
+
+                        type base:Basetype_Boolean;
+
+                        description "Station only";
+
+                    }
+
+                    leaf CustomerBridge {
+
+                        type base:Basetype_Boolean;
+
+                        description "Customer bridge capability";
+
+                    }
+
+                    leaf ServiceBridge {
+
+                        type base:Basetype_Boolean;
+
+                        description "Service bridge capability";
+
+                    }
+
+                    leaf TPMR {
+
+                        type base:Basetype_Boolean;
+
+                        description "Two port MAC relay capability";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container NbManageAddresses {
+
+            description "management addresses information of LLDP neighbors";
+
+            list ManageAddress {
+
+                description "Row name";
+
+                key "TimeMark IfIndex AgentID NeighborIndex SubType Address";
+
+                leaf TimeMark {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Time mark";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf AgentID {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "LLDP agent ID";
+
+                }
+
+                leaf NeighborIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Neighbor index";
+
+                }
+
+                leaf SubType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                        enum 10;
+
+                        enum 11;
+
+                        enum 12;
+
+                        enum 13;
+
+                        enum 14;
+
+                        enum 15;
+
+                        enum 16;
+
+                        enum 17;
+
+                        enum 18;
+
+                        enum 19;
+
+                        enum 20;
+
+                        enum 21;
+
+                        enum 22;
+
+                        enum 23;
+
+                        enum 24;
+
+                    }
+
+                    description "Address type, Enumeration:
+
+                          0 Other
+
+                          1 Ipv4
+
+                          2 Ipv6
+
+                          3 NSAP
+
+                          4 HDLC
+
+                          5 BBN1822
+
+                          6 All802
+
+                          7 E163
+
+                          8 E164
+
+                          9 F69
+
+                          10 X121
+
+                          11 IPX
+
+                          12 AppleTalk
+
+                          13 DECNetIV
+
+                          14 BanyanVines
+
+                          15 E164WithNSAP
+
+                          16 DNS
+
+                          17 DistinguishedName
+
+                          18 ASNumber
+
+                          19 XTPoverIpv4
+
+                          20 XTPoverIpv6
+
+                          21 XTPNativeModeXTP
+
+                          22 FibreChannelWWPN
+
+                          23 FibreChannelWWNN
+
+                          24 GWID";
+
+                }
+
+                leaf Address {
+
+                    type base:Basetype_Binary {
+
+                        length "1..31";
+
+                    }
+
+                    description "Address value, the format is determined by the address subtype.";
+
+                }
+
+                leaf InterfaceType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Interface type, Enumeration:
+
+                          1 Unknown
+
+                          2 IfIndex
+
+                          3 PortIndex";
+
+                }
+
+                leaf InterfaceID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Interface identifier";
+
+                }
+
+            }
+
+        }
+
+        container NbDot1Infos {
+
+            description "IEEE 802.1 organizationally specified information of LLDP neighbors";
+
+            list Dot1Info {
+
+                description "Row name";
+
+                key "TimeMark IfIndex AgentID NeighborIndex";
+
+                leaf TimeMark {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Time mark";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf AgentID {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "LLDP agent ID";
+
+                }
+
+                leaf NeighborIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Neighbor index";
+
+                }
+
+                leaf PVID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "Neighbor interface PVID";
+
+                }
+
+                leaf ManageVLAN {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "Neighbor Management VLAN";
+
+                }
+
+                leaf-list ProtocolID {
+
+                    type base:Basetype_Binary {
+
+                        length "1..255";
+
+                    }
+
+                    description "Protocol identifier like Ethertype";
+
+                }
+
+                container LinkAgg {
+
+                    description "Link aggregation information";
+
+                    leaf Support {
+
+                        type base:Basetype_Boolean;
+
+                        description "Link aggregation capability";
+
+                    }
+
+                    leaf Enable {
+
+                        type base:Basetype_Boolean;
+
+                        description "Link aggregation enable status";
+
+                    }
+
+                    leaf PortIndex {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Member port ID";
+
+                    }
+
+                }
+
+                leaf VIDUsage {
+
+                    type base:Basetype_Binary {
+
+                        length "4";
+
+                    }
+
+                    description "VID usage digest, Base64 Binary. 
+
+                          Length: 4 octets.";
+
+                }
+
+            }
+
+        }
+
+        container NbProtocolVLANs {
+
+            description "port and protocol VLANs information of LLDP neighbors";
+
+            list NbProtocolVLAN {
+
+                description "Row name";
+
+                key "TimeMark IfIndex AgentID NeighborIndex VLANID";
+
+                leaf TimeMark {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Time mark";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf AgentID {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "LLDP agent ID";
+
+                }
+
+                leaf NeighborIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Neighbor index";
+
+                }
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4094";
+
+                    }
+
+                    description "Protocol VLAN ID";
+
+                }
+
+                leaf Support {
+
+                    type base:Basetype_Boolean;
+
+                    description "Port and protocol capability";
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Port and protocol enable status";
+
+                }
+
+            }
+
+        }
+
+        container NbVLANNames {
+
+            description "VLAN names information of LLDP neighbors";
+
+            list NbVLANName {
+
+                description "Row name";
+
+                key "TimeMark IfIndex AgentID NeighborIndex VLANID";
+
+                leaf TimeMark {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Time mark";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf AgentID {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "LLDP agent ID";
+
+                }
+
+                leaf NeighborIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Neighbor index";
+
+                }
+
+                leaf VLANID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "VLAN ID";
+
+                }
+
+                leaf VLANName {
+
+                    type base:Basetype_OctectString {
+
+                        length "0..32";
+
+                    }
+
+                    description "VLAN name";
+
+                }
+
+            }
+
+        }
+
+        container NbDot3Infos {
+
+            description "IEEE 802.3 organizationally specified information of LLDP neighbors";
+
+            list Dot3Info {
+
+                description "Row name";
+
+                key "TimeMark IfIndex NeighborIndex";
+
+                leaf TimeMark {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Time mark";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf NeighborIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Neighbor index";
+
+                }
+
+                container MACPHY {
+
+                    description "Mac physic configuration/status information";
+
+                    leaf AutoNegSupport {
+
+                        type base:Basetype_Boolean;
+
+                        description "Auto negoniate capability";
+
+                    }
+
+                    leaf AutoNegEnable {
+
+                        type base:Basetype_Boolean;
+
+                        description "Auto negoniate enable status";
+
+                    }
+
+                    leaf MAU {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Operational media attachment unit type";
+
+                    }
+
+                }
+
+                leaf MaxFrameSize {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Max frame size";
+
+                }
+
+                container Power {
+
+                    description "Power over MDI information";
+
+                    leaf PortClass {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                        }
+
+                        description "PoE device type, Enumeration:
+
+                                0 PD
+
+                                1 PSE";
+
+                    }
+
+                    leaf Support {
+
+                        type base:Basetype_Boolean;
+
+                        description "PSE MDI power capability";
+
+                    }
+
+                    leaf Enable {
+
+                        type base:Basetype_Boolean;
+
+                        description "PSE MDI power enable status";
+
+                    }
+
+                    leaf Pairs {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "PSE power pair, Enumeration:
+
+                                1 Single
+
+                                2 Spare";
+
+                    }
+
+                    leaf PairsCtrlAbility {
+
+                        type base:Basetype_Boolean;
+
+                        description "PSE pairs control ability";
+
+                    }
+
+                    leaf Classification {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                        }
+
+                        description "Power class, Enumeration:
+
+                                1 Class0
+
+                                2 Class1
+
+                                3 Class2
+
+                                4 Class3
+
+                                5 Class4";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container NbMEDInfos {
+
+            description "MED organizationally specified information of LLDP neighbors";
+
+            list MEDInfo {
+
+                description "Row name";
+
+                key "TimeMark IfIndex NeighborIndex";
+
+                leaf TimeMark {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Time mark";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf NeighborIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Neighbor index";
+
+                }
+
+                leaf DeviceClass {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "MED device class, Enumeration:
+
+                          1 ClassI
+
+                          2 ClassII
+
+                          3 ClassIII
+
+                          4 Connectivity device";
+
+                }
+
+                container Inventory {
+
+                    description "Device inventory information";
+
+                    leaf HardwareRev {
+
+                        type base:Basetype_OctectString255;
+
+                        description "Hardware revision";
+
+                    }
+
+                    leaf FirmwareRev {
+
+                        type base:Basetype_OctectString255;
+
+                        description "Firmware revision";
+
+                    }
+
+                    leaf SoftwareRev {
+
+                        type base:Basetype_OctectString255;
+
+                        description "Software revision";
+
+                    }
+
+                    leaf SerialNum {
+
+                        type base:Basetype_OctectString255;
+
+                        description "Serial number";
+
+                    }
+
+                    leaf Manufacturer {
+
+                        type base:Basetype_OctectString255;
+
+                        description "Manufacture information";
+
+                    }
+
+                    leaf ModelName {
+
+                        type base:Basetype_OctectString255;
+
+                        description "Model name";
+
+                    }
+
+                    leaf AssetID {
+
+                        type base:Basetype_OctectString255;
+
+                        description "Asset identifier";
+
+                    }
+
+                }
+
+                container ExtPower {
+
+                    description "Extended power via MDI";
+
+                    leaf Source {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "PSE power source, Enumeration:
+
+                                0 Unknown
+
+                                1 Primary
+
+                                2 Backup";
+
+                    }
+
+                    leaf Priority {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "PoE priority, Enumeration:
+
+                                1 Critical
+
+                                2 High
+
+                                3 Low";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Power value, Unit: milli-Watt.";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container NbELINumbers {
+
+            description "MED emergency location identification numbers of LLDP neighbors";
+
+            list ELIN {
+
+                description "Row name";
+
+                key "TimeMark IfIndex NeighborIndex";
+
+                leaf TimeMark {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Time mark";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf NeighborIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Neighbor index";
+
+                }
+
+                leaf ELINumber {
+
+                    type base:Basetype_OctectString {
+
+                        length "10..25";
+
+                    }
+
+                    description "Emergency Location Identification Number";
+
+                }
+
+            }
+
+        }
+
+        container NbCivicAddresses {
+
+            description "MED civic addresses of LLDP neighbors";
+
+            list CivicAddress {
+
+                description "Row name";
+
+                key "TimeMark IfIndex NeighborIndex";
+
+                leaf TimeMark {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Time mark";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf NeighborIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Neighbor index";
+
+                }
+
+                leaf DeviceType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Device type, Enumeration:
+
+                          0 DHCP Server
+
+                          1 Network device
+
+                          2 MED endpoint";
+
+                }
+
+                leaf CountryCode {
+
+                    type base:Basetype_OctectString {
+
+                        length "2";
+
+                    }
+
+                    description "Country code";
+
+                }
+
+                list CA {
+
+                    description "Civic address";
+
+                    key "Type Value";
+
+                    leaf Type {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..255";
+
+                        }
+
+                        description "Civic address type, Value range: 0 to 255.";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_OctectString {
+
+                            length "0..250";
+
+                        }
+
+                        description "Civic address value";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container NbNetworkPolicies {
+
+            description "MED network policy information of LLDP neighbors";
+
+            list NetworkPolicy {
+
+                description "Row name";
+
+                key "TimeMark IfIndex NeighborIndex";
+
+                leaf TimeMark {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Time mark";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf NeighborIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Neighbor index";
+
+                }
+
+                container Application {
+
+                    description "Application information";
+
+                    leaf AppType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                        }
+
+                        description "Application type, Enumeration:
+
+                                1 Voice
+
+                                2 Voice Signaling
+
+                                3 Guest Voice
+
+                                4 Guest Voice Signaling
+
+                                5 Softphone Voice
+
+                                6 Video Conferencing
+
+                                7 Streaming Video
+
+                                8 Video Signaling";
+
+                    }
+
+                    leaf UnknownFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "The policy is currently unknown";
+
+                    }
+
+                    leaf TagFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "Whether VLAN tag used or not";
+
+                    }
+
+                    leaf VLANID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4095";
+
+                        }
+
+                        description "Network policy VLAN";
+
+                    }
+
+                    leaf L2priority {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..7";
+
+                        }
+
+                        description "L2 Priority";
+
+                    }
+
+                    leaf DSCP {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..63";
+
+                        }
+
+                        description "DSCP value";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container NbUnknownBasicTLVs {
+
+            description "unknown basic type TLV information of LLDP neighbors";
+
+            list UnknownBasicTLV {
+
+                description "Row name";
+
+                key "TimeMark IfIndex AgentID NeighborIndex";
+
+                leaf TimeMark {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Time mark";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf AgentID {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "LLDP agent ID";
+
+                }
+
+                leaf NeighborIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Neighbor index";
+
+                }
+
+                list TLV {
+
+                    description "TLV Data";
+
+                    key "Type Value";
+
+                    leaf Type {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..126";
+
+                        }
+
+                        description "TLV type";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_Binary {
+
+                            length "0..511";
+
+                        }
+
+                        description "TLV value";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container NbUnknownOrgTLVs {
+
+            description "unknown organizationally specified TLV information of LLDP neighbors";
+
+            list UnknownOrgTLV {
+
+                description "Row name";
+
+                key "TimeMark IfIndex AgentID NeighborIndex";
+
+                leaf TimeMark {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Time mark";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf AgentID {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "LLDP agent ID";
+
+                }
+
+                leaf NeighborIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Neighbor index";
+
+                }
+
+                list TLV {
+
+                    description "TLV Data";
+
+                    key "OUI SubType Value";
+
+                    leaf OUI {
+
+                        type base:Basetype_Binary;
+
+                        description "Organizationally Unique Identifier";
+
+                    }
+
+                    leaf SubType {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..255";
+
+                        }
+
+                        description "TLV subtype";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_Binary {
+
+                            length "0..511";
+
+                        }
+
+                        description "TLV value";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container LocalBasicInfos {
+
+            description "basic information of the local interface";
+
+            list BasicInfo {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                container PortID {
+
+                    description "Port identifier";
+
+                    leaf SubType {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                        }
+
+                        description "Sub type of port ID";
+
+                    }
+
+                    leaf ID {
+
+                        type base:Basetype_Binary {
+
+                            length "1..255";
+
+                        }
+
+                        description "Value of identifier, The format is determined by the subtype";
+
+                    }
+
+                }
+
+                leaf PortDesc {
+
+                    type base:Basetype_OctectString255;
+
+                    description "Port description";
+
+                }
+
+            }
+
+        }
+
+        container LocalManageAddresses {
+
+            description "management addresses information of local interface";
+
+            list ManageAddress {
+
+                description "Row name";
+
+                key "IfIndex AgentID SubType Address";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf AgentID {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "LLDP agent ID";
+
+                }
+
+                leaf SubType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 6;
+
+                    }
+
+                    description "Address type, Enumeartion:
+
+                          0 Other
+
+                          1 Ipv4
+
+                          2 Ipv6
+
+                          6 All802";
+
+                }
+
+                leaf Address {
+
+                    type base:Basetype_Binary {
+
+                        length "1..31";
+
+                    }
+
+                    description "Address value, the format is determined by the address subtype.";
+
+                }
+
+                leaf InterfaceType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Interface type, Enueration:
+
+                          1 Unknown
+
+                          2 IfIndex
+
+                          3 PortIndex";
+
+                }
+
+                leaf InterfaceID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Interface identifier";
+
+                }
+
+            }
+
+        }
+
+        container LocalDot1Infos {
+
+            description "IEEE 802.1 organizationally specified information of local interface";
+
+            list Dot1Info {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf PVID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "Interface PVID";
+
+                }
+
+                container PortProtocolVLAN {
+
+                    description "Protocol VLAN";
+
+                    leaf VLANID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..4094";
+
+                        }
+
+                        description "Protocol VLAN ID";
+
+                    }
+
+                    leaf Support {
+
+                        type base:Basetype_Boolean;
+
+                        description "Port and protocol capability";
+
+                    }
+
+                    leaf Enable {
+
+                        type base:Basetype_Boolean;
+
+                        description "Port and protocol enable status";
+
+                    }
+
+                }
+
+                container VLANName {
+
+                    description "VLAN Name";
+
+                    leaf VLANID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..4094";
+
+                        }
+
+                        description "VLAN ID";
+
+                    }
+
+                    leaf Name {
+
+                        type base:Basetype_OctectString {
+
+                            length "0..32";
+
+                        }
+
+                        description "VLAN name";
+
+                    }
+
+                }
+
+                leaf ManageVLAN {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4094";
+
+                    }
+
+                    description "Management VLAN";
+
+                }
+
+                leaf ProtocolID {
+
+                    type base:Basetype_Binary {
+
+                        length "1..255";
+
+                    }
+
+                    description "Protocol identifier like Ethertype";
+
+                }
+
+                container LinkAgg {
+
+                    description "Link aggregation information";
+
+                    leaf Support {
+
+                        type base:Basetype_Boolean;
+
+                        description "Link aggregation capability";
+
+                    }
+
+                    leaf Enable {
+
+                        type base:Basetype_Boolean;
+
+                        description "Link aggregation enable status";
+
+                    }
+
+                    leaf PortIndex {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Member port ID";
+
+                    }
+
+                }
+
+                leaf VIDUsage {
+
+                    type base:Basetype_Binary {
+
+                        length "4";
+
+                    }
+
+                    description "VID usage digest, Base64 Binary. 
+
+                          Length: 4 octets.";
+
+                }
+
+            }
+
+        }
+
+        container LocalDot3Infos {
+
+            description "IEEE 802.3 organizationally specified information of local interface";
+
+            list Dot3Info {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                container MACPHY {
+
+                    description "Mac physic configuration/status information";
+
+                    leaf AutoNegSupport {
+
+                        type base:Basetype_Boolean;
+
+                        description "Auto negoniate capability";
+
+                    }
+
+                    leaf AutoNegEnable {
+
+                        type base:Basetype_Boolean;
+
+                        description "Auto negoniate enable status";
+
+                    }
+
+                    leaf MAU {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Operational media attachment unit type";
+
+                    }
+
+                }
+
+                leaf MaxFrameSize {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Max frame size";
+
+                }
+
+                container Power {
+
+                    description "Power over MDI information";
+
+                    leaf PortClass {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                        }
+
+                        description "PoE device type, Enumeration:
+
+                                0 PD
+
+                                1 PSE";
+
+                    }
+
+                    leaf Support {
+
+                        type base:Basetype_Boolean;
+
+                        description "PSE MDI power capability";
+
+                    }
+
+                    leaf Enable {
+
+                        type base:Basetype_Boolean;
+
+                        description "PSE MDI power enable status";
+
+                    }
+
+                    leaf Pairs {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "PSE power pair, Enumeration:
+
+                                1 Single
+
+                                2 Spare";
+
+                    }
+
+                    leaf PairsCtrlAbility {
+
+                        type base:Basetype_Boolean;
+
+                        description "PSE pairs control ability";
+
+                    }
+
+                    leaf Classification {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                        }
+
+                        description "Power class, Enumeration:
+
+                                1 Class0
+
+                                2 Class1
+
+                                3 Class2
+
+                                4 Class3
+
+                                5 Class4";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container LocalMEDInfos {
+
+            description "MED organizationally specified information of local interface";
+
+            list MEDInfo {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                container NetworkPolicy {
+
+                    description "Network policy";
+
+                    leaf AppType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                        }
+
+                        description "Application type, Enumeration:
+
+                                1 Voice
+
+                                2 Voice Signaling
+
+                                3 Guest Voice
+
+                                4 Guest Voice Signaling
+
+                                5 Softphone Voice
+
+                                6 Video Conferencing
+
+                                7 Streaming Video
+
+                                8 Video Signaling";
+
+                    }
+
+                    leaf UnknownFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "The policy is currently unknown";
+
+                    }
+
+                    leaf TagFlag {
+
+                        type base:Basetype_Boolean;
+
+                        description "Whether VLAN tag used or not";
+
+                    }
+
+                    leaf VLANID {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..4094";
+
+                        }
+
+                        description "Network policy VLAN";
+
+                    }
+
+                    leaf L2priority {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..7";
+
+                        }
+
+                        description "L2 Priority";
+
+                    }
+
+                    leaf DSCP {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..63";
+
+                        }
+
+                        description "DSCP value";
+
+                    }
+
+                }
+
+                container ExtPower {
+
+                    description "Extended power via MDI";
+
+                    leaf Source {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "PSE power source, Enumeration:
+
+                                0 Unknown
+
+                                1 Primary
+
+                                2 Backup";
+
+                    }
+
+                    leaf Priority {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "PoE priority, Enumeration:
+
+                                1 Critical
+
+                                2 High
+
+                                3 Low";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Power value, Unit: milli-Watt.";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,159 @@
+module H3C-ib-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "ib-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ib config.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container IB {
+
+        container IbBackup {
+
+            list Backup {
+
+                key "IfIndex BackupIfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf BackupIfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..255";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IbTrack {
+
+            list Track {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf TrackNum {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..1024";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IbBackupInfo {
+
+            list BackupInfo {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf UpperThreshold {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..99";
+
+                    }
+
+                }
+
+                leaf LowerThreshold {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..99";
+
+                    }
+
+                }
+
+                leaf UpDelay {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                }
+
+                leaf DownDelay {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                }
+
+                leaf FlowCheck {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "30..600";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

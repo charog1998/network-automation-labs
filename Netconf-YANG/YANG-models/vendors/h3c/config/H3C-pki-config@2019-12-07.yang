@@ -1,0 +1,1063 @@
+module H3C-pki-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "pki-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for pki config.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container PKI {
+
+        container Domains {
+
+            description "Configure PKI domains
+
+                This table supports creating rows.";
+
+            list Domain {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "PKI domain name, 1 to 31 characters, case insensitive";
+
+                }
+
+                leaf CAIdentifier {
+
+                    type base:Basetype_Text {
+
+                        length "1..63";
+
+                    }
+
+                    description "CA identifier name, 1 to 63 characters, case sensitive";
+
+                }
+
+                leaf Entity {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Reference a PKI entity for the PKI domain, 1 to 31 characters, case insensitive";
+
+                }
+
+                leaf CertRequestFrom {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "The type of certificate request reception authority
+
+                          Enumeration
+
+                          1-CA
+
+                          2-RA";
+
+                }
+
+                container CertRequestURL {
+
+                    description "The URL of the certificate request reception authority (CA or RA), Data structure, Members include: URL, VRF";
+
+                    leaf URL {
+
+                        type base:Basetype_URLString {
+
+                            length "1..511";
+
+                        }
+
+                        description "The value of URL, 1 to 511 characters, case sensitive";
+
+                    }
+
+                    leaf VRF {
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                        description "The VPN instance which the address is belongs to, 1 to 31 characters, case sensitive";
+
+                    }
+
+                }
+
+                container CertRequestMode {
+
+                    description "The certificate request mode, Data structur, members include: Mode, Password";
+
+                    leaf Mode {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The mode of certificate request
+
+                              Enumeration:
+
+                              1-Auto
+
+                              2-Manual
+
+                              Default value is 2";
+
+                    }
+
+                    leaf PWDType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The password type of certificate revocation
+
+                              Enumeration:
+
+                              1-simple
+
+                              2-cipher
+
+                              The column can be valid only when Mode is Auto";
+
+                    }
+
+                    leaf Password {
+
+                        type base:Basetype_String {
+
+                            length "1..73";
+
+                        }
+
+                        description "The password value of certificate revocation, type simple string length is 1 to 31, type cipher string length is 1 to 73
+
+                              Case sensitive, the column can be valid only when Mode is Auto";
+
+                    }
+
+                    leaf RenewBeforeExpire {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..365";
+
+                        }
+
+                        description "The minimum interval in days for certificate renewal request before expiraiton.
+
+                              The column can be valid only when Mode is Auto.";
+
+                    }
+
+                    leaf RenewReusePubKey {
+
+                        type base:Basetype_Boolean;
+
+                        description "Reuse the previous public key, otherwise generate a new public key.
+
+                              Boolean:
+
+                               - true   Enable
+
+                               - false  Disable
+
+                              Default value is false.
+
+                              The column can be valid only when Mode is Auto and RenewBeforeExpire is present.";
+
+                    }
+
+                    leaf RenewAutoAppendCN {
+
+                        type base:Basetype_Boolean;
+
+                        description "Automatically apppend Common Name.
+
+                              Boolean:
+
+                               - true   Enable
+
+                               - false  Disable
+
+                              Default value is false.
+
+                              The column can be valid only when Mode is Auto and RenewBeforeExpire is present.";
+
+                    }
+
+                }
+
+                container RootCertFingerprint {
+
+                    description "The fingerprint for verifying the validity of the CA root certificate, data structure, members include: Type, Value";
+
+                    leaf Type {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The fingerprint type
+
+                              Enumeration:
+
+                              1-MD5
+
+                              2-SHA1";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_String {
+
+                            pattern "[a-fA-F0-9]{32}|[a-fA-F0-9]{40}";
+
+                        }
+
+                        description "The fingerprint value, 32 or 40 hex characters, type MD5 is 32 hex string length, type SHA1 is 40 hex string length";
+
+                    }
+
+                }
+
+                container LDAPServer {
+
+                    description "An LDAP server for a PKI domain, Data structure, Members include: Host, PortNumber, VRF";
+
+                    leaf Host {
+
+                        type base:Basetype_String {
+
+                            length "1..255";
+
+                        }
+
+                        description "The hostname of the LDAP server, 1 to 255 characters, the string can be IPv4 address, IPv6 address, or domain name, case sensitive";
+
+                    }
+
+                    leaf PortNumber {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..65535";
+
+                        }
+
+                        description "The port number of the LDAP server, unsigned integer(1-65535), default value is389";
+
+                    }
+
+                    leaf VRF {
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                        description "The VPN instance which the address is belongs to, 1 to 31 characters, case sensitive";
+
+                    }
+
+                }
+
+                container CRLURL {
+
+                    description "the URL of the CRL repository, data structure, Members include: URL, VRF";
+
+                    leaf URL {
+
+                        type base:Basetype_String {
+
+                            length "1..511";
+
+                        }
+
+                        description "The value of URL, 1 to 511 characters, case sensitive,The URL format is ldap://server_location or
+
+                              http://server_location,Server_location can be an IP address or a domain name.";
+
+                    }
+
+                    leaf VRF {
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                        description "The VPN instance which the address is belongs to, 1 to 31 characters, case sensitive";
+
+                    }
+
+                }
+
+                leaf CRLCheck {
+
+                    type base:Basetype_Boolean;
+
+                    description "If check whether the certificate has been revoked by CRL
+
+                          Boolean:
+
+                          true, Enable
+
+                          false, Disable
+
+                          Default value is false";
+
+                }
+
+                container Usage {
+
+                    description "Certificate usage for requesting certificate, data structure, members include IKE, SSLServer, SSLClient, can include one or more certificate usage at the same time";
+
+                    leaf IKE {
+
+                        type base:Basetype_Boolean;
+
+                        description "Use certificate as the IKE
+
+                              Boolean:
+
+                              true, Enable
+
+                              false, Disable";
+
+                    }
+
+                    leaf SSLServer {
+
+                        type base:Basetype_Boolean;
+
+                        description "Use certificate as the SSL server certificates
+
+                              Boolean:
+
+                              true, Enable
+
+                              false, Disable";
+
+                    }
+
+                    leaf SSLClient {
+
+                        type base:Basetype_Boolean;
+
+                        description "Use certificate as the SSL client
+
+                              Boolean:
+
+                              true, Enable
+
+                              false, Disable";
+
+                    }
+
+                }
+
+                container CertRequestPoll {
+
+                    description "The polling interval and the maximum number of attempts to query certificate request statu, data structure, members include: Count, Interval";
+
+                    leaf Count {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..100";
+
+                        }
+
+                        description "The value of the maximum number, unsigned integer, 1 to 100, default value is 50";
+
+                    }
+
+                    leaf Interval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "5..168";
+
+                        }
+
+                        description "The value of the polling interval, unsigned integer, 5 to 168, in minutes, default value is 20";
+
+                    }
+
+                }
+
+                container SourceIP {
+
+                    description "The source IP address for PKI protocol packets, data structure, Members include: AddressType, Address, IfIndex";
+
+                    leaf AddressType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The type of IP Address
+
+                              Enumeration:
+
+                              1-IPv4
+
+                              2-IPv6";
+
+                    }
+
+                    leaf Address {
+
+                        type base:Basetype_IpAddress;
+
+                        description "The value of IP Address, IPv4 or IPv6";
+
+                    }
+
+                    leaf IfIndex {
+
+                        type base:Basetype_NameAndIndexUnion;
+
+                        description "The index of interface, get the primary IP address of the interface, unsigned integer";
+
+                    }
+
+                }
+
+                leaf pkcs7EncryType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 5;
+
+                        enum 128;
+
+                    }
+
+                    description "The type of certificate specify an encryption authority 
+
+                          Enumeration
+
+                          1-3des-cbc
+
+                          2-aes-128-cbc
+
+                          5-des-cbc
+
+                          128-sm4-cbc";
+
+                }
+
+                leaf CRLUpdatePeriod {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..720";
+
+                    }
+
+                    description "The value of the CRL update period, unsigned integer, value range is 1 to 720
+
+                          Default value is 0 which means CRL update function is closed
+
+                          The unit is hour";
+
+                }
+
+            }
+
+        }
+
+        container DomainPubkeys {
+
+            description "Reference the asymmetric keys for PKI domain.
+
+                This table supports creating rows.";
+
+            list Pubkey {
+
+                description "Row name";
+
+                key "Domain Type Purpose";
+
+                leaf Domain {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "PKI domain name, 1 to 31 characters";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "Type of algorithm
+
+                          Enumeration:
+
+                          1-RSA
+
+                          2-DSA
+
+                          3-ECDSA
+
+                          4-SM2";
+
+                }
+
+                leaf Purpose {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Key purpose
+
+                          Enumeration:
+
+                          1-General
+
+                          2-Signature
+
+                          3-Encryption";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..64";
+
+                        pattern "[-A-Za-z0-9]{0,}";
+
+                    }
+
+                    description "Key name, 1 to 64 characters";
+
+                }
+
+                leaf Length {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "192..2048";
+
+                    }
+
+                    description "Length of public key, see table PKI/AuthorityAlgs for supported length";
+
+                }
+
+            }
+
+        }
+
+        container Entities {
+
+            description "Configure the PKI entities
+
+                This table supports creating rows.";
+
+            list Entity {
+
+                description "Row name";
+
+                key "EntityName";
+
+                leaf EntityName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "PKI entity name, 1 to 31 characters, case insensitive";
+
+                }
+
+                leaf CommonName {
+
+                    type base:Basetype_Text {
+
+                        length "1..63";
+
+                        pattern "[^,]{0,}";
+
+                    }
+
+                    description "The common name, 1 to 63 characters, case sensitive, comma can not be contained";
+
+                }
+
+                leaf Country {
+
+                    type base:Basetype_String {
+
+                    }
+
+                    description "The country code, 2 to 2 characters";
+
+                }
+
+                leaf State {
+
+                    type base:Basetype_Text {
+
+                        length "1..63";
+
+                        pattern "[^,]{0,}";
+
+                    }
+
+                    description "The state name, 1 to 63 characters, text, case sensitive";
+
+                }
+
+                leaf Locality {
+
+                    type base:Basetype_Text {
+
+                        length "1..63";
+
+                        pattern "[^,]{0,}";
+
+                    }
+
+                    description "The locality name, 1 to 63 characters, case sensitive, comma can not be contained";
+
+                }
+
+                leaf Organization {
+
+                    type base:Basetype_Text {
+
+                        length "1..63";
+
+                        pattern "[^,]{0,}";
+
+                    }
+
+                    description "The organization name, 1 to 63 characters, case sensitive, comma can not be contained";
+
+                }
+
+                leaf OrganizationUnit {
+
+                    type base:Basetype_Text {
+
+                        length "1..63";
+
+                        pattern "[^,]{0,}";
+
+                    }
+
+                    description "The unit name, 1 to 63 characters, case sensitive, comma can not be contained";
+
+                }
+
+                leaf FQDN {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                    description "The FQDN name, 1 to 255 characters, case sensitive.";
+
+                }
+
+                container IP {
+
+                    description "The IP address, data structure, members include: Ipv4Address, SrcIEfIndex";
+
+                    leaf Ipv4Address {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "Ipv4 address";
+
+                    }
+
+                    leaf IfIndex {
+
+                        type base:Basetype_NameAndIndexUnion;
+
+                        description "The index of interface";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container CertAccessPolicies {
+
+            description "Configure the certificate access control policies
+
+                This table supports creating rows.";
+
+            list Policy {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "The name of certificate access control policy";
+
+                }
+
+            }
+
+        }
+
+        container CertAccessRules {
+
+            description "Configure the rules of the certificate access control policy
+
+                This table supports creating rows.";
+
+            list Rule {
+
+                description "Row name";
+
+                key "Policy RuleID";
+
+                leaf Policy {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "The name of certificate access control policy, 1 to 31 characters";
+
+                }
+
+                leaf RuleID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..16";
+
+                    }
+
+                    description "Index of the rule in the access control policy, Unsigned integer, 1 to 16";
+
+                }
+
+                leaf Action {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "How to operate the certificate that match the rule
+
+						  Enumeration:
+
+						  1-Permit
+
+						  2-Deny";
+
+                }
+
+                leaf AttributeGroup {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "The name of certificate attribute group, 1 to 31 characters";
+
+                }
+
+            }
+
+        }
+
+        container CertAttributeGroups {
+
+            description "Configure the certificate attribute groups
+
+                This table supports creating rows.";
+
+            list Group {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "The name of certificate attribute group, 1 to 31 characters";
+
+                }
+
+            }
+
+        }
+
+        container CertAttributes {
+
+            description "Configure the attributes of the certificate attribute groups
+
+                This table supports creating rows.";
+
+            list Attribute {
+
+                description "Row name";
+
+                key "Group AttributeID";
+
+                leaf Group {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "1 to 31 characters, case insensitive";
+
+                }
+
+                leaf AttributeID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..16";
+
+                    }
+
+                    description "Unsigned integer, 1 to 16";
+
+                }
+
+                leaf Object {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Enumeration:
+
+						  1-alt-subject-name
+
+						  2-issuer-name
+
+						  3-subject-name";
+
+                }
+
+                leaf Item {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Enumeration:
+
+						  1-DN
+
+						  2-FQDN
+
+						  3-IpAddress";
+
+                }
+
+                leaf Operator {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "Enumeration:
+
+						  1-contain
+
+						  2-equal
+
+						  3-not contain
+
+						  4-not equal";
+
+                }
+
+                leaf Value {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                    description "1 to 255 characters, case insensitive";
+
+                }
+
+            }
+
+        }
+
+        container StoragePath {
+
+            description "Configure the PKI storage path";
+
+            leaf StorageCertPath {
+
+                type base:Basetype_String;
+
+                description "The PKI certificate storage path, string, case sensitive,the path can't begin with / or ../";
+
+            }
+
+            leaf StorageCRLPath {
+
+                type base:Basetype_String;
+
+                description "The PKI CRL storage path, string, case sensitive, the path can't begin with / or ../";
+
+            }
+
+        }
+
+    }
+
+}

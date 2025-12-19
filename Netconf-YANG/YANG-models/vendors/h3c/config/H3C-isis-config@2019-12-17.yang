@@ -1,0 +1,463 @@
+module H3C-isis-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "isis-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for isis config.";
+
+    revision 2019-12-17 {
+
+        description "Initial revision.";
+
+    }
+
+    container ISIS {
+
+        container Interfaces {
+
+            description "ISIS interface information table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf EnableNameV4 {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Interface ipv4 enable";
+
+                }
+
+                leaf EnableNameV6 {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Interface ipv6 enable";
+
+                }
+
+                container CostV4 {
+
+                    description "Interface ipv4 cost";
+
+                    leaf Level1Value {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..16777215";
+
+                        }
+
+                        description "Level1 Cost Value";
+
+                    }
+
+                    leaf Level2Value {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..16777215";
+
+                        }
+
+                        description "Level2 Cost Value";
+
+                    }
+
+                }
+
+                container CostV6 {
+
+                    description "Interface ipv6 cost";
+
+                    leaf Level1Value {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..16777215";
+
+                        }
+
+                        description "Level1 Cost Value";
+
+                    }
+
+                    leaf Level2Value {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..16777215";
+
+                        }
+
+                        description "Level2 Cost Value";
+
+                    }
+
+                }
+
+                leaf LevelType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Level type";
+
+                }
+
+                container PrefixSidV4 {
+
+                    description "PrefixSidV4";
+
+                    leaf Sid {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..1048575";
+
+                        }
+
+                        description "Sid";
+
+                    }
+
+                    leaf SidType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "SidType";
+
+                    }
+
+                    leaf ExplicitNull {
+
+                        type base:Basetype_Boolean;
+
+                        description "ExplicitNull";
+
+                    }
+
+                    leaf NFlagClear {
+
+                        type base:Basetype_Boolean;
+
+                        description "NFlagClear";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Instances {
+
+            description "ISIS instance information table
+
+                This table supports creating rows.";
+
+            list Instance {
+
+                description "Row name";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Instance name";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VRF;
+
+                    }
+
+                    description "Vrfname";
+
+                }
+
+            }
+
+        }
+
+        container VRFs {
+
+            description "ISIS VRF information table";
+
+            list VRF {
+
+                description "VRF";
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "VRF name";
+
+                }
+
+                container CostStyle {
+
+                    description "Row name";
+
+                    leaf Style {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                        }
+
+                        description "Cost style";
+
+                    }
+
+                    leaf RelaxSpfLimit {
+
+                        type base:Basetype_Boolean;
+
+                        description "Whether to accept routes with cost greater than 1023";
+
+                    }
+
+                }
+
+                leaf-list NetworkEntity {
+
+                    type base:Basetype_String {
+
+                        length "1..82";
+
+                    }
+
+                    description "Configure the NET for an IS-IS process";
+
+                }
+
+                leaf LevelId {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Level ID";
+
+                }
+
+                container DistributeBgpLs {
+
+                    description "DistributeBgpLs";
+
+                    leaf InstanceId {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                        description "instance id";
+
+                    }
+
+                    leaf LevelType {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "Level Type";
+
+                    }
+
+                }
+
+                leaf NSR {
+
+                    type base:Basetype_Boolean;
+
+                    description "NSR";
+
+                }
+
+                container SRGB {
+
+                    description "SRGB";
+
+                    leaf Lowerbound {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "16000..23999";
+
+                        }
+
+                        description "segment-routing global-block minvalue";
+
+                    }
+
+                    leaf Upperbound {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "16001..24000";
+
+                        }
+
+                        description "segment-routing global-block maxvalue";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Familys {
+
+            description "Address family information
+
+                This table supports creating rows.";
+
+            list Family {
+
+                description "Row name";
+
+                key "Name Type";
+
+                leaf Name {
+
+                    type base:Basetype_UnsignedShort {
+
+                        range "1..max";
+
+                    }
+
+                    description "Instance name";
+
+                }
+
+                leaf Type {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Address family identifier";
+
+                }
+
+                leaf SrMpls {
+
+                    type base:Basetype_Boolean;
+
+                    description "SrMpls enable";
+
+                }
+
+                leaf SrAdjEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "SrAdjEnable enable";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

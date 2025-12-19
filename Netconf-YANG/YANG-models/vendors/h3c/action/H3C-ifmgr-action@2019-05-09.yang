@@ -1,0 +1,247 @@
+module H3C-ifmgr-action
+
+{
+
+    namespace "http://www.h3c.com/netconf/action:1.0";
+
+    prefix "ifmgr-action";
+
+    import comware-basetype 
+
+    {
+
+         prefix "base";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Author";
+
+    description "The module entities for ifmgr action.";
+
+    revision 2019-05-09
+
+	{
+
+        description "Initial revision.";
+
+    }
+
+    container Ifmgr
+
+    {
+
+        config false;
+
+        container Interfaces
+
+        {
+
+            description "This table contains interface action information.";
+
+            list Interface
+
+            {
+
+                key "IfIndex";
+
+                leaf IfIndex
+
+                {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index as table index";
+
+                }
+
+                leaf Loopback
+
+                {
+
+                    type enumeration
+
+                    {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "
+
+                          Interface loopback testing as follows:
+
+                          1 Internal
+
+                          2 External
+
+                        ";
+
+                }
+
+                leaf Default
+
+                {
+
+                    type string;
+
+                    description "Restore default settings.";
+
+                }
+
+                leaf Clear
+
+                {
+
+                    type string;
+
+                    description "Clears interface statistics.";
+
+                }
+
+            }
+
+        }
+
+        container ClearAllIfStatistics
+
+        {
+
+            description "This table is used to clear statistics on all interfaces.";
+
+            leaf Clear
+
+            {
+
+                type string;
+
+                description "Clears statistics on all interfaces.";
+
+            }
+
+        }
+
+        container SubInterfaces
+
+        {
+
+            description "This table is used to create or delete sub-interfaces.";
+
+            list Interface
+
+            {
+
+                key "IfIndex";
+
+                leaf IfIndex
+
+                {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index as table index.";
+
+                }
+
+                leaf SubNum
+
+                {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Sub-interface number.";
+
+                }
+
+                leaf Remove
+
+                {
+
+                    type string;
+
+                    description "Delete specified sub-interface.";
+
+                }
+
+            }
+
+        }
+
+        container LogicInterfaces
+
+        {
+
+            description "This table is used to create or delete logic interfaces.";
+
+            list Interface
+
+            {
+
+                key "IfTypeExt Number";
+
+                leaf IfTypeExt
+
+                {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "the interface type";
+
+                }
+
+                leaf Number
+
+                {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Number of the logic interface.";
+
+                }
+
+                leaf Remove
+
+                {
+
+                    type string;
+
+                    description "Delete specified logic interface.";
+
+                }
+
+            }
+
+        }
+
+        container VirtualCableTest
+
+        {
+
+            description "VirtualCableTest table";
+
+            list Interface
+
+            {
+
+                key "IfIndex";
+
+                leaf IfIndex
+
+                {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index as table index.";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

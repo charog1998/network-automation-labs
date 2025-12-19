@@ -1,0 +1,455 @@
+module H3C-aft-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "aft-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for aft config.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container AFT {
+
+        container AftLogEnable {
+
+            description "AFT日志开关配置信息";
+
+            leaf EnableSwitch {
+
+                type base:Basetype_Boolean;
+
+                description "是否使能AFT日志功能: true: 使能，false: 去使能";
+
+            }
+
+        }
+
+        container AftAddressGroup {
+
+            description "AFT地址组配置表
+
+                This table supports creating rows.";
+
+            list GroupNumbers {
+
+                description "行的名称";
+
+                key "GroupNumber";
+
+                leaf GroupNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "地址组索引号";
+
+                }
+
+            }
+
+        }
+
+        container AftAddressGroupMember {
+
+            description "AFT地址组成员配置表
+
+                This table supports creating rows.";
+
+            list GroupMembers {
+
+                description "行的名称";
+
+                key "GroupNumber StartIpv4Address EndIpv4Address";
+
+                leaf GroupNumber {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "地址组索引号";
+
+                }
+
+                leaf StartIpv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "地址组开始IP";
+
+                }
+
+                leaf EndIpv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "地址组结束IP";
+
+                }
+
+            }
+
+        }
+
+        container AftV6toV4SrcDynamicAcl {
+
+            description "AFTv6tov4 src acl 配置表
+
+                This table supports creating rows.";
+
+            list RuleNumbers {
+
+                description "行的名称";
+
+                key "Ipv6Acl";
+
+                leaf Ipv6Acl {
+
+                    type union {
+
+                        type int64;
+
+                        type string;
+
+                    }
+
+                    description "ACL号(非负整数，取值范围[2000～3999])或者ACL名称";
+
+                }
+
+                leaf Type {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                        }
+
+                    }
+
+                    description "源地址转换方式：
+                          0: 地址组
+                          1: EASY IP";
+
+                }
+
+                leaf AddressGroup {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..65535";
+
+                        }
+
+                    }
+
+                    description "地址组索引号";
+
+                }
+
+                leaf IfIndex {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..99";
+
+                        }
+
+                    }
+
+                    description "接口索引";
+
+                }
+
+                leaf AddrGrpType {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                    }
+
+                    description "0: NPT 。1: PAT，2 portblocksize";
+
+                }
+
+                leaf PortBlockSize {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "100..64512";
+
+                        }
+
+                    }
+
+                    description "端口块尺寸";
+
+                }
+
+                leaf Ipv4VpnName {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                    }
+
+                    description "外网虚拟路由转发实例(字符串,长度为[1～31])";
+
+                }
+
+            }
+
+        }
+
+        container AftPrefixNat64 {
+
+            description "AFT前缀配置信息
+
+                This table supports creating rows.";
+
+            list PrefixNat64 {
+
+                description "行的名称";
+
+                key "Ipv6Prefix Ipv6PrefixLength";
+
+                leaf Ipv6Prefix {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "前缀";
+
+                }
+
+                leaf Ipv6PrefixLength {
+
+                    type enumeration {
+
+                        enum 32;
+
+                        enum 40;
+
+                        enum 48;
+
+                        enum 56;
+
+                        enum 64;
+
+                        enum 96;
+
+                    }
+
+                    description "前缀长度 32 40 48 56 64 96";
+
+                }
+
+            }
+
+        }
+
+        container AftEnable {
+
+            description "AFT接口使能表
+
+                This table supports creating rows.";
+
+            list Interface {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_String {
+
+                        length "1..99";
+
+                    }
+
+                    description "接口索引";
+
+                }
+
+                leaf EnableSwitch {
+
+                    type base:Basetype_Boolean;
+
+                    description "使能开关";
+
+                }
+
+            }
+
+        }
+
+        container AftFlowBegin {
+
+            description "AFT flow-begin 开关配置信息";
+
+            leaf EnableSwitch {
+
+                type base:Basetype_Boolean;
+
+                description "是否使能AFT flow-begin 功能: true: 使能，false: 去使能";
+
+            }
+
+        }
+
+        container AftFlowEnd {
+
+            description "AFT flow-end 开关配置信息";
+
+            leaf EnableSwitch {
+
+                type base:Basetype_Boolean;
+
+                description "是否使能AFT flow-begin 功能: true: 使能，false: 去使能";
+
+            }
+
+        }
+
+        container V4V6 {
+
+            description "IPV4 IPV6  转换表
+
+                This table supports creating rows.";
+
+            list Static {
+
+                key "TransMode Ipv4Address Vpn4Name Ipv6Address Vpn6Name";
+
+                leaf TransMode {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "TransMode 0:6to4  1:4to6";
+
+                }
+
+                leaf Ipv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Ipv4 地址";
+
+                }
+
+                leaf Vpn4Name {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                    }
+
+                    description "Ipv4 VRF(字符串,长度为[1～31])";
+
+                }
+
+                leaf Ipv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "Ipv6 地址";
+
+                }
+
+                leaf Vpn6Name {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                    }
+
+                    description "Ipv6 VRF(字符串,长度为[1～31])";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

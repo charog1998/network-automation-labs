@@ -1,0 +1,291 @@
+module H3C-ssh-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "ssh-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ssh data.";
+
+    revision 2019-12-17 {
+
+        description "Initial revision.";
+
+    }
+
+    container SSH {
+
+        config false;
+
+        container Capabilities {
+
+            description "SSH capabilities server table.";
+
+            leaf CompatibleSSH1XStateSupport {
+
+                type base:Basetype_Boolean;
+
+            }
+
+            leaf RekeyIntervalSupport {
+
+                type base:Basetype_Boolean;
+
+            }
+
+        }
+
+        container Server {
+
+            description "SSH server table.";
+
+            leaf STelnetState {
+
+                type base:Basetype_Boolean;
+
+                description "Global Stelnet Server feature.";
+
+            }
+
+            leaf SFTPState {
+
+                type base:Basetype_Boolean;
+
+                description "Global SFTP Server feature.";
+
+            }
+
+            leaf SCPState {
+
+                type base:Basetype_Boolean;
+
+                description "Global SCP Server feature.";
+
+            }
+
+            leaf DSCP {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..63";
+
+                }
+
+                description "Set the IPv4 Differentiated Services Codepoint (DSCP) value.";
+
+            }
+
+            leaf DSCP6 {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..63";
+
+                }
+
+                description "Set the IPv6 Differentiated Services Codepoint (DSCP) value.";
+
+            }
+
+            leaf Ipv4ACLNum {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "2000..4999";
+
+                }
+
+                description "Specify an IPv4 ACL used to control the SSH clients' access.";
+
+            }
+
+            leaf Ipv6ACLNum {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "2000..4999";
+
+                }
+
+                description "Specify an IPv6 ACL used to control the SSH clients' access.";
+
+            }
+
+            leaf SFTPIdleTimeout {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..35791";
+
+                }
+
+                description "Specify SFTP timeout value.";
+
+            }
+
+            leaf RekeyInterval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..24";
+
+                }
+
+                description "Specify the SSH server key rekey-interval.";
+
+            }
+
+            leaf AuthRetries {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..5";
+
+                }
+
+                description "Specify authentication retry times.";
+
+            }
+
+            leaf AuthTimeout {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..120";
+
+                }
+
+                description "Specify authentication timeout.";
+
+            }
+
+            leaf CompatibleSSH1XState {
+
+                type base:Basetype_Boolean;
+
+                description "Enable compatible ssh1x.";
+
+            }
+
+            leaf ACLDenyLog {
+
+                type base:Basetype_Boolean;
+
+                description "Enable compatible ssh1x.";
+
+            }
+
+            leaf PKIDomain {
+
+                type base:Basetype_String {
+
+                    length "1..31";
+
+                }
+
+                description "SSH server pki-domain (string, 1-31 characters)";
+
+            }
+
+            leaf Port {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..65535";
+
+                }
+
+                description "SSH server port.";
+
+            }
+
+        }
+
+        container Users {
+
+            list User {
+
+                key "Name";
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..80";
+
+                    }
+
+                    description "SSH user name (string, 1-80 characters)";
+
+                }
+
+                leaf Service {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..5";
+
+                    }
+
+                    description "Service type of SSH user.";
+
+                }
+
+                leaf Authentication {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4";
+
+                    }
+
+                    description "Authentication method of SSH user.";
+
+                }
+
+                leaf PublicKey {
+
+                    type base:Basetype_String {
+
+                        length "1..64";
+
+                    }
+
+                    description "Public key name.";
+
+                }
+
+                leaf PKIDomain {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "PKI domain name.";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

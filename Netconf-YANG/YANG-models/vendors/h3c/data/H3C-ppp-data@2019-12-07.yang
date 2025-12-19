@@ -1,0 +1,697 @@
+module H3C-ppp-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "ppp-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ppp data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container PPP {
+
+        config false;
+
+        container PPPIpPool {
+
+            list IpPool {
+
+                key "GroupName PoolName StartIPaddr EndIPaddr";
+
+                leaf GroupName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf PoolName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf StartIPaddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf EndIPaddr {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_Ipv4Address;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container PPPAuth {
+
+            list AuthMode {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                        enum 10;
+
+                        enum 11;
+
+                        enum 12;
+
+                        enum 13;
+
+                        enum 14;
+
+                        enum 15;
+
+                    }
+
+                }
+
+                leaf Callin {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf Domain {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container PPPUserChap {
+
+            list UserChap {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..80";
+
+                    }
+
+                }
+
+                leaf PassWord {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container PPPDNS {
+
+            list IpcpDNS {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf PriAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf SecAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+            }
+
+        }
+
+        container PPPDNSAccept {
+
+            list DNSAdmitAny {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf AdmitAny {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container PPPDNSRequest {
+
+            list DNSRequest {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf Request {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container PPPOEUserNumInfo {
+
+            leaf Num {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+        }
+
+        container PPPOEUserInfo {
+
+            list PPPOEUser {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..80";
+
+                    }
+
+                }
+
+                leaf MacAddr {
+
+                    type base:Basetype_MacAddress;
+
+                }
+
+                leaf IpAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf ObjectGroup {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container PPPUserPap {
+
+            list UserPap {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..80";
+
+                    }
+
+                }
+
+                leaf PassWord {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container PPPRmtAddr {
+
+            list RmtAddr {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                }
+
+                leaf IPaddress {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf PoolName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container HistoryUserInfo {
+
+            list HistoryUser {
+
+                key "Interval Index";
+
+                leaf Interval {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                }
+
+                leaf Index {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf TimeStamp {
+
+                    type base:Basetype_DateTime;
+
+                }
+
+                leaf Num {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+        container PPPUserInfo {
+
+            list PPPUser {
+
+                key "PPPIndex";
+
+                leaf PPPIndex {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                }
+
+                leaf UserType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                }
+
+                leaf State {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                    }
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..80";
+
+                    }
+
+                }
+
+                leaf MacAddr {
+
+                    type base:Basetype_MacAddress;
+
+                }
+
+                leaf IpAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf IPv6Addr {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "Ipv6 Address";
+
+                }
+
+                leaf AuthenDomain {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+                leaf AuthorDomain {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                }
+
+                leaf VPNInstanceName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf UserID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf ServiceVLAN {
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                leaf CustomerVLAN {
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                leaf IPv6NDPool {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+                leaf VxLANID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf LoginTime {
+
+                    type base:Basetype_DateTime;
+
+                }
+
+                leaf OnlineTime {
+
+                    type base:Basetype_String {
+
+                        length "1..8";
+
+                    }
+
+                }
+
+                leaf RemainTime {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf UserProfile {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf GroupUserProfile {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf InboundCAR {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf OutboundCAR {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf InboundPIR {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf OutboundPIR {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf IPv4FlowStat {
+
+                    type base:Basetype_String {
+
+                        length "1..80";
+
+                    }
+
+                }
+
+                leaf IPv6FlowStat {
+
+                    type base:Basetype_String {
+
+                        length "1..80";
+
+                    }
+
+                }
+
+                leaf AccessInterface {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf BasInterface {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf CfgInterface {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf ObjectGroup {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

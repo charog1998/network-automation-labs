@@ -1,0 +1,111 @@
+module H3C-igmp-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "igmp-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for igmp config.";
+
+    revision 2019-12-17 {
+
+        description "Initial revision.";
+
+    }
+
+    container IGMP {
+
+        container Interfaces {
+
+            description "IGMP interface information table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Enabled {
+
+                    type base:Basetype_Boolean;
+
+                    description "IGMP enable status";
+
+                }
+
+                leaf Version {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "IGMP version";
+
+                }
+
+            }
+
+        }
+
+        container HostInterfaces {
+
+            description "IGMP host interface information table";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Enabled {
+
+                    type base:Basetype_Boolean;
+
+                    description "IGMP host enable status";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

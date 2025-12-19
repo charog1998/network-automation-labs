@@ -1,0 +1,103 @@
+module H3C-super-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "super-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for super data.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container Super {
+
+        config false;
+
+        container GlobalConfig {
+
+            leaf ModeType {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..3";
+
+                }
+
+            }
+
+            leaf DefaultRole {
+
+                type base:Basetype_String {
+
+                    length "1..63";
+
+                }
+
+            }
+
+        }
+
+        container Passwords {
+
+            list Password {
+
+                key "RoleName";
+
+                leaf RoleName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container PasswordLimit {
+
+            leaf MinLen {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf MaxLen {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf MinTypeNum {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+        }
+
+    }
+
+}

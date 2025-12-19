@@ -1,0 +1,1255 @@
+module H3C-l2vpn-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "l2vpn-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for l2vpn data.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container L2VPN {
+
+        config false;
+
+        container Base {
+
+            description "Table of global L2VPN";
+
+            leaf Enable {
+
+                type base:Basetype_Boolean;
+
+                description "Whether L2VPN feature is enabled globally";
+
+            }
+
+            leaf SupportVsiInterface {
+
+                type base:Basetype_Boolean;
+
+                description "Whether VSI interface feature is supported";
+
+            }
+
+            leaf VsiInterfaceMinID {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Minimum VSI interface ID";
+
+            }
+
+            leaf VsiInterfaceMaxID {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Maximum VSI interface ID";
+
+            }
+
+            leaf SupportSRV {
+
+                type base:Basetype_Boolean;
+
+                description "Whether SRV feature is supported";
+
+            }
+
+            leaf SupportControlWord {
+
+                type base:Basetype_Boolean;
+
+                description "Whether control word feature is supported";
+
+            }
+
+            leaf SupportVPLSHubSpoke {
+
+                type base:Basetype_Boolean;
+
+                description "Whether VPLS hub-spoke feature is supported";
+
+            }
+
+            leaf SupportVPLSMACLimit {
+
+                type base:Basetype_Boolean;
+
+                description "Whether VPLS MAC limit feature is supported";
+
+            }
+
+            leaf MACLimitMAX {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Maximum VPLS MAC limit";
+
+            }
+
+            leaf SupportVPWSInterworking {
+
+                type base:Basetype_Boolean;
+
+                description "Whether VPWS interworking feature is supported";
+
+            }
+
+            leaf SupportVPWSDualReceive {
+
+                type base:Basetype_Boolean;
+
+                description "Whether VPWS dualreceive feature is supported";
+
+            }
+
+            leaf SupportVSIStatistics {
+
+                type base:Basetype_Boolean;
+
+                description "Whether VSI statistics feature is supported";
+
+            }
+
+            leaf SupportPWStatistics {
+
+                type base:Basetype_Boolean;
+
+                description "Whether PW statistics feature is supported";
+
+            }
+
+            leaf SupportServiceClass {
+
+                type base:Basetype_Boolean;
+
+                description "Whether the service class feature is supported";
+
+            }
+
+            leaf ServiceClassValueMax {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Maximum service class value";
+
+            }
+
+            leaf StatisticsInterval {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Interval for collecting packet statistics";
+
+            }
+
+            leaf SupportOverlayTunnelStatistics {
+
+                type base:Basetype_Boolean;
+
+                description "Whether the overlay tunnel statistics feature is supported";
+
+            }
+
+        }
+
+        container SrvEncapCapabilities {
+
+            description "The encapsulation capabilities of service instance";
+
+            leaf Default {
+
+                type base:Basetype_Boolean;
+
+                description "Support for matching packets by the default criteria which matches packets that do not match any other service instance";
+
+            }
+
+            leaf Untagged {
+
+                type base:Basetype_Boolean;
+
+                description "Support for matching untagged packets";
+
+            }
+
+            leaf Tagged {
+
+                type base:Basetype_Boolean;
+
+                description "Support for matching all tagged packets";
+
+            }
+
+            leaf SvlanId {
+
+                type base:Basetype_Boolean;
+
+                description "Support for matching packets by a SVLAN ID";
+
+            }
+
+            leaf SvlanIdOnlyTagged {
+
+                type base:Basetype_Boolean;
+
+                description "Support for matching only tagged packets by a SVLAN ID";
+
+            }
+
+            leaf SvlanIdCvlanId {
+
+                type base:Basetype_Boolean;
+
+                description "Support for matching packets by a SVLAN ID and a CVLAN ID";
+
+            }
+
+            leaf CvlanId {
+
+                type base:Basetype_Boolean;
+
+                description "Support for matching packets by a CVLAN ID";
+
+            }
+
+            leaf CvlanList {
+
+                type base:Basetype_Boolean;
+
+                description "Support for matching packets by CVLAN ID list";
+
+            }
+
+            leaf SvlanIdCvlanList {
+
+                type base:Basetype_Boolean;
+
+                description "Support for matching packets by a SVLAN ID and CVLAN ID list";
+
+            }
+
+            leaf SvlanIdCvlanAll {
+
+                type base:Basetype_Boolean;
+
+                description "Support for matching packets by a SVLAN ID and all CVLAN ID";
+
+            }
+
+            leaf SvlanList {
+
+                type base:Basetype_Boolean;
+
+                description "Support for matching packets by SVLAN ID list";
+
+            }
+
+            leaf SvlanListOnlyTagged {
+
+                type base:Basetype_Boolean;
+
+                description "Support for matching only tagged packets by SVLAN ID list";
+
+            }
+
+        }
+
+        container VSIs {
+
+            description "Table of VSI
+
+                This table supports creating rows.";
+
+            list VSI {
+
+                description "Row name";
+
+                key "VsiName";
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "VSI name";
+
+                }
+
+                leaf HubSpoke {
+
+                    type base:Basetype_Boolean;
+
+                    description "Support for hub spoke capability";
+
+                }
+
+                leaf VxlanID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..16777215";
+
+                    }
+
+                    description "VXLAN ID";
+
+                }
+
+                leaf NvgreID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..16777215";
+
+                    }
+
+                    description "NVGRE ID";
+
+                }
+
+                leaf ArpSuppression {
+
+                    type base:Basetype_Boolean;
+
+                    description "ARP suppression";
+
+                }
+
+                leaf MacLearning {
+
+                    type base:Basetype_Boolean;
+
+                    description "MAC ddress learning";
+
+                }
+
+                leaf MacLimit {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Mac table limit";
+
+                }
+
+                leaf Flooding {
+
+                    type base:Basetype_Boolean;
+
+                    description "Flooding";
+
+                }
+
+                leaf VsiInterfaceID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "VSI interface ID";
+
+                }
+
+                leaf Statistics {
+
+                    type base:Basetype_Boolean;
+
+                    description "VSI statistics";
+
+                }
+
+                leaf StatisticsOverlayTunnel {
+
+                    type base:Basetype_Boolean;
+
+                    description "Overlay tunnel statistics";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "1..80";
+
+                    }
+
+                    description "Description for the VSI";
+
+                }
+
+                leaf AdminStatus {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Administratively status";
+
+                }
+
+                leaf LocMacCnt {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The count of local MAC addresses";
+
+                }
+
+                leaf ServiceClass {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Service class value";
+
+                }
+
+            }
+
+        }
+
+        container PWClasses {
+
+            description "This table contains PW class information
+
+                This table supports creating rows.";
+
+            list PWClass {
+
+                description "Row name";
+
+                key "PWClassName";
+
+                leaf PWClassName {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                    description "PW class name";
+
+                }
+
+                leaf ControlWord {
+
+                    type base:Basetype_Boolean;
+
+                    description "control word for ACs";
+
+                }
+
+                leaf PWType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "PW type";
+
+                }
+
+                leaf SequencingBoth {
+
+                    type base:Basetype_Boolean;
+
+                    description "Sequencing for both incoming and outgoing packets";
+
+                }
+
+            }
+
+        }
+
+        container SRVs {
+
+            description "Table of SRV
+
+                This table supports creating rows.";
+
+            list SRV {
+
+                description "Row name";
+
+                key "IfIndex SrvID";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf SrvID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4096";
+
+                    }
+
+                    description "Service instance ID";
+
+                }
+
+                leaf Encap {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                        enum 6;
+
+                        enum 7;
+
+                        enum 8;
+
+                        enum 9;
+
+                        enum 10;
+
+                        enum 11;
+
+                        enum 12;
+
+                    }
+
+                    description "Encapsulation.
+
+                        Enumeration:
+
+                          1:default
+
+                          2:untagged
+
+                          3:tagged
+
+                          4:svlanId
+
+                          5:svlanIdOnlyTagged
+
+                          6:svlanIdCvlanId
+
+                          7:CvlanId
+
+                          8:CvlanList
+
+                          9:SvlanIdCvlanList
+
+                          10:SvlanIdCvlanALL
+
+                          11:SvlanList
+
+                          12:SvlanListOnlyTagged";
+
+                }
+
+                leaf SVlanRange {
+
+                    type base:Basetype_VlanRange;
+
+                    description "SVLAN range, VlanRange Type";
+
+                }
+
+                leaf CVlanRange {
+
+                    type base:Basetype_VlanRange;
+
+                    description "CVLAN range, VlanRange Type";
+
+                }
+
+            }
+
+        }
+
+        container ACs {
+
+            description "Table of AC
+
+                This table supports creating rows.";
+
+            list AC {
+
+                description "Row name";
+
+                key "IfIndex SrvID";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf SrvID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4096";
+
+                    }
+
+                    description "Service instance ID";
+
+                }
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "VSI name";
+
+                }
+
+                leaf AccessMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Access mode.
+
+                        Enumeration:
+
+                          1: VLAN
+
+                          2: ethernet";
+
+                }
+
+                leaf Hub {
+
+                    type base:Basetype_Boolean;
+
+                    description "Hub spoke attribute";
+
+                }
+
+                leaf Statistics {
+
+                    type base:Basetype_Boolean;
+
+                    description "AC statistics. Boolean: true(Enabled), false(Disabled)";
+
+                }
+
+                leaf InPkts {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of inbound packets";
+
+                }
+
+                leaf InOctets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of inbound bytes";
+
+                }
+
+                leaf OutPkts {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of Outbound packets";
+
+                }
+
+                leaf OutOctets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of Outbound bytes";
+
+                }
+
+            }
+
+        }
+
+        container FloodingMACs {
+
+            description "Table of flooding MAC addresses
+
+                This table supports creating rows.";
+
+            list MAC {
+
+                description "Row name";
+
+                key "VsiName MacAddr";
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "VSI name";
+
+                }
+
+                leaf MacAddr {
+
+                    type base:Basetype_MacAddress;
+
+                    description "MAC address";
+
+                }
+
+            }
+
+        }
+
+        container LocalMACs {
+
+            description "Table of local MAC addresses
+
+                This table supports creating rows.";
+
+            list MAC {
+
+                description "Row name";
+
+                key "VsiName MacAddr";
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "VSI name";
+
+                }
+
+                leaf MacAddr {
+
+                    type base:Basetype_MacAddress;
+
+                    description "MAC address";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf SrvID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4096";
+
+                    }
+
+                    description "Service instance ID";
+
+                }
+
+            }
+
+        }
+
+        container VSIStatistics {
+
+            description "Table of VSI traffic statistics";
+
+            list Statistics {
+
+                description "Row name";
+
+                key "VsiName";
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "VSI name";
+
+                }
+
+                leaf InPkts {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of inbound packets";
+
+                }
+
+                leaf InOctets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of inbound bytes";
+
+                }
+
+                leaf InErrors {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of inbound error packets";
+
+                }
+
+                leaf InDiscards {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of inbound discard packets";
+
+                }
+
+                leaf OutPkts {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of Outbound packets";
+
+                }
+
+                leaf OutOctets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of Outbound bytes";
+
+                }
+
+                leaf OutErrors {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of Outbound error packets";
+
+                }
+
+                leaf OutDiscards {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of Outbound discard packets";
+
+                }
+
+            }
+
+        }
+
+        container AvailableVSIInterfaceID {
+
+            description "Table of the available VSI interface ID";
+
+            leaf ID {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Available VSI interface ID";
+
+            }
+
+        }
+
+        container VSIInterfaces {
+
+            description "Table of VSI interfaces
+
+                This table supports creating rows.";
+
+            list Interface {
+
+                description "Row name";
+
+                key "ID";
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "VSI interface ID";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "2..47";
+
+                    }
+
+                    description "Full name of an interface";
+
+                }
+
+                leaf LocalEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Local distributed gateway";
+
+                }
+
+                leaf L3VNI {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..16777215";
+
+                    }
+
+                    description "L3VNI for the tenant";
+
+                }
+
+            }
+
+        }
+
+        container VSIIpv4Subnets {
+
+            description "Table of VSI IPv4 subnet
+
+                This table supports creating rows.";
+
+            list Ipv4Subnet {
+
+                description "Row name";
+
+                key "VsiName SubnetAddress WildCardMask";
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "VSI name";
+
+                }
+
+                leaf SubnetAddress {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "IPv4 address";
+
+                }
+
+                leaf WildCardMask {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Wildcard mask";
+
+                }
+
+                leaf VsiInterfaceID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "VSI interface ID";
+
+                }
+
+            }
+
+        }
+
+        container VSIIpv6Subnets {
+
+            description "Table of VSI IPv6 subnet
+
+                This table supports creating rows.";
+
+            list Ipv6Subnet {
+
+                description "Row name";
+
+                key "VsiName SubnetAddress PrefixLength";
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "VSI name";
+
+                }
+
+                leaf SubnetAddress {
+
+                    type base:Basetype_Ipv6Address;
+
+                    description "IPv6 address";
+
+                }
+
+                leaf PrefixLength {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Prefix length of the IPv6 address";
+
+                }
+
+                leaf VsiInterfaceID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "VSI interface ID";
+
+                }
+
+            }
+
+        }
+
+        container L3Interfaces {
+
+            description "This table contains information about ACs for Layer 3 Ethernet interfaces";
+
+            list L3Interface {
+
+                description "L3Interface row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf VsiName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "VSI name";
+
+                }
+
+                leaf AccessMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Access mode.
+
+                        Enumeration:
+
+                          1: VLAN
+
+                          2: ethernet";
+
+                }
+
+                leaf Hub {
+
+                    type base:Basetype_Boolean;
+
+                    description "Hub spoke attribute";
+
+                }
+
+            }
+
+        }
+
+        container InterfaceConfigs {
+
+            description "Table of Interface configurations
+
+                This table supports creating rows.";
+
+            list InterfaceConfig {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf SoftwareLearning {
+
+                    type base:Basetype_Boolean;
+
+                    description "Whether learning MAC addresses through software function is enabled. Boolean: true(Enabled), false(Disabled)";
+
+                }
+
+                leaf Dci {
+
+                    type base:Basetype_Boolean;
+
+                    description "Whether DCI is enabled. Boolean: true(Enabled), false(Disabled)";
+
+                }
+
+            }
+
+        }
+
+        container L3Rewrites {
+
+            description "Table of rewrite capability of ac interface";
+
+            list L3Rewrite {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index";
+
+                }
+
+                leaf RewriteType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 8;
+
+                    }
+
+                    description "RewriteType enumeration(1:NEST_S 2:NEST_C 3:NEST_SC 8:REMARK_1TO2)";
+
+                }
+
+                leaf SVlanID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Outer VLAN ID";
+
+                }
+
+                leaf CVlanID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Inner VLAN ID";
+
+                }
+
+                leaf Symmetric {
+
+                    type base:Basetype_Boolean;
+
+                    description "symmetric";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

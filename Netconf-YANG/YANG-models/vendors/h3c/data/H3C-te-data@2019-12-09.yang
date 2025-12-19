@@ -1,0 +1,581 @@
+module H3C-te-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "te-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for te data.";
+
+    revision 2019-12-09 {
+
+        description "Synchronize the modification of the schema file to the YANG file.";
+
+    }
+
+    revision 2016-06-29 {
+
+        description "Initial revision.";
+
+    }
+
+    container TE {
+
+        config false;
+
+        container Base {
+
+            description "TE base table";
+
+            leaf Enable {
+
+                type base:Basetype_Boolean;
+
+                description "BOOL_TRUE == enable BOOL_FALSE == unenable";
+
+            }
+
+        }
+
+        container Interfaces {
+
+            description "This table contains MPLS interface information.";
+
+            list Interface {
+
+                description "Interface row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Index column IfIndex UnsignedInteger32";
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                    description "BOOL_TRUE == enable BOOL_FALSE == unenable";
+
+                }
+
+            }
+
+        }
+
+        container Tunnels {
+
+            description "This table contains Tunnel information.";
+
+            list Tunnel {
+
+                description "Tunnel row name";
+
+                key "TunnelID";
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Index column BUNDLE ID";
+
+                }
+
+                leaf SignalingType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Tunnel Signaling protocol Type. Enumeration, 0—static protocol, 1-rsvp, 2-segmentrouting";
+
+                }
+
+                leaf SRLspName {
+
+                    type base:Basetype_String {
+
+                        length "1..15";
+
+                    }
+
+                    description "The LSP name for an MPLS TE tunnel interface.";
+
+                }
+
+                leaf BackupSRLspName {
+
+                    type base:Basetype_String {
+
+                        length "1..15";
+
+                    }
+
+                    description "The Backup LSP name for an MPLS TE tunnel interface.";
+
+                }
+
+                leaf ServiceClass {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The value range varies by device model.";
+
+                }
+
+                leaf IGPShortcut {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                }
+
+                leaf Statistic {
+
+                    type base:Basetype_Boolean;
+
+                    description "Enable statistics for TE tunnel.";
+
+                }
+
+                leaf ServiceClassStatistic {
+
+                    type base:Basetype_Boolean;
+
+                    description "Enable statistics for TE tunnel based on service class.";
+
+                }
+
+                leaf IGPMetricType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "IGPMetricType that  MPLS TE tunnel uses in its Mode.";
+
+                }
+
+                leaf AbsoluteIGPMetricValue {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "The MetricValue for an MPLS TE tunnel interface.";
+
+                }
+
+                leaf RelativeIGPMetricValue {
+
+                    type base:Basetype_Integer32 {
+
+                        range "-10..10";
+
+                    }
+
+                    description "The MetricValue for an MPLS TE tunnel interface.";
+
+                }
+
+                leaf ForceForwarding {
+
+                    type base:Basetype_Boolean;
+
+                    description "Forced forwarding of traffic by using the TE tunnel.";
+
+                }
+
+                container PrimaryPaths {
+
+                    description "The primary paths for an MPLS TE tunnel interface.";
+
+                    list PrimaryPath {
+
+                        key "Preference";
+
+                        leaf Preference {
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..10";
+
+                            }
+
+                            description "The preference of the path.";
+
+                        }
+
+                        leaf ExplicitPathName {
+
+                            type base:Basetype_NameString {
+
+                                length "1..31";
+
+                            }
+
+                            description "The name of an explicit path.";
+
+                        }
+
+                        leaf Dynamic {
+
+                            type base:Basetype_Boolean;
+
+                            description "BOOL_TRUE == enable BOOL_FALSE == unenable";
+
+                        }
+
+                    }
+
+                }
+
+                container SecondaryPaths {
+
+                    description "The secondary paths for an MPLS TE tunnel interface.";
+
+                    list SecondaryPath {
+
+                        key "Preference";
+
+                        leaf Preference {
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..10";
+
+                            }
+
+                            description "The preference of the path.";
+
+                        }
+
+                        leaf ExplicitPathName {
+
+                            type base:Basetype_NameString {
+
+                                length "1..31";
+
+                            }
+
+                            description "The name of an explicit path.";
+
+                        }
+
+                        leaf Dynamic {
+
+                            type base:Basetype_Boolean;
+
+                            description "BOOL_TRUE == enable BOOL_FALSE == unenable";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container TunnelBundleCapabilities {
+
+            description "TE TunnelBundleCapabilities table";
+
+            leaf MaxBndNum {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "TunnelBundle Max value";
+
+            }
+
+            leaf MaxMembNum {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "TunnelBundle Member Max value";
+
+            }
+
+            leaf LoadBalancing {
+
+                type base:Basetype_Boolean;
+
+                description "BOOL_TRUE == support BOOL_FALSE == unsupport";
+
+            }
+
+            leaf ProtectionOnetoone {
+
+                type base:Basetype_Boolean;
+
+                description "BOOL_TRUE == support BOOL_FALSE == unsupport";
+
+            }
+
+            leaf ProtectionOneplusone {
+
+                type base:Basetype_Boolean;
+
+                description "BOOL_TRUE == support BOOL_FALSE == unsupport";
+
+            }
+
+        }
+
+        container TunnelBundles {
+
+            description "This table contains Tunnel Bundles information.
+
+                This table supports creating rows.";
+
+            list TunnelBundle {
+
+                key "BundleID";
+
+                leaf BundleID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "Index column BUNDLE ID";
+
+                }
+
+                leaf ProtType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Tunnel protection switching mode. Enumeration, 0—balance, 1—onetoone protection, 2-oneplusone protection";
+
+                }
+
+                leaf DstAddr {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "IPV4 LSP destination address";
+
+                }
+
+            }
+
+        }
+
+        container TunnelBundleMembers {
+
+            description "This table contains Tunnel Bundles Member information.
+
+                This table supports creating rows.";
+
+            list TunnelBundleMember {
+
+                key "BundleID TunnelID";
+
+                leaf BundleID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "Index column BUNDLE ID";
+
+                }
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4294967295";
+
+                    }
+
+                    description "Tunnel ID";
+
+                }
+
+                leaf Membership {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "The Protection Type of Member interface. Enumeration, 0—primary member interface, 1—backup member interface.";
+
+                }
+
+                leaf LoadShare {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "The weight for a member tunnel interface.";
+
+                }
+
+            }
+
+        }
+
+        container ExplicitPaths {
+
+            description "This table contains ExplictPath information.";
+
+            list ExplicitPath {
+
+                description "ExplictPath row name";
+
+                key "ExplicitPathName";
+
+                leaf ExplicitPathName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Index column ExplictPath Name.";
+
+                }
+
+                container ExplicitPathHops {
+
+                    description "This table contains ExplictPath Hops information.";
+
+                    list ExplicitPathHop {
+
+                        key "HopIndex";
+
+                        leaf HopIndex {
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "1..65535";
+
+                            }
+
+                            description "Index column Hop Index";
+
+                        }
+
+                        leaf HopIpAddr {
+
+                            type base:Basetype_Ipv4Address;
+
+                            description "Hop interface IP address";
+
+                        }
+
+                        leaf HopType {
+
+                            type enumeration {
+
+                                enum 0;
+
+                                enum 1;
+
+                                enum 2;
+
+                            }
+
+                            description "Type of the hop. Enumeration, 0—include strict, 1—include loose, 2-exclude";
+
+                        }
+
+                        leaf NextSID {
+
+                            type base:Basetype_UnsignedInteger32 {
+
+                                range "0..1048575";
+
+                            }
+
+                            description "Router segment ID for the LSP path";
+
+                        }
+
+                        leaf NextSIDType {
+
+                            type enumeration {
+
+                                enum 1;
+
+                                enum 2;
+
+                            }
+
+                            description "Type of the segment ID. Enumeration, 1—adjacency, 2-prefix";
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,463 @@
+module H3C-vlan-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "vlan-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for vlan config.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container VLAN {
+
+        container AccessInterfaces {
+
+            description "This table contains information about Access ports.";
+
+            list Interface {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index as table index";
+
+                }
+
+                leaf PVID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "Port VLAN ID";
+
+                }
+
+            }
+
+        }
+
+        container TrunkInterfaces {
+
+            description "This table contains information about trunk ports.";
+
+            list Interface {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index ad table index";
+
+                }
+
+                leaf PermitVlanList {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VlanRange;
+
+                    }
+
+                    description "List of permitted VLANs on the port.";
+
+                    ext:support-incremental "true";
+
+                }
+
+                leaf PVID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "Port VLAN identification.";
+
+                }
+
+            }
+
+        }
+
+        container HybridInterfaces {
+
+            description "This table contains information about hybrid ports.";
+
+            list Interface {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index as table index.";
+
+                }
+
+                leaf UntaggedVlanList {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VlanRange;
+
+                    }
+
+                    description "List of VLANs to which the port is assigned as an untagged VLAN member.";
+
+                }
+
+                leaf TaggedVlanList {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_VlanRange;
+
+                    }
+
+                    description "List of VLANs to which the port is assigned as a tagged VLAN member.";
+
+                }
+
+                leaf PVID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "Port VLAN identification.";
+
+                }
+
+            }
+
+        }
+
+        container VLANs {
+
+            description "VLAN information table
+
+                This table supports creating rows.";
+
+            list VLANID {
+
+                key "ID";
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "VLAN identification as table index.";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                    description "VLAN description. String length constraints must be in range(0..255).";
+
+                }
+
+                leaf Name {
+
+                    type base:Basetype_String {
+
+                        length "1..32";
+
+                    }
+
+                    description "VLAN name. String length constraints must be in range(1..32).";
+
+                }
+
+                leaf AccessPortList {
+
+                    type base:Basetype_PortRange;
+
+                    description "Access port list of the VLAN.";
+
+                }
+
+                container Ipv4 {
+
+                    description "IPv4 address of the VLAN interface";
+
+                    leaf Ipv4Address {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "IPv4 address of the VLAN interface.";
+
+                    }
+
+                    leaf Ipv4Mask {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "IPv4 address mask.";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container VoiceInfo {
+
+            description "This table contains information about VoiceVlan.";
+
+            leaf AgingTime {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "5..43200";
+
+                }
+
+                description "Voice VLAN aging time";
+
+            }
+
+            leaf LLDPTrack {
+
+                type base:Basetype_Boolean;
+
+                description "Whether LLDP is enable for automatic IP phone discovery";
+
+            }
+
+            leaf Mode {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+                description "Voice VLAN security mode";
+
+            }
+
+        }
+
+        container VoiceOUI {
+
+            description "This table contains information about VoiceVlan OUI.
+
+                This table supports creating rows.";
+
+            list OUI {
+
+                description "Row name";
+
+                key "Address";
+
+                leaf Address {
+
+                    type base:Basetype_MacAddress;
+
+                    description "Source MAC address of voice traffic";
+
+                }
+
+                leaf Mask {
+
+                    type base:Basetype_MacAddress;
+
+                    description "The valid length of the OUI address by a mask";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "1..30";
+
+                    }
+
+                    description "The OUI address description";
+
+                }
+
+            }
+
+        }
+
+        container VoicePorts {
+
+            description "This table contains information about VoiceVlan Ports.";
+
+            list Interface {
+
+                description "Row name";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index as table index.";
+
+                }
+
+                leaf Vlan {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "Voice VLAN identification on the port";
+
+                }
+
+                leaf Mode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Voice VLAN assignment mode on the port";
+
+                }
+
+                container QoS {
+
+                    description "QoS information of voice VLAN on the port";
+
+                    leaf Trust {
+
+                        type base:Basetype_Boolean;
+
+                        description "Whether LLDP is enable for automatic IP phone discovery";
+
+                    }
+
+                    leaf CoS {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..7";
+
+                        }
+
+                        description "The CoS values for incoming voice VLAN packets on the port";
+
+                    }
+
+                    leaf DSCP {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "0..63";
+
+                        }
+
+                        description "The DSCP values for incoming voice VLAN packets on the port";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container VLANGroups {
+
+            description "This table contains information about VLAN groups.
+
+                This table supports creating rows.";
+
+            list VLANGroup {
+
+                description "Row name";
+
+                key "GroupName";
+
+                leaf GroupName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "Name of the VLAN group.";
+
+                }
+
+                leaf VlanList {
+
+                    type base:Basetype_VlanRange;
+
+                    description "List of VLAN IDs.";
+
+                    ext:support-incremental "true";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

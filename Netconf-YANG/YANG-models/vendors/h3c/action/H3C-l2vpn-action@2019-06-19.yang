@@ -1,0 +1,391 @@
+module H3C-l2vpn-action
+
+{
+
+    namespace "http://www.h3c.com/netconf/action:1.0";
+
+    prefix "l2vpn-action";
+
+    import comware-basetype 
+
+    {
+
+         prefix "base";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Author";
+
+    description "The module entities for l2vpn action.";
+
+    revision 2019-06-19
+
+	{
+
+        description "Initial revision.";
+
+    }
+
+    container L2VPN
+
+    {
+
+        config false;
+
+        container ClearVSIStatistics
+
+        {
+
+            description "The table is used to clear traffic statistics of the VSI";
+
+            list VSIStatistics
+
+            {
+
+                description "Clear traffic statistics of the VSI";
+
+                key "VsiName";
+
+                leaf VsiName
+
+                {
+
+                    type base:Basetype_String
+
+                    {
+
+                        length "1..31";
+
+                    }
+
+                    description "VSI name";
+
+                }
+
+                leaf Clear
+
+                {
+
+                    type string;
+
+                    description "Clear VSI traffic statistics.This column must be empty";
+
+                }
+
+            }
+
+        }
+
+        container ClearAllVSIStatistics
+
+        {
+
+            description "This table is used to clear traffic statistics of all VSI";
+
+            leaf Clear
+
+            {
+
+                type string;
+
+                description "Clears statistics on all VSIs.This column must be empty";
+
+            }
+
+        }
+
+        container ClearACStatistics
+
+        {
+
+            description "This table is used to clear traffic statistics of an AC. Currently, the AC can only be an Ethernet service instance.";
+
+            list ACStatistics
+
+            {
+
+                description "Row name";
+
+                key "IfIndex SrvID";
+
+                leaf IfIndex
+
+                {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Interface index";
+
+                }
+
+                leaf SrvID
+
+                {
+
+                    type base:Basetype_UnsignedInteger32
+
+                    {
+
+                        range "1..4096";
+
+                    }
+
+                    description "Service instance ID. Value range: 1 to 4096";
+
+                }
+
+                leaf Clear
+
+                {
+
+                    type string;
+
+                    description " Clear traffic statistics. ";
+
+                }
+
+            }
+
+        }
+
+        container ClearAllACStatistics
+
+        {
+
+            description "This table is used to clear traffic statistics of all ACs. Currently, an AC can only be an Ethernet service instance.";
+
+            leaf Clear
+
+            {
+
+                type string;
+
+                description "Clears statistics on all ACs.";
+
+            }
+
+        }
+
+        container SwitchoverPW
+
+        {
+
+            description "This table is used to switch traffic from the specified PW to its backup PW";
+
+            leaf PeerAddr
+
+            {
+
+                type base:Basetype_Ipv4Address;
+
+            }
+
+            leaf PWID
+
+            {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf Switch
+
+            {
+
+                type string;
+
+            }
+
+        }
+
+        container ClearVSIMAC
+
+        {
+
+            description "This table is used to reset learned MAC address for the specified VSI";
+
+            list VSI
+
+            {
+
+                key "VsiName";
+
+                leaf VsiName
+
+                {
+
+                    type base:Basetype_String
+
+                    {
+
+                        length "1..31";
+
+                    }
+
+                    description "VsiName";
+
+                }
+
+                leaf Clear
+
+                {
+
+                    type string;
+
+                }
+
+            }
+
+        }
+
+        container ClearAllMAC
+
+        {
+
+            description "This table is used to reset all learned MAC address";
+
+            leaf Clear
+
+            {
+
+                type string;
+
+            }
+
+        }
+
+        container ClearAllPWStatistics
+
+        {
+
+            description "This table is used to clear all PW statistics";
+
+            leaf Clear
+
+            {
+
+                type string;
+
+            }
+
+        }
+
+        container ClearVSIPWStatistics
+
+        {
+
+            description "This table is used to clear specific PW related to the specific VSI";
+
+            list ClearVSIPWStatistic
+
+            {
+
+                key "VsiName";
+
+                leaf VsiName
+
+                {
+
+                    type base:Basetype_String
+
+                    {
+
+                        length "1..31";
+
+                    }
+
+                    description "VsiName";
+
+                }
+
+                leaf PeerAddr
+
+                {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf PWID
+
+                {
+
+                    type base:Basetype_UnsignedInteger32
+
+                    {
+
+                        range "1..4294967295";
+
+                    }
+
+                }
+
+                leaf Clear
+
+                {
+
+                    type string;
+
+                }
+
+            }
+
+        }
+
+        container ClearXCGPWStatistics
+
+        {
+
+            description "This table is used to clear PW statistics related to the specific XCG";
+
+            list ClearXCGPWStatistic
+
+            {
+
+                key "XCGName";
+
+                leaf XCGName
+
+                {
+
+                    type base:Basetype_String
+
+                    {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf ConnectionName
+
+                {
+
+                    type base:Basetype_String
+
+                    {
+
+                        length "1..20";
+
+                    }
+
+                }
+
+                leaf Clear
+
+                {
+
+                    type string;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

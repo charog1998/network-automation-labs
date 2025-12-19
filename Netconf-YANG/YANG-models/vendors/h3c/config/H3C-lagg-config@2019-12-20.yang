@@ -1,0 +1,195 @@
+module H3C-lagg-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "lagg-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for lagg config.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container LAGG {
+
+        container Base {
+
+            description "LAGG Global configuration information that specifies the set based on system";
+
+            leaf SystemPriority {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..65535";
+
+                }
+
+                description "The priority assigned to the Actor System";
+
+            }
+
+            leaf LoadSharingMode {
+
+                type base:Basetype_UnsignedInteger64;
+
+                description "Global link-aggregation load sharing mode";
+
+            }
+
+            leaf AutoAggregationEnable {
+
+                type base:Basetype_Boolean;
+
+                description "Automatic aggregation";
+
+            }
+
+        }
+
+        container LAGGGroups {
+
+            description "The information of aggregation groups
+
+                This table supports creating rows.";
+
+            list LAGGGroup {
+
+                description "Aggregation group";
+
+                key "GroupId";
+
+                leaf GroupId {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Aggregation group identifier";
+
+                }
+
+                leaf LinkMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Aggregation mode
+
+                          1: Static aggregation
+
+                          2: Dynamic aggregation";
+
+                }
+
+                leaf LacpEdgeEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Edge aggregate interface function";
+
+                }
+
+                leaf LoadSharingMode {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Link-aggregation load sharing mode";
+
+                }
+
+            }
+
+        }
+
+        container LAGGMembers {
+
+            description "The information of member ports";
+
+            list LAGGMember {
+
+                description "Member port";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Interface index of member port";
+
+                }
+
+                leaf GroupId {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Aggregation group identifier";
+
+                }
+
+                leaf LacpMode {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "LACP mode of a member port
+
+                          1: Active
+
+                          2: Passive";
+
+                }
+
+                leaf LacpShortPeriodEnable {
+
+                    type base:Basetype_Boolean;
+
+                    description "LACP short period function";
+
+                }
+
+                leaf ActorPortPriority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..65535";
+
+                    }
+
+                    description "The priority assigned to this port by the Actor";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

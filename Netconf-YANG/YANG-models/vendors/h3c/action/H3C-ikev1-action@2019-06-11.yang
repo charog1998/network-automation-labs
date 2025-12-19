@@ -1,0 +1,89 @@
+module H3C-ikev1-action {
+
+    namespace "http://www.h3c.com/netconf/action:1.0";
+
+    prefix "ikev1-action";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for ikev1 action.";
+
+    revision 2019-06-11 {
+
+        description "Initial revision.";
+
+    }
+
+    container IKEv1 {
+
+        config false;
+
+        container ResetSAs {
+
+            description "Reset the IKE SA by Connection-ID";
+
+            list Reset {
+
+                description "Row name";
+
+                key "ID";
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "When ID is zero it means reset all the IKE SA";
+
+                }
+
+            }
+
+        }
+
+        container ClearGlobalStatistics {
+
+            description "Clear IKE Global Statistics";
+
+            leaf Clear {
+
+                type string;
+
+                description "Clear IKE Global Statistics with empty content";
+
+            }
+
+        }
+
+        container ClearTunnelsStatistics {
+
+            description "Clear IKE Tunnels Statistics";
+
+            list Clear {
+
+                description "Row name";
+
+                key "TunnelID";
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "IKE tunnel ID, unsigned integer";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

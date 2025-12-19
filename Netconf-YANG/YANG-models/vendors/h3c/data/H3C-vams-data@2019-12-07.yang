@@ -1,0 +1,1521 @@
+module H3C-vams-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "vams-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for vams data.";
+
+    revision 2019-12-07 {
+
+        description "Initial revision.";
+
+    }
+
+    container VAMS {
+
+        config false;
+
+        container ServerGlobalCfg {
+
+            description "ServerGlobalCfg table";
+
+            leaf ListenPort {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1025..65535";
+
+                }
+
+                description "ListenPort:1025-65535
+
+                    The default value is 18000";
+
+            }
+
+        }
+
+        container AdvpnDomains {
+
+            description "AdvpnDomains table
+
+                This table supports creating rows.";
+
+            list AdvpnDomain {
+
+                description "advpn domain config";
+
+                key "DomainName";
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vams advpn domain name string";
+
+                }
+
+                leaf DomainID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "advpm domain id, value range: 1 to 65535";
+
+                }
+
+                container AuthenAlgList {
+
+                    description "AuthenAlgList parameters, Members include: AuthenAlgItem";
+
+                    leaf-list AuthenAlgItem {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 3;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                        }
+
+                        description "The value of AuthenAlgItem
+
+      Enumeration:
+
+      1 - NONE
+
+      3 - MD5
+
+      5 - SHA-1
+
+      6 - SHA-256
+
+      7 - AES-XCBC-MAC";
+
+                    }
+
+                }
+
+                container AuthenMethod {
+
+                    description "AuthenMethod parameters, Members include: Method, ISPName";
+
+                    leaf Method {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "The value of AuthenAlgItem
+
+      Enumeration:
+
+      1 - NONE
+
+      2 - PAP
+
+      3 - CHAP";
+
+                    }
+
+                    leaf ISPName {
+
+                        type base:Basetype_String {
+
+                            pattern "[^:/@\\\*<>]*$";
+
+                            length "1..24";
+
+                        }
+
+                        description "vams advpn domain name string";
+
+                    }
+
+                }
+
+                container EncryptAlgList {
+
+                    description "EncryptAlgList parameters, Members include: EncryptAlgItem";
+
+                    leaf-list EncryptAlgItem {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                            enum 5;
+
+                            enum 6;
+
+                            enum 7;
+
+                            enum 8;
+
+                            enum 9;
+
+                        }
+
+                        description "The value of EncryptAlgItem
+
+      Enumeration:
+
+      1 - NONE
+
+      2 - DES-CBC
+
+      3 - 3DES-CBC
+
+      4 - AES-CBC-128
+
+      5 - AES-CBC-192
+
+      6 - AES-CBC-256
+
+      7 - AES-CTR-128
+
+      8 - AES-CTR-192
+
+      9 - AES-CTR-256";
+
+                    }
+
+                }
+
+                container Keepalive {
+
+                    description "Keepalive parameters, Members include: Interval, Retry";
+
+                    leaf Interval {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "5..65535";
+
+                        }
+
+                        description "The interval of Keepalive.Unsigned integer: Value range: 5 to 65535, in seconds";
+
+                    }
+
+                    leaf RetryTime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..6";
+
+                        }
+
+                        description "Retry Time of Keepalive, Unsigned integer: Value range: 1 to 6";
+
+                    }
+
+                }
+
+                leaf RetryInterval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "3..30";
+
+                    }
+
+                    description "Preference:3-30
+
+                          The default value is 5";
+
+                }
+
+                container PreSharedKey {
+
+                    description "PreSharedKey parameters, Members include: Type, Value";
+
+                    leaf Type {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                        }
+
+                        description "The Type of PreSharedKey
+
+                              Enumeration:
+
+                              1-Simple
+
+                              2-Cipher";
+
+                    }
+
+                    leaf Value {
+
+                        type base:Basetype_EncryptString {
+
+                            length "1..73";
+
+                        }
+
+                        description "Pre Shared Key";
+
+                    }
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container HubGroups {
+
+            description "HubGroups table
+
+                This table supports creating rows.";
+
+            list HubGroup {
+
+                description "Hub Group config";
+
+                key "DomainName HubGroupName";
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vams advpn domain name string";
+
+                }
+
+                leaf HubGroupName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vams advpn domain name string";
+
+                }
+
+                leaf DomainID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "advpm domain id, value range: 1 to 65535";
+
+                }
+
+                container IPv4Shortcut {
+
+                    description "IPv4Shortcut parameters, Members include: AclMode, AclNum,";
+
+                    leaf AclMode {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "The value of AuthenAlgItem
+
+      Enumeration:
+
+      0 - None
+
+      1 - ByNumber
+
+      2 - ByName
+
+      3 - All";
+
+                    }
+
+                    leaf AclNum {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "2000..3999";
+
+                        }
+
+                    }
+
+                    leaf AclName {
+
+                        type base:Basetype_ACLName;
+
+                        description "ACL nameString, string, length: 1 to 63 characters";
+
+                    }
+
+                }
+
+                container IPv6Shortcut {
+
+                    description "IPv6Shortcut parameters, Members include: AclMode, AclNum,";
+
+                    leaf AclMode {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "The value of AuthenAlgItem
+
+      Enumeration:
+
+      0 - None
+
+      1 - ByNumber
+
+      2 - ByName
+
+      3 - All";
+
+                    }
+
+                    leaf AclNum {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "2000..3999";
+
+                        }
+
+                    }
+
+                    leaf AclName {
+
+                        type base:Basetype_ACLName;
+
+                        description "ACL nameString, string, length: 1 to 63 characters";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IPv4Hubs {
+
+            description "IPv4Hubs table
+
+                This table supports creating rows.";
+
+            list IPv4Hub {
+
+                description "IPv4Hub config";
+
+                key "DomainName HubGroupName PrivateAddress";
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vams advpn domain name string";
+
+                }
+
+                leaf HubGroupName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vams advpn domain name string";
+
+                }
+
+                leaf PrivateAddress {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf DomainID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "advpm domain id, value range: 1 to 65535";
+
+                }
+
+                container PublicAddress {
+
+                    description "PublicAddress parameters, Members include: IPVersion, IPAddress,";
+
+                    leaf IPVersion {
+
+                        type enumeration {
+
+                            enum 4;
+
+                            enum 6;
+
+                        }
+
+                        description "IP protocol type
+
+        Enumeration:
+
+          4 - IPv4 Address
+
+          6 - IPv6 Address";
+
+                    }
+
+                    leaf IPAddress {
+
+                        type base:Basetype_IpAddress;
+
+                        description "The private address,include IPv4 address and IPv6 address.";
+
+                    }
+
+                }
+
+                leaf AdvpnPort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1025..65535";
+
+                    }
+
+                    description "Port from 1025 to 65535";
+
+                }
+
+            }
+
+        }
+
+        container IPv6Hubs {
+
+            description "IPv6Hubs table
+
+                This table supports creating rows.";
+
+            list IPv6Hub {
+
+                description "IPv6Hub config";
+
+                key "DomainName HubGroupName PrivateAddress";
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vams advpn domain name string";
+
+                }
+
+                leaf HubGroupName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vams advpn domain name string";
+
+                }
+
+                leaf PrivateAddress {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf DomainID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "advpm domain id, value range: 1 to 65535";
+
+                }
+
+                container PublicAddress {
+
+                    description "PublicAddress parameters, Members include: IPVersion, IPAddress";
+
+                    leaf IPVersion {
+
+                        type enumeration {
+
+                            enum 4;
+
+                            enum 6;
+
+                        }
+
+                        description "IP protocol type
+
+        Enumeration:
+
+          4 - IPv4 Address
+
+          6 - IPv6 Address";
+
+                    }
+
+                    leaf IPAddress {
+
+                        type base:Basetype_IpAddress;
+
+                        description "The private address,include IPv4 address and IPv6 address.";
+
+                    }
+
+                }
+
+                leaf AdvpnPort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1025..65535";
+
+                    }
+
+                    description "Port from 1025 to 65535";
+
+                }
+
+            }
+
+        }
+
+        container IPv4Spokes {
+
+            description "IPv4Spokes table
+
+                This table supports creating rows.";
+
+            list IPv4Spoke {
+
+                description "IPv4Spoke config";
+
+                key "DomainName HubGroupName StartIPv4Address EndIPv4Address";
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vams advpn domain name string";
+
+                }
+
+                leaf HubGroupName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vams advpn domain name string";
+
+                }
+
+                leaf StartIPv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf EndIPv4Address {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf DomainID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "advpm domain id, value range: 1 to 65535";
+
+                }
+
+            }
+
+        }
+
+        container IPv6Spokes {
+
+            description "IPv6Spokes table
+
+                This table supports creating rows.";
+
+            list IPv6Spoke {
+
+                description "IPv6Spoke config";
+
+                key "DomainName HubGroupName StartIPv6Address EndIPv6Address";
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vams advpn domain name string";
+
+                }
+
+                leaf HubGroupName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vams advpn domain name string";
+
+                }
+
+                leaf StartIPv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf EndIPv6Address {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf DomainID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "advpm domain id, value range: 1 to 65535";
+
+                }
+
+            }
+
+        }
+
+        container VamsGlbStats {
+
+            description "VamsGlbStats table";
+
+            leaf TotalAdvpnNum {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf TotalSpokeNum {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+            leaf TotalHubNum {
+
+                type base:Basetype_UnsignedInteger32;
+
+            }
+
+        }
+
+        container AdvpnDomainStats {
+
+            description "AdvpnDomainStats table";
+
+            list DomainStats {
+
+                description "Domain Stats";
+
+                key "DomainName";
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vams advpn domain name string";
+
+                }
+
+                leaf ServerStatus {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+                leaf HoldingTime {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf RegSpokeNumber {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf RegHubNumber {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf RegIPv4AddrMapNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf RegIPv6AddrMapNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf RegIPv4NetworkNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf RegIPv6NetworkNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                container PacketsReceived {
+
+                    description "PacketsReceived parameters, Members include: AclMode, AclNum,";
+
+                    leaf InitReqTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf InitFinReqTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf RegReqTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf AuthenInfoTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf AddrResolveReqTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf NetworkRegReqTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf UpdateReqTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf LogoutReqTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf HubInfoResTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf DataFlowInfoResTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf RecvKeepReqTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf RecvErrNoticeTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf RecvUnkonwnTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                }
+
+                container PacketsSend {
+
+                    description "PacketsSend parameters, Members include: AclMode, AclNum,";
+
+                    leaf InitResTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf InitFinResTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf AuthenReqTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf RegResTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf AddrResolveResTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf NetworkRegResTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf UpdateResTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf HubInfoReqTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf DataFlowInfoReqTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf LogoutResTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf SendKeepResTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf SendErrNoticeTimes {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IPv4AddressMaps {
+
+            description "IPv4AddressMaps table";
+
+            list IPv4AddressMap {
+
+                description "IPv4AddressMap data";
+
+                key "DomainName PrivateAddress";
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vams advpn domain name string";
+
+                }
+
+                leaf PrivateAddress {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf ClientType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "VAM client type
+
+        Enumeration:
+
+        0 - Unknown
+
+        1 - Spoke
+
+        2 - Hub";
+
+                }
+
+                leaf HubGroupName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vams advpn domain name string";
+
+                }
+
+                leaf HoldingTime {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf LinkProtocol {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "Link layer protocol used by the VAM client for ADVPN tunnel establishment
+
+        Enumeration:
+
+        0 - Unknown
+
+        1 - GRE
+
+        2 - UDP
+
+        3 - IPsec-GRE
+
+        4 - IPsec-UDP";
+
+                }
+
+                leaf PublicAddress {
+
+                    type base:Basetype_IpAddress;
+
+                }
+
+                leaf PublicPort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1025..65535";
+
+                    }
+
+                    description "Port from 1025 to 65535";
+
+                }
+
+                leaf RegisteredAddress {
+
+                    type base:Basetype_IpAddress;
+
+                }
+
+                leaf RegisteredPort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1025..65535";
+
+                    }
+
+                    description "Port from 1025 to 65535";
+
+                }
+
+                leaf IPsecAddress {
+
+                    type base:Basetype_IpAddress;
+
+                }
+
+                leaf IPsecPort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1025..65535";
+
+                    }
+
+                    description "Port from 1025 to 65535";
+
+                }
+
+                leaf BehindNAT {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container IPv6AddressMaps {
+
+            description "IPv6AddressMaps table";
+
+            list IPv6AddressMap {
+
+                description "IPv6AddressMap data";
+
+                key "DomainName PrivateAddress";
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vams advpn domain name string";
+
+                }
+
+                leaf PrivateAddress {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf ClientType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "VAM client type
+
+        Enumeration:
+
+        0 - Unknown
+
+        1 - Spoke
+
+        2 - Hub";
+
+                }
+
+                leaf HubGroupName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vams advpn domain name string";
+
+                }
+
+                leaf HoldingTime {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf LinkProtocol {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "Link layer protocol used by the VAM client for ADVPN tunnel establishment
+
+        Enumeration:
+
+        0 - Unknown
+
+        1 - GRE
+
+        2 - UDP
+
+        3 - IPsec-GRE
+
+        4 - IPsec-UDP";
+
+                }
+
+                leaf PublicAddress {
+
+                    type base:Basetype_IpAddress;
+
+                }
+
+                leaf PublicPort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1025..65535";
+
+                    }
+
+                    description "Port from 1025 to 65535";
+
+                }
+
+                leaf RegisteredAddress {
+
+                    type base:Basetype_IpAddress;
+
+                }
+
+                leaf RegisteredPort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1025..65535";
+
+                    }
+
+                    description "Port from 1025 to 65535";
+
+                }
+
+                leaf IPsecAddress {
+
+                    type base:Basetype_IpAddress;
+
+                }
+
+                leaf IPsecPort {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1025..65535";
+
+                    }
+
+                    description "Port from 1025 to 65535";
+
+                }
+
+                leaf BehindNAT {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container IPv4NetworkRoutes {
+
+            description "IPv4NetworkRoutes table";
+
+            list IPv4NetworkRoute {
+
+                description "IPv4NetworkRoute data";
+
+                key "DomainName NetworkAddress MaskLength PrivateAddress";
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vams advpn domain name string";
+
+                }
+
+                leaf NetworkAddress {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf MaskLength {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..32";
+
+                    }
+
+                    description "IPv4 mask Length
+
+                          Value range 0 to 32";
+
+                }
+
+                leaf PrivateAddress {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf Preference {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+        container IPv6NetworkRoutes {
+
+            description "IPv6NetworkRoutes table";
+
+            list IPv6NetworkRoute {
+
+                description "IPv6NetworkRoute data";
+
+                key "DomainName NetworkAddress MaskLength PrivateAddress";
+
+                leaf DomainName {
+
+                    type base:Basetype_String {
+
+                        pattern "([a-zA-Z0-9.]){1,31}";
+
+                    }
+
+                    description "vams advpn domain name string";
+
+                }
+
+                leaf NetworkAddress {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf MaskLength {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..128";
+
+                    }
+
+                    description "IPv6 Mask Length
+
+                          Value range 0 to 128";
+
+                }
+
+                leaf PrivateAddress {
+
+                    type base:Basetype_Ipv6Address;
+
+                }
+
+                leaf Preference {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

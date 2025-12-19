@@ -1,0 +1,1739 @@
+module H3C-mpls-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "mpls-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for mpls data.";
+
+    revision 2019-12-09 {
+
+        description "Synchronize the modification of the schema file to the YANG file.";
+
+    }
+
+    revision 2018-05-10 {
+
+        description "Initial revision.";
+
+    }
+
+    container MPLS {
+
+        config false;
+
+        container IPv4LSP {
+
+            list LSP {
+
+                description "row name";
+
+                key "Protocol VrfIndex LSRType ID";
+
+                leaf Protocol {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                    description "LSP Protocol type";
+
+                }
+
+                leaf VrfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Index of the VRF to which an IPv4 LSP belongs";
+
+                }
+
+                list Ipv4Prefix {
+
+                    description "IPv4 LSP prefix";
+
+                    key "Ipv4Address Ipv4PrefixLenth";
+
+                    leaf Ipv4Address {
+
+                        type base:Basetype_Ipv4Address;
+
+                        description "IPv4 LSP prefix address";
+
+                    }
+
+                    leaf Ipv4PrefixLenth {
+
+                        type base:Basetype_UnsignedShort;
+
+                        description "IPv4 LSP prefix length";
+
+                    }
+
+                }
+
+                leaf LSRType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "LSR type";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedChar;
+
+                    description "An LSP can have one row for inbound information,and multiple rows for outbound information Each row has an ID.";
+
+                }
+
+                leaf InfoType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "LSP information type";
+
+                }
+
+                leaf InLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "LSP incoming label";
+
+                }
+
+                leaf OutLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "LSP outgoing label";
+
+                }
+
+                leaf OutIfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "LSP outgoing interface index";
+
+                }
+
+                leaf NextHop {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "LSP next hop address";
+
+                }
+
+                leaf NHLFEID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "NHLFE ID";
+
+                }
+
+                leaf BackupOutLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Backup LSP outgoing label";
+
+                }
+
+                leaf BackupOutIfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Backup LSP outgoing interface index";
+
+                }
+
+                leaf BackupNextHop {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Backup LSP next hop address";
+
+                }
+
+                leaf BackupNHLFEID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Backup NHLFE ID";
+
+                }
+
+                leaf Octets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of octets";
+
+                }
+
+                leaf HCOctets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of high order octets";
+
+                }
+
+                leaf Packets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of packets";
+
+                }
+
+                leaf Errors {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of error packets";
+
+                }
+
+                leaf Discards {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of discarded packets";
+
+                }
+
+            }
+
+        }
+
+        container TEv4LSP {
+
+            list LSP {
+
+                description "This table contains IPv4 MPLS TE LSP information";
+
+                key "Protocol VrfIndex SrcAddress DestAddress TunnelID LSPID Direction LSRType ID";
+
+                leaf Protocol {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                    description "LSP Protocol type";
+
+                }
+
+                leaf VrfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Index of the VRF to which a TEv4 LSP belongs";
+
+                }
+
+                leaf SrcAddress {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "TEv4 LSP source address";
+
+                }
+
+                leaf DestAddress {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "TEv4 LSP destination address";
+
+                }
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "TEv4 LSP tunnel ID";
+
+                }
+
+                leaf LSPID {
+
+                    type base:Basetype_UnsignedShort;
+
+                    description "TEv4 LSP ID";
+
+                }
+
+                leaf Direction {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "TEv4 LSP direction";
+
+                }
+
+                leaf LSRType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "LSR type";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedChar;
+
+                    description "LSP ID";
+
+                }
+
+                leaf InfoType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "LSP information type";
+
+                }
+
+                leaf InLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "LSP incoming label";
+
+                }
+
+                leaf OutLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "LSP outgoing label";
+
+                }
+
+                leaf OutIfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "LSP outgoing interface index";
+
+                }
+
+                leaf NextHop {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "LSP next hop address";
+
+                }
+
+                leaf NHLFEID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "NHLFE ID";
+
+                }
+
+                leaf BackupOutLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Backup LSP outgoing label";
+
+                }
+
+                leaf BackupOutIfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Backup LSP outgoing interface index";
+
+                }
+
+                leaf BackupNextHop {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Backup LSP next hop address";
+
+                }
+
+                leaf BackupNHLFEID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Backup NHLFE ID";
+
+                }
+
+                leaf Octets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of octets";
+
+                }
+
+                leaf HCOctets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of high order octets";
+
+                }
+
+                leaf Packets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of packets";
+
+                }
+
+                leaf Errors {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of error packets";
+
+                }
+
+                leaf Discards {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of discarded packets";
+
+                }
+
+            }
+
+        }
+
+        container StaticLSP {
+
+            list LSP {
+
+                description "This table contains static LSP and static CRLSP information";
+
+                key "Protocol LspIndex LSRType ID";
+
+                leaf Protocol {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                    description "LSP protocol type";
+
+                }
+
+                leaf LspIndex {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Static LSP index";
+
+                }
+
+                leaf LSRType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "LSR type";
+
+                }
+
+                leaf ID {
+
+                    type base:Basetype_UnsignedChar;
+
+                    description "LSP ID";
+
+                }
+
+                leaf InfoType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "LSP information type";
+
+                }
+
+                leaf InLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "LSP incoming label";
+
+                }
+
+                leaf OutLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "LSP outgoing label";
+
+                }
+
+                leaf OutIfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "LSP outgoing interface index";
+
+                }
+
+                leaf NextHop {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "LSP next hop address";
+
+                }
+
+                leaf NHLFEID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "NHLFE ID";
+
+                }
+
+                leaf BackupOutLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Backup LSP outgoing label";
+
+                }
+
+                leaf BackupOutIfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "Backup LSP outgoing interface index";
+
+                }
+
+                leaf BackupNextHop {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Backup LSP next hop address";
+
+                }
+
+                leaf BackupNHLFEID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Backup NHLFE ID";
+
+                }
+
+                leaf Octets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of octets";
+
+                }
+
+                leaf HCOctets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of high order octets";
+
+                }
+
+                leaf Packets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of packets";
+
+                }
+
+                leaf Errors {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of error packets";
+
+                }
+
+                leaf Discards {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of discarded packets";
+
+                }
+
+            }
+
+        }
+
+        container Base {
+
+            description "MPLS base table";
+
+            leaf LSRID {
+
+                type base:Basetype_Ipv4Address;
+
+                description "LSR ID";
+
+            }
+
+            leaf StaticLabelMax {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Label MAX Value";
+
+            }
+
+            leaf SupportGRE {
+
+                type base:Basetype_Boolean;
+
+                description "support GRE";
+
+            }
+
+            leaf SupportStaticSR {
+
+                type base:Basetype_Boolean;
+
+                description "support Static Segment Routing";
+
+            }
+
+            leaf SRMaxLabelDepth {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Segment Routing MAX Depth";
+
+            }
+
+            leaf CBTSStatInterval {
+
+                type base:Basetype_UnsignedShort;
+
+                description "CBTS Statistics Interval Times";
+
+            }
+
+            leaf MPLSBFD {
+
+                type base:Basetype_Boolean;
+
+                description "Mpls bfd enable";
+
+            }
+
+        }
+
+        container Interfaces {
+
+            description "MPLS Interface table";
+
+            list Interface {
+
+                description "Interface row name Repeat Instance";
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "MPLS interface index";
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Enable MPLS";
+
+                }
+
+            }
+
+        }
+
+        container TunnelPolicies {
+
+            description "MPLS TunnelPolicies information table
+
+                This table supports creating rows.";
+
+            list TunnelPolicy {
+
+                description "TunnelPolicies row name Repeat Instance";
+
+                key "PolicyName";
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                    description "TunnelPolicies name String 1 to 19";
+
+                }
+
+                leaf Default {
+
+                    type base:Basetype_Boolean;
+
+                    description "BOOL_TRUE == enable BOOL_FALSE == unenable";
+
+                }
+
+                container Sequence {
+
+                    leaf Strict {
+
+                        type base:Basetype_Boolean;
+
+                        description "BOOL_TRUE == enable BOOL_FALSE == unenable";
+
+                    }
+
+                    leaf-list PrefLspType {
+
+                        type enumeration {
+
+                            enum 0;
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "Preferred LSP type";
+
+                    }
+
+                    leaf LoadBalancingNum {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Load balancing number";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container PreferredTunnelPolicies {
+
+            description "This table contains Tunnel policy information
+
+                This table supports creating rows.";
+
+            list PreferredTunnelPolicy {
+
+                key "PolicyName TunnelType TunnelID";
+
+                leaf PolicyName {
+
+                    type base:Basetype_String {
+
+                        length "1..19";
+
+                    }
+
+                    description "Name of tunnel policy";
+
+                }
+
+                leaf TunnelType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                    }
+
+                    description "Tunnel Type. Enumeration, 0—Tunnel, 1—TunnelBundle";
+
+                }
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Index column BUNDLE ID";
+
+                }
+
+                leaf PriorityLevel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "column Priority Level ID";
+
+                }
+
+            }
+
+        }
+
+        container LabelRanges {
+
+            description "MPLS LabelRange table";
+
+            leaf ProtocolType {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Protocol Type. Enumeration, 0—static";
+
+            }
+
+            leaf MinLabel {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "The minimum label of the range.";
+
+            }
+
+            leaf MaxLabel {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "The maximum label of the range.";
+
+            }
+
+        }
+
+        container LabelSegments {
+
+            description "This table contains MPLS label segments information.";
+
+            list LabelSegment {
+
+                description "LabelSegment row name";
+
+                key "ProtocolType";
+
+                leaf ProtocolType {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..8";
+
+                    }
+
+                    description "Protocol Type. Enumeration, 0—static";
+
+                }
+
+                leaf MinLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The minimum label of the segment.";
+
+                }
+
+                leaf MaxLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The maximum label of the segment.";
+
+                }
+
+            }
+
+        }
+
+        container TunnelMbfds {
+
+            description "This table contains MPLS TunnelMbfd information.";
+
+            list TunnelMbfd {
+
+                description "TunnelMbfd row name";
+
+                key "TunnelID";
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Index column ID UnsignedInteger32";
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                    description "BOOL_TRUE == enable BOOL_FALSE == unenable";
+
+                }
+
+                leaf Echo {
+
+                    type base:Basetype_Boolean;
+
+                    description "BOOL_TRUE == enable BOOL_FALSE == unenable";
+
+                }
+
+                leaf Template {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The bfd template name.";
+
+                }
+
+                leaf BackupTemplate {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "The Backup bfd template name.";
+
+                }
+
+            }
+
+        }
+
+        container StaticSRLSPs {
+
+            description "This table contains static SRingress LSP information.
+
+                This table supports creating rows.";
+
+            list StaticSRLSP {
+
+                key "LSPName";
+
+                leaf LSPName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..15";
+
+                    }
+
+                    description "Index column string 1-15";
+
+                }
+
+                leaf-list OutLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "LSP outgoing label";
+
+                }
+
+            }
+
+        }
+
+        container StaticSRAdjacencies {
+
+            description "This table contains static SRtransit LSP information.
+
+                This table supports creating rows.";
+
+            list StaticSRAdjacency {
+
+                key "AdjName";
+
+                leaf AdjName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..15";
+
+                    }
+
+                    description "Index column string 1-15";
+
+                }
+
+                leaf InLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "LSP incoming label,The value range varies by device model.";
+
+                }
+
+                leaf NextHop {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "LSP next hop address";
+
+                }
+
+                leaf OutIfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "LSP outgoing interface index";
+
+                }
+
+            }
+
+        }
+
+        container StaticSRPrefixs {
+
+            description "This table contains static node segment routing prefix information.
+
+                This table supports creating rows.";
+
+            list StaticSRPrefix {
+
+                description "SRPrefix row name Repeat Instance";
+
+                key "PrefixName DestAddress DestMask InLabel NextHop OutIfIndex";
+
+                leaf PrefixName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..15";
+
+                    }
+
+                    description "Name of static segment routing Prefix";
+
+                }
+
+                leaf DestAddress {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "IPV4 prefix destination address";
+
+                }
+
+                leaf DestMask {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..32";
+
+                    }
+
+                    description "Prefix destination address mask";
+
+                }
+
+                leaf InLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Prefix incoming label";
+
+                }
+
+                leaf NextHop {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_Ipv4Address;
+
+                    }
+
+                    description "Prefix next hop address";
+
+                }
+
+                leaf OutIfIndex {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_NameAndIndexUnion;
+
+                    }
+
+                    description "Prefix outgoing interface index";
+
+                }
+
+                leaf OutLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Prefix outgoing label";
+
+                }
+
+            }
+
+        }
+
+        container StaticEgressLSPs {
+
+            description "This table contains static egress LSP information.
+
+                This table supports creating rows.";
+
+            list StaticEgressLSP {
+
+                description "StaticEgressLSP row name Repeat Instance";
+
+                key "LSPName";
+
+                leaf LSPName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..15";
+
+                    }
+
+                    description "LSP name String 1 to 15";
+
+                }
+
+                leaf InLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "LSP incoming label,The value range varies by device model";
+
+                }
+
+            }
+
+        }
+
+        container StaticIngressLSPs {
+
+            description "This table contains static ingress LSP information.
+
+                This table supports creating rows.";
+
+            list StaticIngressLSP {
+
+                description "IngressLSP row name Repeat Instance";
+
+                key "LSPName";
+
+                leaf LSPName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..15";
+
+                    }
+
+                    description "LSP name string 1 to 15";
+
+                }
+
+                leaf OutLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "LSP outgoing label";
+
+                }
+
+                leaf DestAddress {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "IPV4 LSP destination address";
+
+                }
+
+                leaf DestWildcardMask {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "Wildcard mask for DestAddress";
+
+                }
+
+                leaf NextHop {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "LSP next hop address";
+
+                }
+
+                leaf OutIfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "LSP outgoing interface index";
+
+                }
+
+            }
+
+        }
+
+        container StaticTransitLSPs {
+
+            description "This table contains static transit LSP information
+
+                This table supports creating rows.";
+
+            list StaticTransitLSP {
+
+                description "TransitLSP row name Repeat Instance";
+
+                key "LSPName";
+
+                leaf LSPName {
+
+                    type base:Basetype_NameString {
+
+                        length "1..15";
+
+                    }
+
+                    description "LSP name string 1 to 15";
+
+                }
+
+                leaf InLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "LSP incoming label,The value range varies by device model";
+
+                }
+
+                leaf OutLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "LSP outgoing label";
+
+                }
+
+                leaf NextHop {
+
+                    type base:Basetype_Ipv4Address;
+
+                    description "LSP next hop address";
+
+                }
+
+                leaf OutIfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "LSP outgoing interface index";
+
+                }
+
+            }
+
+        }
+
+        container MPLSVRFs {
+
+            description "This table contains MPLS VRF information.
+
+                This table supports creating rows.";
+
+            list MPLSVRF {
+
+                description "VRF row name";
+
+                key "VRF";
+
+                leaf VRF {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                    description "VRF name";
+
+                }
+
+                leaf Statistics {
+
+                    type base:Basetype_Boolean;
+
+                    description "Statistics for the VRF";
+
+                }
+
+            }
+
+        }
+
+        container TETunnelStatistics {
+
+            description "This table contains TE tunnel statistics information.";
+
+            list TETunnelStatistic {
+
+                description "TETunnelStatistic";
+
+                key "TunnelID ServiceClass";
+
+                leaf TunnelID {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "Tunnel ID";
+
+                }
+
+                leaf ServiceClass {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The service class statistics of the MPLS TE tunnel interface.";
+
+                }
+
+                leaf Octets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of octets";
+
+                }
+
+                leaf HCOctets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of high order octets";
+
+                }
+
+                leaf Packets {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of packets";
+
+                }
+
+                leaf Errors {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of error packets";
+
+                }
+
+                leaf Discards {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Number of discarded packets";
+
+                }
+
+                leaf Systime {
+
+                    type base:Basetype_UnsignedInteger64;
+
+                    description "Systime boot time";
+
+                }
+
+            }
+
+        }
+
+        container TunnelForwardings {
+
+            description "This table contains tunnel forwarding information.";
+
+            list TunnelForwarding {
+
+                key "TunnelNum";
+
+                leaf TunnelNum {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                list OutInfo {
+
+                    key "ID OutIfName NextHop OutLabel Active";
+
+                    leaf ID {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf OutIfName {
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                    }
+
+                    leaf NextHop {
+
+                        type base:Basetype_Ipv4Address;
+
+                    }
+
+                    leaf OutLabel {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf Active {
+
+                        type base:Basetype_Boolean;
+
+                    }
+
+                }
+
+                leaf BackupOutIfName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf BackupNextHop {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf-list BackupOutLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf BackupActive {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container ILMForwardings {
+
+            description "This table contains ILM forwarding information.";
+
+            list ILMForwarding {
+
+                key "Label";
+
+                leaf Label {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                list OutInfo {
+
+                    key "ID OutIfName NextHop OutLabel Active";
+
+                    leaf ID {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf OutIfName {
+
+                        type base:Basetype_String {
+
+                            length "1..31";
+
+                        }
+
+                    }
+
+                    leaf NextHop {
+
+                        type base:Basetype_Ipv4Address;
+
+                    }
+
+                    leaf OutLabel {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                    }
+
+                    leaf Active {
+
+                        type base:Basetype_Boolean;
+
+                    }
+
+                }
+
+                leaf BackupOutIfName {
+
+                    type base:Basetype_String {
+
+                        length "1..31";
+
+                    }
+
+                }
+
+                leaf BackupNextHop {
+
+                    type base:Basetype_Ipv4Address;
+
+                }
+
+                leaf-list BackupOutLabel {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                }
+
+                leaf BackupActive {
+
+                    type base:Basetype_Boolean;
+
+                }
+
+            }
+
+        }
+
+        container SegmentRouting {
+
+            description "MPLS segment routing table";
+
+            container GlobalSRGB {
+
+                description "Global SRGB configuration.";
+
+                leaf Lowerbound {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "16..1048574";
+
+                    }
+
+                    description "Lower bound of the global label block.";
+
+                }
+
+                leaf Upperbound {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "17..1048575";
+
+                    }
+
+                    description "Upper bound of the global label block.";
+
+                }
+
+            }
+
+            container SRLB {
+
+                description "SR Local Block configuration.";
+
+                leaf Lowerbound {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "16..1048574";
+
+                    }
+
+                    description "Lower bound of the local label block.";
+
+                }
+
+                leaf Upperbound {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "17..1048575";
+
+                    }
+
+                    description "Upper bound of the local label block.";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

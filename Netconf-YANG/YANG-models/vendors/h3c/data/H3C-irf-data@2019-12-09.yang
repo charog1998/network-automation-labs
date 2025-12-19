@@ -1,0 +1,523 @@
+module H3C-irf-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "irf-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for irf data.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container IRF {
+
+        config false;
+
+        container Capability {
+
+            description "IRF Capability";
+
+            leaf MaxMemberCount {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "The maximum number of members in a stack.";
+
+            }
+
+            leaf MaxPriority {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "The highest priority that can be configured for a member in a stack";
+
+            }
+
+            leaf MaxIfNumPerIRFPort {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "The maximum number of physical ports in an IRF port.";
+
+            }
+
+            container SupportedIfTypes {
+
+                leaf-list ifTypeExt {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The physical interface type.";
+
+                }
+
+            }
+
+            leaf SupportNormalPortMode {
+
+                type base:Basetype_Boolean;
+
+                description "Indicates whether support normal port mode.";
+
+            }
+
+            leaf SupportEnhancedPortMode {
+
+                type base:Basetype_Boolean;
+
+                description "Indicates whether support enhanced port mode.";
+
+            }
+
+            leaf SupportExtendedPortMode {
+
+                type base:Basetype_Boolean;
+
+                description "Indicates whether support extended port mode.";
+
+            }
+
+            leaf SupportLightIRFMode {
+
+                type base:Basetype_Boolean;
+
+                description "Indicates whether support light IRF mode.";
+
+            }
+
+            leaf SupportNormalIRFMode {
+
+                type base:Basetype_Boolean;
+
+                description "Indicates whether support normal IRF mode.";
+
+            }
+
+            leaf SupportEnhancedIRFMode {
+
+                type base:Basetype_Boolean;
+
+                description "Indicates whether support enhanced IRF mode.";
+
+            }
+
+            leaf SupportIRFModeConvert {
+
+                type base:Basetype_Boolean;
+
+                description "Indicates whether support mode convert between IRF and stand-alone mode.";
+
+            }
+
+        }
+
+        container Configuration {
+
+            description "IRF global configuration information";
+
+            leaf AutoMerge {
+
+                type base:Basetype_EnableState;
+
+                description "State of the auto merge function: Enabled, Disabled";
+
+            }
+
+            leaf AutoUpgrade {
+
+                type base:Basetype_EnableState;
+
+                description "Status of the software auto-update function: Enabled, Disabled";
+
+            }
+
+            leaf Domain {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "Domain ID for the IRF fabric";
+
+            }
+
+            leaf LinkDelay {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..10000";
+
+                }
+
+                description "IRF link down report delay";
+
+            }
+
+            leaf MacPersist {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                    enum 3;
+
+                }
+
+                description "MacIRF bridge MAC persistence setting
+
+                    Enumberation.
+
+                    1 Timer
+
+                    2 Always
+
+                    3 No
+
+                    Default: 1 Timer";
+
+            }
+
+            leaf BridgeMac {
+
+                type base:Basetype_MacAddress;
+
+                description "IRF bridge MAC address";
+
+            }
+
+            leaf TopoType {
+
+                type enumeration {
+
+                    enum 1;
+
+                    enum 2;
+
+                    enum 3;
+
+                }
+
+                description "Stack topology
+
+                    Enumeration.
+
+                    1 Chain
+
+                    2 Ring
+
+                    3 Unconverged";
+
+            }
+
+            leaf StackMode {
+
+                type base:Basetype_Boolean;
+
+                description "Current stack mode of the device";
+
+            }
+
+            leaf MemberCount {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "The number of members currently in a stack";
+
+            }
+
+        }
+
+        container Members {
+
+            description "stack members' infomations";
+
+            list Member {
+
+                description "Rowname";
+
+                key "MemberID";
+
+                leaf MemberID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..32";
+
+                    }
+
+                    description "Stack member identification";
+
+                }
+
+                leaf NewMemberID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..32";
+
+                    }
+
+                    description "Member ID assigned to the device";
+
+                }
+
+                leaf Description {
+
+                    type base:Basetype_Text {
+
+                        length "1..127";
+
+                    }
+
+                    description "Description for the member device.";
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..32";
+
+                    }
+
+                    description "Member priority";
+
+                }
+
+                leaf CPUMac {
+
+                    type base:Basetype_MacAddress;
+
+                    description "CPU Mac address of member";
+
+                }
+
+                list Board {
+
+                    key "Chassis Slot Role";
+
+                    leaf Chassis {
+
+                        type base:Basetype_UnsignedShort;
+
+                        description "Chassis ID of the board, Unsigned integer.";
+
+                    }
+
+                    leaf Slot {
+
+                        type base:Basetype_UnsignedShort;
+
+                        description "Slot ID of the board ，Unsigned integer.";
+
+                    }
+
+                    leaf Role {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                        }
+
+                        description "Board role
+
+                                Enumeration.
+
+                                1 master
+
+                                2 standby
+
+                                3 loading
+
+                                4 other";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container IRFPorts {
+
+            description "Stack ports' infomations";
+
+            list IRFPort {
+
+                description "Rowname";
+
+                key "MemberID Port";
+
+                leaf MemberID {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..32";
+
+                    }
+
+                    description "Stack member identification";
+
+                }
+
+                leaf Port {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..2";
+
+                    }
+
+                    description "IRF port number";
+
+                }
+
+                leaf Neighbor {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..32";
+
+                    }
+
+                    description "Neighbor member ID of this device";
+
+                }
+
+                leaf State {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "State of the IRF port
+
+                          Enumeration.
+
+                          1 Up
+
+                          2 Down
+
+                          3 Timeout";
+
+                }
+
+                list Interface {
+
+                    key "IfName MDCName Mode LinkState";
+
+                    leaf IfName {
+
+                        type base:Basetype_InterfaceName;
+
+                        description "Interface name";
+
+                    }
+
+                    leaf MDCName {
+
+                        type base:Basetype_String {
+
+                            length "1..15";
+
+                        }
+
+                        description "MDC name";
+
+                    }
+
+                    leaf Mode {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                        }
+
+                        description "Physical IRF port mode
+
+                                Enumeration.
+
+                                1 Normal
+
+                                2 Enhanced
+
+                                3 Extended";
+
+                    }
+
+                    leaf LinkState {
+
+                        type enumeration {
+
+                            enum 1;
+
+                            enum 2;
+
+                            enum 3;
+
+                            enum 4;
+
+                        }
+
+                        description "Link state of the interface
+
+                                Enumeration.
+
+                                1 Up
+
+                                2 Down
+
+                                3 ADM
+
+                                4 Absent";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

@@ -1,0 +1,401 @@
+module H3C-configuration-config {
+
+    namespace "http://www.h3c.com/netconf/config:1.0";
+
+    prefix "configuration-config";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for configuration config.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    container Configuration {
+
+        container System {
+
+            description "System表的信息";
+
+            leaf Encryption {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+                description "配置文件加密类型，0：表示不加密，1：表示私钥加密，2：表示公钥加密";
+
+            }
+
+        }
+
+        container ArchiveLocal {
+
+            description "Contains information about the automatic backup local settings.";
+
+            leaf Interval {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0 | 10..525600";
+
+                }
+
+                description "Time interval to automatic backup.";
+
+            }
+
+            leaf Count {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..10";
+
+                }
+
+                description "Save the maximum number of backup files locally.";
+
+            }
+
+            leaf DirPath {
+
+                type base:Basetype_String {
+
+                    length "1..63";
+
+                }
+
+                description "Local save path.";
+
+            }
+
+            leaf Prefix {
+
+                type base:Basetype_String {
+
+                    length "1..30";
+
+                }
+
+                description "Local save file prefix.";
+
+            }
+
+        }
+
+        container ArchiveServer {
+
+            description "contains information about the automatic backup server settings.
+
+                This table supports creating rows.";
+
+            list ArchiveHost {
+
+                description "Rowname.";
+
+                key "ServerType AddressType Address VRF";
+
+                leaf ServerType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Server type. Index of ArchiveHost.1:FTP 2:TFTP 3:SCP";
+
+                }
+
+                leaf AddressType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Address type. 1-IPV4 2-IPV6";
+
+                }
+
+                leaf Address {
+
+                    type base:Basetype_String {
+
+                        length "1..253";
+
+                    }
+
+                    description "Address of the remote manage. Index of ArchiveHost.
+
+                          IPv4 example: 1.1.1.1
+
+                          IPv6 example: 1:2:3:4:5:6:7:8";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF instance name. Index of ArchiveHost.";
+
+                }
+
+                leaf Interval {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0 | 10..525600";
+
+                    }
+
+                    description "Time interval to automatic backup.";
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "User name to backup server.";
+
+                }
+
+                leaf Password {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Password to backup server.";
+
+                }
+
+                leaf Port {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "Port Number.";
+
+                }
+
+                leaf DirPath {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Server save path.";
+
+                }
+
+                leaf Prefix {
+
+                    type base:Basetype_String {
+
+                        length "1..30";
+
+                    }
+
+                    description "Server save file prefix.";
+
+                }
+
+            }
+
+        }
+
+        container ReplaceServer {
+
+            description "contains information about the automatic rollback server settings.
+
+                This table supports creating rows.";
+
+            list ReplaceHost {
+
+                description "Rowname.";
+
+                key "ServerType AddressType Address VRF";
+
+                leaf ServerType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Server type. Index of ReplaceHost.1:FTP 2:TFTP";
+
+                }
+
+                leaf AddressType {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Address type. 1-IPV4 2-IPV6";
+
+                }
+
+                leaf Address {
+
+                    type base:Basetype_String {
+
+                        length "1..253";
+
+                    }
+
+                    description "Address of the remote manage. Index of ReplaceHost.
+
+                          IPv4 example: 1.1.1.1
+
+                          IPv6 example: 1:2:3:4:5:6:7:8";
+
+                }
+
+                leaf VRF {
+
+                    type union {
+
+                        type base:Basetype_EmptyString;
+
+                        type base:Basetype_String {
+
+                            length "0..31";
+
+                        }
+
+                    }
+
+                    description "VRF instance name. Index of ReplaceHost.";
+
+                }
+
+                leaf UserName {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "User name to backup server.";
+
+                }
+
+                leaf Password {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Password to backup server.";
+
+                }
+
+                leaf Port {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..65535";
+
+                    }
+
+                    description "Port Number.";
+
+                }
+
+                leaf DirPath {
+
+                    type base:Basetype_String {
+
+                        length "1..63";
+
+                    }
+
+                    description "Server path.";
+
+                }
+
+                leaf RollbackName {
+
+                    type base:Basetype_String {
+
+                        length "1..255";
+
+                    }
+
+                    description "Server Rollback.";
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

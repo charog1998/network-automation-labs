@@ -1,0 +1,1395 @@
+module H3C-stp-data {
+
+    namespace "http://www.h3c.com/netconf/data:1.0";
+
+    prefix "stp-data";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for stp data.";
+
+    revision 2019-12-20 {
+
+        description "Initial revision.";
+
+    }
+
+    container STP {
+
+        config false;
+
+        container Base {
+
+            description "STP Global configuration information that specifies the set based on system";
+
+            leaf Enable {
+
+                type base:Basetype_Boolean;
+
+                description "This element controls, on the local system, whether or not stp is enabled.";
+
+            }
+
+            leaf BPDUProtect {
+
+                type base:Basetype_Boolean;
+
+                description "indicate whether BPDU-protect function is enabled.";
+
+            }
+
+            leaf Mode {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 2;
+
+                    enum 3;
+
+                    enum 4;
+
+                }
+
+                description "The spanning-tree working modes:
+
+                         0--STP; 2--RSTP; 3--MSTP; 4--PVST;";
+
+            }
+
+            leaf TcProtect {
+
+                type base:Basetype_Boolean;
+
+                description "indicate whether TC-protect function is enabled.";
+
+            }
+
+            leaf TcThreshold {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..255";
+
+                }
+
+                description "The max TCs that will be processed within the TC-protection period.";
+
+            }
+
+            leaf PathCostMethod {
+
+                type enumeration {
+
+                    enum 0;
+
+                    enum 1;
+
+                    enum 2;
+
+                }
+
+                description "The path cost calculation method:
+
+                         0--Leagcy; 1--IEEE 802.1D-1998; 2--IEEE 802.1t;";
+
+            }
+
+            leaf HelloTime {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..10";
+
+                }
+
+                description "The intervals in seconds.";
+
+            }
+
+            leaf MaxHops {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "1..40";
+
+                }
+
+                description "The maximum hops.";
+
+            }
+
+            leaf MaxAge {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "6..40";
+
+                }
+
+                description "The maximum message age.";
+
+            }
+
+            leaf ForwardDelay {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "4..30";
+
+                }
+
+                description "The forward delay timer in seconds.";
+
+            }
+
+            leaf TcSnooping {
+
+                type base:Basetype_Boolean;
+
+                description "Control whether TC-snooping function is enabled.";
+
+            }
+
+            leaf DigestSnooping {
+
+                type base:Basetype_Boolean;
+
+                description "Control whether digest-snooping function is enabled.";
+
+            }
+
+        }
+
+        container Region {
+
+            description "The region configuration information of MST";
+
+            leaf Name {
+
+                type base:Basetype_String {
+
+                    length "1..32";
+
+                }
+
+                description "MST region name";
+
+            }
+
+            leaf RevisionLevel {
+
+                type base:Basetype_UnsignedInteger32 {
+
+                    range "0..65535";
+
+                }
+
+                description "The revision level of a MST region configuration";
+
+            }
+
+            leaf FormatSelector {
+
+                type base:Basetype_UnsignedInteger32;
+
+                description "The format selector of the MST region configuration:
+
+                             0--indicate the format specified in 802.1Q;
+
+                             others--unknown;";
+
+            }
+
+            leaf ConfigDigest {
+
+                type base:Basetype_OctectString {
+
+                }
+
+                description "The current configuration digest calculated from the VLAN allocation:
+
+                             A MD5 digest with a fixed-length of 34 octets;";
+
+            }
+
+        }
+
+        container StiVlans {
+
+            description "Allocation of VLANs per STI
+
+                This table supports creating rows.";
+
+            list StiVlan {
+
+                key "StiId";
+
+                leaf StiId {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4094";
+
+                    }
+
+                    description "The index of a STI";
+
+                }
+
+                leaf VlanList {
+
+                    type base:Basetype_VlanRange;
+
+                    description "The VLANs mapped to a STI";
+
+                }
+
+            }
+
+        }
+
+        container STIs {
+
+            description "Configuration information per STIs
+
+                This table supports creating rows.";
+
+            list STI {
+
+                key "StiId";
+
+                leaf StiId {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4094";
+
+                    }
+
+                    description "The index of a STI";
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..61440";
+
+                    }
+
+                    description "The priority of a STI, which should be zero or a multiple of 4096.";
+
+                }
+
+                leaf RootType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "The root type configuration:
+
+                          0--Normal(not configured); 1--Secondary root; 2--Primary root;";
+
+                }
+
+                leaf BridgeId {
+
+                    type base:Basetype_OctectString {
+
+                    }
+
+                    description "The bridge identifier of a spanning-tree in otects.";
+
+                }
+
+                container TCs {
+
+                    description "Topology change informations per spanning-tree,including ReceiveTcOrTcn and LastTcTime.";
+
+                    leaf ReceiveTcOrTcn {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Count of received TCsor TCNs.";
+
+                    }
+
+                    leaf LastTcTime {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "The last time when a TC is received or detected.";
+
+                    }
+
+                }
+
+                container RootVector {
+
+                    description "Root priority vector ,including RootBridgeId, ExtPathCost,
+
+                           DesignateBridgeId, IntPathCost and RootPort.";
+
+                    leaf RootId {
+
+                        type base:Basetype_OctectString {
+
+                        }
+
+                        description "The bridge identifier of root.";
+
+                    }
+
+                    leaf ExtPathCost {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The external root path cost.";
+
+                    }
+
+                    leaf RegionRootId {
+
+                        type base:Basetype_OctectString {
+
+                        }
+
+                        description "The bridge identifier of region root.";
+
+                    }
+
+                    leaf IntPathCost {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The internal root path cost.";
+
+                    }
+
+                    leaf DesignateBridgeId {
+
+                        type base:Basetype_OctectString {
+
+                        }
+
+                        description "The designated bridge identifier of root.";
+
+                    }
+
+                    leaf DesignatePortId {
+
+                        type base:Basetype_OctectString {
+
+                        }
+
+                        description "The designated port identifier of root.";
+
+                    }
+
+                    leaf RootPort {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Ifindex of the root port,from which the root information is received.";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container Interfaces {
+
+            description "STP Port configuration information that specifies the set of ports on local system";
+
+            list Interface {
+
+                key "IfIndex";
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "The index of a Interface";
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                    description "Indicate whether STP is enabled on a port.";
+
+                }
+
+                leaf EdgedPort {
+
+                    type base:Basetype_Boolean;
+
+                    description "Indicate whether a port is configured as edged-port.";
+
+                }
+
+                leaf OperEdgedPort {
+
+                    type base:Basetype_Boolean;
+
+                    description "Indicate whether a port is operational edged-port.";
+
+                }
+
+                leaf PointToPoint {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "Indicate the configured point-to-point status of a port:
+
+                         1--Force-true; 2--Force-false; 3--Auto-negotiated by the link;";
+
+                }
+
+                leaf OperPointToPoint {
+
+                    type base:Basetype_Boolean;
+
+                    description "Indicate the current point-to-point status of a port.";
+
+                }
+
+                leaf RootProtect {
+
+                    type base:Basetype_Boolean;
+
+                    description "Indicate whether the root-protection function is enabled.";
+
+                }
+
+                leaf LoopProtect {
+
+                    type base:Basetype_Boolean;
+
+                    description "Indicate whether the loop-protection function is enabled.";
+
+                }
+
+                leaf RoleRestrict {
+
+                    type base:Basetype_Boolean;
+
+                    description "whether the role-restriction function is enabled";
+
+                }
+
+                leaf TcRestrict {
+
+                    type base:Basetype_Boolean;
+
+                    description "whether the TC-restriction function is enabled";
+
+                }
+
+                leaf ProtectDown {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "Interface protection shutdown status:
+
+                         0-—Not shutdown; 1-—Edge Port down; 2—PVST BPDU down;";
+
+                }
+
+                leaf DigestSnooping {
+
+                    type base:Basetype_Boolean;
+
+                    description "whether the digest-snooping function is enabled";
+
+                }
+
+                leaf TransmitHoldCount {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..255";
+
+                    }
+
+                    description "The transmit hold count on an interface";
+
+                }
+
+                container PortTimes {
+
+                    description "Port times, including HelloTime, ForwardDelay,
+
+                            MaxAge and MessageAge.";
+
+                    leaf HelloTime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..10";
+
+                        }
+
+                        description "The hello intervals of the port.";
+
+                    }
+
+                    leaf ForwardDelay {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "4..30";
+
+                        }
+
+                        description "The forward delay timer.";
+
+                    }
+
+                    leaf MaxAge {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "6..40";
+
+                        }
+
+                        description "The maximum message age of the port message.";
+
+                    }
+
+                    leaf MessageAge {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The message age of the port message.";
+
+                    }
+
+                }
+
+                container PortBpduCount {
+
+                    description "BPDU counts of the interface";
+
+                    leaf TxMstBpdu {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Count of transmitted MST BPDUs.";
+
+                    }
+
+                    leaf RxMstBpdu {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Count of received MST BPDUs.";
+
+                    }
+
+                    leaf TxRstBpdu {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Count of transmitted RST BPDUs.";
+
+                    }
+
+                    leaf RxRstBpdu {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Count of received RST BPDUs.";
+
+                    }
+
+                    leaf TxConfigBpdu {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Count of transmitted 802.1D STP configuration BPDUs.";
+
+                    }
+
+                    leaf RxConfigBpdu {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Count of received 802.1D STP configuration BPDUs.";
+
+                    }
+
+                    leaf TxTcn {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Count of transmitted TCN BPDUs.";
+
+                    }
+
+                    leaf RxTcn {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Count of received TCN BPDUs.";
+
+                    }
+
+                    leaf RxInvalidBpdu {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "Count of received invalid BPDUs.";
+
+                    }
+
+                    leaf LastInvalidBpduTime {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "The last time inseconds, when an invalid BPDU received.";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container StiInterfaces {
+
+            description "Configuration information per STIs on an interface
+
+                This table supports creating rows.";
+
+            list StiInterface {
+
+                key "StiId IfIndex";
+
+                leaf StiId {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..4094";
+
+                    }
+
+                    description "The index of a STI";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "The index of an Interface";
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..240";
+
+                    }
+
+                    description "The port-priority of a STI, which should be zero or a multiple of 16.";
+
+                }
+
+                leaf PathCost {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..200000000";
+
+                    }
+
+                    description "The path cost configuration of a STI on a port";
+
+                }
+
+                leaf OperPathCost {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..200000000";
+
+                    }
+
+                    description "The Operational path cost configuration of a STI on a port";
+
+                }
+
+                leaf Role {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                        enum 5;
+
+                    }
+
+                    description "The port role per STI.
+
+                               0: Disabled port;
+
+                               1: Alternate port;
+
+                               2: Backup port;
+
+                               3: Root port;
+
+                               4: Designated port;
+
+                               5: Master port;";
+
+                }
+
+                leaf State {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "The port state per STI.
+
+                               1: Discarding port;
+
+                               2: Learning port;
+
+                               3: Forwarding port;";
+
+                }
+
+                leaf ProtectBlock {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The blocked reason for some protection functions, which is present in bitwise as following:
+
+                               0x01: Root protect;
+
+                               0x02: Loop protect;
+
+                               0x04: Loopback protect;
+
+                               0x08: Dispute protect;
+
+                               0x10: Port type inconsistent;
+
+                               0x20: PVID inconsistent;";
+
+                }
+
+                leaf RapidTransit {
+
+                    type base:Basetype_Boolean;
+
+                    description "Whether the spanning-tree forwarded rapidly on the interface.";
+
+                }
+
+                leaf RemainHops {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The remaining hops of the port message.";
+
+                }
+
+                container PortVector {
+
+                    description "Port priority vector ,including RootId, ExtPathCost,
+
+                           RegionRootId, IntPathCost,DesignateBridgeId and DesignatePortId.";
+
+                    leaf RootId {
+
+                        type base:Basetype_OctectString {
+
+                        }
+
+                        description "The bridge identifier of root.";
+
+                    }
+
+                    leaf ExtPathCost {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The external root path cost.";
+
+                    }
+
+                    leaf RegionRootId {
+
+                        type base:Basetype_OctectString {
+
+                        }
+
+                        description "The bridge identifier of MST region root.";
+
+                    }
+
+                    leaf IntPathCost {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The internal root path cost.";
+
+                    }
+
+                    leaf DesignateBridgeId {
+
+                        type base:Basetype_OctectString {
+
+                        }
+
+                        description "The designated bridge identifier of root.";
+
+                    }
+
+                    leaf DesignatePortId {
+
+                        type base:Basetype_OctectString {
+
+                        }
+
+                        description "The designated port identifier.";
+
+                    }
+
+                    leaf RcvdPortId {
+
+                        type base:Basetype_OctectString {
+
+                        }
+
+                        description "The spanning-tree port identifier";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container VLANs {
+
+            description "Configuration information per VLANs
+
+                This table supports creating rows.";
+
+            list VLAN {
+
+                key "VlanId";
+
+                leaf VlanId {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "The index of a VLAN";
+
+                }
+
+                leaf Enable {
+
+                    type base:Basetype_Boolean;
+
+                    description "PVST feature status.";
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..61440";
+
+                    }
+
+                    description "The priority of a STI, which should be zero or a multiple of 4096.";
+
+                }
+
+                leaf RootType {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                    }
+
+                    description "The root type configuration:
+
+                          0--Normal(not configured); 1--Secondary root; 2--Primary root;";
+
+                }
+
+                container BridgeTimes {
+
+                    description "Protocol timers informations per spanning-tree,including HelloTime,
+
+                          MaxAge, ForwardDelay.";
+
+                    leaf HelloTime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..10";
+
+                        }
+
+                        description "The hello intervals of the bridge in seconds.";
+
+                    }
+
+                    leaf MaxAge {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "6..40";
+
+                        }
+
+                        description "The maximum message age of the bridge.";
+
+                    }
+
+                    leaf ForwardDelay {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "4..30";
+
+                        }
+
+                        description "The forward delay time of the bridge in seconds.";
+
+                    }
+
+                }
+
+                leaf BridgeId {
+
+                    type base:Basetype_OctectString {
+
+                    }
+
+                    description "The bridge identifier of a spanning-tree in otects.";
+
+                }
+
+                container TCs {
+
+                    description "Topology change informations per spanning-tree,including ReceiveTcOrTcn and LastTcTime.";
+
+                    leaf ReceiveTcOrTcn {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Count of received TCsor TCNs.";
+
+                    }
+
+                    leaf LastTcTime {
+
+                        type base:Basetype_UnsignedInteger64;
+
+                        description "The last time when a TC is received or detected.";
+
+                    }
+
+                }
+
+                container RootVector {
+
+                    description "Root priority vector ,including RootBridgeId,
+
+                           RootPathCost, DesignateBridgeId and RootPort.";
+
+                    leaf RootBridgeId {
+
+                        type base:Basetype_OctectString {
+
+                        }
+
+                        description "The bridge identifier of root.";
+
+                    }
+
+                    leaf RootPathCost {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The root path cost.";
+
+                    }
+
+                    leaf DesignateBridgeId {
+
+                        type base:Basetype_OctectString {
+
+                        }
+
+                        description "The designated bridge identifier of root.";
+
+                    }
+
+                    leaf DesignatePortId {
+
+                        type base:Basetype_OctectString {
+
+                        }
+
+                        description "The designated port identifier of root.";
+
+                    }
+
+                    leaf RootPort {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "Ifindex of the root port,from which the root information is received.";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        container VlanInterfaces {
+
+            description "Information per VLAN on an interface
+
+                This table supports creating rows.";
+
+            list VlanInterface {
+
+                key "VlanId IfIndex";
+
+                leaf VlanId {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..4094";
+
+                    }
+
+                    description "The index of a VLAN";
+
+                }
+
+                leaf IfIndex {
+
+                    type base:Basetype_NameAndIndexUnion;
+
+                    description "The index of an Interface";
+
+                }
+
+                leaf Priority {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..240";
+
+                    }
+
+                    description "The port-priority of a VLAN, which should be zero or a multiple of 16.";
+
+                }
+
+                leaf PathCost {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "0..200000000";
+
+                    }
+
+                    description "The path cost configuration of a VLAN on a port";
+
+                }
+
+                leaf OperPathCost {
+
+                    type base:Basetype_UnsignedInteger32 {
+
+                        range "1..200000000";
+
+                    }
+
+                    description "The path cost configuration of a VLAN on a port";
+
+                }
+
+                leaf Role {
+
+                    type enumeration {
+
+                        enum 0;
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                        enum 4;
+
+                    }
+
+                    description "The port role per VLAN.
+
+                               0: Disabled port;
+
+                               1: Alternate port;
+
+                               2: Backup port;
+
+                               3: Root port;
+
+                               4: Designated port;";
+
+                }
+
+                leaf State {
+
+                    type enumeration {
+
+                        enum 1;
+
+                        enum 2;
+
+                        enum 3;
+
+                    }
+
+                    description "The port state per VLAN.
+
+                               1: Discarding port;
+
+                               2: Learning port;
+
+                               3: Forwarding port;";
+
+                }
+
+                leaf ProtectBlock {
+
+                    type base:Basetype_UnsignedInteger32;
+
+                    description "The blocked reason for some protection functions, which is present in bitwise as following:
+
+                               0x01: Root protect;
+
+                               0x02: Loop protect;
+
+                               0x04: Loopback protect;
+
+                               0x08: Dispute protect;
+
+                               0x10: Port type inconsistent;
+
+                               0x20: PVID inconsistent;";
+
+                }
+
+                leaf RapidTransit {
+
+                    type base:Basetype_Boolean;
+
+                    description "Whether the spanning-tree forwarded rapidly on the interface.";
+
+                }
+
+                container PortTimes {
+
+                    description "Port times, including HelloTime, ForwardDelay,
+
+                            MaxAge and MessageAge.";
+
+                    leaf HelloTime {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "1..10";
+
+                        }
+
+                        description "The hello intervals of the port.";
+
+                    }
+
+                    leaf MaxAge {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "6..40";
+
+                        }
+
+                        description "The maximum message age of the port message.";
+
+                    }
+
+                    leaf ForwardDelay {
+
+                        type base:Basetype_UnsignedInteger32 {
+
+                            range "4..30";
+
+                        }
+
+                        description "The forward delay timer.";
+
+                    }
+
+                    leaf MessageAge {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The message age of the port message.";
+
+                    }
+
+                }
+
+                container PortVector {
+
+                    description "Port priority vector ,including RootBridgeId, RootPathCost,
+
+                           , DesignateBridgeId and DesignatePortId.";
+
+                    leaf RootId {
+
+                        type base:Basetype_OctectString {
+
+                        }
+
+                        description "The bridge identifier of root.";
+
+                    }
+
+                    leaf RootPathCost {
+
+                        type base:Basetype_UnsignedInteger32;
+
+                        description "The root path cost.";
+
+                    }
+
+                    leaf DesignateBridgeId {
+
+                        type base:Basetype_OctectString {
+
+                        }
+
+                        description "The designated bridge identifier of root.";
+
+                    }
+
+                    leaf DesignatePortId {
+
+                        type base:Basetype_OctectString {
+
+                        }
+
+                        description "The designated port identifier.";
+
+                    }
+
+                    leaf RcvdPortId {
+
+                        type base:Basetype_OctectString {
+
+                        }
+
+                        description "The spanning-tree port identifier";
+
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+}

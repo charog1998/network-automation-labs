@@ -1,0 +1,195 @@
+module H3C-diagnostic-event {
+
+    namespace "http://www.h3c.com/netconf/event:1.0/diagnostic:1.0";
+
+    prefix "diagnostic-event";
+
+    import comware-basetype {
+
+         prefix "base";
+
+    }
+
+    import comware-extension {
+
+         prefix "ext";
+
+    }
+
+    organization "NEW H3C Technologies Co., Ltd.";
+
+    contact "Website: http://www.h3c.com";
+
+    description "The module entities for diagnostic event.";
+
+    revision 2019-12-09 {
+
+        description "Initial revision.";
+
+    }
+
+    notification CPUEvent {
+
+        container CPU {
+
+            leaf Chassis {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "Member ID of the member device where the entity resides.";
+
+            }
+
+            leaf Slot {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "Slot number of the device node.";
+
+            }
+
+            leaf CPUID {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "CPU Identification.";
+
+            }
+
+        }
+
+    }
+
+    notification MemoryEvent {
+
+        container Memory {
+
+            leaf Chassis {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "Member ID of the member device where the entity resides.";
+
+            }
+
+            leaf Slot {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "Slot number of the device node.";
+
+            }
+
+            leaf CPUID {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "CPU Identification.";
+
+            }
+
+        }
+
+    }
+
+    notification DiskEvent {
+
+        container Disk {
+
+            leaf Chassis {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "Member ID of the member device where the entity resides.";
+
+            }
+
+            leaf Slot {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "Slot number of the device node.";
+
+            }
+
+            leaf CPUID {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_UnsignedShort;
+
+                }
+
+                description "Disk name.";
+
+            }
+
+            leaf DiskName {
+
+                type union {
+
+                    type base:Basetype_EmptyString;
+
+                    type base:Basetype_OctectString;
+
+                }
+
+                description "core Identification.";
+
+            }
+
+        }
+
+    }
+
+}
