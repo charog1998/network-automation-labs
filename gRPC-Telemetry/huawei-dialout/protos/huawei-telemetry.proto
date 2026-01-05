@@ -1,0 +1,79 @@
+syntax = "proto3";         //proto版本定义为v3版本。
+package telemetry;         //本包名称为telemetry。
+message Telemetry {        //Telemetry消息结构定义。
+   string node_id_str = 1;    //设备名称。
+   string subscription_id_str = 2;   //订阅名称，静态配置订阅时的订阅名称。
+   string sensor_path = 3;           //订阅路径。
+   string proto_path = 13;           //采样路径path对应在proto文件中的message路径。
+   uint64 collection_id = 4;         //标识采样轮次。
+   uint64 collection_start_time = 5;//标识采样轮次开始时间。
+   uint64 msg_timestamp = 6;        //生成本消息的时间戳。
+   TelemetryGPBTable data_gpb = 7; //承载的数据由TelemetryGPBTable定义。
+   uint64 collection_end_time = 8;  //标识采样轮次结束时间。
+   uint32 current_period = 9;       //采样精度，单位是毫秒。
+   string except_desc = 10;        //异常描述信息，采样异常时用于上报异常信息。
+   string product_name = 11;       //产品名称。
+   enum Encoding {
+    Encoding_GPB = 0;        //表示GPB数据编码格式。
+    Encoding_JSON = 1;       //表示JSON数据编码格式。
+  };
+  Encoding encoding = 12;    //数据编码格式。为GPB时，data_gpb字段有效，否则data_str字段有效。
+  string data_str = 14;   //数据编码非GPB时有效，否则为空。
+  string ne_id = 15;               //网元唯一标识, 在网关场景下用于标识数据属于哪个网元。
+  string software_version = 16;    //软件版本号。
+}
+message TelemetryGPBTable {           //TelemetryGPBTable消息结构定义。
+  repeated TelemetryRowGPB row = 1;     //数组定义，标识数据是TelemetryRowGPB结构的重复。
+  repeated DataPath delete = 2;      //删除数据路径。
+  Generator generator = 3;           //数据源描述。用于可靠性要求较高的OnChange+业务。
+}
+message Generator {
+   uint64 generator_id = 1;         // 数据源标识。支持多个数据源并发提供数据，各自维护可靠性。
+   uint32 generator_sn = 2;         // 消息序列号。每个数据源上送的消息序列号是连续的，当存在不连续取值时，标识存在数据失步，此时采集器需要支持自动断链再重连。取值0到0xFFFFFFFF，注意翻转。
+   bool generator_sync = 3;         // 数据源同步。为true时表示正在做OnChange全量数据同步。另外，为true且不包含数据时，标识同步完成。
+}
+message TelemetryRowGPB {
+uint64 timestamp = 1;            //采样当前实例的时间戳。
+bytes content = 11;              //承载的采样实例数据，需要结合sensor_path字段，才可以判断此处会以哪个proto文件编码。
+}
+message DataPath {
+   uint64 timestamp = 1;            // 采样当前实例的时间戳。
+   Path path = 2;                   // 数据树节点，仅包含数据的路径和key字段信息。
+}
+message Path {
+   repeated PathElem node = 1;      //数据树节点，仅包含数据的路径和key字段信息。
+}
+message PathElem {
+  string name = 1;                  //数据树节点名称。
+  map<string, string> key = 2;      //数据树节点的key字段名称和取值映射表。
+}
+message TelemetrySelfDefinedEvent {
+  string path = 1;         //触发自定义事件的采样路径，描述content的解析方法。
+  string proto_path = 13;  //采样路径path对应在proto文件中的message路径。
+  uint32 level = 2;        //自定义事件的级别。
+  string description = 3;  //自定义事件的描述信息。
+  string fieldName = 4;    //触发自定义事件的字段名称。
+  uint32 fieldValue = 5;   //触发自定义事件时该字段的取值。
+  TelemetrySelfDefineThresTable data_threshold = 6;  //触发自定义事件时阈值过滤条件。
+  enum ThresholdRelation {
+      ThresholdRelation_INVALID = 0; //未配置多个阈值条件间关系。
+      ThresholdRelation_AND = 1; //阈值间关系为与。
+      ThresholdRelation_OR = 2; //阈值间关系为或。
+  }
+  ThresholdRelation thresholdRelation = 7;   //触发自定义事件时多个阈值过滤条件间关系。
+  bytes content = 8;       //触发自定义事件的采样数据内容。
+}
+message TelemetrySelfDefineThresTable {
+  repeated TelemetryThreshold row = 1;   //包含多个阈值条件。
+}
+message TelemetryThreshold {
+  uint32 thresholdValue = 1;  //配置下发的阈值。
+  enum ThresholdOpType {
+      ThresholdOpType_EQ = 0; //上送数据的实际值等于配置数据阈值。
+      ThresholdOpType_GT = 1; //上送数据的实际值大于配置数据阈值。
+      ThresholdOpType_GE = 2; //上送数据的实际值大于等于配置数据阈值。
+      ThresholdOpType_LT = 3; //上送数据的实际值小于配置数据阈值。
+      ThresholdOpType_LE = 4; //上送数据的实际值小于等于配置数据阈值。
+  }
+  ThresholdOpType thresholdOpType = 2; //表示设备上的阈值条件。
+}

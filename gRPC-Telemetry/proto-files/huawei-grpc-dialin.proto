@@ -1,0 +1,40 @@
+syntax = "proto3";                   //proto版本定义为v3版本。
+package huawei_dialin;               //本包名称为huawei_dialin。
+service gRPCConfigOper {             //服务名称为gRPCConfigOper。
+    rpc Subscribe(SubsArgs) returns(stream SubsReply) {};  //方法为Subscribe，服务端流模式，提供动态订阅方法。入参SubsArgs包含订阅的参数。
+    rpc Cancel(CancelArgs) returns(CancelReply) {};  //方法为Cancel，一问一答模式，提供取消动态订阅方法。入参CancelArgs包含取消订阅的参数。
+}
+message Path {                //Path消息结构。
+    string path = 1;          //订阅的sensor-path。
+    uint32 depth = 2;         //订阅的sensor-path的采样深度，1为采样当前层，2为采样当前层和子层，以此类推。
+}
+message SubsArgs {            //订阅请求参数。
+    uint64 request_id = 1;    //请求ID，由调用者传入。
+    uint32 encoding = 2;      //编码类型，0为GPB编码，1为JSON编码。
+    repeated Path path = 5;   //订阅的path结构。
+    uint64 sample_interval = 6;  //采样周期。
+    uint64 heartbeat_interval = 7;  //冗余抑制的抑制周期，当suppress_redundant为1时才生效。
+    oneof Suppress {
+        bool suppress_redundant = 8;  //冗余抑制，当数据内容不变时，抑制采样数据上报。0：不启用；1：启用。
+        uint64 delay_time = 9;        //延迟时间，[100(ms) - 60000(ms)]。数据变更产生后延迟指定时间再上送，延迟期间的变化都做合并。用于防止业务震荡产生大量变更数据。
+    }
+}
+message SubsReply {               //订阅响应参数。
+    uint32 subscription_id = 1;   //成功返回订阅ID，失败返回0。
+    uint64 request_id = 2;        //带回对应订阅请求的request_id。
+    string response_code = 3;     //返回码，成功为200。
+    oneof MessageData {
+        bytes message = 4;        //错误时返回错误描述；成功时上送GPB编码的数据。
+        string message_json = 5;  //成功时上送JSON编码的数据。
+
+    }
+}
+message CancelArgs {              //取消订阅请求参数。
+    uint64 request_id = 1;        //请求ID，由调用者传入。
+    uint32 subscription_id = 2;   //需要取消的订阅ID。
+}
+message CancelReply {             //取消订阅响应参数。
+    uint64 request_id = 1;        //请求ID，由调用者传入。
+    string response_code = 2;     //返回码，成功为200。
+    string message = 3;           //错误描述。
+}

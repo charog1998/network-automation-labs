@@ -1,0 +1,13 @@
+syntax = "proto3";                          //proto版本定义为v3版本。
+package huawei_dialout;                     //本包名称为huawei_dialout。
+service gRPCDataservice {                   //服务名称为gRPCDataservice。
+    rpc dataPublish(stream serviceArgs) returns(stream serviceArgs) {};                 //方法为dataPublish，双向流，提供数据推送方法。入参是serviceArgs数据流。
+}
+message serviceArgs {                       //消息格式描述。
+    int64 ReqId = 1;                        //请求ID。
+    oneof MessageData {
+        bytes data = 2;         //表示承载GPB编码格式的采样数据。
+        string data_json = 4;   //表示承载JSON编码格式的采样数据。
+    }
+    string errors = 3;         //产生错误时的描述信息。
+}
